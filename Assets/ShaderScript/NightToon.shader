@@ -78,24 +78,6 @@ Shader "Custom/NightToon"
             // floor -> 내림한 정수를 리턴한다, 계단형 그래프, 툰쉐이더의 층 생성
             float lightIntensity = floor(DiffuseLight);
 
-            //Fresnel 외곽선
-            float rim = abs(dot(s.Normal, viewDir));
-            if (rim > 0.3)
-            {
-                rim = 1;
-            }
-            else
-            {
-                rim = -1;//최종적으로 ambient color가 더해져 밝아지기 때문에 음수값을 준다
-            }
-
-            //안티앨리어싱
-            //fwidth -> abs(ddx(x)) + abs(ddy(x))  , 윈도우공간x,y에대한 편미분 절댓값 
-            //-> 즉 화면 공간좌표에 대한값의 변화(픽셀차이)
-            //float change = fwidth(DiffuseLight);//픽셀 변화율
-
-            // float smoothing = smoothstep(0, change, frac(DiffuseLight));
-            //lightIntensity = lightIntensity + smoothing;
 
             //StepAmount로 1이하의 유효한 라이팅 값들을 생성, _StepAmount클수록 유효한값 증가
             lightIntensity = (lightIntensity / _StepAmount) + _StepOffset;
