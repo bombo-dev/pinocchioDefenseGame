@@ -46,6 +46,7 @@ Shader "Custom/Bloom"
                         return col;
                     }
                 ENDCG
-            }
+            }//end of pass
+
         }
 }

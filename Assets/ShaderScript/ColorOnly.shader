@@ -22,6 +22,7 @@ Shader "Custom/ColorOnly"
         {
             o.Albedo = _Color.rgb;
         }
+
         ENDCG
     }
     FallBack "Diffuse"
