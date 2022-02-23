@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: FightClubGlove
   m_Shader: {fileID: 4800000, guid: fc124ed7dd112a74190969fb7bb13b39, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -24,6 +24,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CubeBump:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -62,6 +66,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _CubeBumpPower: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -72,22 +77,21 @@ Material:
     - _Mode: 0
     - _NormalPower: 1
     - _OcclusionStrength: 1
-    - _OutLinePower: 0.381
+    - _OutLinePower: 0.3
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularSize: 30
     - _SrcBlend: 1
-    - _Step: 0.364
+    - _Step: 0.274
     - _StepAmount: 4
-    - _StepOffset: 0.06
+    - _StepOffset: 0.09
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _lampColor: {r: 1, g: 0, b: 0, a: 1}
+    - _lampColor: {r: 0.9622642, g: 0.29503384, b: 0.29503384, a: 1}
   m_BuildTextureStacks: []
