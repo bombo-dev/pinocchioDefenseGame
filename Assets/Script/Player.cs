@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("speed")]
     public float speed = 10.0F;
     public float rotationSpeed = 100.0F;
     // Start is called before the first frame update
