@@ -59,7 +59,7 @@ Shader "Custom/Lambert_Blinnphong"
             Specular = spec * _SpecCol.rgb;//Specular 색
 
             float4 final;//최종적으로 return할 값
-            final.rgb = Diffuse.rgb + Specular.rgb;
+            final.rgb = Diffuse.rgb + Specular.rgb ;
             final.a = s.Alpha;
             return final;
         }

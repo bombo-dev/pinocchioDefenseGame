@@ -1,4 +1,4 @@
-Shader "Custom/Toon2Pass"
+Shader "Custom/ToonOutLine"
 {
     Properties
     {
