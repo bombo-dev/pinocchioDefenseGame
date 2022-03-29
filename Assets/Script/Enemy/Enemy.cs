@@ -65,10 +65,24 @@ public class Enemy : MonoBehaviour
     /// </summary>
     void CheckArrive()
     {
+        //타겟에 도착하지 않았을 경우
         if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
-            return;
+        {
+            float rotY = Mathf.Round(transform.localEulerAngles.y);
+            Debug.Log(rotY);
+            //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
+            if (!((rotY == 0f && transform.position.z < currentTarget.transform.position.z)//전진
+                || (rotY == 90f && transform.position.x < currentTarget.transform.position.x)//오른쪽
+                || (rotY == 180f && transform.position.z > currentTarget.transform.position.z)//후진
+                || (rotY == 270f && transform.position.x > currentTarget.transform.position.x)))//왼쪽
+            {
+                return;
+            }
+        }
+
         if (enemyState == EnemyState.Walk)
         {
+            transform.position = new Vector3(currentTarget.transform.position.x,transform.position.y, currentTarget.transform.position.z);
             currentTarget = targetTile[++targetTileIndex];
             dirVec = FindDirVec(currentTarget);
 
@@ -93,8 +107,9 @@ public class Enemy : MonoBehaviour
 
     void UpdateMove(Vector3 dirVec)
     {
-        this.transform.position += dirVec.normalized * speed * Time.deltaTime;
+        Vector3 updateVec = new Vector3(dirVec.x * speed * Time.deltaTime, 0 , dirVec.z * speed * Time.deltaTime);
+        transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
-        transform.rotation = Quaternion.Lerp(this.transform.rotation, rotation, 0.3f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
     }
 }
