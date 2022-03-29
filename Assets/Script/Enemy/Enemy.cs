@@ -10,10 +10,11 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     int power;  // 공격력
     [SerializeField]
+    int attackSpeed;    //공격속도
+    [SerializeField]
     int range;  // 사거리
     [SerializeField]
     int regeneration;   // 회복력
-
     [SerializeField]
     int speed;  //이동속도
 
@@ -22,6 +23,8 @@ public class Enemy : MonoBehaviour
     int targetTileIndex = 0;    //타일맵 타겟 인덱스
     GameObject currentTarget;   //현재 타겟
     Vector3 dirVec; //이동처리할 방향벡터
+
+    float attackTimer = 0;  //공격시간 타이머
 
     enum EnemyState
     { 
@@ -32,6 +35,14 @@ public class Enemy : MonoBehaviour
     }
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
+
+    //test
+    [SerializeField]
+    GameObject[] turret;
+    [SerializeField]
+    Animator anim;
+    [SerializeField]
+    Vector3 attackDirVec;
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +64,12 @@ public class Enemy : MonoBehaviour
             case EnemyState.Walk:
                 CheckArrive();
                 UpdateMove(dirVec);
+                DetectTurret();
                 break;
             case EnemyState.Ready:
+                break;
+            case EnemyState.Attack:
+                CheckFinAttack();
                 break;
 
         }
@@ -69,7 +84,6 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
         {
             float rotY = Mathf.Round(transform.localEulerAngles.y);
-            Debug.Log(rotY);
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
             if (!((rotY == 0f && transform.position.z < currentTarget.transform.position.z)//전진
                 || (rotY == 90f && transform.position.x < currentTarget.transform.position.x)//오른쪽
@@ -79,19 +93,9 @@ public class Enemy : MonoBehaviour
                 return;
             }
         }
-
-        if (enemyState == EnemyState.Walk)
-        {
-            transform.position = new Vector3(currentTarget.transform.position.x,transform.position.y, currentTarget.transform.position.z);
-            currentTarget = targetTile[++targetTileIndex];
-            dirVec = FindDirVec(currentTarget);
-
-        }
-        else if (enemyState == EnemyState.Ready)
-        {
-
-        }
-        
+        transform.position = new Vector3(currentTarget.transform.position.x, transform.position.y, currentTarget.transform.position.z);
+        currentTarget = targetTile[++targetTileIndex];
+        dirVec = FindDirVec(currentTarget);
     }
 
     Vector3 FindDirVec(GameObject target)
@@ -111,5 +115,36 @@ public class Enemy : MonoBehaviour
         transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+    }
+
+    void DetectTurret()
+    {
+        for (int i = 0 ; i < turret.Length; i++)
+        {
+            Debug.Log(i.ToString() + " : " + Vector3.Distance(transform.position, turret[i].transform.position));
+            if (Vector3.Distance(transform.position, turret[i].transform.position) < range)
+            {
+                attackDirVec = (turret[i].transform.position - transform.position).normalized;
+                this.enemyState = EnemyState.Attack;
+                Attack(turret[i]);
+                return;
+            }
+        }
+    }
+
+    void Attack(GameObject target)
+    {
+        anim.SetBool("attack",true);
+    }
+
+    void CheckFinAttack()
+    {
+        Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        if (Time.time - attackTimer > attackSpeed)
+        {
+            
+        }
+        attackTimer = Time.time;
     }
 }
