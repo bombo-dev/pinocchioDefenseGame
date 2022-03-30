@@ -29,18 +29,25 @@ public class Enemy : MonoBehaviour
     enum EnemyState
     { 
         Walk,   //필드의 포인터를 향해 이동
-        Ready,  //터렛을 감지하여 적을 향해 이동
         Attack, //터렛을 공격
+        Idle,   //대기
         Dead    //이동X, 비활성화 처리
     }
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
 
+    //애니메이션
+    [SerializeField]
+    Animator enemyAnimator;
+
     //test
     [SerializeField]
     GameObject[] turret;
+
+    //공격할 타겟
     [SerializeField]
-    Animator anim;
+    GameObject attackTarget;
+    //공격할 타겟쪽 방향벡터
     [SerializeField]
     Vector3 attackDirVec;
 
@@ -66,10 +73,11 @@ public class Enemy : MonoBehaviour
                 UpdateMove(dirVec);
                 DetectTurret();
                 break;
-            case EnemyState.Ready:
-                break;
             case EnemyState.Attack:
                 CheckFinAttack();
+                break;
+            case EnemyState.Idle:
+               
                 break;
 
         }
@@ -117,16 +125,26 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
     }
 
+    /// <summary>
+    /// this객체의 사거리 안에있는 터렛을 감지해 그중 공격할 타겟을 지정 : 김현진
+    /// </summary>
     void DetectTurret()
     {
         for (int i = 0 ; i < turret.Length; i++)
         {
             Debug.Log(i.ToString() + " : " + Vector3.Distance(transform.position, turret[i].transform.position));
+            //사거리 안에 가장 먼저 감지된 터렛
             if (Vector3.Distance(transform.position, turret[i].transform.position) < range)
             {
-                attackDirVec = (turret[i].transform.position - transform.position).normalized;
+                //타겟과 타겟 방향벡터 초기화
+                attackTarget = turret[i];
+                attackDirVec = (attackTarget.transform.position - transform.position).normalized;
+
+                //공격 상태로 변경 
                 this.enemyState = EnemyState.Attack;
-                Attack(turret[i]);
+                //공격
+                Attack(attackTarget);
+
                 return;
             }
         }
@@ -134,15 +152,22 @@ public class Enemy : MonoBehaviour
 
     void Attack(GameObject target)
     {
-        anim.SetBool("attack",true);
+        enemyAnimator.SetBool("attack",true);
     }
 
     void CheckFinAttack()
     {
+        //공격할 대상의 방향으로 회전
         Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+
+        //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)
         {
+            //공격 종료
+            enemyAnimator.SetBool("finAttack", true);
+
+            //공격할 대상의 존재 유무에 따른 상태 변화
             
         }
         attackTimer = Time.time;
