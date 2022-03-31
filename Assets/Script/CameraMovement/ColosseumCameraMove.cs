@@ -167,7 +167,7 @@ public class ColosseumCameraMove : MonoBehaviour
             Camera.main.fieldOfView = zoomValue;
 
         // 카메라 줌인
-        Camera.main.fieldOfView += Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
+        Camera.main.fieldOfView -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
     }
 
     #endregion
