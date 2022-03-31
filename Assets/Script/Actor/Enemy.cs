@@ -2,36 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Actor
 {
     enum EnemyState
     {
         Walk,   //필드의 포인터를 향해 이동
-        Attack, //터렛을 공격
+        Battle, //터렛을 공격
         Dead    //이동X, 비활성화 처리
     }
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
-
-    //Actor State
-    [SerializeField]
-    int maxHP;   //최대 체력
-
-    [SerializeField]
-    int power;  // 공격력
-
-    [SerializeField]
-    int attackSpeed;    //공격속도
-
-    [SerializeField]
-    int range;  // 사거리
-
-    [SerializeField]
-    int regeneration;   // 회복력
-
+    
+    //Enemy
     [SerializeField]
     int speed;  //이동속도
-
 
     //이동 관련
     [SerializeField]
@@ -43,37 +27,19 @@ public class Enemy : MonoBehaviour
 
     Vector3 dirVec; //이동처리할 방향벡터
 
-
-
-    //공격관련
-    float attackTimer = 0;  //공격시간 타이머
-
-    [SerializeField]
-    Animator enemyAnimator; //애니메이터
-
-    [SerializeField]
-    GameObject attackTarget;    //공격할 타겟
-
-    [SerializeField]
-    Vector3 attackDirVec;   //공격할 타겟의 방향벡터
-
-
-
     //test
     [SerializeField]
     GameObject[] turret;
 
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 초기화 함수 : 김현진
+    /// </summary>
+    protected override void Initialize()
     {
+        base.Initialize();
+
         currentTarget = targetTile[targetTileIndex];
         dirVec = FindDirVec(currentTarget);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateEnemy();
     }
 
     /// <summary>
@@ -93,19 +59,19 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 실시간 this객체의 상태별 동작 함수 호출
+    /// 실시간 this객체의 상태별 동작 : 김현진
     /// </summary>
-    void UpdateEnemy()
+    protected override void UpdateActor()
     {
         switch (enemyState)
         {
             case EnemyState.Walk:
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTurret();
+                DetectTarget(turret);
                 break;
-            case EnemyState.Attack:
-                CheckFinAttack();
+            case EnemyState.Battle:
+                UpdateBattle();
                 break;
 
         }
@@ -163,26 +129,11 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// this객체의 사거리 안에있는 터렛을 감지해 그중 공격할 타겟을 지정 : 김현진
+    /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
-    void DetectTurret()
+    protected override void DetectTarget(GameObject[] target)
     {
-        for (int i = 0 ; i < turret.Length; i++)
-        {
-           // Debug.Log(i.ToString() + " : " + Vector3.Distance(transform.position, turret[i].transform.position));
-            //사거리 안에 가장 먼저 감지된 터렛
-            if (turret[i].activeSelf && Vector3.Distance(transform.position, turret[i].transform.position) < range)
-            {
-                //타겟과 타겟 방향벡터 초기화
-                attackTarget = turret[i];
-                attackDirVec = (attackTarget.transform.position - transform.position).normalized;
-
-                //공격
-                Attack();
-
-                return;
-            }
-        }
+        base.DetectTarget(target);
     }
 
     #endregion
@@ -192,28 +143,25 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// this객체의 상태를 공격으로 변경 : 김현진
     /// </summary>
-    void Attack()
+    protected override void Attack()
     {
-        //공격 상태로 변경 
-        this.enemyState = EnemyState.Attack;
+        base.Attack();
 
-        //공격시간 측정 변수 초기화
-        attackTimer = Time.time;
+        //공격 상태로 변경 
+        this.enemyState = EnemyState.Battle;
 
         //공격 
-        enemyAnimator.SetBool("attack",true);
-        enemyAnimator.SetBool("finAttack", false);
+        animator.SetBool("attack", true);
+        animator.SetBool("finAttack", false);
     }
 
     /// <summary>
     /// 실시간으로 공격이 끝났는지 안끝났는지를 판별하고 끝났을경우 
     /// 다음 공격으로 이행할지 다른 상태로 변경할지를 결정 : 김현진
     /// </summary>
-    void CheckFinAttack()
+    protected override void UpdateBattle()
     {
-        //공격할 대상의 방향으로 회전
-        Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        base.UpdateBattle();
 
         //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)
@@ -224,7 +172,7 @@ public class Enemy : MonoBehaviour
                 enemyState = EnemyState.Walk;
 
                 //공격 종료
-                enemyAnimator.SetBool("finAttack", true);
+                animator.SetBool("finAttack", true);
             }
             else
             {
@@ -232,7 +180,7 @@ public class Enemy : MonoBehaviour
                 attackTimer = Time.time;
 
                 //다음 공격
-                enemyAnimator.SetBool("attack", true);
+                animator.SetBool("attack", true);
             }
         }
     }
