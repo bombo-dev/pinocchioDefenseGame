@@ -17,6 +17,13 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     PrefabCacheSystem prefabCacheSystem;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            prefabCacheSystem.EnablePrefabCache(prefabCacheDatas[0].filePath, Vector3.zero);
+       
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -37,4 +37,29 @@ public class PrefabCacheSystem : MonoBehaviour
         }
         prefabCaChes.Add(filePath, queue);
     }
+
+    public void EnablePrefabCache(string filePath, Vector3 appearPosition)
+    {
+        //캐시가 존재하지 않을경우
+        if (!prefabCaChes.ContainsKey(filePath))
+            return;
+
+        //큐가 비었을 경우
+        if (prefabCaChes[filePath].Count == 0)
+            return;
+
+        GameObject go = prefabCaChes[filePath].Dequeue();
+        go.SetActive(true);
+    }
+
+    public void DisablePrefabCache(string filePath, GameObject gameObject)
+    {
+        //캐시가 존재하지 않을경우
+        if (!prefabCaChes.ContainsKey(filePath))
+            return;
+
+        prefabCaChes[filePath].Enqueue(gameObject);
+        gameObject.SetActive(false);
+
+    }
 }
