@@ -16,6 +16,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    PrefabCacheSystem prefabCacheSystem;
+    public PrefabCacheSystem PrefabCacheSystem
+    {
+        get
+        {
+            return prefabCacheSystem;
+        }
+    }
+
 
     private void Awake()
     {

@@ -12,8 +12,11 @@ public class Enemy : Actor
     }
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
-    
+
     //Enemy
+    [SerializeField]
+    string filePath; //프리팹 저장 파일 경로
+
     [SerializeField]
     int speed;  //이동속도
 

@@ -38,6 +38,12 @@ public class PrefabCacheSystem : MonoBehaviour
         prefabCaChes.Add(filePath, queue);
     }
 
+
+    /// <summary>
+    /// 비활성화 상태의 프리팹을 활성화 : 김현진
+    /// </summary>
+    /// <param name="filePath">활성화할 프리팹의 경로</param>
+    /// <param name="appearPosition">활성화된 프리팹이 생겨날 위치</param>
     public void EnablePrefabCache(string filePath, Vector3 appearPosition)
     {
         //캐시가 존재하지 않을경우
@@ -52,6 +58,11 @@ public class PrefabCacheSystem : MonoBehaviour
         go.SetActive(true);
     }
 
+    /// <summary>
+    /// 활성화 상태의 프리팹을 비활성화 : 김현진
+    /// </summary>
+    /// <param name="filePath">비활성화할 프리팹의 경로</param>
+    /// <param name="gameObject">비활성화할 프리팹 게임오브젝트</param>
     public void DisablePrefabCache(string filePath, GameObject gameObject)
     {
         //캐시가 존재하지 않을경우
@@ -60,6 +71,5 @@ public class PrefabCacheSystem : MonoBehaviour
 
         prefabCaChes[filePath].Enqueue(gameObject);
         gameObject.SetActive(false);
-
     }
 }

@@ -14,14 +14,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
 
-    [SerializeField]
-    PrefabCacheSystem prefabCacheSystem;
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-            prefabCacheSystem.EnablePrefabCache(prefabCacheDatas[0].filePath, Vector3.zero);
-       
     }
 
     // Start is called before the first frame update
@@ -37,7 +31,7 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < prefabCacheDatas.Length; i++)
         {
-            prefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), enemyParents);          
+            SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), enemyParents);      
         }
     }
 
@@ -53,7 +47,7 @@ public class EnemyManager : MonoBehaviour
             return prefabCaChes[filePath];
         else
         {
-            GameObject go = Resources.Load<GameObject>("Enemy/" + filePath);
+            GameObject go = Resources.Load<GameObject>(filePath);
             prefabCaChes.Add(filePath, go);
             return go;
         }
