@@ -16,6 +16,8 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.A))
+            SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[0].filePath);
     }
 
     // Start is called before the first frame update
@@ -54,13 +56,20 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    void EnableEnemy(int enemyIndex, int gatenum)
+    public void EnableEnemy(int enemyIndex, int gateNum)
     {
         //예외처리
         if (enemyIndex >= prefabCacheDatas.Length || prefabCacheDatas[enemyIndex].filePath == null)
             return;
 
-        SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
+        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
+
+        if (go == null)
+            return;
+
+        Enemy enemy = go.GetComponent<Enemy>();
+
+        enemy.Reset();
     }
 
 }

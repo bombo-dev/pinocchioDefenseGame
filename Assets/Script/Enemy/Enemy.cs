@@ -23,7 +23,6 @@ public class Enemy : Actor
     [SerializeField]
     Vector3 appearPos;  //생성위치
 
-
     //이동 관련
     [SerializeField]
     GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
@@ -45,9 +44,18 @@ public class Enemy : Actor
     {
         base.Initialize();
 
+        Reset();
+    }
+
+    public void Reset()
+    {
+        //위치초기화
+        transform.position = appearPos;
+
         currentTarget = targetTile[targetTileIndex];
         dirVec = FindDirVec(currentTarget);
     }
+
 
     /// <summary>
     /// this객체의 위치에서 target으로의 방향벡터를 구해 반환 : 김현진
@@ -62,6 +70,7 @@ public class Enemy : Actor
         Vector3 dirVec = Vector3.zero;
         dirVec = target.transform.position - transform.position;
         dirVec.Normalize();
+
         return dirVec;
     }
 

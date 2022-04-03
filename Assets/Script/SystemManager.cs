@@ -26,6 +26,15 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    EnemyManager enemyManager;
+    public EnemyManager EnemyManager
+    {
+        get
+        {
+            return enemyManager;
+        }
+    }
 
     private void Awake()
     {

@@ -44,18 +44,20 @@ public class PrefabCacheSystem : MonoBehaviour
     /// </summary>
     /// <param name="filePath">활성화할 프리팹의 경로</param>
     /// <param name="appearPosition">활성화된 프리팹이 생겨날 위치</param>
-    public void EnablePrefabCache(string filePath)
+    public GameObject EnablePrefabCache(string filePath)
     {
         //캐시가 존재하지 않을경우
         if (!prefabCaChes.ContainsKey(filePath))
-            return;
+            return null;
 
         //큐가 비었을 경우
         if (prefabCaChes[filePath].Count == 0)
-            return;
+            return null;
 
         GameObject go = prefabCaChes[filePath].Dequeue();
         go.SetActive(true);
+
+        return go;
     }
 
     /// <summary>
