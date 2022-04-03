@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     /// <param name="filePath">프리팹이 저장되있는 경로</param>
     /// <returns>경로에서 가져온 게임 오브젝트</returns>
-    public GameObject Load(string filePath)
+    GameObject Load(string filePath)
     {
         //이미 캐시에 포함되어 있을 경우
         if (prefabCaChes.ContainsKey(filePath))
@@ -51,6 +51,16 @@ public class EnemyManager : MonoBehaviour
             prefabCaChes.Add(filePath, go);
             return go;
         }
+    }
+
+
+    void EnableEnemy(int enemyIndex, int gatenum)
+    {
+        //예외처리
+        if (enemyIndex >= prefabCacheDatas.Length || prefabCacheDatas[enemyIndex].filePath == null)
+            return;
+
+        SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
     }
 
 }

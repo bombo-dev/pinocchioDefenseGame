@@ -20,6 +20,10 @@ public class Enemy : Actor
     [SerializeField]
     int speed;  //이동속도
 
+    [SerializeField]
+    Vector3 appearPos;  //생성위치
+
+
     //이동 관련
     [SerializeField]
     GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
