@@ -10,6 +10,11 @@ public class DefenseFlowData
     public int[] timeFlowIndexArr;
     public int[] enemyFlowIndexArr;
 }
+[System.Serializable]
+public class DefenseFlowDataList
+{
+    public List<DefenseFlowData> datas;
+}
 public class GameFlowManager : MonoBehaviour
 {
     //게이트 숫자
@@ -98,7 +103,7 @@ public class GameFlowManager : MonoBehaviour
                 }
             }
 
-        }
+        }   
 
     }
 }

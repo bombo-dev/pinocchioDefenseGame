@@ -15,18 +15,21 @@ public class LoadJson : MonoBehaviour
         filePath = Path.Combine(Application.streamingAssetsPath, "Json");
 
         /*
+        
         //자료구조 초기화
         LocalizationData.Clear();
 
         filePath += ".Json";
         string JsonString = File.ReadAllText(filePath);
 
-        LocalizationDataList datas = JsonUtility.FromJson<LocalizationDataList>(JsonString);
+        File.
+        DefenseFlowData datas = JsonUtility.FromJson<DefenseFlowData>(JsonString);
         for (int i = 0; i < datas.datas.Count; i++)
         {
             Debug.Log("/" + datas.datas[i].key + "/" + datas.datas[i].value);
             LocalizationData.Add(datas.datas[i].key, datas.datas[i].value);
         }
         */
+        
     }
 }
