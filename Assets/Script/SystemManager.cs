@@ -36,6 +36,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    TileManager tileManager;
+    public TileManager TileManager
+    {
+        get
+        {
+            return tileManager;
+        }
+    }
+
     private void Awake()
     {
         //À¯ÀÏÇÑ instance

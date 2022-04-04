@@ -21,11 +21,14 @@ public class Enemy : Actor
     int speed;  //이동속도
 
     [SerializeField]
-    Vector3 appearPos;  //생성위치
+    public int gateNum;    //생성 게이트 번호
+
+    [SerializeField]
+    Vector3[] appearPos;  //생성위치
 
     //이동 관련
     [SerializeField]
-    GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
+    public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
 
     int targetTileIndex = 0;    //타일맵 타겟 인덱스
 
@@ -52,7 +55,14 @@ public class Enemy : Actor
         //위치초기화
         transform.position = appearPos;
 
+        //상태초기화
+        enemyState = EnemyState.Walk;
+
+        //이동 타겟 타일 배열 초기화
+        targetTileIndex = 0;
         currentTarget = targetTile[targetTileIndex];
+
+        //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
         dirVec = FindDirVec(currentTarget);
     }
 

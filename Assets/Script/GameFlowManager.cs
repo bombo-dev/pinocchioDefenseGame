@@ -2,8 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class DefenseFlowData
+{
+    public int stageNum;
+    public int[] targetTileIndexArr;
+    public int[] timeFlowIndexArr;
+    public int[] enemyFlowIndexArr;
+}
 public class GameFlowManager : MonoBehaviour
 {
+    //게이트 숫자
+    const int GATENUM = 3;
+    
     enum GameState
     {
         Start,   //게임시작
@@ -14,28 +25,14 @@ public class GameFlowManager : MonoBehaviour
     GameState gameState = GameState.Start;
 
     //배열 포인터
-    int arrPointer1;
-    int arrPointer2;
-    int arrPointer3;
+    int[] arrPointer = new int[GATENUM];
 
     //타이머
     float flowTimer;
 
 
-    //Enemy가 따라갈 타일
-    public int[] targetTileIndexArr1;
-    public int[] targetTileIndexArr2;
-    public int[] targetTileIndexArr3;
-
-    //Enemy가 생성되는 시간
-    public int[] timeFlowIndexArr1;
-    public int[] timeFlowIndexArr2;
-    public int[] timeFlowIndexArr3;
-
-    //생성되는 Enemy의 종류
-    public int[] enemyFlowIndexArr1;
-    public int[] enemyFlowIndexArr2;
-    public int[] enemyFlowIndexArr3;
+    //디펜스 페이지 흐름 관련 Data 
+    public DefenseFlowData[] defenseFlowDatas;
 
     
 
@@ -43,9 +40,11 @@ public class GameFlowManager : MonoBehaviour
     void Start()
     {
         //배열 포인터 초기화
-        arrPointer1 = 0;
-        arrPointer2 = 0;
-        arrPointer3 = 0;
+        for (int i = 0; i < GATENUM; i++)
+            arrPointer[i] = 0;
+
+        //test
+        flowTimer = Time.time;
     }
 
     // Update is called once per frame
@@ -70,10 +69,31 @@ public class GameFlowManager : MonoBehaviour
 
     void UpdateDefense()
     {
-        if (Time.time - flowTimer > timeFlowIndexArr1[arrPointer1])
+        //Gate 1~3
+        for (int i = 0; i < GATENUM; i++)
         {
-            
+            if (Time.time - flowTimer > defenseFlowDatas[i].timeFlowIndexArr[arrPointer[i]])
+            {
+                //Enemy 활성화
+                SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDatas[i].enemyFlowIndexArr[arrPointer[i]], i, defenseFlowDatas[i].targetTileIndexArr);
+
+                //마지막 인덱스
+                if (arrPointer[i] < defenseFlowDatas[i].enemyFlowIndexArr.Length - 1)
+                {
+
+                }
+                else
+                {
+                    //배열 포인터 증가
+                    arrPointer[i]++;
+
+                    //타이머 초기화
+                    flowTimer = Time.time;
+                }
+            }
+
         }
+        
             //gate1
             //SystemManager.Instance.EnemyManager.EnableEnemy(,1)
     }

@@ -56,19 +56,26 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    public void EnableEnemy(int enemyIndex, int gateNum)
+    public void EnableEnemy(int enemyIndex, int gateNum, int[] targetTile)
     {
         //예외처리
         if (enemyIndex >= prefabCacheDatas.Length || prefabCacheDatas[enemyIndex].filePath == null)
             return;
 
+        //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
 
         if (go == null)
             return;
 
+        //생성한 프리팹이 유효할 경우
         Enemy enemy = go.GetComponent<Enemy>();
 
+        //생성한 프리팹 객체 변수 초기화
+        enemy.gateNum = gateNum;
+        enemy.targetTile = SystemManager.Instance.TileManager.CreateTileMapArr(targetTile);
+
+        //적을 초기상태로
         enemy.Reset();
     }
 
