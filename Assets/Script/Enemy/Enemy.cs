@@ -36,10 +36,6 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
-    //test
-    [SerializeField]
-    GameObject[] turret;
-
     /// <summary>
     /// 초기화 함수 : 김현진
     /// </summary>
@@ -94,7 +90,7 @@ public class Enemy : Actor
             case EnemyState.Walk:
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(turret);
+                DetectTarget(SystemManager.Instance.TileManager.turret);
                 break;
             case EnemyState.Battle:
                 UpdateBattle();
@@ -115,12 +111,15 @@ public class Enemy : Actor
             return;
         if (targetTileIndex >= targetTile.Length - 1)
             return;
-
-            //타겟에 도착하지 않았을 경우
-            if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
+        
+        //타겟에 도착하지 않았을 경우
+        if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
         {
             float rotY = Mathf.Round(transform.localEulerAngles.y);
+
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
+            if (rotY == 360f)
+                rotY = 0f;
             if (!((rotY == 0f && transform.position.z < currentTarget.transform.position.z)//전진
                 || (rotY == 90f && transform.position.x < currentTarget.transform.position.x)//오른쪽
                 || (rotY == 180f && transform.position.z > currentTarget.transform.position.z)//후진

@@ -28,7 +28,7 @@ public class GameFlowManager : MonoBehaviour
     int[] arrPointer = new int[GATENUM];
 
     //타이머
-    float flowTimer;
+    float[] flowTimer = new float[GATENUM];
 
 
     //디펜스 페이지 흐름 관련 Data 
@@ -41,10 +41,10 @@ public class GameFlowManager : MonoBehaviour
     {
         //배열 포인터 초기화
         for (int i = 0; i < GATENUM; i++)
+        {
             arrPointer[i] = 0;
-
-        //test
-        flowTimer = Time.time;
+            flowTimer[i] = Time.time;
+        }
     }
 
     // Update is called once per frame
@@ -72,15 +72,15 @@ public class GameFlowManager : MonoBehaviour
         //Gate 1~3
         for (int i = 0; i < GATENUM; i++)
         {
-            if (Time.time - flowTimer > defenseFlowDatas[i].timeFlowIndexArr[arrPointer[i]])
+            if (Time.time - flowTimer[i] > defenseFlowDatas[i].timeFlowIndexArr[arrPointer[i]])
             {
                 //Enemy 활성화
                 SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDatas[i].enemyFlowIndexArr[arrPointer[i]], i, defenseFlowDatas[i].targetTileIndexArr);
 
                 //마지막 인덱스
-                if (arrPointer[i] < defenseFlowDatas[i].enemyFlowIndexArr.Length - 1)
+                if (arrPointer[i] >= defenseFlowDatas[i].enemyFlowIndexArr.Length - 1)
                 {
-
+                    gameState = GameState.End;
                 }
                 else
                 {
@@ -88,7 +88,7 @@ public class GameFlowManager : MonoBehaviour
                     arrPointer[i]++;
 
                     //타이머 초기화
-                    flowTimer = Time.time;
+                    flowTimer[i] = Time.time;
                 }
             }
 

@@ -7,6 +7,10 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     GameObject[] tileArr;
 
+    //test
+    [SerializeField]
+    public GameObject[] turret;
+
     public GameObject[] CreateTileMapArr(int[] targetIndexArr)
     {
         //예외처리
@@ -18,7 +22,7 @@ public class TileManager : MonoBehaviour
         //타일 인덱스 배열을 타일 게임오브젝트 배열으로 사상
         for (int i = 0; i < targetIndexArr.Length; i++)
         {
-            goArr[i] = tileArr[i];
+            goArr[i] = tileArr[targetIndexArr[i]];
         }
 
         return goArr;
