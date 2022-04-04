@@ -93,8 +93,6 @@ public class GameFlowManager : MonoBehaviour
             }
 
         }
-        
-            //gate1
-            //SystemManager.Instance.EnemyManager.EnableEnemy(,1)
+
     }
 }

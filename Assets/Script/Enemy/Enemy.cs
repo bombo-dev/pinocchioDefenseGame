@@ -53,7 +53,7 @@ public class Enemy : Actor
     public void Reset()
     {
         //위치초기화
-        transform.position = appearPos;
+        transform.position = appearPos[gateNum];
 
         //상태초기화
         enemyState = EnemyState.Walk;
