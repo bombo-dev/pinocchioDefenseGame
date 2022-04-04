@@ -53,6 +53,9 @@ public class GameFlowManager : MonoBehaviour
         UpdateGame();
     }
 
+    /// <summary>
+    /// 실시간 게임 진행 상태 별 동작 : 김현진
+    /// </summary>
     void UpdateGame()
     {
         switch (gameState)
@@ -67,6 +70,9 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 일정 시간마다 Enemy를 활성해준다 : 김현진
+    /// </summary>
     void UpdateDefense()
     {
         //Gate 1~3
