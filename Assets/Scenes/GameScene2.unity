@@ -9504,6 +9504,37 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1514148709}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1000031781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000031782}
+  m_Layer: 0
+  m_Name: LoadJson
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1000031782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000031781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 86.81094, y: -90.80966, z: 163.5122}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1012825110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13839,18 +13870,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   defenseFlowDatas:
-  - stageNum: 1
-    targetTileIndexArr: 200000002300000035000000370000004900000045000000570000005900000074000000
+  - targetTileIndexArr: 200000002300000035000000370000004900000045000000570000005900000074000000
     timeFlowIndexArr: 0d0000000c0000000c0000000b0000000b0000000d0000000f0000000c000000
     enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
-  - stageNum: 1
-    targetTileIndexArr: 35000000370000004900000045000000570000005900000074000000
+  - targetTileIndexArr: 35000000370000004900000045000000570000005900000074000000
     timeFlowIndexArr: 0b000000100000000d0000000c0000000d0000000f0000000b0000000c000000
     enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
-  - stageNum: 1
-    targetTileIndexArr: 260000002300000035000000370000004900000045000000570000005900000074000000
+  - targetTileIndexArr: 260000002300000035000000370000004900000045000000570000005900000074000000
     timeFlowIndexArr: 0d0000000c0000000c0000000b0000000b0000000d0000000f0000000c000000
     enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
+  defenseFlowDataList: []
 --- !u!4 &1390774209
 Transform:
   m_ObjectHideFlags: 0
@@ -17658,6 +17687,7 @@ MonoBehaviour:
   prefabCacheSystem: {fileID: 1394387988}
   enemyManager: {fileID: 464425824}
   tileManager: {fileID: 1664950593}
+  gameFlowManager: {fileID: 0}
 --- !u!4 &1788577324
 Transform:
   m_ObjectHideFlags: 0
