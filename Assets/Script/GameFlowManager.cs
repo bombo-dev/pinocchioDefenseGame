@@ -5,16 +5,22 @@ using UnityEngine;
 [System.Serializable]
 public class DefenseFlowData
 {
-    public int stageNum;
     public int[] targetTileIndexArr;
     public int[] timeFlowIndexArr;
     public int[] enemyFlowIndexArr;
 }
 [System.Serializable]
+public class DefenseFlowDataArr
+{
+    public int stageNum;
+    public DefenseFlowData[] defenseFlowDataArr;
+}
+[System.Serializable]
 public class DefenseFlowDataList
 {
-    public List<DefenseFlowData> datas;
+    public List<DefenseFlowDataArr> datas;
 }
+
 public class GameFlowManager : MonoBehaviour
 {
     //게이트 숫자
@@ -36,10 +42,11 @@ public class GameFlowManager : MonoBehaviour
     float[] flowTimer = new float[GATENUM];
 
 
-    //디펜스 페이지 흐름 관련 Data 
+    //디펜스 페이지 흐름 관련 Data배열 
     public DefenseFlowData[] defenseFlowDatas;
 
-    
+    //디펜스 페이지 흐름 관련 Data 배열 리스트
+    public List<DefenseFlowDataArr> defenseFlowDataList;
 
     // Start is called before the first frame update
     void Start()
