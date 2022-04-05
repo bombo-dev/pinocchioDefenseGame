@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class DefenseFlowData
 {
+    int gateNum;
     public int[] targetTileIndexArr;
     public int[] timeFlowIndexArr;
     public int[] enemyFlowIndexArr;
