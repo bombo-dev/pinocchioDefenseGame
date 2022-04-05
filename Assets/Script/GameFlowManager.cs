@@ -36,28 +36,34 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField]
     GameState gameState = GameState.Start;
 
+    //디펜스 페이지 흐름 관련 Data 배열 리스트
+    DefenseFlowDataList defenseFlowDataList;
+
     //배열 포인터
     int[] arrPointer = new int[GATENUM];
 
     //타이머
     float[] flowTimer = new float[GATENUM];
 
+    //게임 스테이지 인덱스
+    int stage;
 
-    //디펜스 페이지 흐름 관련 Data배열 
-    public DefenseFlowData[] defenseFlowDatas;
-
-    //디펜스 페이지 흐름 관련 Data 배열 리스트
-    public List<DefenseFlowDataArr> defenseFlowDataList;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Json데이터 불러와 자료구조와 사상
+        defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
+
         //배열 포인터 초기화
         for (int i = 0; i < GATENUM; i++)
         {
             arrPointer[i] = 0;
             flowTimer[i] = Time.time;
         }
+
+        //스테이지 정보
+        stage = 0;
     }
 
     // Update is called once per frame
@@ -91,13 +97,14 @@ public class GameFlowManager : MonoBehaviour
         //Gate 1~3
         for (int i = 0; i < GATENUM; i++)
         {
-            if (Time.time - flowTimer[i] > defenseFlowDatas[i].timeFlowIndexArr[arrPointer[i]])
+            if(Time.time - flowTimer[i] > defenseFlowDataList.datas[stage].defenseFlowDataArr[i].timeFlowIndexArr[arrPointer[i]])
             {
                 //Enemy 활성화
-                SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDatas[i].enemyFlowIndexArr[arrPointer[i]], i, defenseFlowDatas[i].targetTileIndexArr);
+                SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]
+                                                                         , i, defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetTileIndexArr);
 
                 //마지막 인덱스
-                if (arrPointer[i] >= defenseFlowDatas[i].enemyFlowIndexArr.Length - 1)
+                if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)
                 {
                     gameState = GameState.End;
                 }
