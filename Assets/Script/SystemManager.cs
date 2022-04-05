@@ -56,6 +56,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    LoadJson loadJson;
+    public LoadJson LoadJson
+    {
+        get
+        {
+            return loadJson;
+        }
+    }
+
     private void Awake()
     {
         //¿Ø¿œ«— instance
