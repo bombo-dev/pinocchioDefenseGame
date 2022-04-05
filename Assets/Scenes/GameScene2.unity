@@ -9513,6 +9513,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1000031782}
+  - component: {fileID: 1000031783}
   m_Layer: 0
   m_Name: LoadJson
   m_TagString: Untagged
@@ -9535,6 +9536,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000031783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000031781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4962ece494345e479b1ab2cbd2cdbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1012825110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13869,17 +13882,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  defenseFlowDatas:
-  - targetTileIndexArr: 200000002300000035000000370000004900000045000000570000005900000074000000
-    timeFlowIndexArr: 0d0000000c0000000c0000000b0000000b0000000d0000000f0000000c000000
-    enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
-  - targetTileIndexArr: 35000000370000004900000045000000570000005900000074000000
-    timeFlowIndexArr: 0b000000100000000d0000000c0000000d0000000f0000000b0000000c000000
-    enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
-  - targetTileIndexArr: 260000002300000035000000370000004900000045000000570000005900000074000000
-    timeFlowIndexArr: 0d0000000c0000000c0000000b0000000b0000000d0000000f0000000c000000
-    enemyFlowIndexArr: 0000000000000000000000000000000000000000000000000000000000000000
-  defenseFlowDataList: []
 --- !u!4 &1390774209
 Transform:
   m_ObjectHideFlags: 0
@@ -17687,7 +17689,8 @@ MonoBehaviour:
   prefabCacheSystem: {fileID: 1394387988}
   enemyManager: {fileID: 464425824}
   tileManager: {fileID: 1664950593}
-  gameFlowManager: {fileID: 0}
+  gameFlowManager: {fileID: 1390774208}
+  loadJson: {fileID: 1000031783}
 --- !u!4 &1788577324
 Transform:
   m_ObjectHideFlags: 0
