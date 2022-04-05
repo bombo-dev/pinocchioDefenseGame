@@ -46,6 +46,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    GameFlowManager gameFlowManager;
+    public GameFlowManager GameFlowManager
+    {
+        get
+        {
+            return gameFlowManager;
+        }
+    }
+
     private void Awake()
     {
         //¿Ø¿œ«— instance
