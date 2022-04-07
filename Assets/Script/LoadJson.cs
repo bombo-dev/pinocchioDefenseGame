@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class LoadJson : MonoBehaviour
 {
+    [SerializeField]
+    Text Test;
+    [SerializeField]
+    Text Test2;
     private void Start()
     {
         PrepareGameFlowJsonData();
@@ -18,14 +23,15 @@ public class LoadJson : MonoBehaviour
 
         //Json 불러오기
         string filePath;
-        filePath = Path.Combine(Application.streamingAssetsPath, "Test");
+
+        filePath = Application.persistentDataPath + "/Test";
+        //filePath = Path.Combine(Application.streamingAssetsPath, "Test");
 
         filePath += ".Json";
+
         string JsonString = File.ReadAllText(filePath);
 
         DefenseFlowDataList datas = JsonUtility.FromJson<DefenseFlowDataList>(JsonString);
-
-        Debug.Log(datas.datas[0].defenseFlowDataArr[0].enemyFlowIndexArr[3]);
 
         return datas;
     }
