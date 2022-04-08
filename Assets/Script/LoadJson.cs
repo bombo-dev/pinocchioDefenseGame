@@ -24,8 +24,8 @@ public class LoadJson : MonoBehaviour
         //Json 불러오기
         string filePath;
 
-        filePath = Application.persistentDataPath + "/Test";
-        //filePath = Path.Combine(Application.streamingAssetsPath, "Test");
+        //filePath = Application.persistentDataPath + "/Test";
+        filePath = Path.Combine(Application.streamingAssetsPath, "Test");
 
         filePath += ".Json";
 

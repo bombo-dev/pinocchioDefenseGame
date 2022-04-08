@@ -60,6 +60,9 @@ public class Enemy : Actor
 
         //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
         dirVec = FindDirVec(currentTarget);
+
+        //타겟배열 초기화
+        attackTargets.Clear();
     }
 
 
@@ -192,7 +195,7 @@ public class Enemy : Actor
         if (Time.time - attackTimer > attackSpeed)
         {
             //공격할 대상의 존재 유무에 따른 상태 변화
-            if (attackTarget == null || !(attackTarget.activeSelf))
+            if (attackTargets[0] == null || !(attackTargets[0].activeSelf))
             {
                 enemyState = EnemyState.Walk;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Actor : MonoBehaviour
 {
@@ -18,7 +19,13 @@ public class Actor : MonoBehaviour
     protected int attackSpeed;    //공격속도
 
     [SerializeField]
-    protected int range;  // 사거리
+    protected int attackTargetNum;    //공격 타겟 수 
+
+    [SerializeField]
+    protected int range;  //사거리
+
+    [SerializeField]
+    protected int attackRange;  //원거리 사거리
 
     [SerializeField]
     protected int regeneration;   // 회복력
@@ -30,7 +37,7 @@ public class Actor : MonoBehaviour
     protected Animator animator; //애니메이터
 
     [SerializeField]
-    protected GameObject attackTarget;    //공격할 타겟
+    protected List<GameObject> attackTargets;    //공격할 타겟
 
     [SerializeField]
     protected Vector3 attackDirVec;   //공격할 타겟의 방향벡터
@@ -65,26 +72,83 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
+    /// this 객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
+    /// <param name="target">타겟이 될 대상 배열</param>
     protected virtual void DetectTarget(GameObject[] target)
     {
+        //리스트 초기화
+        attackTargets.Clear();
+
         for (int i = 0; i < target.Length; i++)
         {
             //Debug.Log(i.ToString() + " : " + Vector3.SqrMagnitude(target[i].transform.position - transform.position));
             //사거리 안에 가장 먼저 감지된 타겟
             if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
             {
-                //타겟과 타겟 방향벡터 초기화
-                attackTarget = target[i];
-                attackDirVec = (attackTarget.transform.position - transform.position).normalized;
+                //다중 타겟 유닛일경우
+                if (attackTargetNum > 1)
+                {
+                    //사거리 안에 가장 먼저 감지된 타겟
+                    attackTargets.Add(target[i]);
+                    attackDirVec = Vector3.zero;
 
-                //공격
-                Attack();
+                    //공격 사거리 안에 감지 될 타겟 추가
+                    DetectTargets(target,i);
+                }
+                else
+                {
+                    //타겟과 타겟 방향벡터 초기화
+                    attackTargets.Add(target[i]);
+                    attackDirVec = (attackTargets[0].transform.position - transform.position).normalized;
+
+                    //공격
+                    Attack();
+                }   
 
                 return;
             }
+
+        }//end of for
+    }
+
+    /// <summary>
+    /// 다중 타겟 유닛일 경우, this 객체의 공격 사거리 안에있는 타겟을 감지해 그중 공격할 타겟들을 지정 : 김현진
+    /// </summary>
+    /// <param name="target">타겟이 될 대상 배열</param>
+    /// <param name="detectedUnitIndex">가장 먼저 감지된 유닛 인덱스</param>
+    void DetectTargets(GameObject[] target,int detectedUnitIndex)
+    {
+        Dictionary<GameObject, float> targetDistances = new Dictionary<GameObject, float>();
+
+        for (int i = 0; i < target.Length; i++)
+        {
+            //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
+            if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < attackRange) && (i != detectedUnitIndex))
+            {
+                targetDistances.Add(target[i],Vector3.SqrMagnitude(target[i].transform.position - transform.position)); 
+            }
         }
+
+        //거리순으로 오름차순 정렬
+        var sortedTargetDistances = targetDistances.OrderBy(x => x.Value);
+
+        //거리순으로 최대 타겟 가능 유닛 이하로 넣어준다
+        foreach (KeyValuePair<GameObject, float> item in sortedTargetDistances)
+        {
+            attackTargets.Add(item.Key);
+
+            if (attackTargets.Count >= attackTargetNum)
+            {
+                break;
+            }
+        }
+
+        //공격
+        Attack();
+
+        return;
+
     }
 
     /// <summary>
@@ -102,6 +166,10 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
+        //예외처리
+        if (attackDirVec == Vector3.zero)
+            return;
+
         //공격할 대상의 방향으로 회전
         Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
