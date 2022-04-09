@@ -23,9 +23,6 @@ public class Turret : Actor
     int bulletIdx = 0;      
 
     [SerializeField]
-    GameObject firePos;     // 터렛의 bullet 발사 위치
-
-    [SerializeField]
     bool multiTarget = false;   // 다중 타겟 플래그
 
     [SerializeField]
@@ -81,7 +78,7 @@ public class Turret : Actor
         turretState = TurretState.Battle;
 
         // 원거리 공격이면
-        if (attackTarget.tag == "far")
+        if (attackTargets[0].tag == "far")
         {
             InitializeBullet();
         }
@@ -112,7 +109,7 @@ public class Turret : Actor
     void UpdateBattle()
     {
         // 타겟이 비활성화 상태이거나 감지 범위를 벗어나면 공격 종료
-        if (!attackTarget.activeSelf || Vector3.SqrMagnitude(attackTarget.transform.position - transform.position) >= range)
+        if (!attackTargets[0].activeSelf || Vector3.SqrMagnitude(attackTargets[0].transform.position - transform.position) >= range)
         {
             Destroy(bullet[bulletIdx]);
             bulletIdx++;
@@ -126,7 +123,7 @@ public class Turret : Actor
         UpdateTargetPos();
         rotateTurret();
 
-        if (attackTarget.tag == "far")
+        if (attackTargets[0].tag == "far")
             UpdateFire();
         
         IsContinue();
@@ -137,7 +134,7 @@ public class Turret : Actor
     /// </summary>
     void UpdateTargetPos()
     {
-        attackDirVec = (attackTarget.transform.position - this.transform.position).normalized;
+        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
 
     /// <summary>
@@ -173,7 +170,7 @@ public class Turret : Actor
         if (multiTarget)
         {
             bulletPos = bullet[bulletIdx].transform.position;
-            targetPos = destPos.transform.position;
+            targetPos =bulletDesPos.transform.position;
 
             bullet[bulletIdx].transform.position = Vector3.Lerp(bulletPos, targetPos, 0.05f);            
         }
@@ -217,7 +214,7 @@ public class Turret : Actor
     {
         if (Time.time - attackTimer > attackSpeed)
         {
-            if (attackTarget == null || !attackTarget.activeSelf)
+            if (attackTargets[0] == null || !attackTargets[0].activeSelf)
             {
                 turretState = TurretState.Idle;
 
@@ -225,7 +222,7 @@ public class Turret : Actor
             }
             else
             {
-                if (attackTarget.tag == "far")
+                if (attackTargets[0].tag == "far")
                 {
                     bulletIdx++;
                     bullet[bulletIdx].SetActive(true);

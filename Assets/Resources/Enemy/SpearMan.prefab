@@ -2881,11 +2881,17 @@ MonoBehaviour:
   currentHP: 0
   power: 0
   attackSpeed: 2
+  attackTargetNum: 1
   range: 1225
+  attackRange: 0
   regeneration: 0
   animator: {fileID: 791334639977259924}
-  attackTarget: {fileID: 0}
+  attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
+  hitPos: {fileID: 0}
+  firePos: {fileID: 0}
+  dropPos: {fileID: 0}
+  bulletDesPos: {fileID: 0}
   enemyState: 0
   filePath: Enemy/SpearMan
   speed: 10
