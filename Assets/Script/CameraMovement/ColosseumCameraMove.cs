@@ -7,7 +7,6 @@ public class ColosseumCameraMove : MonoBehaviour
     Transform cameraMove;   // 메인 카메라의 부모 오브젝트
     float zoomValue = 0;         // 줌 조정 값 
 
-
     [Header ("window")]
 
     [SerializeField]
@@ -17,7 +16,6 @@ public class ColosseumCameraMove : MonoBehaviour
     float zoomSpeed = 20.0f;  // 카메라 줌 속도
 
     float moveX, moveZ;        // 이동량
-
 
     [Header ("android")]
 
@@ -57,7 +55,6 @@ public class ColosseumCameraMove : MonoBehaviour
         }
         return false;
     }
-
 
     #region Android
 
@@ -170,7 +167,7 @@ public class ColosseumCameraMove : MonoBehaviour
             Camera.main.fieldOfView = zoomValue;
 
         // 카메라 줌인
-        Camera.main.fieldOfView += Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
+        Camera.main.fieldOfView -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
     }
 
     #endregion
