@@ -12,27 +12,29 @@ public class Enemy : Actor
     }
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
-    
+
     //Enemy
+    [SerializeField]
+    string filePath; //프리팹 저장 파일 경로
+
     [SerializeField]
     int speed;  //이동속도
 
+    [SerializeField]
+    public int gateNum;    //생성 게이트 번호
+
+    [SerializeField]
+    Vector3[] appearPos;  //생성위치
+
     //이동 관련
     [SerializeField]
-    GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
+    public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
 
     int targetTileIndex = 0;    //타일맵 타겟 인덱스
 
     GameObject currentTarget;   //현재 타겟
 
     Vector3 dirVec; //이동처리할 방향벡터
-
-    //test
-    [SerializeField]
-    GameObject[] turret;
-
-
-
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -41,9 +43,28 @@ public class Enemy : Actor
     {
         base.Initialize();
 
-        currentTarget = targetTile[targetTileIndex];
-        dirVec = FindDirVec(currentTarget);
+        Reset();
     }
+
+    public void Reset()
+    {
+        //위치초기화
+        transform.position = appearPos[gateNum];
+
+        //상태초기화
+        enemyState = EnemyState.Walk;
+
+        //이동 타겟 타일 배열 초기화
+        targetTileIndex = 0;
+        currentTarget = targetTile[targetTileIndex];
+
+        //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
+        dirVec = FindDirVec(currentTarget);
+
+        //타겟배열 초기화
+        attackTargets.Clear();
+    }
+
 
     /// <summary>
     /// this객체의 위치에서 target으로의 방향벡터를 구해 반환 : 김현진
@@ -58,6 +79,7 @@ public class Enemy : Actor
         Vector3 dirVec = Vector3.zero;
         dirVec = target.transform.position - transform.position;
         dirVec.Normalize();
+
         return dirVec;
     }
 
@@ -71,7 +93,7 @@ public class Enemy : Actor
             case EnemyState.Walk:
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(turret);
+                DetectTarget(SystemManager.Instance.TileManager.turret);
                 break;
             case EnemyState.Battle:
                 UpdateBattle();
@@ -92,12 +114,15 @@ public class Enemy : Actor
             return;
         if (targetTileIndex >= targetTile.Length - 1)
             return;
-
-            //타겟에 도착하지 않았을 경우
-            if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
+        
+        //타겟에 도착하지 않았을 경우
+        if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
         {
             float rotY = Mathf.Round(transform.localEulerAngles.y);
+
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
+            if (rotY == 360f)
+                rotY = 0f;
             if (!((rotY == 0f && transform.position.z < currentTarget.transform.position.z)//전진
                 || (rotY == 90f && transform.position.x < currentTarget.transform.position.x)//오른쪽
                 || (rotY == 180f && transform.position.z > currentTarget.transform.position.z)//후진
@@ -170,7 +195,7 @@ public class Enemy : Actor
         if (Time.time - attackTimer > attackSpeed)
         {
             //공격할 대상의 존재 유무에 따른 상태 변화
-            if (attackTarget == null || !(attackTarget.activeSelf))
+            if (attackTargets[0] == null || !(attackTargets[0].activeSelf))
             {
                 enemyState = EnemyState.Walk;
 
