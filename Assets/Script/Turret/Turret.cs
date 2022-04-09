@@ -31,6 +31,12 @@ public class Turret : Actor
     [SerializeField]
     bool straightAttack = false;    // 직선형 공격 플래그
 
+    [SerializeField]
+    float reduceHeight;         // 곡선형 공격의 포물선 높이 조절 변수
+
+    [SerializeField]
+    float journeyTime;      // bullet이 시작점에서 도착점에 도달하는 시간
+
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +122,7 @@ public class Turret : Actor
             return;
         }
 
+
         UpdateTargetPos();
         rotateTurret();
 
@@ -182,10 +189,10 @@ public class Turret : Actor
             else  //곡선형 공격
             {
                 Vector3 center = (bulletPos + targetPos) / 2;
-                center -= new Vector3(0, 5.0f, 0);
+                center -= new Vector3(0, reduceHeight * 1.0f, 0);
                 Vector3 startPos = bulletPos - center;
                 Vector3 endPos = targetPos - center;
-                float fracCmplete = (Time.time - attackTimer) / 30.0f;
+                float fracCmplete = (Time.time - attackTimer) / journeyTime;
                 bullet[bulletIdx].transform.position = Vector3.Slerp(startPos, endPos, fracCmplete);
                 bullet[bulletIdx].transform.position += center;
             }
