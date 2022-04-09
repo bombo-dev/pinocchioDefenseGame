@@ -31,6 +31,9 @@ public class Enemy : Actor
     [SerializeField]
     GameObject[] turret;
 
+
+
+
     /// <summary>
     /// 초기화 함수 : 김현진
     /// </summary>

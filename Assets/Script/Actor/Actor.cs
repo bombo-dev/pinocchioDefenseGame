@@ -15,7 +15,7 @@ public class Actor : MonoBehaviour
     protected int power;  // 공격력
 
     [SerializeField]
-    protected int attackSpeed;    //공격속도
+    protected float attackSpeed;    //공격속도
 
     [SerializeField]
     protected int range;  // 사거리
@@ -34,6 +34,15 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     protected Vector3 attackDirVec;   //공격할 타겟의 방향벡터
+
+    [SerializeField]
+    public GameObject hitPos;      // 타겟이 총알을 맞는 위치
+
+    [SerializeField]
+    public GameObject dropPos;     // 타겟의 위에서 effect가 떨어지는 위치
+
+    [SerializeField]
+    public GameObject destPos;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +84,7 @@ public class Actor : MonoBehaviour
             //사거리 안에 가장 먼저 감지된 타겟
             if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
             {
+                
                 //타겟과 타겟 방향벡터 초기화
                 attackTarget = target[i];
                 attackDirVec = (attackTarget.transform.position - transform.position).normalized;
@@ -102,7 +112,8 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
-        //공격할 대상의 방향으로 회전
+        
+        //공격할 대상의 방향으로 회전       
         Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
     }
