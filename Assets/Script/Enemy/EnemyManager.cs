@@ -14,6 +14,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
 
+
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.A))
@@ -51,6 +53,7 @@ public class EnemyManager : MonoBehaviour
         {
             GameObject go = Resources.Load<GameObject>(filePath);
             prefabCaChes.Add(filePath, go);
+
             return go;
         }
     }
@@ -77,6 +80,8 @@ public class EnemyManager : MonoBehaviour
 
         //적을 초기상태로
         enemy.Reset();
+
+
     }
 
 }

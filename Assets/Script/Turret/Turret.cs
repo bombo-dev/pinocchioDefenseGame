@@ -10,20 +10,19 @@ public class Turret : Actor
         Battle = 1,        // 감지한 Enemy를 공격
         Dead,          //  Enemy에 의해 죽은 상태
     }
-
+    
+    
     [SerializeField]
-    TurretState turretState = TurretState.Idle;     
-
-    [SerializeField]
-    GameObject[] enemy;
+    TurretState turretState = TurretState.Idle;
 
     [SerializeField]
     GameObject[] bullet;  
 
-    int bulletIdx = 0;      
+    [SerializeField]
+    int bulletIdx = 0;
 
     [SerializeField]
-    bool multiTarget = false;   // 다중 타겟 플래그
+    Enemy enemy;
 
     [SerializeField]
     bool straightAttack = false;    // 직선형 공격 플래그
@@ -34,13 +33,16 @@ public class Turret : Actor
     [SerializeField]
     float journeyTime;      // bullet이 시작점에서 도착점에 도달하는 시간
 
+    [SerializeField]
+    int checkAttackType = 0; // 0이면 근거리, 1이면 원거리
+
     // Start is called before the first frame update
     void Start()
     {
-
     }
     void Update()
     {
+        
         UpdateTurret();
     }
 
@@ -49,7 +51,7 @@ public class Turret : Actor
         switch (turretState)
         {
             case TurretState.Idle:
-                DetectTarget(enemy);
+                DetectTarget(SystemManager.Instance.PrefabCacheSystem.activeEnemy.ToArray());
                 break;
             case TurretState.Battle:
                 UpdateBattle();
@@ -78,7 +80,7 @@ public class Turret : Actor
         turretState = TurretState.Battle;
 
         // 원거리 공격이면
-        if (attackTargets[0].tag == "far")
+        if (checkAttackType == 1)
         {
             InitializeBullet();
         }
@@ -89,11 +91,14 @@ public class Turret : Actor
     /// </summary>
     void InitializeBullet()
     {
+        enemy = attackTargets[0].GetComponentInParent<Enemy>();
+
         for (int i = 0; i < bullet.Length; i++)
         {
-            if (multiTarget) // 다중 타겟일 경우
-            {
-                bullet[i].transform.position = dropPos.transform.position;
+            Debug.Log("bullet.Length = " + bullet.Length);
+            if (attackTargetNum > 1) // 다중 타겟 유닛일 경우
+            {                
+                bullet[i].transform.position = enemy.dropPos.transform.position;
             }
             else // 단일 타겟일 경우
             {
@@ -108,11 +113,13 @@ public class Turret : Actor
     /// </summary>
     void UpdateBattle()
     {
+        Debug.Log("UpdateBattle");
         // 타겟이 비활성화 상태이거나 감지 범위를 벗어나면 공격 종료
         if (!attackTargets[0].activeSelf || Vector3.SqrMagnitude(attackTargets[0].transform.position - transform.position) >= range)
         {
             Destroy(bullet[bulletIdx]);
             bulletIdx++;
+            Debug.Log("UpdateBattle.bulletIdx = " + bulletIdx);
 
             animator.SetBool("finAttack", true);
             turretState = TurretState.Idle;
@@ -123,7 +130,7 @@ public class Turret : Actor
         UpdateTargetPos();
         rotateTurret();
 
-        if (attackTargets[0].tag == "far")
+        if (checkAttackType == 1)
             UpdateFire();
         
         IsContinue();
@@ -165,19 +172,22 @@ public class Turret : Actor
 
         Vector3 bulletPos;   // 총알의 위치
         Vector3 targetPos;  // 타겟이 총알을 맞는 위치
-
+        
         // 다중 타겟인 경우
-        if (multiTarget)
+        if (attackTargetNum > 1)
         {
             bulletPos = bullet[bulletIdx].transform.position;
-            targetPos =bulletDesPos.transform.position;
+            targetPos =enemy.bulletDesPos.transform.position;
 
             bullet[bulletIdx].transform.position = Vector3.Lerp(bulletPos, targetPos, 0.05f);            
         }
          else   // 단일 타겟인 경우 
         {
+
             bulletPos = bullet[bulletIdx].transform.position;
-            targetPos = hitPos.transform.position;
+            targetPos = enemy.hitPos.transform.position;
+            Debug.Log("targetPos" + targetPos);
+
 
             if (straightAttack) // 직선형 공격
             {
@@ -193,7 +203,6 @@ public class Turret : Actor
                 bullet[bulletIdx].transform.position = Vector3.Slerp(startPos, endPos, fracCmplete);
                 bullet[bulletIdx].transform.position += center;
             }
-
         } 
 
         // bullet과 target의 거리가 1보다 작을 경우 불렛 비활성화
@@ -222,14 +231,15 @@ public class Turret : Actor
             }
             else
             {
-                if (attackTargets[0].tag == "far")
+                if (checkAttackType == 1)
                 {
                     bulletIdx++;
                     bullet[bulletIdx].SetActive(true);
+                    Debug.Log("IsContinue.bulletIdx = " + bulletIdx);
 
                     // 불렛의 위치를 초기화
-                    if(multiTarget)
-                        bullet[bulletIdx].transform.position = dropPos.transform.position;
+                    if (attackTargetNum > 1)
+                        bullet[bulletIdx].transform.position = enemy.dropPos.transform.position;
                 }
 
                 attackTimer = Time.time;
