@@ -36,6 +36,15 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
+    [SerializeField]
+    public GameObject hitPos;   //총알과 충돌하는 객체의 위치
+
+    [SerializeField]
+    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
+
+    [SerializeField]
+    public GameObject bulletDesPos; //다중 공격시 총알이 도착하는 지점
+
     /// <summary>
     /// 초기화 함수 : 김현진
     /// </summary>

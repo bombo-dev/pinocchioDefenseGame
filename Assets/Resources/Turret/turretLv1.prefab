@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 792262779858153521}
   - component: {fileID: 969425872753726508}
-  - component: {fileID: 595746796907777546}
+  - component: {fileID: 1877926388108799672}
   m_Layer: 7
   m_Name: turretLv1
   m_TagString: Untagged
@@ -56,7 +56,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &595746796907777546
+--- !u!114 &1877926388108799672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,25 +71,20 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   power: 0
-  attackSpeed: 1.5
+  attackSpeed: 0
   attackTargetNum: 0
-  range: 0
-  attackRange: 5000
+  range: 5000
+  attackRange: 0
   regeneration: 0
-  animator: {fileID: 0}
+  animator: {fileID: 969425872753726508}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
-  hitPos: {fileID: 0}
   firePos: {fileID: 5617229145849072967}
-  dropPos: {fileID: 0}
-  bulletDesPos: {fileID: 0}
   turretState: 0
-  enemy: []
   bullet: []
-  multiTarget: 0
   straightAttack: 0
-  reduceHeight: 0
-  journeyTime: 0
+  reduceHeight: 1
+  journeyTime: 1
 --- !u!1 &1261290054002983892
 GameObject:
   m_ObjectHideFlags: 0

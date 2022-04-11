@@ -43,16 +43,9 @@ public class Actor : MonoBehaviour
     protected Vector3 attackDirVec;   //공격할 타겟의 방향벡터
 
     [SerializeField]
-    protected GameObject hitPos;   //총알과 충돌하는 객체의 위치
-
-    [SerializeField]
     protected GameObject firePos;  //단일 공격시 총알이 발사되는 시작점
 
-    [SerializeField]
-    protected GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
 
-    [SerializeField]
-    protected GameObject bulletDesPos; //다중 공격시 총알이 도착하는 지점
 
     // Start is called before the first frame update
     void Start()
