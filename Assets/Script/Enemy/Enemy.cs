@@ -162,7 +162,11 @@ public class Enemy : Actor
         Vector3 updateVec = new Vector3(dirVec.x * speed * Time.deltaTime, 0 , dirVec.z * speed * Time.deltaTime);
         transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
+
+        //회전
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        //회전 x,z축 고정
+        transform.localEulerAngles = new Vector3(0,transform.localEulerAngles.y,0);
     }
 
     /// <summary>
