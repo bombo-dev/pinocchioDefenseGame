@@ -45,6 +45,8 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected GameObject firePos;  //단일 공격시 총알이 발사되는 시작점
 
+    [SerializeField]
+    protected int attackRangeType; // 0:근거리타입 1:원거리타입
 
 
     // Start is called before the first frame update
@@ -82,6 +84,10 @@ public class Actor : MonoBehaviour
     /// <param name="target">타겟이 될 대상 배열</param>
     protected virtual void DetectTarget(GameObject[] target)
     {
+        //공격 유닛이 아닌경우
+        if (attackTargetNum == 0)
+            return;
+
         //리스트 초기화
         attackTargets.Clear();
 
@@ -99,7 +105,7 @@ public class Actor : MonoBehaviour
                     attackDirVec = Vector3.zero;
 
                     //공격 사거리 안에 감지 될 타겟 추가
-                    DetectTargets(target,i);
+                    DetectTargets(target, i);
                 }
                 else
                 {

@@ -33,9 +33,6 @@ public class Turret : Actor
     [SerializeField]
     float journeyTime;      // bullet이 시작점에서 도착점에 도달하는 시간
 
-    [SerializeField]
-    int checkAttackType = 0; // 0이면 근거리, 1이면 원거리
-
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +77,7 @@ public class Turret : Actor
         turretState = TurretState.Battle;
 
         // 원거리 공격이면
-        if (checkAttackType == 1)
+        if (attackRangeType == 1)
         {
             InitializeBullet();
         }
@@ -130,7 +127,7 @@ public class Turret : Actor
         UpdateTargetPos();
         rotateTurret();
 
-        if (checkAttackType == 1)
+        if (attackRangeType == 1)
             UpdateFire();
         
         IsContinue();
@@ -231,7 +228,7 @@ public class Turret : Actor
             }
             else
             {
-                if (checkAttackType == 1)
+                if (attackRangeType == 1)
                 {
                     bulletIdx++;
                     bullet[bulletIdx].SetActive(true);

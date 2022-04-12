@@ -194,6 +194,7 @@ public class Enemy : Actor
         //공격 
         animator.SetBool("attack", true);
         animator.SetBool("finAttack", false);
+
     }
 
     /// <summary>
@@ -203,6 +204,13 @@ public class Enemy : Actor
     protected override void UpdateBattle()
     {
         base.UpdateBattle();
+
+        //근거리 유닛 전용 데미지 처리
+        if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
+        {
+            //DecreaseHP
+            animator.SetBool("meleeAttack", false);
+        }
 
         //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)

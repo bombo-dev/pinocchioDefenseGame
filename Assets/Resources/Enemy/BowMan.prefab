@@ -271,7 +271,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 76e736d8c823e4948a44fcd3513b0ca6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -930,13 +930,11 @@ MonoBehaviour:
   range: 1225
   attackRange: 0
   regeneration: 0
-  animator: {fileID: 0}
+  animator: {fileID: 7596534140763316181}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
-  hitPos: {fileID: 0}
   firePos: {fileID: 0}
-  dropPos: {fileID: 0}
-  bulletDesPos: {fileID: 0}
+  attackRangeType: 0
   enemyState: 0
   filePath: 
   speed: 18
@@ -946,6 +944,9 @@ MonoBehaviour:
   - {x: 0, y: -150, z: 300}
   - {x: 85, y: -150, z: 257.5}
   targetTile: []
+  hitPos: {fileID: 0}
+  dropPos: {fileID: 0}
+  bulletDesPos: {fileID: 0}
 --- !u!1 &2735005736401382885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1251,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 76e736d8c823e4948a44fcd3513b0ca6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
