@@ -48,7 +48,7 @@ public class Turret : Actor
         switch (turretState)
         {
             case TurretState.Idle:
-                DetectTarget(SystemManager.Instance.PrefabCacheSystem.activeEnemy.ToArray());
+                DetectTarget(SystemManager.Instance.EnemyManager.enemies.ToArray());
                 break;
             case TurretState.Battle:
                 UpdateBattle();

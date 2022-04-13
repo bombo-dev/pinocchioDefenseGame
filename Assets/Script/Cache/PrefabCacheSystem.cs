@@ -11,10 +11,6 @@ public class PrefabCacheData
 
 public class PrefabCacheSystem : MonoBehaviour
 {
-    // 활성화된 적을 받아올 배열 (임의로 사용)
-    public List<GameObject> activeEnemy;
-    
-
     //생성된 프리팹 정보
     Dictionary<string, Queue<GameObject>> prefabCaChes = new Dictionary<string, Queue<GameObject>>();
 
@@ -61,7 +57,6 @@ public class PrefabCacheSystem : MonoBehaviour
         GameObject go = prefabCaChes[filePath].Dequeue();
         go.SetActive(true);
 
-        activeEnemy.Add(go);
 
         return go;
 

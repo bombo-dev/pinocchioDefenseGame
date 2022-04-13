@@ -26,6 +26,9 @@ public class Enemy : Actor
     [SerializeField]
     Vector3[] appearPos;  //생성위치
 
+    [SerializeField]
+    public int enemyIndex;  //enemy고유 번호
+
     //이동 관련
     [SerializeField]
     public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟

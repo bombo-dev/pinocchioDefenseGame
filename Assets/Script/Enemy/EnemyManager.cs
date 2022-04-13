@@ -7,6 +7,9 @@ public class EnemyManager : MonoBehaviour
     //Load한 Enemy 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
+    // 활성화된 enemy를 받아올 배열
+    public List<GameObject> enemies;
+
     [SerializeField]
     Transform enemyParents;
 
@@ -18,8 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-            SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[0].filePath);
+
     }
 
     // Start is called before the first frame update
@@ -73,8 +75,11 @@ public class EnemyManager : MonoBehaviour
 
         //생성한 프리팹이 유효할 경우
         Enemy enemy = go.GetComponent<Enemy>();
+        enemies.Add(go);
 
         //생성한 프리팹 객체 변수 초기화
+        enemy.enemyIndex = enemies.FindIndex(x => x == go); //enemise 리스트의 인덱스와 일치하는 번호 저장
+
         enemy.gateNum = gateNum;
         enemy.targetTile = SystemManager.Instance.TileManager.CreateTileMapArr(targetTile);
 
