@@ -45,8 +45,6 @@ public class Enemy : Actor
     [SerializeField]
     public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
 
-    [SerializeField]
-    public GameObject bulletDesPos; //다중 공격시 총알이 도착하는 지점
 
     /// <summary>
     /// 초기화 함수 : 김현진

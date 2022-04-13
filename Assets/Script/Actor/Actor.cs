@@ -48,6 +48,8 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected int attackRangeType; // 0:근거리타입 1:원거리타입
 
+    [SerializeField]
+    protected int bulletIndex;  //사용할 총알 번호
 
     // Start is called before the first frame update
     void Start()
@@ -170,6 +172,7 @@ public class Actor : MonoBehaviour
         //공격시간 측정 변수 초기화
         attackTimer = Time.time;
     }
+
 
     /// <summary>
     /// 실시간으로 공격이 끝났는지 안끝났는지를 판별하고 끝났을경우 
