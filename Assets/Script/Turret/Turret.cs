@@ -18,22 +18,14 @@ public class Turret : Actor
     [SerializeField]
     bool straightAttack = false;    // 직선형 공격 플래그
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void UpdateActor()
     {
-    }
-    void Update()
-    {
-        
-        UpdateTurret();
-    }
+        base.UpdateActor();
 
-    void UpdateTurret()
-    {
         switch (turretState)
         {
             case TurretState.Idle:
-                DetectTarget(SystemManager.Instance.EnemyManager.enemies.ToArray());
+                DetectTarget(SystemManager.Instance.EnemyManager.enemies);
                 break;
             case TurretState.Battle:
                 UpdateBattle();
@@ -44,7 +36,7 @@ public class Turret : Actor
     /// Enemy를 거리순으로 감지
     /// </summary>
     /// <param name="target"></param>
-    protected override void DetectTarget(GameObject[] target)
+    protected override void DetectTarget(List<GameObject> target)
     {
         base.DetectTarget(target);
     }
@@ -66,8 +58,8 @@ public class Turret : Actor
     {
         base.UpdateBattle();
 
-        //공격시간이 종료되거나 타겟이 없을경우 공격 종료
-        if (Time.time - attackTimer > attackSpeed || (attackTargets[0] == null || !(attackTargets[0].activeSelf)))
+        //공격시간이 종료시 공격 종료
+        if (Time.time - attackTimer > attackSpeed)
         {
             turretState = TurretState.Idle;
             return;
@@ -83,14 +75,5 @@ public class Turret : Actor
     {
         attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
-
-    /// <summary>
-    /// 총알 위치 초기화 : 하은비
-    /// </summary>
-    protected override void InitializeBullet()
-    {
-        base.InitializeBullet();
-    }
-
 
 }

@@ -101,7 +101,7 @@ public class Actor : MonoBehaviour
     /// this 객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
     /// <param name="target">타겟이 될 대상 배열</param>
-    protected virtual void DetectTarget(GameObject[] target)
+    protected virtual void DetectTarget(List<GameObject> target)
     {
         //공격 유닛이 아닌경우
         if (attackTargetNum == 0)
@@ -110,9 +110,8 @@ public class Actor : MonoBehaviour
         //리스트 초기화
         attackTargets.Clear();
 
-        for (int i = 0; i < target.Length; i++)
+        for (int i = 0; i < target.Count; i++)
         {
-            //Debug.Log(i.ToString() + " : " + Vector3.SqrMagnitude(target[i].transform.position - transform.position));
             //사거리 안에 가장 먼저 감지된 타겟
             if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
             {
@@ -147,11 +146,11 @@ public class Actor : MonoBehaviour
     /// </summary>
     /// <param name="target">타겟이 될 대상 배열</param>
     /// <param name="detectedUnitIndex">가장 먼저 감지된 유닛 인덱스</param>
-    void DetectTargets(GameObject[] target,int detectedUnitIndex)
+    protected void DetectTargets(List<GameObject> target,int detectedUnitIndex)
     {
         Dictionary<GameObject, float> targetDistances = new Dictionary<GameObject, float>();
 
-        for (int i = 0; i < target.Length; i++)
+        for (int i = 0; i < target.Count; i++)
         {
             //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
             if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange) && (i != detectedUnitIndex))
@@ -210,9 +209,8 @@ public class Actor : MonoBehaviour
             InitializeBullet();
             animator.SetBool("rangedAttack", false);
         }
-
         //근거리 유닛 전용 데미지 처리
-        if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
+        else if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
         {
             //DecreaseHP
             animator.SetBool("meleeAttack", false);
@@ -226,8 +224,12 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// 총알 위치 초기화 : 하은비
     /// </summary>
-    protected virtual void InitializeBullet()
+    void InitializeBullet()
     {
+        //예외처리
+        if (!attackTargets[0] || !attackTargets[0].activeSelf)
+            return;
+
         //예외처리
         if (attackTargetNum <= 0)
             return;

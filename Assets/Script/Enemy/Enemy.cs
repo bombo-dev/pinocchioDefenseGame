@@ -96,6 +96,8 @@ public class Enemy : Actor
     /// </summary>
     protected override void UpdateActor()
     {
+        base.UpdateActor();
+
         switch (enemyState)
         {
             case EnemyState.Walk:
@@ -171,7 +173,7 @@ public class Enemy : Actor
     /// <summary>
     /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
-    protected override void DetectTarget(GameObject[] target)
+    protected override void DetectTarget(List<GameObject> target)
     {
         base.DetectTarget(target);
     }
@@ -202,17 +204,6 @@ public class Enemy : Actor
     {
         base.UpdateBattle();
 
-        //공격시간이 종료되거나 타겟이 없을경우 공격 종료
-        if (Time.time - attackTimer > attackSpeed || (attackTargets[0] == null || !(attackTargets[0].activeSelf)))
-        {
-            enemyState = EnemyState.Walk;
-
-            //공격 종료
-            animator.SetBool("finAttack", true);
-            return;
-        }
-
-        /*
         //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)
         {
@@ -229,10 +220,17 @@ public class Enemy : Actor
                 //공격시간 측정 변수 초기화
                 attackTimer = Time.time;
 
+                //다중 타겟 유닛일 경우 타겟 배열 재설정
+                if (attackTargetNum > 1)
+                {
+                    //공격 사거리 안에 감지 될 타겟 추가
+                    DetectTarget(SystemManager.Instance.TileManager.turret);
+                }
+
                 //다음 공격
                 animator.SetBool("attack", true);
             }
-        }*/
+        }
     }
 
     #endregion
