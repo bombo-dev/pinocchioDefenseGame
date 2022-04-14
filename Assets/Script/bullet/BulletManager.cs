@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class BulletManager : MonoBehaviour
 {
     //Load한 Enemy 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
-
-    // 활성화된 enemy를 받아올 배열
-    public List<GameObject> enemies;
 
     [SerializeField]
     Transform enemyParents;
@@ -24,13 +21,13 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 씬 로드 후 Enemy 캐시 데이터를 바탕으로 생성할 함수 호출 : 김현진
+    /// 씬 로드 후 Bullet 캐시 데이터를 바탕으로 생성할 함수 호출 : 김현진
     /// </summary>
     void PrepareData()
     {
         for (int i = 0; i < prefabCacheDatas.Length; i++)
         {
-            SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), enemyParents);      
+            SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), enemyParents);
         }
     }
 
@@ -53,32 +50,40 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-
-    public void EnableEnemy(int enemyIndex, int gateNum, int[] targetTile)
+    /// <summary>
+    /// 총알 한개 생성 : 김현진
+    /// </summary>
+    /// <param name="bulletIndex">생성할 총알 번호</param>
+    /// <param name="bulletPos">총알이 생성될 위치</param>
+    /// <param name="attackTarget">총알의 최종 목적지</param>
+    public void EnableBullet(int bulletIndex, Vector3 bulletPos, GameObject attackTarget)
     {
         //예외처리
-        if (enemyIndex >= prefabCacheDatas.Length || prefabCacheDatas[enemyIndex].filePath == null)
+        if (bulletIndex >= prefabCacheDatas.Length || prefabCacheDatas[bulletIndex].filePath == null)
             return;
 
         //생성한 프리팹 게임오브젝트 정보 받아오기
-        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
+        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[bulletIndex].filePath);
 
         if (go == null)
             return;
 
-        //생성한 프리팹이 유효할 경우
-        Enemy enemy = go.GetComponent<Enemy>();
-        enemies.Add(go);
+        go.transform.position = bulletPos;
 
-        //생성한 프리팹 객체 변수 초기화
-        enemy.enemyIndex = enemies.FindIndex(x => x == go); //enemise 리스트의 인덱스와 일치하는 번호 저장
+        Bullet bullet = go.GetComponent<Bullet>();
 
-        enemy.gateNum = gateNum;
-        enemy.targetTile = SystemManager.Instance.TileManager.CreateTileMapArr(targetTile);
+        //예외처리
+        if (bullet == null)
+            return;
 
-        //적을 초기상태로
-        enemy.Reset();
+        Actor actor = attackTarget.GetComponent<Actor>();
 
+        //예외처리
+        if (actor == null)
+            return;
+
+        bullet.attackTarget = actor.hitPos;
+        bullet.bulletLifeTime = Time.time;
 
     }
 

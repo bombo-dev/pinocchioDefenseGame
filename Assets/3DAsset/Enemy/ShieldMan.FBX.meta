@@ -1,29 +1,14 @@
 fileFormatVersion: 2
-guid: aa95d6f6547a1fc44a72da1bd1356acd
+guid: cc0b0b194e95d434fb2db20c18d3c2c0
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Pigeon_IDLE
+    second: ShieldMan_Walk
   - first:
-      74: 6720303635017113406
-    second: Pigeon_
-  - first:
-      74: 8273325049105940540
-    second: Pigeon_Dead
-  - first:
-      74: -7657010801872632470
-    second: Pigeon_Attack
-  - first:
-      74: -998496362607748373
-    second: Pigeon_Attack_Damage
-  - first:
-      74: 3060872287085348379
-    second: Pigeon_Attack_Start
-  - first:
-      74: 6237365814134360879
-    second: Pigeon_Full_Attack
+      74: -271559709456872087
+    second: ShieldMan_Dead
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -54,11 +39,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Pigeon_IDLE
+      name: ShieldMan_Walk
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 30
+      firstFrame: 10
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -83,97 +68,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Pigeon_Attack_Damage
+      name: ShieldMan_Dead
       takeName: Take 001
       internalID: 0
-      firstFrame: 40
-      lastFrame: 50
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Pigeon_Attack
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 51
-      lastFrame: 70
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Pigeon_Dead
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 80
-      lastFrame: 100
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Pigeon_Full_Attack
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 40
+      firstFrame: 60
       lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0

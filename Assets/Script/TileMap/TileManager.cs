@@ -9,7 +9,7 @@ public class TileManager : MonoBehaviour
 
     //test
     [SerializeField]
-    public GameObject[] turret;
+    public List<GameObject> turret;
 
     /// <summary>
     /// 정수형 인덱스 배열을 가져와 인덱스에 맞는 게임오브젝트 배열을 생성하여 반환

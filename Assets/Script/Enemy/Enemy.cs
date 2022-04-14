@@ -13,12 +13,18 @@ public class Enemy : Actor
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
 
-    //Enemy
-    [SerializeField]
-    string filePath; //프리팹 저장 파일 경로
+    [Header("EnemyStat")]   //Enemy 능력치
 
     [SerializeField]
     int speed;  //이동속도
+
+    [Header("EnemyInfo")]   //Enemy 정보
+
+    [SerializeField]
+    public int enemyIndex;  //enemy고유 번호
+
+    [SerializeField]
+    string filePath; //프리팹 저장 파일 경로
 
     [SerializeField]
     public int gateNum;    //생성 게이트 번호
@@ -26,7 +32,8 @@ public class Enemy : Actor
     [SerializeField]
     Vector3[] appearPos;  //생성위치
 
-    //이동 관련
+    [Header("Move")]    //이동관련
+
     [SerializeField]
     public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
 
@@ -36,14 +43,6 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
-    [SerializeField]
-    public GameObject hitPos;   //총알과 충돌하는 객체의 위치
-
-    [SerializeField]
-    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
-
-    [SerializeField]
-    public GameObject bulletDesPos; //다중 공격시 총알이 도착하는 지점
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -97,6 +96,8 @@ public class Enemy : Actor
     /// </summary>
     protected override void UpdateActor()
     {
+        base.UpdateActor();
+
         switch (enemyState)
         {
             case EnemyState.Walk:
@@ -162,13 +163,17 @@ public class Enemy : Actor
         Vector3 updateVec = new Vector3(dirVec.x * speed * Time.deltaTime, 0 , dirVec.z * speed * Time.deltaTime);
         transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
+
+        //회전
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        //회전 x,z축 고정
+        transform.localEulerAngles = new Vector3(0,transform.localEulerAngles.y,0);
     }
 
     /// <summary>
     /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
-    protected override void DetectTarget(GameObject[] target)
+    protected override void DetectTarget(List<GameObject> target)
     {
         base.DetectTarget(target);
     }
@@ -187,8 +192,7 @@ public class Enemy : Actor
         //공격 상태로 변경 
         this.enemyState = EnemyState.Battle;
 
-        //공격 
-        animator.SetBool("attack", true);
+        //공격
         animator.SetBool("finAttack", false);
     }
 
@@ -215,6 +219,13 @@ public class Enemy : Actor
             {
                 //공격시간 측정 변수 초기화
                 attackTimer = Time.time;
+
+                //다중 타겟 유닛일 경우 타겟 배열 재설정
+                if (attackTargetNum > 1)
+                {
+                    //공격 사거리 안에 감지 될 타겟 추가
+                    DetectTarget(SystemManager.Instance.TileManager.turret);
+                }
 
                 //다음 공격
                 animator.SetBool("attack", true);

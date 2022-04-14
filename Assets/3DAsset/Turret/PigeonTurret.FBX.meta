@@ -1,23 +1,20 @@
 fileFormatVersion: 2
-guid: 3b6293871646c1a4ba17e522dd5a9379
+guid: aa95d6f6547a1fc44a72da1bd1356acd
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: DarkKnight_Walk
+    second: PigeonTurret_Idle
   - first:
-      74: 495677721213244316
-    second: DarkKnight_Attack1
+      74: -7805179313366383549
+    second: PigeonTurret_Attack1
   - first:
-      74: 1975946483000457505
-    second: DarkKnight_Dead
+      74: 246527143200496542
+    second: PigeonTurret_Attack2
   - first:
-      74: -7054863561619423436
-    second: DarkKnight_Idle
-  - first:
-      74: 6612317855443060186
-    second: DarkKnight_Attack2
+      74: 6992179352232056345
+    second: PigeonTurret_Dead
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -48,10 +45,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: DarkKnight_Walk
+      name: PigeonTurret_Idle
       takeName: Take 001
       internalID: 0
-      firstFrame: 10
+      firstFrame: 0
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
@@ -77,40 +74,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DarkKnight_Attack1
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 60
-      lastFrame: 75
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: DarkKnight_Dead
+      name: PigeonTurret_Attack1
       takeName: Take 001
       internalID: 0
       firstFrame: 40
-      lastFrame: 50
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -135,19 +103,19 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DarkKnight_Idle
+      name: PigeonTurret_Attack2
       takeName: Take 001
       internalID: 0
-      firstFrame: 100
-      lastFrame: 110
+      firstFrame: 46
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -164,11 +132,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: DarkKnight_Attack2
+      name: PigeonTurret_Dead
       takeName: Take 001
       internalID: 0
-      firstFrame: 76
-      lastFrame: 90
+      firstFrame: 80
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
