@@ -378,28 +378,28 @@ MonoBehaviour:
   currentHP: 0
   power: 0
   attackSpeed: 0
-  attackTargetNum: 0
   range: 0
-  attackRange: 0
   regeneration: 0
-  animator: {fileID: 0}
+  attackRangeType: 0
+  attackTargetNum: 0
+  multiAttackRange: 0
+  bulletIndex: 0
+  firePos: {fileID: 0}
+  hitPos: {fileID: 2631546110914728839}
+  dropPos: {fileID: 8244910483216946567}
+  animator: {fileID: 180639100575544261}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
-  firePos: {fileID: 0}
-  attackRangeType: 0
-  bulletIndex: 0
   enemyState: 0
-  filePath: 
   speed: 25
+  enemyIndex: 0
+  filePath: Enemy/HorseMan
   gateNum: 0
   appearPos:
   - {x: -85, y: -168.5, z: 257.5}
   - {x: 0, y: -168.5, z: 300}
   - {x: 85, y: -168.5, z: 257.5}
-  enemyIndex: 0
   targetTile: []
-  hitPos: {fileID: 2631546110914728839}
-  dropPos: {fileID: 8244910483216946567}
 --- !u!1 &734303775606591513
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,79 +55,25 @@ public class Turret : Actor
     protected override void Attack()
     {
         base.Attack();
-         
-        animator.SetBool("attack", true);
 
         turretState = TurretState.Battle;
-
-    }
-
-    /// <summary>
-    /// 총알 위치 초기화 : 하은비
-    /// </summary>
-    void InitializeBullet()
-    {
-        //예외처리
-        if (attackTargetNum <= 0)
-            return;
-
-        //총알 생성
-
-        // 단일 타겟 유닛일 경우
-        if (attackTargetNum == 1) 
-        {
-            SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0]);
-        }
-        //다중 타겟 유닛일 경우
-        else
-        {
-            for (int i = 0; i < attackTargets.Count; i++)
-            {
-                Enemy enemy = attackTargets[i].GetComponent<Enemy>();
-                SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, enemy.dropPos.transform.position, attackTargets[i]);
-            }
-        }
     }
 
     /// <summary>
     /// Battle 상태를 업데이트 : 하은비
     /// </summary>
-    void UpdateBattle()
+    protected override void UpdateBattle()
     {
-        Debug.Log("UpdateBattle");
+        base.UpdateBattle();
 
-        //원거리 유닛 전용 총알 생성
-        if (attackRangeType == 1 && animator.GetBool("rangedAttack"))
-        {
-            InitializeBullet();
-            animator.SetBool("rangedAttack", false);
-        }
-
-        //근거리 유닛 전용 데미지 처리
-        if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
-        {
-            //DecreaseHP
-            animator.SetBool("meleeAttack", false);
-        }
-
-        //감지 범위를 벗어나면 공격 종료
-        if (Vector3.SqrMagnitude(attackTargets[0].transform.position - transform.position) >= range)
+        //공격시간이 종료되거나 타겟이 없을경우 공격 종료
+        if (Time.time - attackTimer > attackSpeed || (attackTargets[0] == null || !(attackTargets[0].activeSelf)))
         {
             turretState = TurretState.Idle;
             return;
         }
 
-        //attackSpeed초에 1번 공격
-        if (Time.time - attackTimer > attackSpeed)
-        {
-            turretState = TurretState.Idle;
-            return;
-        }
-
-
-        UpdateTargetPos();
-        rotateTurret();
-        
+        UpdateTargetPos();  
     }
 
     /// <summary>
@@ -139,15 +85,12 @@ public class Turret : Actor
     }
 
     /// <summary>
-    /// 터렛 회전 : 하은비
+    /// 총알 위치 초기화 : 하은비
     /// </summary>
-    void rotateTurret()
+    protected override void InitializeBullet()
     {
-        Quaternion rotation = Quaternion.LookRotation(new Vector3(attackDirVec.x, 0, attackDirVec.z));
-        this.transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        base.InitializeBullet();
     }
-
-
 
 
 }

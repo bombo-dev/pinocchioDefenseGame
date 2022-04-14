@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    const float bulletMaxDistance = 10.0f;
+
+    const float bulletMaxLifeTime = 3.0f; //불릿이 존재할 수 있는 최대 시간 
+
+    public float bulletLifeTime = 0.0f;   //불릿이 존재할 수 있는 최대 시간 측정
+
     public GameObject attackTarget;    //총알의 최종 목적지  
 
     [SerializeField]
@@ -18,6 +24,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float journeyTime;      // bullet이 시작점에서 도착점에 도달하는 시간
 
+
     // Update is called once per frame
     void Update()
     {
@@ -29,11 +36,15 @@ public class Bullet : MonoBehaviour
     /// </summary>
     void UpdateBullet()
     {
+        //예외처리
+        if (!attackTarget)
+            return;
+
         Vector3 bulletPos = transform.position;   // 총알의 위치
         Vector3 targetPos = attackTarget.transform.position;  // 타겟이 총알을 맞는 위치
 
         if (bulletType == 0)//직선형
-            transform.position = Vector3.Lerp(bulletPos, targetPos, 0.05f);
+            transform.position = Vector3.Lerp(bulletPos, targetPos, 0.15f);
         else if (bulletType == 1)//곡선형
         {
             /*
@@ -47,15 +58,19 @@ public class Bullet : MonoBehaviour
             */
         }
 
-        // bullet과 target의 거리가 1보다 작을 경우 불렛 비활성화
-        float distance = (targetPos - bulletPos).magnitude;
+        // bullet과 target의 거리가 10보다 작을 경우 불렛 비활성화
+        float distance = (targetPos - bulletPos).sqrMagnitude;
 
-        if (Mathf.Round(distance * 10) / 10 < 1.0f)
+        if ((Mathf.Round(distance)) < bulletMaxDistance)
         {
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
 
             // 다중 타겟인 경우, 이펙트 출력
         }
+
+        //예외처리, 총알이 계속 사라지지 않을경우
+        if(Time.time - bulletLifeTime > bulletMaxLifeTime)
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
     }
 
 }

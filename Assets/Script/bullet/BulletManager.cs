@@ -76,7 +76,14 @@ public class BulletManager : MonoBehaviour
         if (bullet == null)
             return;
 
-        bullet.attackTarget = attackTarget;
+        Actor actor = attackTarget.GetComponent<Actor>();
+
+        //예외처리
+        if (actor == null)
+            return;
+
+        bullet.attackTarget = actor.hitPos;
+        bullet.bulletLifeTime = Time.time;
 
     }
 

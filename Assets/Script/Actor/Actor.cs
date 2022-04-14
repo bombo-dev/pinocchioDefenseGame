@@ -5,7 +5,8 @@ using System.Linq;
 
 public class Actor : MonoBehaviour
 {
-    //Actor
+    [Header("Stat")]    //능력치
+
     [SerializeField]
     protected int maxHP;   //최대 체력
 
@@ -19,19 +20,42 @@ public class Actor : MonoBehaviour
     protected float attackSpeed;    //공격속도
 
     [SerializeField]
-    protected int attackTargetNum;    //공격 타겟 수 
-
-    [SerializeField]
     protected int range;  //사거리
-
-    [SerializeField]
-    protected int attackRange;  //원거리 사거리
 
     [SerializeField]
     protected int regeneration;   // 회복력
 
-    //공격관련
+    [Header("AttackType")]  //공격타입 : 원거리, 근거리, 단일공격, 다중공격 
+
+    [SerializeField]
+    protected int attackRangeType; // 0:근거리타입 1:원거리타입
+
+    [SerializeField]
+    protected int attackTargetNum;    //공격 타겟 수 
+
+    [Header("multipleAttack")]    //다중 공격 유닛 전용 능력치
+
+    [SerializeField]
+    protected int multiAttackRange;  //다중공격 사거리
+
+    [Header("Bullet")]  //원거리 공격 유닛 - 총알 관련
+    [SerializeField]
+    protected int bulletIndex;  //사용할 총알 번호
+
+    [SerializeField]
+    protected GameObject firePos;  //단일 공격시 총알이 발사되는 시작점
+
+    [SerializeField]
+    public GameObject hitPos;   //총알과 충돌하는 객체의 위치
+
+    [SerializeField]
+    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
+
+
+
     protected float attackTimer;  //공격시간 타이머
+
+    [Header("data")]    //기타 데이터
 
     [SerializeField]
     protected Animator animator; //애니메이터
@@ -42,14 +66,7 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected Vector3 attackDirVec;   //공격할 타겟의 방향벡터
 
-    [SerializeField]
-    protected GameObject firePos;  //단일 공격시 총알이 발사되는 시작점
 
-    [SerializeField]
-    protected int attackRangeType; // 0:근거리타입 1:원거리타입
-
-    [SerializeField]
-    protected int bulletIndex;  //사용할 총알 번호
 
     // Start is called before the first frame update
     void Start()
@@ -137,7 +154,7 @@ public class Actor : MonoBehaviour
         for (int i = 0; i < target.Length; i++)
         {
             //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
-            if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < attackRange) && (i != detectedUnitIndex))
+            if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange) && (i != detectedUnitIndex))
             {
                 targetDistances.Add(target[i],Vector3.SqrMagnitude(target[i].transform.position - transform.position)); 
             }
@@ -169,6 +186,9 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void Attack()
     {
+        //공격
+        animator.SetBool("attack", true);
+
         //공격시간 측정 변수 초기화
         attackTimer = Time.time;
     }
@@ -184,8 +204,49 @@ public class Actor : MonoBehaviour
         if (attackDirVec == Vector3.zero)
             return;
 
+        //원거리 유닛 전용 총알 생성
+        if (attackRangeType == 1 && animator.GetBool("rangedAttack"))
+        {
+            InitializeBullet();
+            animator.SetBool("rangedAttack", false);
+        }
+
+        //근거리 유닛 전용 데미지 처리
+        if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
+        {
+            //DecreaseHP
+            animator.SetBool("meleeAttack", false);
+        }
+
         //공격할 대상의 방향으로 회전
         Quaternion rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+    }
+
+    /// <summary>
+    /// 총알 위치 초기화 : 하은비
+    /// </summary>
+    protected virtual void InitializeBullet()
+    {
+        //예외처리
+        if (attackTargetNum <= 0)
+            return;
+
+        //총알 생성
+
+        // 단일 타겟 유닛일 경우
+        if (attackTargetNum == 1)
+        {
+            SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0]);
+        }
+        //다중 타겟 유닛일 경우
+        else
+        {
+            for (int i = 0; i < attackTargets.Count; i++)
+            {
+                Actor actor = attackTargets[i].GetComponent<Actor>();
+                SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, actor.dropPos.transform.position, attackTargets[i]);
+            }
+        }
     }
 }

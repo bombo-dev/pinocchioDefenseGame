@@ -13,12 +13,18 @@ public class Enemy : Actor
     [SerializeField]
     EnemyState enemyState = EnemyState.Walk;
 
-    //Enemy
-    [SerializeField]
-    string filePath; //프리팹 저장 파일 경로
+    [Header("EnemyStat")]   //Enemy 능력치
 
     [SerializeField]
     int speed;  //이동속도
+
+    [Header("EnemyInfo")]   //Enemy 정보
+
+    [SerializeField]
+    public int enemyIndex;  //enemy고유 번호
+
+    [SerializeField]
+    string filePath; //프리팹 저장 파일 경로
 
     [SerializeField]
     public int gateNum;    //생성 게이트 번호
@@ -26,10 +32,8 @@ public class Enemy : Actor
     [SerializeField]
     Vector3[] appearPos;  //생성위치
 
-    [SerializeField]
-    public int enemyIndex;  //enemy고유 번호
+    [Header("Move")]    //이동관련
 
-    //이동 관련
     [SerializeField]
     public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
 
@@ -38,12 +42,6 @@ public class Enemy : Actor
     GameObject currentTarget;   //현재 타겟
 
     Vector3 dirVec; //이동처리할 방향벡터
-
-    [SerializeField]
-    public GameObject hitPos;   //총알과 충돌하는 객체의 위치
-
-    [SerializeField]
-    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
 
 
     /// <summary>
@@ -192,10 +190,8 @@ public class Enemy : Actor
         //공격 상태로 변경 
         this.enemyState = EnemyState.Battle;
 
-        //공격 
-        animator.SetBool("attack", true);
+        //공격
         animator.SetBool("finAttack", false);
-
     }
 
     /// <summary>
@@ -206,13 +202,17 @@ public class Enemy : Actor
     {
         base.UpdateBattle();
 
-        //근거리 유닛 전용 데미지 처리
-        if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
+        //공격시간이 종료되거나 타겟이 없을경우 공격 종료
+        if (Time.time - attackTimer > attackSpeed || (attackTargets[0] == null || !(attackTargets[0].activeSelf)))
         {
-            //DecreaseHP
-            animator.SetBool("meleeAttack", false);
+            enemyState = EnemyState.Walk;
+
+            //공격 종료
+            animator.SetBool("finAttack", true);
+            return;
         }
 
+        /*
         //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)
         {
@@ -232,7 +232,7 @@ public class Enemy : Actor
                 //다음 공격
                 animator.SetBool("attack", true);
             }
-        }
+        }*/
     }
 
     #endregion
