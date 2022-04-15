@@ -48,7 +48,7 @@ Animator:
   m_GameObject: {fileID: 309998651699538380}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d2f9c85e33971d04595c33f2e645e66e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8741724b3ec3f8c4abedea85f32c7c4a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -74,18 +74,18 @@ MonoBehaviour:
   currentHP: 0
   power: 0
   attackSpeed: 3
-  attackTargetNum: 1
   range: 5000
-  attackRange: 0
   regeneration: 0
-  animator: {fileID: 1082700700608557940}
-  attackTargets: []
-  attackDirVec: {x: 0, y: 0, z: 0}
   attackRangeType: 1
+  attackTargetNum: 1
+  multiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 3707977840740084005}
   hitPos: {fileID: 3707977840994021203}
   dropPos: {fileID: 3707977841467684581}
+  animator: {fileID: 1082700700608557940}
+  attackTargets: []
+  attackDirVec: {x: 0, y: 0, z: 0}
   turretState: 0
   straightAttack: 0
 --- !u!1 &1475255290654310547
