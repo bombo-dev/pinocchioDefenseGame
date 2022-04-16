@@ -73,6 +73,7 @@ public class Turret : Actor
     /// </summary>
     void UpdateTargetPos()
     {
+        //다중 공격 유닛이 아닐 경우만 위치 갱신
         attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
 
