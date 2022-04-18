@@ -85,6 +85,16 @@ public class BulletManager : MonoBehaviour
         bullet.attackTarget = actor.hitPos;
         bullet.bulletLifeTime = Time.time;
 
+        
+        //Actor attacker = actor.attackOwner.GetComponentInParent<Actor>();
+        //if (attacker == null)
+         //   return;
+
+        //bullet.bulletSpeed = attacker.bulletSpeed;
+        //Debug.Log("bullet.bulletSpeed= " + bullet.bulletSpeed);
+
+
+
     }
 
 }

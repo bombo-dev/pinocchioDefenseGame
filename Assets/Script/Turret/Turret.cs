@@ -15,8 +15,6 @@ public class Turret : Actor
     [SerializeField]
     TurretState turretState = TurretState.Idle;
 
-    [SerializeField]
-    bool straightAttack = false;    // 직선형 공격 플래그
 
     protected override void UpdateActor()
     {
