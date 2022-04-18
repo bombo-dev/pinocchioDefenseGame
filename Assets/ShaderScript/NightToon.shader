@@ -18,6 +18,9 @@ Shader "Custom/NightToon"
         _SpecularSize("SpecularSize", float) = 30
         _SpecularColor("Specular Color", Color) = (1,1,1,1)
 
+        [Header(Emission)]
+        _Emission("Color (RGB)", Color) = (0,0,0,1)
+
     }
         SubShader
         {
@@ -40,6 +43,9 @@ Shader "Custom/NightToon"
         //Specular
         float _SpecularSize;
         float3 _SpecularColor;
+
+        //Emission
+        float4 _Emission;
 
         struct Input
         {
@@ -65,6 +71,7 @@ Shader "Custom/NightToon"
             o.Normal = float3(n.x * _NormalPower, n.y * _NormalPower, n.z);
             o.Albedo = m.rgb;
             o.Alpha = m.a;
+            o.Emission = _Emission;
         }
 
         float4 LightingToon(ToonSurfaceOutput s, float3 lightDir, float3 viewDir, float shadowAttenuation)
