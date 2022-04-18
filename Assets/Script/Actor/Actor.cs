@@ -17,7 +17,7 @@ public class Actor : MonoBehaviour
     protected int power;  // 공격력
 
     [SerializeField]
-    protected float attackSpeed;    //공격속도
+    public float attackSpeed;    //공격속도
 
     [SerializeField]
     protected int range;  //사거리
@@ -64,7 +64,7 @@ public class Actor : MonoBehaviour
     protected List<GameObject> attackTargets;    //공격할 타겟
 
     [SerializeField]
-    protected Vector3 attackDirVec;   //공격할 타겟의 방향벡터
+    public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
 
 
 

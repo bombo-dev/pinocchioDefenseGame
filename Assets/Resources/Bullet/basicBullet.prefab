@@ -96,8 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def8cd7e1f571644dab7a4b996580256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletLifeTime: 0
   attackTarget: {fileID: 0}
   filePath: Bullet/basicBullet
-  bulletType: 0
-  reduceHeight: 0
-  journeyTime: 0
+  bulletType: 1
+  reduceHeight: 20
+  fireAngle: 45
+  gravity: 9.8
