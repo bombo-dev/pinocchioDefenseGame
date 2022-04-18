@@ -21,14 +21,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float reduceHeight;         // 곡선형 공격의 포물선 높이 조절 변수
 
-    public float fireAngle = 45.0f;
-    public float gravity = 9.8f;
-    Transform myTransform;
+    public float bulletSpeed;
 
-    private void Awake()
-    {
-        myTransform = transform;
-    }
     // Update is called once per frame
     void Update()
     {
@@ -51,8 +45,8 @@ public class Bullet : MonoBehaviour
         //Actor actor = attackTarget.GetComponentInParent<Actor>();
         //actor.attackSpeed = 20f;
         
-       Vector3 translation = (targetPos - bulletPos).normalized * Time.deltaTime * 80f;
-
+       Vector3 translation = (targetPos - bulletPos).normalized * Time.deltaTime * 50f;
+        Debug.Log("bulletSpeed= " + bulletSpeed);
         if (bulletType == 0) // 직선형
         {
             //transform.position = Vector3.Lerp(bulletPos, targetPos, moveDist*Time.deltaTime*0.2f);            
@@ -65,6 +59,7 @@ public class Bullet : MonoBehaviour
             center -= new Vector3(0, reduceHeight * 1.0f, 0);
             Vector3 startPos = bulletPos - center;
             Vector3 endPos = targetPos - center;
+            Debug.Log("bulletSpeed= " + bulletSpeed);
             transform.position = Vector3.Slerp(startPos, endPos, Time.deltaTime * 5f);
             transform.position += center;
         }
@@ -72,7 +67,7 @@ public class Bullet : MonoBehaviour
         // bullet과 target의 거리가 10보다 작을 경우 불렛 비활성화
         float distance = (targetPos - bulletPos).sqrMagnitude;
 
-        Debug.Log("distance= " + (Mathf.Round(distance)));
+        //Debug.Log("distance= " + (Mathf.Round(distance)));
         if ((Mathf.Round(distance)) < bulletMaxDistance)
         {
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);

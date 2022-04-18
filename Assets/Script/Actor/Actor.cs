@@ -49,9 +49,7 @@ public class Actor : MonoBehaviour
     public GameObject hitPos;   //총알과 충돌하는 객체의 위치
 
     [SerializeField]
-    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점
-
-
+    public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점    
 
     protected float attackTimer;  //공격시간 타이머
 
@@ -65,15 +63,18 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected List<GameObject> attackTargets;    //공격할 타겟
 
-    [SerializeField]
+    //[SerializeField]
+    //public GameObject attackOwner;      // 공격을 실행하는 사람
+
     public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
-
-
+    
+    public float bulletSpeed = 50f;
 
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
+        //attackOwner = this.gameObject;
     }
 
     // Update is called once per frame
