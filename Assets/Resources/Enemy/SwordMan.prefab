@@ -419,25 +419,27 @@ MonoBehaviour:
   currentHP: 0
   power: 0
   attackSpeed: 2
-  attackTargetNum: 5
   range: 1225
-  attackRange: 20000
   regeneration: 0
+  attackRangeType: 0
+  attackTargetNum: 1
+  multiAttackRange: 0
+  bulletIndex: 0
+  firePos: {fileID: 0}
+  hitPos: {fileID: 8509142495205303143}
+  dropPos: {fileID: 2223364200199077230}
   animator: {fileID: 273522508076308593}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
-  firePos: {fileID: 0}
-  attackRangeType: 0
-  bulletIndex: 0
   enemyState: 0
-  filePath: Enemy/SwordMan
   speed: 15
+  enemyIndex: 0
+  filePath: Enemy/SwordMan
   gateNum: 0
   appearPos:
   - {x: -85, y: -150, z: 257.5}
   - {x: 0, y: -150, z: 300}
   - {x: 85, y: -150, z: 257.5}
-  enemyIndex: 0
   targetTile:
   - {fileID: 0}
   - {fileID: 0}
@@ -446,8 +448,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  hitPos: {fileID: 8509142495205303143}
-  dropPos: {fileID: 2223364200199077230}
 --- !u!1 &1165551029233534182
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +689,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 166625aa4c293834aa9eb3a2c34841d9, type: 2}
+  - {fileID: 2100000, guid: 6ea2314183f63b1439a1a5fa6755f5c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
