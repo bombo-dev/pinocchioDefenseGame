@@ -227,9 +227,10 @@ public class Actor : MonoBehaviour
             if (reverse)
                 rotation = Quaternion.LookRotation((new Vector3(attackDirVec.x, 0, attackDirVec.z)));
             else
-                rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
+                rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));         
 
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+
         }
     }
 
