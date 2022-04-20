@@ -7,14 +7,14 @@ ModelImporter:
       74: 1827226128182048838
     second: HawkTurret_Idle
   - first:
-      74: 8271629136204252547
+      74: -6109660510266821429
     second: HawkTurret_Attack1
-  - first:
-      74: 2178666076408015379
-    second: HawkTurret_Dead
   - first:
       74: -1354804652589844236
     second: HawkTurret_Attack2
+  - first:
+      74: 2178666076408015379
+    second: HawkTurret_Dead
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -103,11 +103,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Dead
+      name: HawkTurret_Attack2
       takeName: Take 001
       internalID: 0
-      firstFrame: 100
-      lastFrame: 120
+      firstFrame: 71
+      lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -132,11 +132,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Attack2
+      name: HawkTurret_Dead
       takeName: Take 001
       internalID: 0
-      firstFrame: 71
-      lastFrame: 90
+      firstFrame: 100
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
