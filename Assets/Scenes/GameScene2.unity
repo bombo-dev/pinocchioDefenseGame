@@ -260,10 +260,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 157117917}
     m_Modifications:
+    - target: {fileID: 4246069898797970590, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: bulletSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246069898797970590, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: attackRangeType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7293776239504685109, guid: 27e6f3debc6e90547ac076b295200bc3,
         type: 3}
       propertyPath: m_Name
       value: PigeonTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293776239504685109, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7958813217259266703, guid: 27e6f3debc6e90547ac076b295200bc3,
         type: 3}
@@ -1231,6 +1246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EagleTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 1639576544401443934, guid: b48670d4cfb84174681dfb1f86fca7c5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2128833193785956068, guid: b48670d4cfb84174681dfb1f86fca7c5,
         type: 3}
@@ -8330,6 +8350,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodpeckerTurret
       objectReference: {fileID: 0}
+    - target: {fileID: 5977514930258409542, guid: ee31e25155a6fac428223fc04fd2cff9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6467088268836283132, guid: ee31e25155a6fac428223fc04fd2cff9,
         type: 3}
       propertyPath: m_RootOrder
@@ -8496,6 +8521,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d676e67e2ec4f6d49a0d5bca47a29ec4, type: 3}
+--- !u!1 &914759157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914759158}
+  m_Layer: 0
+  m_Name: Gate2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &914759158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914759157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2, y: -141.9, z: 230.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &915949264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11544,6 +11600,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PelicanTurret
       objectReference: {fileID: 0}
+    - target: {fileID: 4335986917164089254, guid: 491d2428649fda54dba0b10b81132f98,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491d2428649fda54dba0b10b81132f98, type: 3}
 --- !u!1001 &1195606489
@@ -13209,6 +13270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PigeonTurret (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293776239504685109, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7958813217259266703, guid: 27e6f3debc6e90547ac076b295200bc3,
         type: 3}
       propertyPath: m_RootOrder
@@ -14712,6 +14778,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1601372447}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1606227800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1606227801}
+  m_Layer: 0
+  m_Name: Gate1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1606227801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606227800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -85.5, y: -141.9, z: 230.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1608383490 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7356047181210203993, guid: f31c11c54f551d74fae50f7ef85e962d,
@@ -18093,6 +18190,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1891352324}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1901130230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901130231}
+  m_Layer: 0
+  m_Name: Gate3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1901130231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901130230}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 85.1, y: -141.9, z: 230.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1905273089 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7356047181210203993, guid: f31c11c54f551d74fae50f7ef85e962d,
@@ -18312,6 +18440,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WoodpeckerTurret (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5977514930258409542, guid: ee31e25155a6fac428223fc04fd2cff9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467088268836283132, guid: ee31e25155a6fac428223fc04fd2cff9,
         type: 3}
@@ -18807,6 +18940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PigeonTurret (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293776239504685109, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7958813217259266703, guid: 27e6f3debc6e90547ac076b295200bc3,
         type: 3}
@@ -19506,6 +19644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PigeonTurret (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7293776239504685109, guid: 27e6f3debc6e90547ac076b295200bc3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7958813217259266703, guid: 27e6f3debc6e90547ac076b295200bc3,
         type: 3}
       propertyPath: m_RootOrder
@@ -20082,6 +20225,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PenguinTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 8118029698275081284, guid: 411cf497e38e42d40906eff3c2b46f72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8926935263527151358, guid: 411cf497e38e42d40906eff3c2b46f72,
         type: 3}
@@ -21053,6 +21201,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HawkTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936143170377104798, guid: 67d5a68507a76154192fc7288e858aa5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67d5a68507a76154192fc7288e858aa5, type: 3}

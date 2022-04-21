@@ -58,6 +58,7 @@ public class BulletManager : MonoBehaviour
     /// <param name="attackTarget">총알의 최종 목적지</param>
     public void EnableBullet(int bulletIndex, Vector3 bulletPos, GameObject attackTarget)
     {
+
         //예외처리
         if (bulletIndex >= prefabCacheDatas.Length || prefabCacheDatas[bulletIndex].filePath == null)
             return;
@@ -67,6 +68,10 @@ public class BulletManager : MonoBehaviour
 
         if (go == null)
             return;
+
+        // 다중 공격 유닛일때 bullet 비활성화
+        if (bulletIndex == -1)
+            go.SetActive(false);
 
         go.transform.position = bulletPos;
 
@@ -85,7 +90,7 @@ public class BulletManager : MonoBehaviour
         bullet.attackTarget = actor.hitPos;
         bullet.bulletLifeTime = Time.time;
 
-        
+
         //Actor attacker = actor.attackOwner.GetComponentInParent<Actor>();
         //if (attacker == null)
          //   return;

@@ -68,7 +68,9 @@ public class Actor : MonoBehaviour
 
     public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
     
-    public float bulletSpeed = 50f;
+    public float bulletSpeed = 100f;    // 총알의 이동 속도
+
+    public float maxBulletSpeed;    // 총알의 최대 이동 속도
 
     // Start is called before the first frame update
     void Start()
@@ -256,11 +258,14 @@ public class Actor : MonoBehaviour
         //다중 타겟 유닛일 경우
         else
         {
+
             for (int i = 0; i < attackTargets.Count; i++)
             {
                 Actor actor = attackTargets[i].GetComponent<Actor>();
                 SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, actor.dropPos.transform.position, attackTargets[i]);
             }
+
         }
+
     }
 }

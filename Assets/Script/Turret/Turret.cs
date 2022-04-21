@@ -10,12 +10,17 @@ public class Turret : Actor
         Battle = 1,        // 감지한 Enemy를 공격
         Dead,          //  Enemy에 의해 죽은 상태
     }
-    
-    
+
+    [SerializeField]
+    int gateNum;
+
     [SerializeField]
     TurretState turretState = TurretState.Idle;
 
+    private void Start()
+    {
 
+    }
     protected override void UpdateActor()
     {
         base.UpdateActor();
@@ -73,6 +78,8 @@ public class Turret : Actor
     {
         //다중 공격 유닛이 아닐 경우만 위치 갱신
         attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
+
+
     }
 
 }
