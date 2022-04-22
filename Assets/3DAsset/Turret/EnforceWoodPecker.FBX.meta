@@ -1,20 +1,23 @@
 fileFormatVersion: 2
-guid: e4fdbd9326b0ab34aa9896b80792f686
+guid: af89206c131698249af3001d91c179b7
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: HawkTurret_Idle
+    second: EnforceWoodPecker_Dead
+  - first:
+      74: -998496362607748373
+    second: Take 001
   - first:
       74: -5405653242291790180
-    second: HawkTurret_Attack1
+    second: EnforceWoodPecker_Attack2
   - first:
-      74: 4854180139978558704
-    second: HawkTurret_Attack2
+      74: 6195155539528363977
+    second: EnforceWoodPecker_Idle
   - first:
-      74: 1389121407789637250
-    second: HawkTurret_Dead
+      74: 2180464853854925383
+    second: EnforceWoodPecker_Attack1
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -45,10 +48,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: HawkTurret_Idle
+      name: EnforceWoodPecker_Idle
       takeName: Take 001
       internalID: 0
-      firstFrame: 10
+      firstFrame: 0
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
@@ -74,11 +77,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Attack1
+      name: EnforceWoodPecker_Attack1
       takeName: Take 001
       internalID: 0
       firstFrame: 40
-      lastFrame: 70
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -103,11 +106,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Attack2
+      name: EnforceWoodPecker_Attack2
       takeName: Take 001
       internalID: 0
-      firstFrame: 71
-      lastFrame: 90
+      firstFrame: 45
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -132,11 +135,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Dead
+      name: EnforceWoodPecker_Dead
       takeName: Take 001
       internalID: 0
-      firstFrame: 100
-      lastFrame: 120
+      firstFrame: 60
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
