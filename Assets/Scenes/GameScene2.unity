@@ -1512,6 +1512,7 @@ Transform:
   - {fileID: 523930945}
   - {fileID: 2010647687}
   - {fileID: 1880057654}
+  - {fileID: 686763185}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6049,6 +6050,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7356047181210203993, guid: f31c11c54f551d74fae50f7ef85e962d,
     type: 3}
   m_PrefabInstance: {fileID: 1166956908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &686763183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9005797504193047073, guid: acddd89d5e8165946aaf8be09ffaded0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1826054573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &686763185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1826054573}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &700617597 stripped
 GameObject:
@@ -15428,6 +15441,7 @@ MonoBehaviour:
   - {fileID: 523930944}
   - {fileID: 2010647684}
   - {fileID: 1880057653}
+  - {fileID: 686763183}
 --- !u!1001 &1674106912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17492,6 +17506,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1815760691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1826054573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 157117917}
+    m_Modifications:
+    - target: {fileID: 9005797504193047073, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_Name
+      value: RailGunTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -161.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9005797504193047086, guid: acddd89d5e8165946aaf8be09ffaded0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acddd89d5e8165946aaf8be09ffaded0, type: 3}
 --- !u!1001 &1832184229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20223,6 +20306,8 @@ MonoBehaviour:
   - filePath: Bullet/MissileBullet
     cacheCount: 100
   - filePath: Bullet/IceBullet
+    cacheCount: 100
+  - filePath: Bullet/LightningBullet
     cacheCount: 100
 --- !u!4 &2120986986
 Transform:
