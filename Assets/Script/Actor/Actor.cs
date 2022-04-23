@@ -220,15 +220,15 @@ public class Actor : MonoBehaviour
         }
 
         //공격할 대상의 방향으로 회전, 다중 공격 유닛이 아닐 경우에만 실시간 회전
-        if (attackTargetNum <= 1)
-        {
+        //if (attackTargetNum <= 1)
+        //{
             Quaternion rotation;
 
             rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
 
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
 
-        }
+        //}
     }
 
     /// <summary>

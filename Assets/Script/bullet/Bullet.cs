@@ -24,6 +24,11 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float reduceHeight;         // 곡선형 공격의 포물선 높이 조절 변수
 
+    float distance = 0.0f;
+
+    [SerializeField]
+    float force;
+
     // Update is called once per frame
     void Update()
     {
@@ -37,7 +42,11 @@ public class Bullet : MonoBehaviour
     {
         //예외처리
         if (!attackTarget)
+        {
+            // 총알 파괴 모션
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
             return;
+        }
 
         Vector3 bulletPos = transform.position;   // 총알의 위치
         Vector3 targetPos = attackTarget.transform.position;  // 타겟이 총알을 맞는 위치
@@ -47,15 +56,14 @@ public class Bullet : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(bulletAttackDir);
         transform.rotation = rotation;
 
-        //float moveDist = (targetPos - bulletPos).magnitude;
-        //Actor actor = attackTarget.GetComponentInParent<Actor>();
-        //actor.attackSpeed = 20f;
-        
-       Vector3 translation = (targetPos - bulletPos).normalized * Time.deltaTime * bulletSpeed*1.5f;
+        // 가속도 붙이기
+        bulletSpeed += bulletSpeed * force;
+        //Debug.Log("bulletSpeed= " + bulletSpeed);
 
         if (bulletType == 0) // 직선형
         {
             //transform.position = Vector3.Lerp(bulletPos, targetPos, moveDist*Time.deltaTime*0.2f);            
+            Vector3 translation = (targetPos - bulletPos).normalized * Time.deltaTime * bulletSpeed * 1.5f;
             transform.position += translation;
 
         }
@@ -66,25 +74,21 @@ public class Bullet : MonoBehaviour
             Vector3 startPos = bulletPos - center;
             Vector3 endPos = targetPos - center;
 
-            // 거리별로 속도 조절
-            transform.position = Vector3.Slerp(startPos, endPos, Time.deltaTime * bulletSpeed*0.05f);
+            transform.position = Vector3.Slerp(startPos, endPos, Time.deltaTime * bulletSpeed * 0.05f);
             transform.position += center;
         }
 
         // bullet과 target의 거리가 10보다 작을 경우 불렛 비활성화
-        float distance = (targetPos - bulletPos).sqrMagnitude;
+        distance = (targetPos - bulletPos).sqrMagnitude;
 
-        Debug.Log("distance= " + (Mathf.Round(distance)));
+        //Debug.Log("distance= " + (Mathf.Round(distance)));
         if ((Mathf.Round(distance)) < bulletMaxDistance)
         {
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-
             // 다중 타겟인 경우, 이펙트 출력
         }
 
-        //예외처리, 총알이 계속 사라지지 않을경우
-        if(Time.time - bulletLifeTime > bulletMaxLifeTime)
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
     }
 
 }

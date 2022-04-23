@@ -12,17 +12,17 @@ public class Turret : Actor
     }
 
     [SerializeField]
-    int gateNum;
+    string gateNum;
 
     [SerializeField]
     TurretState turretState = TurretState.Idle;
-
     private void Start()
     {
-
+        InitializeTurret();
     }
     protected override void UpdateActor()
     {
+
         base.UpdateActor();
 
         switch (turretState)
@@ -35,6 +35,30 @@ public class Turret : Actor
                 break;
         }
     }
+
+    /// <summary>
+    /// 터렛 초기화
+    /// </summary>
+    void InitializeTurret()
+    {
+        Ray ray = new Ray();
+        ray.origin = this.transform.position;
+        ray.direction = -this.transform.up;
+
+        Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, 3);
+
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray.origin, ray.direction, out hitInfo ))
+        {
+            gateNum = hitInfo.transform.tag;
+            //Debug.Log(gateNum);
+            Transform gate = GameObject.Find(gateNum).transform;
+            Vector3 direction = (transform.position - gate.position).normalized;
+            transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        }       
+    }
+
+
     /// <summary>
     /// Enemy를 거리순으로 감지
     /// </summary>
