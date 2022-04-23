@@ -54,18 +54,10 @@ public class Turret : Actor
             //Debug.Log(gateNum);
             Transform gate = GameObject.Find(gateNum).transform;
             Vector3 direction = (transform.position - gate.position).normalized;
-            RotateTurret(direction);
+            transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         }       
     }
 
-    /// <summary>
-    /// 터렛이 GATE를 보도록 회전
-    /// </summary>
-    /// <param name="moveDirection">터렛이 바라볼 방향</param>
-    void RotateTurret(Vector3 moveDirection)
-    {
-        transform.rotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.z));
-    }
 
     /// <summary>
     /// Enemy를 거리순으로 감지
