@@ -26,7 +26,7 @@ Shader "Custom/AlphaBlendingEffect"
             void surf(Input IN, inout SurfaceOutput o)
             {
                 fixed4 c = tex2D(_MainTex, float2(IN.uv_MainTex.x, IN.uv_MainTex.y + _Time.y * _Speed));//UV y축으로 기본속도(_Time.y) 만큼 이동
-                o.Albedo = lerp(c.rgb, float4(1,0,0,0), c.a);
+                o.Albedo = lerp(c.rgb, float4(0,0,0,0), c.a);
 
                 o.Alpha = c.a;
             }
