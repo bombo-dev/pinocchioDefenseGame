@@ -43,6 +43,7 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
+    
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -108,7 +109,10 @@ public class Enemy : Actor
             case EnemyState.Battle:
                 UpdateBattle();
                 break;
-
+            case EnemyState.Dead:
+                UpdateDead();
+                break;
+            
         }
     }
 
@@ -234,4 +238,21 @@ public class Enemy : Actor
     }
 
     #endregion
+    public override void DecreseHP(int damage)
+    {
+        base.DecreseHP(damage);
+
+        if (currentHP <= 0)
+        {
+            enemyState = EnemyState.Dead;
+            animator.SetBool("isDead", true);
+        }
+    }
+
+    void UpdateDead()
+    {        
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.5f)
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+    }
 }

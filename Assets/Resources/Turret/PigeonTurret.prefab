@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 5137736177345185167}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 1210128768853671001}
   m_Layer: 7
   m_Name: PigeonTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,11 +259,13 @@ MonoBehaviour:
   firePos: {fileID: 1016148645083788321}
   hitPos: {fileID: 1972162216428876265}
   dropPos: {fileID: 1672127275696819862}
-  reverse: 0
   animator: {fileID: 1210128768853671000}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
+  maxBulletSpeed: 0
+  finAttack: 0
+  gateNum: 
   turretState: 0
 --- !u!1 &2857776281394620553
 GameObject:

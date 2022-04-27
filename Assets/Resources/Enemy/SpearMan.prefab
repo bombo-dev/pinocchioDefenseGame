@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 6469959818805622035}
   m_Layer: 0
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2879,7 +2879,7 @@ GameObject:
   - component: {fileID: 3857658062443009625}
   m_Layer: 8
   m_Name: SpearMan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2941,7 +2941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
   power: 0
   attackSpeed: 2
@@ -2954,12 +2954,12 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 1886471770611330842}
   dropPos: {fileID: 1969437790395037625}
-  reverse: 0
   animator: {fileID: 791334639977259924}
   attackTargets: []
-  attackOwner: {fileID: 0}
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
+  maxBulletSpeed: 0
+  finAttack: 0
   enemyState: 0
   speed: 10
   enemyIndex: 0

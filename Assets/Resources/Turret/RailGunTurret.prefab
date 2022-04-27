@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9005797504193047086}
   - component: {fileID: 9005797504193047087}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RailGunTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
   maxBulletSpeed: 0
+  finAttack: 0
   gateNum: 0
   turretState: 0
 --- !u!1 &9005797504291082129
@@ -107,7 +108,7 @@ GameObject:
   - component: {fileID: 9005797504565904516}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

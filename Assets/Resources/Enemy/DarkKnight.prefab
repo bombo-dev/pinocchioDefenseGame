@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4840131937082311146}
   m_Layer: 8
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3486,7 +3486,7 @@ GameObject:
   - component: {fileID: 2303080395884602425}
   m_Layer: 8
   m_Name: DarkKnight
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3551,7 +3551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
   power: 0
   attackSpeed: 3
@@ -3564,12 +3564,12 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 208268308960011774}
   dropPos: {fileID: 6519443654991449682}
-  reverse: 0
   animator: {fileID: 8694855269465626146}
   attackTargets: []
-  attackOwner: {fileID: 0}
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
+  maxBulletSpeed: 0
+  finAttack: 0
   enemyState: 0
   speed: 18
   enemyIndex: 0

@@ -56,7 +56,7 @@ public class BulletManager : MonoBehaviour
     /// <param name="bulletIndex">생성할 총알 번호</param>
     /// <param name="bulletPos">총알이 생성될 위치</param>
     /// <param name="attackTarget">총알의 최종 목적지</param>
-    public void EnableBullet(int bulletIndex, Vector3 bulletPos, GameObject attackTarget)
+    public void EnableBullet(int bulletIndex, Vector3 bulletPos, GameObject attackTarget, GameObject attackOwner)
     {
 
         //예외처리
@@ -89,17 +89,8 @@ public class BulletManager : MonoBehaviour
 
         bullet.attackTarget = actor.hitPos;
         bullet.bulletLifeTime = Time.time;
-
-
-        //Actor attacker = actor.attackOwner.GetComponentInParent<Actor>();
-        //if (attacker == null)
-         //   return;
-
-        //bullet.bulletSpeed = attacker.bulletSpeed;
-        //Debug.Log("bullet.bulletSpeed= " + bullet.bulletSpeed);
-
-
-
+        bullet.attackOwner = attackOwner;
+        
     }
 
 }

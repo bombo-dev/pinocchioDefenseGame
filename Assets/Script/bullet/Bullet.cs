@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float force;
 
+    public GameObject attackOwner;
+
     // Update is called once per frame
     void Update()
     {
@@ -78,6 +80,7 @@ public class Bullet : MonoBehaviour
             transform.position += center;
         }
 
+
         // bullet과 target의 거리가 10보다 작을 경우 불렛 비활성화
         distance = (targetPos - bulletPos).sqrMagnitude;
 
@@ -85,10 +88,32 @@ public class Bullet : MonoBehaviour
         if ((Mathf.Round(distance)) < bulletMaxDistance)
         {
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-            // 다중 타겟인 경우, 이펙트 출력
+            // 다중 타겟인 경우, 이펙트 출력            
+
+
+            GameObject target;
+            target = attackTarget.transform.parent.gameObject;
+            
+            
+            if (attackTarget.tag == "Enemy")
+            {
+                Enemy enemy = target.GetComponent<Enemy>();
+
+                Turret attacker = attackOwner.GetComponent<Turret>();
+                enemy.DecreseHP(attacker.power);
+            }
+            else if(attackTarget.tag == "Turret")
+            {
+                Turret turret = target.GetComponent<Turret>();
+
+                Enemy attacker = attackOwner.GetComponent<Enemy>();
+                turret.DecreseHP(attacker.power);
+            }
+                                                   
         }
 
 
     }
+
 
 }

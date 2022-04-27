@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 5671559121613602500}
   m_Layer: 7
   m_Name: CuckooTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,11 +501,13 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 5671559121657279894}
   dropPos: {fileID: 5671559121892171476}
-  reverse: 0
   animator: {fileID: 5671559121613602507}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
+  maxBulletSpeed: 0
+  finAttack: 0
+  gateNum: 
   turretState: 0
 --- !u!1 &5373158096343913878
 GameObject:
@@ -601,7 +603,7 @@ GameObject:
   - component: {fileID: 5671559121657279893}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
