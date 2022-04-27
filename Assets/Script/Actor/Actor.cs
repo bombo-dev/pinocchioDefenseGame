@@ -8,13 +8,13 @@ public class Actor : MonoBehaviour
     [Header("Stat")]    //능력치
 
     [SerializeField]
-    protected int maxHP;   //최대 체력
+    protected int maxHP = 30;   //최대 체력
 
     [SerializeField]
     protected int currentHP;   //현재 체력
 
     [SerializeField]
-    protected int power;  // 공격력
+    public int power = 10;  // 공격력
 
     [SerializeField]
     public float attackSpeed;    //공격속도
@@ -59,16 +59,15 @@ public class Actor : MonoBehaviour
     protected Animator animator; //애니메이터
 
     [SerializeField]
-    protected List<GameObject> attackTargets;    //공격할 타겟
-
-    //[SerializeField]
-    //public GameObject attackOwner;      // 공격을 실행하는 사람
+    protected List<GameObject> attackTargets;    //공격을 당하는 오브젝트
 
     public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
     
     public float bulletSpeed = 100f;    // 총알의 이동 속도
 
     public float maxBulletSpeed;    // 총알의 최대 이동 속도
+
+    public bool finAttack;  // 공격이 끝났는지를 확인하는 플래그
 
     // Start is called before the first frame update
     void Start()
@@ -193,6 +192,7 @@ public class Actor : MonoBehaviour
 
         //공격시간 측정 변수 초기화
         attackTimer = Time.time;
+        
     }
 
 
@@ -202,6 +202,11 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
+        if (finAttack == true)
+        {
+            // DecreseHP(attackOwner);
+        }
+
         //예외처리
         if (attackDirVec == Vector3.zero)
             return;
@@ -215,20 +220,30 @@ public class Actor : MonoBehaviour
         //근거리 유닛 전용 데미지 처리
         else if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
         {
-            //DecreaseHP
+            if (attackTargets[0].tag == "Enemy")
+            {
+                Enemy enemy = attackTargets[0].GetComponent<Enemy>();
+
+                Turret attacker = gameObject.GetComponent<Turret>();
+                enemy.DecreseHP(attacker.power);
+            }
+            else if (attackTargets[0].tag == "Turret")
+            {
+                Turret turret = attackTargets[0].GetComponent<Turret>();
+
+                Enemy attacker = gameObject.GetComponent<Enemy>();
+                turret.DecreseHP(attacker.power);
+            }
+
             animator.SetBool("meleeAttack", false);
         }
 
-        //공격할 대상의 방향으로 회전, 다중 공격 유닛이 아닐 경우에만 실시간 회전
-        //if (attackTargetNum <= 1)
-        //{
             Quaternion rotation;
 
             rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
 
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
 
-        //}
     }
 
     /// <summary>
@@ -248,8 +263,8 @@ public class Actor : MonoBehaviour
 
         // 단일 타겟 유닛일 경우
         if (attackTargetNum == 1)
-        {
-            SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0]);
+        {            
+            SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0], gameObject);
         }
         //다중 타겟 유닛일 경우
         else
@@ -258,9 +273,30 @@ public class Actor : MonoBehaviour
             for (int i = 0; i < attackTargets.Count; i++)
             {
                 Actor actor = attackTargets[i].GetComponent<Actor>();
-                SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, actor.dropPos.transform.position, attackTargets[i]);
+                SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, actor.dropPos.transform.position, attackTargets[i], this.gameObject);
             }
 
+        }
+
+    }
+
+
+    /// <summary>
+    /// 공격을 당한 타겟의 HP를 감소
+    /// </summary>
+    /// <param name="attackTarget"></param>
+    public virtual void DecreseHP(int damage)
+    {
+        if (currentHP <= 0)
+        {
+            return;
+        }
+
+        if (currentHP > damage)
+            currentHP -= damage;
+        else
+        {
+            currentHP = 0;            
         }
 
     }

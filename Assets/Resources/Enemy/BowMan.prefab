@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 2283061772171433004}
   m_Layer: 8
   m_Name: BowMan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
   power: 0
   attackSpeed: 2
@@ -938,12 +938,12 @@ MonoBehaviour:
   firePos: {fileID: 9054268788431206054}
   hitPos: {fileID: 4916674628228207293}
   dropPos: {fileID: 7901403525029591447}
-  reverse: 0
   animator: {fileID: 7596534140763316181}
   attackTargets: []
-  attackOwner: {fileID: 0}
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
+  maxBulletSpeed: 0
+  finAttack: 0
   enemyState: 0
   speed: 18
   enemyIndex: 0
@@ -2015,7 +2015,7 @@ GameObject:
   - component: {fileID: 6738656558844525618}
   m_Layer: 0
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

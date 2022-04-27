@@ -33,6 +33,10 @@ public class Turret : Actor
             case TurretState.Battle:
                 UpdateBattle();
                 break;
+            case TurretState.Dead:
+                OnDead();
+                break;
+            
         }
     }
 
@@ -41,6 +45,8 @@ public class Turret : Actor
     /// </summary>
     void InitializeTurret()
     {
+        currentHP = maxHP;
+
         Ray ray = new Ray();
         ray.origin = this.transform.position;
         ray.direction = -this.transform.up;
@@ -76,6 +82,7 @@ public class Turret : Actor
         base.Attack();
 
         turretState = TurretState.Battle;
+
     }
 
     /// <summary>
@@ -92,18 +99,27 @@ public class Turret : Actor
             return;
         }
 
-        UpdateTargetPos();  
+        // 이동하는 Enemy 방향으로 터렛이 계속 회전하도록 타겟 위치 업데이트
+        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
 
-    /// <summary>
-    /// 이동하는 Enemy 방향으로 터렛이 계속 회전하도록 타겟 위치 업데이트 : 하은비
-    /// </summary>
-    void UpdateTargetPos()
+
+    public override void DecreseHP(int damage)
     {
-        //다중 공격 유닛이 아닐 경우만 위치 갱신
-        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
+        base.DecreseHP(damage);
 
+        if(currentHP <= 0)
+        {
+            turretState = TurretState.Dead;
+        }
+    }
+    void OnDead()
+    {
 
+        animator.SetBool("isDead", true);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.5f)
+            gameObject.SetActive(false);
     }
 
 }

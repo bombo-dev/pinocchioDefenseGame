@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 180639100575544258}
   m_Layer: 8
   m_Name: HorseMan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
   power: 0
   attackSpeed: 0
@@ -387,12 +387,12 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 2631546110914728839}
   dropPos: {fileID: 8244910483216946567}
-  reverse: 0
   animator: {fileID: 180639100575544261}
   attackTargets: []
-  attackOwner: {fileID: 0}
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
+  maxBulletSpeed: 0
+  finAttack: 0
   enemyState: 0
   speed: 25
   enemyIndex: 0
@@ -1368,7 +1368,7 @@ GameObject:
   - component: {fileID: 2731016678126816356}
   m_Layer: 0
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

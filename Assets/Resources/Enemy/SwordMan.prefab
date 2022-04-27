@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 273522508076308595}
   m_Layer: 8
   m_Name: SwordMan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
   power: 0
   attackSpeed: 2
@@ -428,12 +428,12 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 8509142495205303143}
   dropPos: {fileID: 2223364200199077230}
-  reverse: 0
   animator: {fileID: 273522508076308593}
   attackTargets: []
-  attackOwner: {fileID: 0}
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
+  maxBulletSpeed: 0
+  finAttack: 0
   enemyState: 0
   speed: 15
   enemyIndex: 0
@@ -3513,7 +3513,7 @@ GameObject:
   - component: {fileID: 4352191831823763239}
   m_Layer: 0
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

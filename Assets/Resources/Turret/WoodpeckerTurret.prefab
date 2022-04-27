@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7155271798934542869}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 6653929781480202298}
   m_Layer: 7
   m_Name: WoodpeckerTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +481,7 @@ MonoBehaviour:
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
   maxBulletSpeed: 0
+  finAttack: 0
   gateNum: 0
   turretState: 0
 --- !u!1 &7342602194861103889

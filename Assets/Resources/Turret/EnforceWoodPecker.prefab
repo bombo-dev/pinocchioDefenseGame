@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8245916354338558235}
   - component: {fileID: 6596938564494971295}
   - component: {fileID: 6649965777219428868}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: feather1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2479169827421919284}
   - component: {fileID: 2930621579183523764}
   - component: {fileID: 522447093904833428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8426844225821689697}
   - component: {fileID: 7024904645397351334}
   - component: {fileID: 1265779128264345437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1915458340872041628}
   - component: {fileID: 689990190219891536}
   - component: {fileID: 3069435458697952301}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: deco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 5246141751686599794}
   - component: {fileID: 5962866267577195005}
   - component: {fileID: 4797558503399919063}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: feather2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 1871336335415962757}
   - component: {fileID: 5211118125981266564}
   - component: {fileID: 4270019806903461288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Box005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 3768429252039338166}
   - component: {fileID: 6654628579022407584}
   - component: {fileID: 6344511092400082972}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wing2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 8693622711060104027}
   - component: {fileID: 6347435353449422169}
   - component: {fileID: 7906708630621019433}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 5955207094165041225}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -741,9 +741,9 @@ GameObject:
   - component: {fileID: 6138296555605443114}
   - component: {fileID: 5955207092836017613}
   - component: {fileID: 5955207092836017612}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnforceWoodPecker
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -817,6 +817,7 @@ MonoBehaviour:
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
   maxBulletSpeed: 0
+  finAttack: 0
   gateNum: 0
   turretState: 0
 --- !u!1 &7599265264533502919
@@ -830,7 +831,7 @@ GameObject:
   - component: {fileID: 2321583240023909182}
   - component: {fileID: 4288913654048131241}
   - component: {fileID: 2010365838454708055}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3310717609419106595}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Dummy001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -951,7 +952,7 @@ GameObject:
   - component: {fileID: 8090497485467711741}
   - component: {fileID: 1988842985658993874}
   - component: {fileID: 3802259579195419413}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: beak
   m_TagString: Untagged
   m_Icon: {fileID: 0}

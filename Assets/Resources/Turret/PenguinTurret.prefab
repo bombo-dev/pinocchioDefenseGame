@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 3765278898203980510}
   m_Layer: 7
   m_Name: PenguinTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -453,11 +453,13 @@ MonoBehaviour:
   firePos: {fileID: 5199568613970742882}
   hitPos: {fileID: 5199568615606447900}
   dropPos: {fileID: 5199568614166319646}
-  reverse: 0
   animator: {fileID: 3765278898203980497}
   attackTargets: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
+  maxBulletSpeed: 0
+  finAttack: 0
+  gateNum: 
   turretState: 0
 --- !u!1 &5199568613970742882
 GameObject:
@@ -532,7 +534,7 @@ GameObject:
   - component: {fileID: 5199568615606447901}
   m_Layer: 7
   m_Name: hitPos
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
