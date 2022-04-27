@@ -110,7 +110,7 @@ public class Enemy : Actor
                 UpdateBattle();
                 break;
             case EnemyState.Dead:
-                OnDead();
+                UpdateDead();
                 break;
             
         }
@@ -245,13 +245,12 @@ public class Enemy : Actor
         if (currentHP <= 0)
         {
             enemyState = EnemyState.Dead;
+            animator.SetBool("isDead", true);
         }
     }
 
-    void OnDead()
-    {
-
-        animator.SetBool("isDead", true);
+    void UpdateDead()
+    {        
 
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.5f)
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
