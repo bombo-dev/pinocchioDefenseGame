@@ -1,20 +1,17 @@
 fileFormatVersion: 2
-guid: e4fdbd9326b0ab34aa9896b80792f686
+guid: 35ff5e372c587e444bf141194842e17c
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: HawkTurret_Idle
+    second: OwlTurret_Idle
   - first:
-      74: -6109660510266821429
-    second: HawkTurret_Attack1
+      74: 6791235157030960594
+    second: OwlTurret_Attack
   - first:
-      74: -1354804652589844236
-    second: HawkTurret_Attack2
-  - first:
-      74: 2178666076408015379
-    second: HawkTurret_Dead
+      74: -6072664643326446795
+    second: OwlTurret_Dead
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -45,10 +42,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: HawkTurret_Idle
+      name: OwlTurret_Idle
       takeName: Take 001
       internalID: 0
-      firstFrame: 10
+      firstFrame: 0
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
@@ -74,39 +71,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Attack1
+      name: OwlTurret_Attack
       takeName: Take 001
       internalID: 0
       firstFrame: 40
-      lastFrame: 70
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: HawkTurret_Attack2
-      takeName: Take 001
-      internalID: 0
-      firstFrame: 71
       lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
@@ -132,7 +100,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HawkTurret_Dead
+      name: OwlTurret_Dead
       takeName: Take 001
       internalID: 0
       firstFrame: 100
