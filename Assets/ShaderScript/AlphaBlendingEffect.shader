@@ -5,17 +5,22 @@ Shader "Custom/AlphaBlendingEffect"
         _Speed("Speed", float) = 1
 
         _MainTex("Albedo (RGB)", 2D) = "white" {}
+
+        _X0Y1("X0Y1", int) = 0
     }
         SubShader
         {
-            Tags { "RenderType" = "Transparent" }
+            Tags { "RenderType" = "Transparent" "Queue" = "Transparent"}
+            cull off
 
             CGPROGRAM
-            #pragma surface surf LambertBlinnphong
+            #pragma surface surf LambertBlinnphong alpha:fade
 
             sampler2D _MainTex;
 
             float _Speed;
+
+            int _X0Y1;
 
             struct Input
             {
@@ -25,10 +30,15 @@ Shader "Custom/AlphaBlendingEffect"
 
             void surf(Input IN, inout SurfaceOutput o)
             {
-                fixed4 c = tex2D(_MainTex, float2(IN.uv_MainTex.x, IN.uv_MainTex.y + _Time.y * _Speed));//UV y축으로 기본속도(_Time.y) 만큼 이동
-                o.Albedo = lerp(c.rgb, float4(0,0,0,0), c.a);
+                fixed4 c;
+                if(_X0Y1 == 0)
+                    c = tex2D(_MainTex, float2(IN.uv_MainTex.x + _Time.y * _Speed, IN.uv_MainTex.y));//UV x축으로 기본속도(_Time.y) 만큼 이동
+                else
+                    c = tex2D(_MainTex, float2(IN.uv_MainTex.x, IN.uv_MainTex.y + _Time.y * _Speed));//UV y축으로 기본속도(_Time.y) 만큼 이동
 
-                o.Alpha = c.a;
+                //o.Albedo = lerp(c.rgb, float4(0,0,0,0), c.a);
+                o.Emission = c.rgb;
+                o.Alpha = 1 - c.a;
             }
 
             float4 LightingLambertBlinnphong(SurfaceOutput s, float3 lightDir, float viewDir, float atten)
