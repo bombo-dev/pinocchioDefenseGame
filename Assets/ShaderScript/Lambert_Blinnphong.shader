@@ -7,6 +7,8 @@ Shader "Custom/Lambert_Blinnphong"
         _BumpMap("NormalMap", 2D) = "bump"{}
         _NormalPower("Normal Power", float) = 1.0
 
+         _Emission("Color (RGB)", Color) = (0,0,0,1)
+
         _SpecCol("Specular Color", Color) = (1,1,1,1)
         _SpecPower("Specular Power", Range(10,200)) = 100
     }
@@ -31,6 +33,13 @@ Shader "Custom/Lambert_Blinnphong"
             float2 uv_BumpMap;
         };
 
+        //스크립트로 수정할 프로퍼티(Instancing Buffer)
+        UNITY_INSTANCING_BUFFER_START(Props)
+
+            //Emission
+            UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
+
+        UNITY_INSTANCING_BUFFER_END(Props)
 
         void surf (Input IN, inout SurfaceOutput o)
         {
@@ -40,7 +49,7 @@ Shader "Custom/Lambert_Blinnphong"
             //노말 적용
             float3 n = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
             o.Normal = float3(n.x * _NormalPower, n.y * _NormalPower, n.z);
-
+            o.Emission = UNITY_ACCESS_INSTANCED_PROP(Props, _Emission);
             o.Alpha = c.a;
         }
 
