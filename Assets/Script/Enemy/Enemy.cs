@@ -55,8 +55,10 @@ public class Enemy : Actor
         Reset();
     }
 
-    public void Reset()
+    public override void Reset()
     {
+        base.Reset();
+
         //위치초기화
         transform.position = appearPos[gateNum];
 
@@ -70,8 +72,6 @@ public class Enemy : Actor
         //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
         dirVec = FindDirVec(currentTarget);
 
-        //타겟배열 초기화
-        attackTargets.Clear();
     }
 
 
@@ -237,22 +237,43 @@ public class Enemy : Actor
         }
     }
 
+    /// <summary>
+    /// 적의 HP 감소와 사망처리 : 하은비
+    /// </summary>
+    /// <param name="damage"></param>
     #endregion
+
+    #region Dead - HP 감소와 사망
+
     public override void DecreseHP(int damage)
     {
         base.DecreseHP(damage);
 
-        if (currentHP <= 0)
+        if (currentHP == 0)
         {
             enemyState = EnemyState.Dead;
-            animator.SetBool("isDead", true);
         }
     }
 
-    void UpdateDead()
-    {        
-
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.5f)
+    /// <summary>
+    /// 적의 Dead 애니메이션 지연 처리 : 하은비
+    /// </summary>
+    protected override void UpdateDead()
+    {
+        base.UpdateDead();
+        
+        // 딜레이가 끝났으면
+        if(isFinDelay == true)
+        {
+            // 에너미 비활성화
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+            // 재사용을 위해 초기화
+            isFinDelay = false;
+            animator.SetBool("isDead", false);
+            Reset();
+        }                   
     }
 }
+
+#endregion

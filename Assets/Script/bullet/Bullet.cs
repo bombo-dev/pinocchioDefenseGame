@@ -100,6 +100,7 @@ public class Bullet : MonoBehaviour
                 Enemy enemy = target.GetComponent<Enemy>();
 
                 Turret attacker = attackOwner.GetComponent<Turret>();
+                
                 enemy.DecreseHP(attacker.power);
             }
             else if(attackTarget.tag == "Turret")
@@ -107,13 +108,10 @@ public class Bullet : MonoBehaviour
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
+
                 turret.DecreseHP(attacker.power);
             }
                                                    
         }
-
-
     }
-
-
 }
