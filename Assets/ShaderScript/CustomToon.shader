@@ -1,4 +1,4 @@
-Shader "Custom/NightToon"
+Shader "Custom/CustomToon"
 {
     Properties
     {
