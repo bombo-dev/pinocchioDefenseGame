@@ -69,9 +69,19 @@ public class Actor : MonoBehaviour
 
     public bool finAttack;  // 공격이 끝났는지를 확인하는 플래그
 
+    [Header("Material")]  //적용된 Material
+    MaterialPropertyBlock mpb;
+
+    [SerializeField]
+    Renderer[] rendererArr;
+
+    bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
+
     // Start is called before the first frame update
     void Start()
     {
+        mpb = new MaterialPropertyBlock();
+
         Initialize();
         //attackOwner = this.gameObject;
     }
@@ -299,5 +309,67 @@ public class Actor : MonoBehaviour
             currentHP = 0;            
         }
 
+        //코루틴이 실행중이지 않은경우만 실행
+        if(!showWhiteFlash_coroutine_is_running)
+            StartCoroutine("ShowWhiteFlash");
+    }
+
+    /// <summary>
+    /// 피격효과 WhiteFlash -> shader의 Emission변수값 수정 : 김현진
+    /// </summary>
+    IEnumerator ShowWhiteFlash()
+    {
+        //코루틴 실행 플래그 갱신
+        showWhiteFlash_coroutine_is_running = true;
+
+        List<Renderer> rendererList = new List<Renderer>(); 
+        List<Vector4> emissionList = new List<Vector4>();
+
+        //쉐이더의 _Emission변수가 null이 아닌 rendererList구성
+        for (int i = 0; i < rendererArr.Length; i++)
+        {
+           // Debug.Log(rendererArr[i].sharedMaterial.shader.GetPropertyNameId);
+            if (rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" && rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_BlinnphongEmission" ||
+                rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_Blinnphong")
+                continue;
+            else
+            {
+                rendererList.Add(rendererArr[i]);
+                emissionList.Add(rendererArr[i].sharedMaterial.GetVector("_Emission"));
+            }
+        }
+
+        for (int i = 0; i < rendererList.Count; i++) 
+        {
+            mpb.SetVector("_Emission", new Vector4(1, 1, 1, 1));
+            rendererArr[i].SetPropertyBlock(mpb);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < rendererList.Count; i++)
+        {
+            mpb.SetVector("_Emission", emissionList[i]);
+            rendererArr[i].SetPropertyBlock(mpb);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < rendererList.Count; i++)
+        {
+            mpb.SetVector("_Emission", new Vector4(1, 1, 1, 1));
+            rendererArr[i].SetPropertyBlock(mpb);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        for (int i = 0; i < rendererList.Count; i++)
+        {
+            mpb.SetVector("_Emission", emissionList[i]);
+            rendererArr[i].SetPropertyBlock(mpb);
+        }
+
+        //코루틴 종료 플래그 갱신
+        showWhiteFlash_coroutine_is_running = false;
     }
 }

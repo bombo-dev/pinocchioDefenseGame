@@ -20,7 +20,6 @@ Shader "Custom/CustomToon"
 
         [Header(Emission)]
         _Emission("Color (RGB)", Color) = (0,0,0,1)
-
     }
         SubShader
         {
@@ -44,9 +43,6 @@ Shader "Custom/CustomToon"
         float _SpecularSize;
         float3 _SpecularColor;
 
-        //Emission
-        float4 _Emission;
-
         struct Input
         {
             float2 uv_MainTex;
@@ -62,16 +58,27 @@ Shader "Custom/CustomToon"
             fixed3 Normal;
         };
 
+        //스크립트로 수정할 프로퍼티(Instancing Buffer)
+        UNITY_INSTANCING_BUFFER_START(Props)
+
+            //Emission
+            UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
+
+        UNITY_INSTANCING_BUFFER_END(Props)
+
 
         void surf(Input IN, inout ToonSurfaceOutput o)
         {
             float4 m = tex2D(_MainTex, IN.uv_MainTex * _Tiling);
             float3 n = UnpackNormal(tex2D(_BumpTex, IN.uv_BumpTex * _Tiling));
             m *= _lampColor;
+
             o.Normal = float3(n.x * _NormalPower, n.y * _NormalPower, n.z);
             o.Albedo = m.rgb;
             o.Alpha = m.a;
-            o.Emission = _Emission;
+            o.Emission = UNITY_ACCESS_INSTANCED_PROP(Props, _Emission);
+
+           
         }
 
         float4 LightingToon(ToonSurfaceOutput s, float3 lightDir, float3 viewDir, float shadowAttenuation)

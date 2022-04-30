@@ -31,6 +31,7 @@ Shader "Custom/AlphaBlendingEffect"
             void surf(Input IN, inout SurfaceOutput o)
             {
                 fixed4 c;
+
                 if(_X0Y1 == 0)
                     c = tex2D(_MainTex, float2(IN.uv_MainTex.x + _Time.y * _Speed, IN.uv_MainTex.y));//UV x축으로 기본속도(_Time.y) 만큼 이동
                 else
