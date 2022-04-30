@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 3153756296741814804}
   m_Layer: 7
   m_Name: KingTurret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 30
   currentHP: 0
-  power: 0
+  power: 10
   attackSpeed: 5
   range: 15000
   regeneration: 0
@@ -125,6 +125,8 @@ MonoBehaviour:
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
   maxBulletSpeed: 0
+  finAttack: 0
+  isFinDelay: 0
   gateNum: 0
   turretState: 0
 --- !u!1001 &3153756295745600511

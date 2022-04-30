@@ -16,6 +16,8 @@ public class Turret : Actor
 
     [SerializeField]
     TurretState turretState = TurretState.Idle;
+
+
     private void Start()
     {
         InitializeTurret();
@@ -34,14 +36,14 @@ public class Turret : Actor
                 UpdateBattle();
                 break;
             case TurretState.Dead:
-                OnDead();
+                UpdateDead();
                 break;
-            
+
         }
     }
 
     /// <summary>
-    /// 터렛 초기화
+    /// 터렛 초기화 : 하은비
     /// </summary>
     void InitializeTurret()
     {
@@ -51,29 +53,30 @@ public class Turret : Actor
         ray.origin = this.transform.position;
         ray.direction = -this.transform.up;
 
-        Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, 3);
+        // Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, 3);
 
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray.origin, ray.direction, out hitInfo ))
+
+        if (Physics.Raycast(ray.origin, ray.direction, out hitInfo))
         {
             gateNum = hitInfo.transform.tag;
             //Debug.Log(gateNum);
             Transform gate = GameObject.Find(gateNum).transform;
             Vector3 direction = (transform.position - gate.position).normalized;
             transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }       
+        }
     }
 
 
     /// <summary>
-    /// Enemy를 거리순으로 감지
+    /// Enemy를 거리순으로 감지 : 하은비
     /// </summary>
     /// <param name="target"></param>
     protected override void DetectTarget(List<GameObject> target)
     {
         base.DetectTarget(target);
     }
-    
+
     /// <summary>
     /// 감지한 Enemy 공격을 위한 상태 변경 : 하은비
     /// </summary>
@@ -103,23 +106,48 @@ public class Turret : Actor
         attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
 
-
+    /// <summary>
+    /// 터렛 HP 감소와 사망처리 : 하은비
+    /// </summary>
+    /// <param name="damage"></param>
     public override void DecreseHP(int damage)
     {
         base.DecreseHP(damage);
-
-        if(currentHP <= 0)
+        
+        if (currentHP == 0)
         {
             turretState = TurretState.Dead;
         }
     }
-    void OnDead()
+
+    /// <summary>
+    /// 터렛의 Dead 애니메이션 지연 처리 : 하은비
+    /// </summary>
+    protected override void UpdateDead()
     {
+        base.UpdateDead();
 
-        animator.SetBool("isDead", true);
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dead") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.5f)
+        // 딜레이가 끝났으면
+        if (isFinDelay == true)
+        {
+            // 에너미 비활성화
             gameObject.SetActive(false);
+
+            // 재사용을 위해 초기화
+            isFinDelay = false;
+            animator.SetBool("isDead", false);
+            Reset();
+        }
     }
 
+    /// <summary>
+    /// 터렛의 정보 리셋
+    /// </summary>
+    public override void Reset()
+    {
+        base.Reset();
+
+        //상태초기화
+        turretState = TurretState.Idle;       
+    }
 }

@@ -69,6 +69,12 @@ public class Actor : MonoBehaviour
 
     public bool finAttack;  // 공격이 끝났는지를 확인하는 플래그
 
+    public bool isFinDelay = false;    
+
+    float delayTime = 1.5f;   // 죽는 애니메이션 재생 후 비활성화를 위한 지연시간
+
+    float flowTime = 0; // 지연시간 측정을 위한 타이머
+
     // Start is called before the first frame update
     void Start()
     {
@@ -282,7 +288,7 @@ public class Actor : MonoBehaviour
 
 
     /// <summary>
-    /// 공격을 당한 타겟의 HP를 감소
+    /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
     /// <param name="attackTarget"></param>
     public virtual void DecreseHP(int damage)
@@ -295,9 +301,40 @@ public class Actor : MonoBehaviour
         if (currentHP > damage)
             currentHP -= damage;
         else
-        {
-            currentHP = 0;            
+        {  
+            currentHP = 0;
+            animator.SetBool("isDead", true);
         }
 
+    }
+
+    /// <summary>
+    /// 유닛 비활성화 처리를 위한 Dead 상태 업데이트 : 하은비
+    /// </summary>
+    protected virtual void UpdateDead()
+    {
+        // 딜레이가 끝나지 않았으면 지연 처리
+        if (isFinDelay == false)
+        {            
+            flowTime += Time.deltaTime;
+
+            // 딜레이가 끝났으면 
+            if (flowTime >= delayTime)
+            {
+                isFinDelay = true;
+
+                // 타이머 초기화
+                flowTime = 0;
+            }
+        }        
+    }
+    
+    /// <summary>
+    /// 유닛 정보들 리셋
+    /// </summary>
+    public virtual void Reset()
+    {
+        //타겟배열 초기화
+        attackTargets.Clear();
     }
 }
