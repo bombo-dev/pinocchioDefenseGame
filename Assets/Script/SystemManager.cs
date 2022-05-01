@@ -76,6 +76,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    ShaderController shaderController;
+    public ShaderController ShaderController
+    {
+        get
+        {
+            return shaderController;
+        }
+    }
+
     private void Awake()
     {
         //¿Ø¿œ«— instance
