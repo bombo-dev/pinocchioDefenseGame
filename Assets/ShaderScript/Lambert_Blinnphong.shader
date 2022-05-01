@@ -7,7 +7,7 @@ Shader "Custom/Lambert_Blinnphong"
         _BumpMap("NormalMap", 2D) = "bump"{}
         _NormalPower("Normal Power", float) = 1.0
 
-         _Emission("Color (RGB)", Color) = (0,0,0,1)
+         _Emission("Emission (RGB)", Color) = (0,0,0,1)
 
         _SpecCol("Specular Color", Color) = (1,1,1,1)
         _SpecPower("Specular Power", Range(10,200)) = 100
