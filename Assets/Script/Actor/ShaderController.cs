@@ -58,6 +58,10 @@ public class ShaderController : MonoBehaviour
     /// <param name="emissionCaches">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
     public void InitializeShaderCaches(Renderer[] rendererArr, List<Renderer> rendererCaches , List<Vector4> emissionCaches)
     {
+        //예외처리
+        if (rendererArr.Length <= 0 || (rendererCaches.Count != emissionCaches.Count))
+            return;
+
         //수정용 쉐이더 정보 캐싱
         for (int i = 0; i < rendererArr.Length; i++)
         {
@@ -98,7 +102,7 @@ public class ShaderController : MonoBehaviour
     public void OffWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, int emission_propertyNameID)
     {
         //예외처리
-        if (rendererCaches.Count <= 0)
+        if (rendererCaches.Count <= 0 || (rendererCaches.Count != emissionCaches.Count))
             return;
 
         for (int i = 0; i < rendererCaches.Count; i++)
