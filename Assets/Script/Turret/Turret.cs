@@ -47,6 +47,8 @@ public class Turret : Actor
     /// </summary>
     void InitializeTurret()
     {
+        base.Initialize();
+
         currentHP = maxHP;
 
         Ray ray = new Ray();

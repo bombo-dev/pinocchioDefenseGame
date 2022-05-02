@@ -91,16 +91,7 @@ public class Actor : MonoBehaviour
     void Start()
     {
         Initialize();
-        //attackOwner = this.gameObject;
-
-        rendererCaches = new List<Renderer>();
-        emissionCaches = new List<Vector4>();
-        //변경할 쉐이더캐시 초기화
-        if (rendererArr.Length >= 0)
-        {     
-            SystemManager.Instance.ShaderController.InitializeShaderCaches(rendererArr, rendererCaches, emissionCaches);
-        }
-       
+        //attackOwner = this.gameObject;  
     }
 
     // Update is called once per frame
@@ -116,6 +107,14 @@ public class Actor : MonoBehaviour
     {
         //HP초기화
         currentHP = maxHP;
+
+        rendererCaches = new List<Renderer>();
+        emissionCaches = new List<Vector4>();
+        //변경할 쉐이더캐시 초기화
+        if (rendererArr.Length > 0)
+        {
+            SystemManager.Instance.ShaderController.InitializeShaderCaches(rendererArr, rendererCaches, emissionCaches);
+        }
     }
 
     /// <summary>
