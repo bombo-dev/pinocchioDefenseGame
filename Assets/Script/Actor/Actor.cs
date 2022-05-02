@@ -79,7 +79,10 @@ public class Actor : MonoBehaviour
     [SerializeField]
     Renderer[] rendererArr;
 
+    [SerializeField]
     List<Renderer> rendererCaches;
+
+    [SerializeField]
     List<Vector4> emissionCaches;
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
