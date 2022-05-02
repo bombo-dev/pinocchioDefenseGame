@@ -79,11 +79,25 @@ public class Actor : MonoBehaviour
     [SerializeField]
     Renderer[] rendererArr;
 
+    List<Renderer> rendererCaches;
+    List<Vector4> emissionCaches;
+
+    public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
+
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
         //attackOwner = this.gameObject;
+
+        rendererCaches = new List<Renderer>();
+        emissionCaches = new List<Vector4>();
+        //변경할 쉐이더캐시 초기화
+        if (rendererArr.Length >= 0)
+        {     
+            SystemManager.Instance.ShaderController.InitializeShaderCaches(rendererArr, rendererCaches, emissionCaches);
+        }
+       
     }
 
     // Update is called once per frame
@@ -298,9 +312,7 @@ public class Actor : MonoBehaviour
     public virtual void DecreseHP(int damage)
     {
         if (currentHP <= 0)
-        {
             return;
-        }
 
         if (currentHP > damage)
             currentHP -= damage;
@@ -310,9 +322,22 @@ public class Actor : MonoBehaviour
             animator.SetBool("isDead", true);
         }
 
-        //코루틴이 실행중이지 않은경우만 실행
-        if (!(SystemManager.Instance.ShaderController.showWhiteFlash_coroutine_is_running))
-            StartCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererArr));
+        //WhiteFlash 피격효과
+
+        //코루틴이 실행중이면 종료한 뒤 다시실행
+
+        if (rendererArr.Length <= 0)
+            return;
+
+        if (showWhiteFlash_coroutine_is_running)
+        {
+            showWhiteFlash_coroutine_is_running = false;
+            StopCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));
+        }
+
+        StartCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));
+
+
     }
 
    

@@ -7,7 +7,7 @@ public class ShaderController : MonoBehaviour
     //개별 오브젝트 material 수정을 위한 프로퍼티블록
     MaterialPropertyBlock mpb;
 
-    public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
+    public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279
 
     void Start()
     {
@@ -17,62 +17,64 @@ public class ShaderController : MonoBehaviour
     /// <summary>
     /// 피격효과 WhiteFlash -> shader의 Emission변수값 수정 : 김현진
     /// </summary>
-    public IEnumerator ShowWhiteFlash(Renderer[] rendererArr)
+    /// <param name="rendererArr">변경할 쉐이더 정보들 가지고있는 renderer배열</param>
+    /// <param name="actor">코루틴 호출한 Actor객체</param>
+    /// <returns></returns>
+    public IEnumerator ShowWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, Actor actor)
     {
         //코루틴 실행 플래그 갱신
-        showWhiteFlash_coroutine_is_running = true;
+        actor.showWhiteFlash_coroutine_is_running = true;
 
-        // _Emission -> PropertyNameID = 279
-        int emission_propertyNameID = 279;
+        //예외처리
+        if (rendererCaches.Count <= 0 || (rendererCaches.Count != emissionCaches.Count))
+        {
+            actor.showWhiteFlash_coroutine_is_running = false;
+            yield break;
+        }
 
-        List<Renderer> rendererList = new List<Renderer>();
-        List<Vector4> emissionList = new List<Vector4>();
+        OnWhiteFlash(rendererCaches, emission_propertyNameID);
 
-        //쉐이더의 _Emission변수가 null이 아닌 rendererList구성
+        yield return new WaitForSeconds(0.1f);
+
+        OffWhiteFlash(rendererCaches, emissionCaches, emission_propertyNameID);
+
+        yield return new WaitForSeconds(0.1f);
+
+        OnWhiteFlash(rendererCaches, emission_propertyNameID);
+
+        yield return new WaitForSeconds(0.1f);
+
+        OffWhiteFlash(rendererCaches, emissionCaches, emission_propertyNameID);
+
+        //코루틴 종료 플래그 갱신
+        actor.showWhiteFlash_coroutine_is_running = false;
+    }
+
+
+    public void InitializeShaderCaches(Renderer[] rendererArr, List<Renderer> rendererCaches , List<Vector4> emissionCaches)
+    {
+        //수정용 쉐이더 정보 캐싱
         for (int i = 0; i < rendererArr.Length; i++)
         {
             if (!(rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" && rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_BlinnphongEmission" &&
                 rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_Blinnphong"))
             {
-                rendererList.Add(rendererArr[i]);
-                emissionList.Add(rendererArr[i].sharedMaterial.GetVector(emission_propertyNameID)); // _Emission -> PropertyNameID = 279
+                rendererCaches.Add(rendererArr[i]);
+                emissionCaches.Add(rendererArr[i].sharedMaterial.GetVector(emission_propertyNameID));
             }
         }
-
-        //예외처리
-        if (rendererList.Count <= 0)
-        {
-            yield break;
-        }
-
-        OnWhiteFlash(rendererArr, rendererList, emission_propertyNameID);
-
-        yield return new WaitForSeconds(0.1f);
-
-        OffWhiteFlash(rendererArr, rendererList, emissionList, emission_propertyNameID);
-
-        yield return new WaitForSeconds(0.1f);
-
-        OnWhiteFlash(rendererArr, rendererList, emission_propertyNameID);
-
-        yield return new WaitForSeconds(0.1f);
-
-        OffWhiteFlash(rendererArr, rendererList, emissionList, emission_propertyNameID);
-
-        //코루틴 종료 플래그 갱신
-        showWhiteFlash_coroutine_is_running = false;
     }
 
     /// <summary>
     /// 쉐이더를 통해 피격 효과 보여주기 : 김현진
     /// </summary>
     /// <param name="rendererList">피격효과를 보여줄 쉐이더 정보를 가지고 있는 Renderer 리스트</param>
-    void OnWhiteFlash(Renderer[] rendererArr, List<Renderer> rendererList, int emission_propertyNameID)
+    void OnWhiteFlash(List<Renderer> rendererCaches, int emission_propertyNameID)
     {
         mpb.SetVector(emission_propertyNameID, new Vector4(1, 1, 1, 1));
-        for (int i = 0; i < rendererList.Count; i++)
+        for (int i = 0; i < rendererCaches.Count; i++)
         {
-            rendererArr[i].SetPropertyBlock(mpb);
+            rendererCaches[i].SetPropertyBlock(mpb);
         }
 
     }
@@ -82,12 +84,12 @@ public class ShaderController : MonoBehaviour
     /// </summary>
     /// <param name="rendererList">프로퍼티 값을 원래대로 되돌려줄 쉐이더 정보를 가지고있는 Renderer 리스트</param>
     /// <param name="emissionList">원래대로 되돌려줄 프로퍼티 값을 가지고있는 리스트</param>
-    void OffWhiteFlash(Renderer[] rendererArr, List<Renderer> rendererList, List<Vector4> emissionList, int emission_propertyNameID)
+    public void OffWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, int emission_propertyNameID)
     {
-        for (int i = 0; i < rendererList.Count; i++)
+        for (int i = 0; i < rendererCaches.Count; i++)
         {
-            mpb.SetVector(emission_propertyNameID, emissionList[i]);
-            rendererArr[i].SetPropertyBlock(mpb);
+            mpb.SetVector(emission_propertyNameID, emissionCaches[i]);
+            rendererCaches[i].SetPropertyBlock(mpb);
         }
 
     }
