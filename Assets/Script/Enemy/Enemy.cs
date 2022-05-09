@@ -133,7 +133,8 @@ public class Enemy : Actor
         if (Vector3.Distance(transform.position, currentTarget.transform.position) > 0.5f)
         {
             float rotY = Mathf.Round(transform.localEulerAngles.y);
-
+            if(enemyIndex == 0)
+                Debug.Log(Vector3.Distance(transform.position, currentTarget.transform.position));
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
             if (rotY == 360f)
                 rotY = 0f;
