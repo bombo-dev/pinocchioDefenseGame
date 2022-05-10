@@ -20,11 +20,58 @@ Shader "Custom/CustomToon"
 
         [Header(Emission)]
         _Emission("Color (RGB)", Color) = (0,0,0,1)
+
+        [Header(doublePassOutline)]
+        _doublePassOutline("DoublePassOutline", int) = 0
+        _OutLineColor("OutLineColor", Color) = (0,0,0,1)
+        _OutLinePower("OutLine Power", float) = 0.02
     }
         SubShader
         {
-            Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "Opaque" }
 
+        //1st pass
+        // 
+        //스크립트로 수정할 프로퍼티(Instancing Buffer)
+        //UNITY_INSTANCING_BUFFER_START(Props)
+
+            //Emission
+            //UNITY_DEFINE_INSTANCED_PROP(int, _doublePassOutline)
+
+        //UNITY_INSTANCING_BUFFER_END(Props)
+        cull front
+        CGPROGRAM
+        #pragma surface surf Nolight vertex:vert noshadow noambient
+
+        float3 _OutLineColor;
+        float _OutLinePower;
+
+        void vert(inout appdata_full v) {
+            v.vertex.xyz = v.vertex.xyz + v.normal.xyz * _OutLinePower;
+        }
+
+        struct Input
+        {
+            float4 color:COLOR;
+        };
+
+
+        void surf(Input IN, inout SurfaceOutput o)
+        {
+
+        }
+
+        float4 LightingNolight(SurfaceOutput s, float3 lightDir, float atten, float shadowAttenuation) {
+            float4 Final;
+            Final.rgb = _OutLineColor.rgb;
+            Final.a = 1;
+            return Final;
+        }
+
+        ENDCG
+
+        //2nd pass
+        cull back
         CGPROGRAM
         #pragma surface surf Toon fullforwardshadows
 
@@ -65,8 +112,6 @@ Shader "Custom/CustomToon"
             UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
 
         UNITY_INSTANCING_BUFFER_END(Props)
-
-
         void surf(Input IN, inout ToonSurfaceOutput o)
         {
             float4 m = tex2D(_MainTex, IN.uv_MainTex * _Tiling);

@@ -57,6 +57,7 @@ public class Turret : Actor
 
         // Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, 3);
 
+        /*
         RaycastHit hitInfo;
 
         if (Physics.Raycast(ray.origin, ray.direction, out hitInfo))
@@ -66,7 +67,7 @@ public class Turret : Actor
             Transform gate = GameObject.Find(gateNum).transform;
             Vector3 direction = (transform.position - gate.position).normalized;
             transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }
+        }*/
     }
 
 
