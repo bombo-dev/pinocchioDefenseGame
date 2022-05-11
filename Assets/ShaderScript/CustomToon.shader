@@ -22,56 +22,14 @@ Shader "Custom/CustomToon"
         _Emission("Color (RGB)", Color) = (0,0,0,1)
 
         [Header(doublePassOutline)]
-        _doublePassOutline("DoublePassOutline", int) = 0
+        _Outline("_Outline", int) = 0
         _OutLineColor("OutLineColor", Color) = (0,0,0,1)
-        _OutLinePower("OutLine Power", float) = 0.02
+        _OutLinePower("OutLine Power", float) = 0.3
     }
         SubShader
         {
         Tags { "RenderType" = "Opaque" }
 
-        //1st pass
-        // 
-        //스크립트로 수정할 프로퍼티(Instancing Buffer)
-        //UNITY_INSTANCING_BUFFER_START(Props)
-
-            //Emission
-            //UNITY_DEFINE_INSTANCED_PROP(int, _doublePassOutline)
-
-        //UNITY_INSTANCING_BUFFER_END(Props)
-        cull front
-        CGPROGRAM
-        #pragma surface surf Nolight vertex:vert noshadow noambient
-
-        float3 _OutLineColor;
-        float _OutLinePower;
-
-        void vert(inout appdata_full v) {
-            v.vertex.xyz = v.vertex.xyz + v.normal.xyz * _OutLinePower;
-        }
-
-        struct Input
-        {
-            float4 color:COLOR;
-        };
-
-
-        void surf(Input IN, inout SurfaceOutput o)
-        {
-
-        }
-
-        float4 LightingNolight(SurfaceOutput s, float3 lightDir, float atten, float shadowAttenuation) {
-            float4 Final;
-            Final.rgb = _OutLineColor.rgb;
-            Final.a = 1;
-            return Final;
-        }
-
-        ENDCG
-
-        //2nd pass
-        cull back
         CGPROGRAM
         #pragma surface surf Toon fullforwardshadows
 
@@ -89,6 +47,9 @@ Shader "Custom/CustomToon"
         //Specular
         float _SpecularSize;
         float3 _SpecularColor;
+
+        //OutLine
+        float _OutLinePower;
 
         struct Input
         {
@@ -110,6 +71,8 @@ Shader "Custom/CustomToon"
 
             //Emission
             UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
+            //Emission
+            UNITY_DEFINE_INSTANCED_PROP(int, _Outline)
 
         UNITY_INSTANCING_BUFFER_END(Props)
         void surf(Input IN, inout ToonSurfaceOutput o)
@@ -142,6 +105,23 @@ Shader "Custom/CustomToon"
             lightIntensity = (lightIntensity / _StepAmount) + _StepOffset;
             lightIntensity = saturate(lightIntensity);//0~1로 범위조정
 
+            //외곽선 값 (rim = -10) 을 곱해줄때 0이 나오는 것을 방지
+            if (lightIntensity <= 0)
+            {
+                lightIntensity = 0.1f;
+            }
+
+            //Fresnel 외곽선
+            float rim = abs(dot(s.Normal, viewDir));
+            if (rim > _OutLinePower)
+            {
+                rim = 1;
+            }
+            else
+            {
+                rim = -10;//최종적으로 ambient color가 더해져 밝아지기 때문에 음수값을 준다
+            }
+
 
             //Shadow
             #ifdef USING_DIRECTIONAL_LIGHT
@@ -172,7 +152,7 @@ Shader "Custom/CustomToon"
             SpecularLight = NdotfH * _SpecularColor * _LightColor0;
 
             float4 final;
-            final.rgb = (s.Albedo.rgb * lightIntensity * _LightColor0.rgb) + SpecularLight;
+            final.rgb = (s.Albedo.rgb * lightIntensity * _LightColor0.rgb * rim) + SpecularLight;
             final.a = s.Alpha;
             return final;
         }

@@ -83,6 +83,16 @@ Shader "Custom/ToonOutLine"
             // floor -> 내림한 정수를 리턴한다, 계단형 그래프, 툰쉐이더의 층 생성
             float lightIntensity = floor(DiffuseLight);
 
+            //StepAmount로 1이하의 유효한 라이팅 값들을 생성, _StepAmount클수록 유효한값 증가
+            lightIntensity = (lightIntensity / _StepAmount) + _StepOffset;
+            lightIntensity = saturate(lightIntensity);//0~1로 범위조정
+
+            //외곽선 값 (rim = -10) 을 곱해줄때 0이 나오는 것을 방지
+            if (lightIntensity <= 0)
+            {
+                lightIntensity = 0.1f;
+            }
+
             //Fresnel 외곽선
             float rim = abs(dot(s.Normal, viewDir));
             if (rim > _OutLinePower)
@@ -91,14 +101,8 @@ Shader "Custom/ToonOutLine"
             }
             else
             {
-                rim = -1;//최종적으로 ambient color가 더해져 밝아지기 때문에 음수값을 준다
+                rim = -10;//최종적으로 ambient color가 더해져 밝아지기 때문에 음수값을 준다
             }
-
-
-            //StepAmount로 1이하의 유효한 라이팅 값들을 생성, _StepAmount클수록 유효한값 증가
-            lightIntensity = (lightIntensity / _StepAmount) + _StepOffset;
-            lightIntensity = saturate(lightIntensity);//0~1로 범위조정
-
 
             //Shadow
             #ifdef USING_DIRECTIONAL_LIGHT
@@ -115,6 +119,7 @@ Shader "Custom/ToonOutLine"
 
 
             //Specular
+   
             float3 SpecularLight;
             float3 fH = normalize(lightDir + viewDir);
             float NdotfH = pow(saturate(dot(s.Normal, fH)), _SpecularSize);
@@ -129,7 +134,8 @@ Shader "Custom/ToonOutLine"
             SpecularLight = NdotfH * _SpecularColor * _LightColor0;
 
             float4 final;
-            final.rgb = (s.Albedo.rgb * lightIntensity * _LightColor0.rgb * rim) + SpecularLight ;
+            //final.rgb = (s.Albedo.rgb * lightIntensity * _LightColor0.rgb * rim) + SpecularLight ;
+            final.rgb = (s.Albedo.rgb * lightIntensity * _LightColor0.rgb )*rim;
             final.a = s.Alpha;
             return final;
         }
