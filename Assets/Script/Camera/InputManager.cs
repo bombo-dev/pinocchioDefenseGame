@@ -7,11 +7,12 @@ public class InputManager : MonoBehaviour
     //현재 선택된 오브젝트
     [SerializeField]
     GameObject currenstSelectObject;
+    [SerializeField]
+    List<Renderer> rendererList;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -20,6 +21,9 @@ public class InputManager : MonoBehaviour
         TouchObject();
     }
 
+    /// <summary>
+    /// 터치 혹은 마우스 클릭을 이용해 오브젝트 선택
+    /// </summary>
     void TouchObject()
     {
         if (Input.GetMouseButtonDown(0))
@@ -35,11 +39,10 @@ public class InputManager : MonoBehaviour
                 //오브젝트 선택
                 currenstSelectObject = hit.transform.parent.gameObject;
 
-                List<Renderer> rendererList = new List<Renderer>();
+                rendererList.Clear();
                 rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
                 SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList,2);
 
-                Debug.Log(hit.transform.parent.gameObject.name);
             }
 
             
@@ -51,9 +54,8 @@ public class InputManager : MonoBehaviour
             if (!currenstSelectObject)
                 return;
 
-            List<Renderer> rendererList = new List<Renderer>();
-            rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
             SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
+            rendererList.Clear();
 
             //오브젝트 선택 해제
             currenstSelectObject = null;
