@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: asd 1
-  m_Shader: {fileID: 4800000, guid: fc124ed7dd112a74190969fb7bb13b39, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7e43790c2c916d34189a4bb0a3651fe5, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 50, y: 50}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 77b4f29c1e778e940b5943276464c02a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6d504b2f0a547084d8c5f87a86b1dfc9, type: 3}
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -72,23 +72,27 @@ Material:
     - _Mode: 0
     - _NormalPower: 1.87
     - _OcclusionStrength: 1
+    - _OutLineOption: 0
     - _OutLinePower: 0.3
+    - _Outline: 0
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecPower: 200
     - _SpecularHighlights: 1
     - _SpecularSize: 30
     - _SrcBlend: 1
-    - _Step: 0.48
-    - _StepAmount: 2
-    - _StepOffset: 0
+    - _Step: 0.27
+    - _StepAmount: 4
+    - _StepOffset: 0.38
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DiffuseCol: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutLineColor: {r: 1, g: 0.5851397, b: 0, a: 1}
     - _SpecCol: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _lampColor: {r: 1, g: 1, b: 1, a: 1}
