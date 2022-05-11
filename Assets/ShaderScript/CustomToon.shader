@@ -72,7 +72,7 @@ Shader "Custom/CustomToon"
 
             //Emission
             UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
-            //Emission
+            //OutLineOption
             UNITY_DEFINE_INSTANCED_PROP(int, _OutLineOption)
 
         UNITY_INSTANCING_BUFFER_END(Props)

@@ -11,6 +11,11 @@ Shader "Custom/Lambert_Blinnphong"
 
         _SpecCol("Specular Color", Color) = (1,1,1,1)
         _SpecPower("Specular Power", Range(10,200)) = 100
+
+        [Header(doublePassOutline)]
+        _OutLineOption("OutLineOption", int) = 0 //0. NoOutLine       1.Black      2.Color 
+        _OutLineColor("OutLineColor", Color) = (0,0,0,1)
+        _OutLinePower("OutLine Power", float) = 0.3
     }
     SubShader
     {
@@ -27,6 +32,10 @@ Shader "Custom/Lambert_Blinnphong"
         float _NormalPower;
         float _SpecPower;
 
+        //OutLine
+        float _OutLinePower;
+        float4 _OutLineColor;
+
         struct Input
         {
             float2 uv_MainTex;
@@ -38,24 +47,27 @@ Shader "Custom/Lambert_Blinnphong"
 
             //Emission
             UNITY_DEFINE_INSTANCED_PROP(fixed4, _Emission)
+            //OutLineOption
+            UNITY_DEFINE_INSTANCED_PROP(int, _OutLineOption)
 
         UNITY_INSTANCING_BUFFER_END(Props)
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-            o.Albedo = c.rgb;
-           
-            //노말 적용
+            float4 m = tex2D (_MainTex, IN.uv_MainTex);
             float3 n = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
+
             o.Normal = float3(n.x * _NormalPower, n.y * _NormalPower, n.z);
+            o.Albedo = m.rgb;
+            o.Alpha = m.a;
             o.Emission = UNITY_ACCESS_INSTANCED_PROP(Props, _Emission);
-            o.Alpha = c.a;
+
         }
 
-        float4 LightingLambertBlinnphong(SurfaceOutput s, float3 lightDir, float viewDir, float atten)
+        float4 LightingLambertBlinnphong(SurfaceOutput s, float3 lightDir, float3 viewDir, float atten)
         {
             //Diffuse구현, Lambert공식사용
+            
             float3 Diffuse;
             float ndotl = saturate(dot(s.Normal, lightDir));//0~1범위에서 벗어나는 결과값 조정
             Diffuse = ndotl * s.Albedo * _LightColor0.rgb * atten * _DiffuseCol.rgb;
@@ -68,9 +80,30 @@ Shader "Custom/Lambert_Blinnphong"
             Specular = spec * _SpecCol.rgb;//Specular 색
 
             float4 final;//최종적으로 return할 값
-            final.rgb = Diffuse.rgb + Specular.rgb ;
+
+            //Fresnel 외곽선
+            
+            float rim = abs(dot(s.Normal, viewDir));
+
+
+            if (rim > _OutLinePower || UNITY_ACCESS_INSTANCED_PROP(Props, _OutLineOption) == 0)
+            {
+                final.rgb = Diffuse.rgb + Specular.rgb;
+            }
+            else
+            {
+                if (UNITY_ACCESS_INSTANCED_PROP(Props, _OutLineOption) == 1)
+                {
+                    final.rgb = -1;
+                }
+                else if (UNITY_ACCESS_INSTANCED_PROP(Props, _OutLineOption) == 2)
+                {
+                    final.rgb = _OutLineColor;
+                }
+            }
             final.a = s.Alpha;
             return final;
+
         }
         ENDCG
     }
