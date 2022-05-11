@@ -5,17 +5,19 @@ using UnityEngine;
 public class ShaderController : MonoBehaviour
 {
     //개별 오브젝트 material 수정을 위한 프로퍼티블록
-    MaterialPropertyBlock mpb;
+    MaterialPropertyBlock mpb_emission;
+    MaterialPropertyBlock mpb_outLineOption;
 
     public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279
-    public int outLineOption = 423; // _OutLineOption -> PropertyNameID = 423
+    public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423
 
     //Color
     Vector4 white = new Vector4(1, 1, 1, 1);
 
     void Start()
     {
-        mpb = new MaterialPropertyBlock();
+        mpb_emission = new MaterialPropertyBlock();
+        mpb_outLineOption = new MaterialPropertyBlock();
     }
 
     /// <summary>
@@ -83,17 +85,16 @@ public class ShaderController : MonoBehaviour
     /// 쉐이더를 통해 피격 효과 보여주기 : 김현진
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
-    /// <param name="emission_propertyNameID">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
     void OnWhiteFlash(List<Renderer> rendererCaches)
     {
         //예외처리
         if (rendererCaches.Count <= 0)
             return;
 
-        mpb.SetVector(emission_propertyNameID, white);
+        mpb_emission.SetVector(emission_propertyNameID, white);
         for (int i = 0; i < rendererCaches.Count; i++)
         {
-            rendererCaches[i].SetPropertyBlock(mpb);
+            rendererCaches[i].SetPropertyBlock(mpb_emission);
         }
 
     }
@@ -111,14 +112,27 @@ public class ShaderController : MonoBehaviour
 
         for (int i = 0; i < rendererCaches.Count; i++)
         {
-            mpb.SetVector(emission_propertyNameID, emissionCaches[i]);
-            rendererCaches[i].SetPropertyBlock(mpb);
+            mpb_emission.SetVector(emission_propertyNameID, emissionCaches[i]);
+            rendererCaches[i].SetPropertyBlock(mpb_emission);
         }
 
     }
 
-    public void OnOutLine()
+    /// <summary>
+    /// 외곽선 옵션 변경
+    /// </summary>
+    /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
+    /// <param name="outLineOption">outLineOption - 0:없음 1:black 2:color</param>
+    public void ChangeOutLineOption(List<Renderer> rendererCaches,int outLineOption)
     {
-        
+        //예외처리
+        if (rendererCaches.Count <= 0)
+            return;
+
+        mpb_outLineOption.SetInt(outLineOption_propertyNameID, outLineOption);
+        for (int i = 0; i < rendererCaches.Count; i++)
+        {
+            rendererCaches[i].SetPropertyBlock(mpb_outLineOption);
+        }
     }
 }

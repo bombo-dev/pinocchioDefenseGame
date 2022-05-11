@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    //현재 선택된 오브젝트
+    [SerializeField]
+    GameObject currenstSelectObject;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +32,32 @@ public class InputManager : MonoBehaviour
 
             if (hit.collider != null)
             {
+                //오브젝트 선택
+                currenstSelectObject = hit.transform.parent.gameObject;
+
+                List<Renderer> rendererList = new List<Renderer>();
+                rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
+                SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList,2);
+
                 Debug.Log(hit.transform.parent.gameObject.name);
             }
+
+            
         }
 
         if (Input.GetMouseButtonUp(0))
         {
+            //예외처리
+            if (!currenstSelectObject)
+                return;
+
+            List<Renderer> rendererList = new List<Renderer>();
+            rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
+            SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
+
+            //오브젝트 선택 해제
+            currenstSelectObject = null;
+
             Debug.Log("터치업");
         }
     }
