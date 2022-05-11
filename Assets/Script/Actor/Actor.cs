@@ -321,7 +321,7 @@ public class Actor : MonoBehaviour
         else
         {
             //쉐이더 정보 초기화
-            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches, SystemManager.Instance.ShaderController.emission_propertyNameID);
+            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches);
 
             currentHP = 0;
             animator.SetBool("isDead", true);
@@ -337,7 +337,7 @@ public class Actor : MonoBehaviour
         if (showWhiteFlash_coroutine_is_running)
         {
             //쉐이더 정보 초기화
-            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches, SystemManager.Instance.ShaderController.emission_propertyNameID);
+            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches);
 
             showWhiteFlash_coroutine_is_running = false;
             StopCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));

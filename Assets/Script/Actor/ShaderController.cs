@@ -8,6 +8,10 @@ public class ShaderController : MonoBehaviour
     MaterialPropertyBlock mpb;
 
     public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279
+    public int outLineOption = 423; // _OutLineOption -> PropertyNameID = 423
+
+    //Color
+    Vector4 white = new Vector4(1, 1, 1, 1);
 
     void Start()
     {
@@ -32,19 +36,19 @@ public class ShaderController : MonoBehaviour
             yield break;
         }
 
-        OnWhiteFlash(rendererCaches, emission_propertyNameID);
+        OnWhiteFlash(rendererCaches);
 
         yield return new WaitForSeconds(0.1f);
 
-        OffWhiteFlash(rendererCaches, emissionCaches, emission_propertyNameID);
+        OffWhiteFlash(rendererCaches, emissionCaches);
 
         yield return new WaitForSeconds(0.1f);
 
-        OnWhiteFlash(rendererCaches, emission_propertyNameID);
+        OnWhiteFlash(rendererCaches);
 
         yield return new WaitForSeconds(0.1f);
 
-        OffWhiteFlash(rendererCaches, emissionCaches, emission_propertyNameID);
+        OffWhiteFlash(rendererCaches, emissionCaches);
 
         //코루틴 종료 플래그 갱신
         actor.showWhiteFlash_coroutine_is_running = false;
@@ -65,13 +69,14 @@ public class ShaderController : MonoBehaviour
         //수정용 쉐이더 정보 캐싱
         for (int i = 0; i < rendererArr.Length; i++)
         {
-            if (!(rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" && rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_BlinnphongEmission" &&
+            if (!(rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" &&
                 rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_Blinnphong"))
             {
                 rendererCaches.Add(rendererArr[i]);
                 emissionCaches.Add(rendererArr[i].sharedMaterial.GetVector(emission_propertyNameID));
             }
         }
+
     }
 
     /// <summary>
@@ -79,13 +84,13 @@ public class ShaderController : MonoBehaviour
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
     /// <param name="emission_propertyNameID">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
-    void OnWhiteFlash(List<Renderer> rendererCaches, int emission_propertyNameID)
+    void OnWhiteFlash(List<Renderer> rendererCaches)
     {
         //예외처리
         if (rendererCaches.Count <= 0)
             return;
 
-        mpb.SetVector(emission_propertyNameID, new Vector4(1, 1, 1, 1));
+        mpb.SetVector(emission_propertyNameID, white);
         for (int i = 0; i < rendererCaches.Count; i++)
         {
             rendererCaches[i].SetPropertyBlock(mpb);
@@ -98,8 +103,7 @@ public class ShaderController : MonoBehaviour
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
     /// <param name="emissionCaches">변경할 emission값 정보 담고있는 리스트</param>
-    /// <param name="emission_propertyNameID">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
-    public void OffWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, int emission_propertyNameID)
+    public void OffWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches)
     {
         //예외처리
         if (rendererCaches.Count <= 0 || (rendererCaches.Count != emissionCaches.Count))
@@ -111,5 +115,10 @@ public class ShaderController : MonoBehaviour
             rendererCaches[i].SetPropertyBlock(mpb);
         }
 
+    }
+
+    public void OnOutLine()
+    {
+        
     }
 }
