@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null)
             {
                 //오브젝트 선택
-                currenstSelectObject = hit.transform.parent.gameObject;
+                currenstSelectObject = hit.transform.gameObject;
 
                 rendererList.Clear();
                 rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
