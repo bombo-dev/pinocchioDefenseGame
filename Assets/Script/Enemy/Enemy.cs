@@ -59,12 +59,29 @@ public class Enemy : Actor
     {
         base.Reset();
 
+        //HP초기화
+        currentHP = maxHP;
+
         //위치초기화
         transform.position = appearPos[gateNum];
 
         //상태초기화
         enemyState = EnemyState.Walk;
 
+        //애니메이션 플래그 초기화
+        if (attackTargetNum > 0)
+        {
+            animator.SetBool("attack", false);
+            animator.SetBool("finAttack", false);
+        }
+
+        if (attackRangeType == 0)
+            animator.SetBool("meleeAttack", false);
+        else
+            animator.SetBool("rangeAttack", false);
+
+        animator.SetBool("isDead", false);
+        
         //이동 타겟 타일 배열 초기화
         targetTileIndex = 0;
         currentTarget = targetTile[targetTileIndex];
@@ -270,7 +287,6 @@ public class Enemy : Actor
 
             // 재사용을 위해 초기화
             isFinDelay = false;
-            animator.SetBool("isDead", false);
             Reset();
         }                   
     }

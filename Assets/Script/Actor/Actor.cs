@@ -105,9 +105,6 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void Initialize()
     {
-        //HP초기화
-        currentHP = maxHP;
-
         rendererCaches = new List<Renderer>();
         emissionCaches = new List<Vector4>();
         //변경할 쉐이더캐시 초기화
@@ -344,7 +341,6 @@ public class Actor : MonoBehaviour
         }
 
         StartCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));
-
 
     }
 
