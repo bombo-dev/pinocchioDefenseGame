@@ -157,7 +157,7 @@ public class Actor : MonoBehaviour
                     DetectTargets(target, i);
                 }
                 else
-                {
+                {              
                     //타겟과 타겟 방향벡터 초기화
                     attackTargets.Add(target[i]);
                     attackDirVec = (attackTargets[0].transform.position - transform.position).normalized;
@@ -231,11 +231,6 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
-        if (finAttack == true)
-        {
-            // DecreseHP(attackOwner);
-        }
-
         //예외처리
         if (attackDirVec == Vector3.zero)
             return;
