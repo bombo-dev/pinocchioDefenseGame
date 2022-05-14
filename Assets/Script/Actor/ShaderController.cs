@@ -12,7 +12,10 @@ public class ShaderController : MonoBehaviour
     public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423
 
     //Color
-    Vector4 white = new Vector4(1, 1, 1, 1);
+    public static Vector4 WHITE { get { return new Vector4(1, 1, 1, 1); } }
+    public static Vector4 RED { get { return new Vector4(1, 0, 0, 1); } }
+
+
 
     void Start()
     {
@@ -26,7 +29,7 @@ public class ShaderController : MonoBehaviour
     /// <param name="rendererCaches">캐싱할 쉐이더 정보 담을 리스트</param>
     /// <param name="emissionCaches">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
     /// <param name="actor">호출한 Actor객체</param>
-    public IEnumerator ShowWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, Actor actor)
+    public IEnumerator ShowFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches, Actor actor, Vector4 color)
     {
         //코루틴 실행 플래그 갱신
         actor.showWhiteFlash_coroutine_is_running = true;
@@ -38,26 +41,26 @@ public class ShaderController : MonoBehaviour
             yield break;
         }
 
-        OnWhiteFlash(rendererCaches);
+        OnFlash(rendererCaches, color);
 
         yield return new WaitForSeconds(0.1f);
 
-        OffWhiteFlash(rendererCaches, emissionCaches);
+        OffFlash(rendererCaches, emissionCaches);
 
         yield return new WaitForSeconds(0.1f);
 
-        OnWhiteFlash(rendererCaches);
+        OnFlash(rendererCaches, color);
 
         yield return new WaitForSeconds(0.1f);
 
-        OffWhiteFlash(rendererCaches, emissionCaches);
+        OffFlash(rendererCaches, emissionCaches);
 
         //코루틴 종료 플래그 갱신
         actor.showWhiteFlash_coroutine_is_running = false;
     }
 
     /// <summary>
-    /// 쉐이더 캐시데이터 초기화
+    /// 쉐이더 캐시데이터 초기화 : 김현진
     /// </summary>
     /// <param name="rendererArr">객체 전체 Renderer</param>
     /// <param name="rendererCaches">캐싱할 쉐이더 정보 담을 리스트</param>
@@ -85,13 +88,13 @@ public class ShaderController : MonoBehaviour
     /// 쉐이더를 통해 피격 효과 보여주기 : 김현진
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
-    void OnWhiteFlash(List<Renderer> rendererCaches)
+    void OnFlash(List<Renderer> rendererCaches, Vector4 color)
     {
         //예외처리
         if (rendererCaches.Count <= 0)
             return;
 
-        mpb_emission.SetVector(emission_propertyNameID, white);
+        mpb_emission.SetVector(emission_propertyNameID, color);
         for (int i = 0; i < rendererCaches.Count; i++)
         {
             rendererCaches[i].SetPropertyBlock(mpb_emission);
@@ -104,7 +107,7 @@ public class ShaderController : MonoBehaviour
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
     /// <param name="emissionCaches">변경할 emission값 정보 담고있는 리스트</param>
-    public void OffWhiteFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches)
+    public void OffFlash(List<Renderer> rendererCaches, List<Vector4> emissionCaches)
     {
         //예외처리
         if (rendererCaches.Count <= 0 || (rendererCaches.Count != emissionCaches.Count))
@@ -119,7 +122,7 @@ public class ShaderController : MonoBehaviour
     }
 
     /// <summary>
-    /// 외곽선 옵션 변경
+    /// 외곽선 옵션 변경 : 김현진
     /// </summary>
     /// <param name="rendererCaches">변경할 쉐이더 정보 담고있는 Renderer 리스트</param>
     /// <param name="outLineOption">outLineOption - 0:없음 1:black 2:color</param>

@@ -53,8 +53,13 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-
-    public void EnableEnemy(int enemyIndex, int gateNum, int[] targetTile)
+    /// <summary>
+    /// Enemy 객체를 생성
+    /// </summary>
+    /// <param name="enemyIndex">생성할 Enemy가 저장될 인덱스</param>
+    /// <param name="gateNum">생성될 Gate 인덱스 0~2</param>
+    /// <param name="targetTile">생성될 Enemy가 따라갈 targetPoint번호</param>
+    public void EnableEnemy(int enemyIndex, int gateNum, int[] targetPoint)
     {
         //예외처리
         if (enemyIndex >= prefabCacheDatas.Length || prefabCacheDatas[enemyIndex].filePath == null)
@@ -74,12 +79,39 @@ public class EnemyManager : MonoBehaviour
         enemy.enemyIndex = enemies.FindIndex(x => x == go); //enemise 리스트의 인덱스와 일치하는 번호 저장
 
         enemy.gateNum = gateNum;
-        enemy.targetTile = SystemManager.Instance.TileManager.CreateTileMapArr(targetTile);
+        enemy.targetPoint = SystemManager.Instance.TileManager.CreateTileMapArr(targetPoint);
 
         //적을 초기상태로
         enemy.Reset();
-
-
     }
 
+    /// <summary>
+    /// 리스트에서 삭제될 enemy를 제외하고 리스트를 재구성
+    /// </summary>
+    /// <param name="removeEnemyIndex">재구성시 제거할 gameObject</param>
+    public void ReorganizationEnemiesList(int removeEnemyIndex)
+    {
+        List<GameObject> tempEnemies = new List<GameObject>();
+        int index = 0;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            //제거할 gameObject면 제외
+            if (i != removeEnemyIndex)
+            {
+                //enemies[i]가 null이면 제외
+                if (enemies[i])
+                {
+                    //리스트 재구성
+                    tempEnemies.Add(enemies[i]);
+                    //enemyIndex번호 초기화
+                    enemies[i].GetComponent<Enemy>().enemyIndex = index;
+
+                    index++;
+                }
+            }
+        }//end of for
+
+        enemies = tempEnemies;
+    }
 }

@@ -11,7 +11,7 @@ public class Actor : MonoBehaviour
     protected int maxHP = 30;   //최대 체력
 
     [SerializeField]
-    protected int currentHP;   //현재 체력
+    public int currentHP;   //현재 체력
 
     [SerializeField]
     public int power = 10;  // 공격력
@@ -69,12 +69,6 @@ public class Actor : MonoBehaviour
 
     public bool finAttack;  // 공격이 끝났는지를 확인하는 플래그
 
-    public bool isFinDelay = false;    
-
-    float delayTime = 1.5f;   // 죽는 애니메이션 재생 후 비활성화를 위한 지연시간
-
-    float flowTime = 0; // 지연시간 측정을 위한 타이머
-
     [Header("Material")]  //적용된 Material
     [SerializeField]
     Renderer[] rendererArr;
@@ -112,6 +106,18 @@ public class Actor : MonoBehaviour
         {
             SystemManager.Instance.ShaderController.InitializeShaderCaches(rendererArr, rendererCaches, emissionCaches);
         }
+    }
+
+    /// <summary>
+    /// 유닛 정보들 리셋
+    /// </summary>
+    public virtual void Reset()
+    {
+        //쉐이더 정보 초기화
+        SystemManager.Instance.ShaderController.OffFlash(rendererCaches, emissionCaches);
+
+        //타겟배열 초기화
+        attackTargets.Clear();
     }
 
     /// <summary>
@@ -317,33 +323,44 @@ public class Actor : MonoBehaviour
             currentHP -= damage;
         else
         {
-            //쉐이더 정보 초기화
-            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches);
+            callFlashCoroutine(ShaderController.RED);
 
             currentHP = 0;
             animator.SetBool("isDead", true);
-        }
+            animator.Play("Dead");//Test
 
-        //WhiteFlash 피격효과
-
-        //코루틴이 실행중이면 종료한 뒤 다시실행
-
-        if (rendererArr.Length <= 0)
             return;
-
-        if (showWhiteFlash_coroutine_is_running)
-        {
-            //쉐이더 정보 초기화
-            SystemManager.Instance.ShaderController.OffWhiteFlash(rendererCaches, emissionCaches);
-
-            showWhiteFlash_coroutine_is_running = false;
-            StopCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));
         }
 
-        StartCoroutine(SystemManager.Instance.ShaderController.ShowWhiteFlash(rendererCaches, emissionCaches, this));
+        callFlashCoroutine(ShaderController.WHITE);
 
     }
 
+    /// <summary>
+    /// Flash효과를 나타내기 위한 코루틴을 호출 : 김현진
+    /// </summary>
+    /// <param name="color">Flash효과의 색</param>
+    void callFlashCoroutine(Vector4 color)
+    {
+        //WhiteFlash 피격효과
+
+        //예외처리
+        if (rendererArr.Length <= 0)
+            return;
+
+        //코루틴이 실행중이면 종료한 뒤 다시실행
+        if (showWhiteFlash_coroutine_is_running)
+        {
+            //코루틴 종료
+            StopCoroutine(SystemManager.Instance.ShaderController.ShowFlash(rendererCaches, emissionCaches, this, color));
+            showWhiteFlash_coroutine_is_running = false;
+
+            //쉐이더 정보 초기화
+            SystemManager.Instance.ShaderController.OffFlash(rendererCaches, emissionCaches);
+        }
+
+        StartCoroutine(SystemManager.Instance.ShaderController.ShowFlash(rendererCaches, emissionCaches, this, color));
+    }
    
 
 
@@ -352,28 +369,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateDead()
     {
-        // 딜레이가 끝나지 않았으면 지연 처리
-        if (isFinDelay == false)
-        {            
-            flowTime += Time.deltaTime;
-
-            // 딜레이가 끝났으면 
-            if (flowTime >= delayTime)
-            {
-                isFinDelay = true;
-
-                // 타이머 초기화
-                flowTime = 0;
-            }
-        }        
+        
     }
-    
-    /// <summary>
-    /// 유닛 정보들 리셋
-    /// </summary>
-    public virtual void Reset()
-    {
-        //타겟배열 초기화
-        attackTargets.Clear();
-    }
+   
 }

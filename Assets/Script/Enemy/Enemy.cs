@@ -35,9 +35,9 @@ public class Enemy : Actor
     [Header("Move")]    //이동관련
 
     [SerializeField]
-    public GameObject[] targetTile;    //타일맵 위에 있는 이동 타겟
+    public GameObject[] targetPoint;    //타일맵 위에 있는 이동 타겟
 
-    int targetTileIndex = 0;    //타일맵 타겟 인덱스
+    int targetPointIndex = 0;    //타일맵 타겟 인덱스
 
     GameObject currentTarget;   //현재 타겟
 
@@ -73,18 +73,21 @@ public class Enemy : Actor
         {
             animator.SetBool("attack", false);
             animator.SetBool("finAttack", false);
+
+            if (attackRangeType == 0)
+                animator.SetBool("meleeAttack", false);
+            else
+                animator.SetBool("rangedAttack", false);
         }
 
-        if (attackRangeType == 0)
-            animator.SetBool("meleeAttack", false);
-        else
-            animator.SetBool("rangeAttack", false);
-
         animator.SetBool("isDead", false);
-        
+
+        //Enemy애니메이션 State 초기상태
+        animator.Play("Walk");
+
         //이동 타겟 타일 배열 초기화
-        targetTileIndex = 0;
-        currentTarget = targetTile[targetTileIndex];
+        targetPointIndex = 0;
+        currentTarget = targetPoint[targetPointIndex];
 
         //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
         dirVec = FindDirVec(currentTarget);
@@ -143,7 +146,7 @@ public class Enemy : Actor
         //예외처리
         if (currentTarget == null)
             return;
-        if (targetTileIndex >= targetTile.Length - 1)
+        if (targetPointIndex >= targetPoint.Length - 1)
             return;
 
         //타겟에 도착하지 않았을 경우
@@ -166,7 +169,7 @@ public class Enemy : Actor
         //이동 타겟 변경
         transform.position = new Vector3(currentTarget.transform.position.x, transform.position.y, currentTarget.transform.position.z);
         
-        currentTarget = targetTile[++targetTileIndex];
+        currentTarget = targetPoint[++targetPointIndex];
 
         dirVec = FindDirVec(currentTarget);
     }
@@ -268,6 +271,7 @@ public class Enemy : Actor
 
         if (currentHP == 0)
         {
+            SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
             enemyState = EnemyState.Dead;
         }
     }
@@ -278,17 +282,14 @@ public class Enemy : Actor
     protected override void UpdateDead()
     {
         base.UpdateDead();
-        
-        // 딜레이가 끝났으면
-        if(isFinDelay == true)
+
+        //Dead상태 종료
+        if (!animator.GetBool("isDead"))
         {
             // 에너미 비활성화
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-
-            // 재사용을 위해 초기화
-            isFinDelay = false;
-            Reset();
-        }                   
+            return;
+        }         
     }
 }
 

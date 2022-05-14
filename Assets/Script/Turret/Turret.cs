@@ -130,16 +130,13 @@ public class Turret : Actor
     {
         base.UpdateDead();
 
-        // 딜레이가 끝났으면
-        if (isFinDelay == true)
+        //Dead상태 종료
+        if (!animator.GetBool("isDead"))
         {
             // 에너미 비활성화
             gameObject.SetActive(false);
-
-            // 재사용을 위해 초기화
-            isFinDelay = false;
-            animator.SetBool("isDead", false);
-            Reset();
+            //SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            return;
         }
     }
 

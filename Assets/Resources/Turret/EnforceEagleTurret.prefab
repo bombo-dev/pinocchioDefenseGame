@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4939335590128918700}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000603172, y: 2.9816353, z: -0.15117438}
-  m_LocalScale: {x: 0.9935868, y: 0.9935869, z: 0.9935868}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.011354437, y: 3.0886354, z: -0.117810994}
+  m_LocalScale: {x: 0.9935869, y: 0.99358684, z: 0.9935869}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1664656298787017080}
-  m_RootOrder: 10
+  m_Father: {fileID: 4939335590624765387}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4939335590624765396
 GameObject:
@@ -61,6 +61,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1664656298787017080}
+  - {fileID: 4939335591297518870}
+  - {fileID: 4939335590128918691}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -95,7 +97,10 @@ MonoBehaviour:
   bulletSpeed: 50
   maxBulletSpeed: 0
   finAttack: 0
-  isFinDelay: 0
+  rendererArr: []
+  rendererCaches: []
+  emissionCaches: []
+  showWhiteFlash_coroutine_is_running: 0
   gateNum: 
   turretState: 0
 --- !u!1 &4939335591297518871
@@ -121,13 +126,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4939335591297518871}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000603172, y: 0.7261934, z: -0.15117438}
-  m_LocalScale: {x: 0.9935868, y: 0.9935869, z: 0.9935868}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.011354437, y: 0.8331938, z: -0.117810994}
+  m_LocalScale: {x: 0.9935869, y: 0.99358684, z: 0.9935869}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1664656298787017080}
-  m_RootOrder: 9
+  m_Father: {fileID: 4939335590624765387}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1193653363777762963
 PrefabInstance:

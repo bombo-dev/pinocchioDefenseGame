@@ -6,7 +6,7 @@ using UnityEngine;
 public class DefenseFlowData
 {
     int gateNum;
-    public int[] targetTileIndexArr;
+    public int[] targetPointIndexArr;
     public int[] timeFlowIndexArr;
     public int[] enemyFlowIndexArr;
 }
@@ -101,7 +101,7 @@ public class GameFlowManager : MonoBehaviour
             {
                 //Enemy 활성화
                 SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]
-                                                                         , i, defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetTileIndexArr);
+                                                                         , i, defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr);
 
                 //마지막 인덱스
                 if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)

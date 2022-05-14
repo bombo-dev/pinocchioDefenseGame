@@ -86,14 +86,16 @@ public class Bullet : MonoBehaviour
 
         //Debug.Log("distance= " + (Mathf.Round(distance)));
         if ((Mathf.Round(distance)) < bulletMaxDistance)
-        {
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-            // 다중 타겟인 경우, 이펙트 출력            
-
-
+        {      
             GameObject target;
             target = attackTarget.transform.parent.gameObject;
-            
+
+            //예외처리
+            if (target.GetComponent<Actor>().currentHP == 0 || !target)
+            {
+                SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+                return;
+            }
             
             if (attackTarget.tag == "Enemy")
             {
@@ -111,7 +113,10 @@ public class Bullet : MonoBehaviour
 
                 turret.DecreseHP(attacker.power);
             }
-                                                   
+
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            // 다중 타겟인 경우, 이펙트 출력 
+
         }
     }
 }
