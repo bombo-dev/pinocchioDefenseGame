@@ -72,6 +72,7 @@ public class Enemy : Actor
         if (attackTargetNum > 0)
         {
             animator.SetBool("attack", false);
+            animator.SetBool("attackCancel", false);
             animator.SetBool("finAttack", false);
 
             if (attackRangeType == 0)

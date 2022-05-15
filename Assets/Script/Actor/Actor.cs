@@ -60,6 +60,8 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     protected List<GameObject> attackTargets;    //공격을 당하는 오브젝트
+    [SerializeField]
+    List<Actor> attackTargetsActor;  //공격을 당하는 오브젝트 액터 클래스
 
     public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
     
@@ -140,6 +142,7 @@ public class Actor : MonoBehaviour
 
         //리스트 초기화
         attackTargets.Clear();
+        attackTargetsActor.Clear();
 
         for (int i = 0; i < target.Count; i++)
         {
@@ -151,6 +154,7 @@ public class Actor : MonoBehaviour
                 {
                     //사거리 안에 가장 먼저 감지된 타겟
                     attackTargets.Add(target[i]);
+                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
                     attackDirVec = Vector3.zero;
 
                     //공격 사거리 안에 감지 될 타겟 추가
@@ -160,6 +164,7 @@ public class Actor : MonoBehaviour
                 {              
                     //타겟과 타겟 방향벡터 초기화
                     attackTargets.Add(target[i]);
+                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
                     attackDirVec = (attackTargets[0].transform.position - transform.position).normalized;
 
                     //공격
@@ -197,6 +202,7 @@ public class Actor : MonoBehaviour
         foreach (KeyValuePair<GameObject, float> item in sortedTargetDistances)
         {
             attackTargets.Add(item.Key);
+            attackTargetsActor.Add(item.Key.GetComponent<Actor>());
 
             if (attackTargets.Count >= attackTargetNum)
             {
@@ -233,6 +239,26 @@ public class Actor : MonoBehaviour
     {
         //예외처리
         if (attackDirVec == Vector3.zero)
+            return;
+
+        //단일타겟 예외처리
+        if ((attackTargetNum == 1) && (attackTargetsActor[0].currentHP <= 0 || !attackTargets[0].activeSelf)) //타겟이 없는경우
+        {
+            animator.SetBool("attackCancel", true);
+        }
+        //다중타겟 예외처리
+        else if (attackTargetNum > 1)
+        {
+            for (int i = 0; i < attackTargets.Count; i++)
+            {
+                if (attackTargetsActor[i].currentHP > 0 && attackTargets[i].activeSelf) // //타겟이 없는경우
+                    break;
+                if(i == attackTargets.Count-1)
+                    animator.SetBool("attackCancel", true);
+            }
+        }
+
+        if (animator.GetBool("attackCancel"))
             return;
 
         //원거리 유닛 전용 총알 생성
@@ -276,10 +302,6 @@ public class Actor : MonoBehaviour
     void InitializeBullet()
     {
         //예외처리
-        if (!attackTargets[0] || !attackTargets[0].activeSelf)
-            return;
-
-        //예외처리
         if (attackTargetNum <= 0)
             return;
 
@@ -296,8 +318,10 @@ public class Actor : MonoBehaviour
 
             for (int i = 0; i < attackTargets.Count; i++)
             {
-                Actor actor = attackTargets[i].GetComponent<Actor>();
-                SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, actor.dropPos.transform.position, attackTargets[i], this.gameObject);
+                if (attackTargetsActor[i].currentHP > 0 && attackTargets[i].activeSelf) //타겟이 없는경우
+                {
+                    SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, attackTargetsActor[i].dropPos.transform.position, attackTargets[i], this.gameObject);
+                }
             }
 
         }

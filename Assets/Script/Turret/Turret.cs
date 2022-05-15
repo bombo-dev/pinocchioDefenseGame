@@ -102,6 +102,18 @@ public class Turret : Actor
         if (Time.time - attackTimer > attackSpeed)
         {
             turretState = TurretState.Idle;
+
+            //단일,다중 타겟 예외처리
+            if (attackTargetNum >= 1)
+            {
+                animator.SetBool("attackCancel", false);
+
+                if (attackRangeType == 0)
+                    animator.SetBool("meleeAttack", false);
+                else
+                    animator.SetBool("rangedAttack", false);
+            }
+
             return;
         }
 
