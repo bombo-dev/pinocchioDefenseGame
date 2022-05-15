@@ -103,10 +103,11 @@ public class Turret : Actor
         {
             turretState = TurretState.Idle;
 
-            //단일,다중 타겟 예외처리
+            //단일,다중 타겟 애니메이션 파라미터 초기화
             if (attackTargetNum >= 1)
             {
                 animator.SetBool("attackCancel", false);
+                animator.SetBool("attack", false);
 
                 if (attackRangeType == 0)
                     animator.SetBool("meleeAttack", false);

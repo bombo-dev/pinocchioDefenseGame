@@ -232,13 +232,24 @@ public class Enemy : Actor
         //attackSpeed초에 1번 공격
         if (Time.time - attackTimer > attackSpeed)
         {
-            //공격할 대상의 존재 유무에 따른 상태 변화
-            if (attackTargets[0] == null || !(attackTargets[0].activeSelf))
+            //단일,다중 타겟 애니메이션 파라미터 초기화
+            if (attackTargetNum >= 1)
             {
-                enemyState = EnemyState.Walk;
+                animator.SetBool("attackCancel", false);
 
-                //공격 종료
+                if (attackRangeType == 0)
+                    animator.SetBool("meleeAttack", false);
+                else
+                    animator.SetBool("rangedAttack", false);
+            }
+
+            //공격할 대상의 존재 유무에 따른 상태 변화
+            if (attackTargetsActor[0].currentHP <= 0 || !(attackTargets[0].activeSelf))
+            {
+                animator.SetBool("attack", false);
                 animator.SetBool("finAttack", true);
+
+                enemyState = EnemyState.Walk;     
             }
             else
             {
@@ -254,6 +265,7 @@ public class Enemy : Actor
 
                 //다음 공격
                 animator.SetBool("attack", true);
+                animator.SetBool("finAttack", false);
             }
         }
     }

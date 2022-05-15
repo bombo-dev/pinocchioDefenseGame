@@ -61,7 +61,7 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected List<GameObject> attackTargets;    //공격을 당하는 오브젝트
     [SerializeField]
-    List<Actor> attackTargetsActor;  //공격을 당하는 오브젝트 액터 클래스
+    protected List<Actor> attackTargetsActor;  //공격을 당하는 오브젝트 액터 클래스
 
     public Vector3 attackDirVec;   //공격할 타겟의 방향벡터
     
