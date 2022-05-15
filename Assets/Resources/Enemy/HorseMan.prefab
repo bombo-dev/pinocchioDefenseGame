@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 40
+  maxHP: 100
   currentHP: 0
   power: 10
   attackSpeed: 0
@@ -389,11 +389,11 @@ MonoBehaviour:
   dropPos: {fileID: 8244910483216946567}
   animator: {fileID: 180639100575544261}
   attackTargets: []
+  attackTargetsActor: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
   maxBulletSpeed: 0
   finAttack: 0
-  isFinDelay: 0
   rendererArr:
   - {fileID: 5537649672535888958}
   - {fileID: 3648651806867619967}
@@ -423,7 +423,7 @@ MonoBehaviour:
   - {x: -85, y: -168.5, z: 257.5}
   - {x: 0, y: -168.5, z: 300}
   - {x: 85, y: -168.5, z: 257.5}
-  targetTile: []
+  targetPoint: []
 --- !u!1 &734303775606591513
 GameObject:
   m_ObjectHideFlags: 0

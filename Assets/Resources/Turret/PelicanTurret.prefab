@@ -848,10 +848,22 @@ MonoBehaviour:
   dropPos: {fileID: 5418818577528743530}
   animator: {fileID: 8925692699006820559}
   attackTargets: []
+  attackTargetsActor: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 0
   maxBulletSpeed: 0
   finAttack: 0
-  isFinDelay: 0
+  rendererArr:
+  - {fileID: 6086236772042130606}
+  - {fileID: 8034469323193411690}
+  - {fileID: 2964935555216412663}
+  - {fileID: 4101574322799354413}
+  - {fileID: 7988029682245077295}
+  - {fileID: 2726246004427206971}
+  - {fileID: 2843338531722718143}
+  - {fileID: 4495256280822919892}
+  rendererCaches: []
+  emissionCaches: []
+  showWhiteFlash_coroutine_is_running: 0
   gateNum: 0
   turretState: 0
