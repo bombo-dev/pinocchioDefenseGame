@@ -12,9 +12,11 @@ public class ShaderController : MonoBehaviour
     public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423
 
     //Color
-    public static Vector4 WHITE { get { return new Vector4(1, 1, 1, 1); } }
+    public static Vector4 WHITE { get { return new Vector4(0.7f, 0.7f, 0.7f, 1); } }
     public static Vector4 RED { get { return new Vector4(1, 0, 0, 1); } }
-
+    public static Vector4 BLUE { get { return new Vector4(0, 0, 1, 1); } }
+    public static Vector4 YELOOW { get { return new Vector4(1, 1, 0, 1); } }
+    public static Vector4 PURPLE { get { return new Vector4(1, 0, 1, 1); } }
 
 
     void Start()

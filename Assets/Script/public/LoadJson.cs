@@ -10,10 +10,12 @@ public class LoadJson : MonoBehaviour
     Text Test;
     [SerializeField]
     Text Test2;
+        
     private void Start()
     {
         PrepareGameFlowJsonData();
     }
+
     /// <summary>
     /// Json 파일로부터 Json 데이터 가져오기
     /// </summary>
