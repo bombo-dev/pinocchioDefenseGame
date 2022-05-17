@@ -31,27 +31,42 @@ public class LoadJson : MonoBehaviour
         //filePath += ".Json";
         filePath = PathCheck();
 
-        string JsonString = File.ReadAllText(filePath);
+        //string JsonString = File.ReadAllText(filePath);
+        // DefenseFlowDataList datas = JsonToObject(jsonString);
 
-        DefenseFlowDataList datas = JsonUtility.FromJson<DefenseFlowDataList>(JsonString);
-
-        return datas;
+        return LoadJsonFile<DefenseFlowDataList>(filePath);
     }
 
     //Json File PC, 모바일 경로 체크
     public string PathCheck()
     {
         string filePath;
+
+        // PC 경로 체크
         if (File.Exists(Path.Combine(Application.streamingAssetsPath, "Test"))) {
             filePath = Path.Combine(Application.streamingAssetsPath, "Test");
             filePath += ".Json";
-            return filePath
+            return filePath;
             }
+
+        // 모바일 경로 체크
         else {
             filePath = Application.persistentDataPath + "/Test";
             filePath += ".Json";
             return filePath;
         }
+    }
+
+    // JsonData의 객체화 메소드
+    public static DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
+    {
+        return JsonUtility.FromJson<DefenseFlowDataList>(jsonString);
+    }
+
+    // JsonData 불러오는 메소드
+    public static DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
+        string jsonString =  File.ReadAllText(filePath);
+        return JsonToObject<DefenseFlowDataList>(jsonString);
     }
 
 }
