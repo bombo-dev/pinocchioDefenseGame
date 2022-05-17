@@ -27,9 +27,9 @@ public class LoadJson : MonoBehaviour
         string filePath;
 
         //filePath = Application.persistentDataPath + "/Test";
-        filePath = Path.Combine(Application.streamingAssetsPath, "Test");
-
-        filePath += ".Json";
+        //filePath = Path.Combine(Application.streamingAssetsPath, "Test");
+        //filePath += ".Json";
+        filePath = PathCheck();
 
         string JsonString = File.ReadAllText(filePath);
 
@@ -37,4 +37,21 @@ public class LoadJson : MonoBehaviour
 
         return datas;
     }
+
+    //Json File PC, 모바일 경로 체크
+    public string PathCheck()
+    {
+        string filePath;
+        if (File.Exists(Path.Combine(Application.streamingAssetsPath, "Test"))) {
+            filePath = Path.Combine(Application.streamingAssetsPath, "Test");
+            filePath += ".Json";
+            return filePath
+            }
+        else {
+            filePath = Application.persistentDataPath + "/Test";
+            filePath += ".Json";
+            return filePath;
+        }
+    }
+
 }
