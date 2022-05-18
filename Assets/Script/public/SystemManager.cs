@@ -67,6 +67,16 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    InputManager inputManager;
+    public InputManager InputManager
+    {
+        get
+        {
+            return inputManager;
+        }
+    }
+
+    [SerializeField]
     GameFlowManager gameFlowManager;
     public GameFlowManager GameFlowManager
     {
