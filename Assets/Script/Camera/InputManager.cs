@@ -43,6 +43,8 @@ public class InputManager : MonoBehaviour
                 rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
                 SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList,2);
 
+                //터렛생성테스트
+                SystemManager.Instance.TurretManager.EnableTurret(0, currenstSelectObject.transform.position);
             }
 
             
