@@ -12,7 +12,10 @@ public class Turret : Actor
     }
 
     [SerializeField]
-    string gateNum;
+    string gateNum; 
+
+    [SerializeField]
+    public int turretIndex;  //turret고유 번호
 
     [SerializeField]
     TurretState turretState = TurretState.Idle;
