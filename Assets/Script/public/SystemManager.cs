@@ -37,6 +37,16 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    TurretManager turretManager;
+    public TurretManager TurretManager
+    {
+        get
+        {
+            return turretManager;
+        }
+    }
+
+    [SerializeField]
     BulletManager bulletManager;
     public BulletManager BulletManager
     {
