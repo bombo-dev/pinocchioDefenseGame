@@ -9,7 +9,7 @@ public class UI_Controller : UI_Base
 {
     enum Buttons
     {
-        
+        TestButton
     }
 
     enum Texts
@@ -44,5 +44,12 @@ public class UI_Controller : UI_Base
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
+
+        AddUIEvent(GetButton((int)Buttons.TestButton).gameObject, OnClickTestButton,Define.UIEvent.Click);
+    }
+
+    public void OnClickTestButton(PointerEventData data)
+    {
+        Debug.Log("asd");
     }
 }
