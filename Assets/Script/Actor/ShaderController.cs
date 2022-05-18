@@ -8,8 +8,10 @@ public class ShaderController : MonoBehaviour
     MaterialPropertyBlock mpb_emission;
     MaterialPropertyBlock mpb_outLineOption;
 
-    public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279 , rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_Emission"));
-    public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423, rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_OutLineOption"));
+    [SerializeField]
+    int emission_propertyNameID = -1; // _Emission -> PropertyNameID = 279 , rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_Emission"));
+    [SerializeField]
+    int outLineOption_propertyNameID = -1; // _OutLineOption -> PropertyNameID = 423, rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_OutLineOption"));
 
     //Color
     public static Vector4 WHITE { get { return new Vector4(0.7f, 0.7f, 0.7f, 1); } }
@@ -79,6 +81,12 @@ public class ShaderController : MonoBehaviour
             if (!(rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" &&
                 rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_Blinnphong"))
             {
+                //propertyNameID √ ±‚»≠
+                if(emission_propertyNameID == -1)
+                    emission_propertyNameID = rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_Emission"));
+                if(outLineOption_propertyNameID == -1)
+                    outLineOption_propertyNameID = rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_OutLineOption"));
+
                 rendererCaches.Add(rendererArr[i]);
                 emissionCaches.Add(rendererArr[i].sharedMaterial.GetVector(emission_propertyNameID));
             }
