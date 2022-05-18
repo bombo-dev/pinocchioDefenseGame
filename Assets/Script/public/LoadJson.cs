@@ -73,6 +73,30 @@ public class LoadJson : MonoBehaviour
         }
     }
 
+    // JsonData만 읽어오는 메소드
+    public static string ReadJsonFileToString(string filePath)
+    {
+        string jsonString;
+        if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            jsonString = File.ReadAllText(filePath);
+            return jsonString;
+        }
+        else
+        {
+            string originPath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+
+            WWW reader = new WWW(originPath);
+            while (!reader.isDone) { }
+
+            string realPath = Application.persistentDataPath + ".Json";
+            File.WriteAllBytes(realPath, reader.bytes);
+
+            jsonString = File.ReadAllText(realPath);
+            return jsonString;
+        }
+    }
+
     // 암호화 메소드
     public static string Decrypt(string textToDecrypt, string key)
     {
