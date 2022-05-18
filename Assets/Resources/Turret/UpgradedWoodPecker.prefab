@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 5955207092836017613}
   - component: {fileID: 5955207092836017612}
   m_Layer: 7
-  m_Name: EnforceWoodPecker
+  m_Name: UpgradedWoodPecker
   m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,6 +812,7 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 5955207094165041224}
   dropPos: {fileID: 5955207094467107622}
+  filePath: Turret/UpgradedWoodPecker
   animator: {fileID: 5955207092836017613}
   attackTargets: []
   attackTargetsActor: []
@@ -834,6 +835,7 @@ MonoBehaviour:
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
   gateNum: 0
+  turretIndex: 0
   turretState: 0
 --- !u!1 &7599265264533502919
 GameObject:
