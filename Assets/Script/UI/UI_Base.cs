@@ -76,4 +76,20 @@ public class UI_Base : MonoBehaviour
                 break;
         }
     }
+
+    //오버로딩 -> Action<PointerEventData,int>, 인덱스를 통한 버튼 식별이 필요할 경우 사용
+    public static void AddUIEvent(GameObject go, int idx, Action<PointerEventData,int> action, Define.UIEvent type = Define.UIEvent.Click)
+    {
+        UI_EventHandler evt = Util.GetOrAddComponenet<UI_EventHandler>(go);
+        evt.idx = idx;
+
+        switch (type)
+        {
+            //예외 처리를 위해 이미 존재할 수도 있는 action을 먼저 제거해 준 다음 추가
+            case Define.UIEvent.Click:
+                evt.OnClickHandler_int -= action;
+                evt.OnClickHandler_int += action;
+                break;
+        }
+    }
 }
