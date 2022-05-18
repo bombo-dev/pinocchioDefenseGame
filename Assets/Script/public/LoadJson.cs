@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
+using System.Text;
+using System.Security.Cryptography;
 using UnityEngine.UI;
 
 public class LoadJson : MonoBehaviour
