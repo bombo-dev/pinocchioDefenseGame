@@ -17,6 +17,10 @@ public class LoadJson : MonoBehaviour
     private void Start()
     {
         PrepareGameFlowJsonData();
+        string s = Encrypt(ReadJsonFileToString(PathInit()), "key");
+        Debug.Log("암호화" + s);
+        string load = Decrypt(s, "key");
+        Debug.Log("복호화" + load);
     }
 
     /// <summary>
@@ -55,6 +59,7 @@ public class LoadJson : MonoBehaviour
         // PC 경로 체크
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
+            // 복호화 추가 메소드
             string jsonString = File.ReadAllText(filePath);
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
