@@ -12,7 +12,10 @@ public class Turret : Actor
     }
 
     [SerializeField]
-    string gateNum;
+    string gateNum; 
+
+    [SerializeField]
+    public int turretIndex;  //turret고유 번호
 
     [SerializeField]
     TurretState turretState = TurretState.Idle;
@@ -132,6 +135,7 @@ public class Turret : Actor
         
         if (currentHP == 0)
         {
+            SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
             turretState = TurretState.Dead;
         }
     }
@@ -146,9 +150,9 @@ public class Turret : Actor
         //Dead상태 종료
         if (!animator.GetBool("isDead"))
         {
-            // 에너미 비활성화
-            gameObject.SetActive(false);
-            //SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            // 터렛 비활성화
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
             return;
         }
     }

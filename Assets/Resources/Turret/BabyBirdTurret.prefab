@@ -498,13 +498,14 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 6652556055557585610}
   dropPos: {fileID: 6652556055372685860}
+  filePath: Turret/BabyBirdTurret
   animator: {fileID: 6652556056080687673}
   attackTargets: []
+  attackTargetsActor: []
   attackDirVec: {x: 0, y: 0, z: 0}
   bulletSpeed: 50
   maxBulletSpeed: 0
   finAttack: 0
-  isFinDelay: 0
   rendererArr:
   - {fileID: 7734329632537229308}
   - {fileID: 9073708536248693599}
@@ -519,6 +520,7 @@ MonoBehaviour:
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
   gateNum: 
+  turretIndex: 0
   turretState: 0
 --- !u!1 &6503802380293336393
 GameObject:

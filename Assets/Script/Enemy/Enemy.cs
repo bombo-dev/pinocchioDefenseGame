@@ -24,9 +24,6 @@ public class Enemy : Actor
     public int enemyIndex;  //enemy고유 번호
 
     [SerializeField]
-    string filePath; //프리팹 저장 파일 경로
-
-    [SerializeField]
     public int gateNum;    //생성 게이트 번호
 
     [SerializeField]
@@ -125,7 +122,7 @@ public class Enemy : Actor
             case EnemyState.Walk:
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(SystemManager.Instance.TileManager.turret);
+                DetectTarget(SystemManager.Instance.TurretManager.turrets);
                 break;
             case EnemyState.Battle:
                 UpdateBattle();
@@ -260,7 +257,7 @@ public class Enemy : Actor
                 if (attackTargetNum > 1)
                 {
                     //공격 사거리 안에 감지 될 타겟 추가
-                    DetectTarget(SystemManager.Instance.TileManager.turret);
+                    DetectTarget(SystemManager.Instance.TurretManager.turrets);
                 }
 
                 //다음 공격

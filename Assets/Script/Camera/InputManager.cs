@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    //현재 선택된 오브젝트
-    [SerializeField]
-    GameObject currenstSelectObject;
+    //현재 선택된 오브젝
+    public GameObject currenstSelectNest;
     [SerializeField]
     List<Renderer> rendererList;
 
@@ -37,30 +36,30 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null)
             {
                 //오브젝트 선택
-                currenstSelectObject = hit.transform.gameObject;
+                currenstSelectNest = hit.transform.gameObject;
 
                 rendererList.Clear();
-                rendererList.Add(currenstSelectObject.GetComponent<Renderer>());
+                rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
                 SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList,2);
-
             }
 
             
         }
 
+        /*
         if (Input.GetMouseButtonUp(0))
         {
             //예외처리
-            if (!currenstSelectObject)
+            if (!currenstSelectNest)
                 return;
 
             SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
             rendererList.Clear();
 
             //오브젝트 선택 해제
-            currenstSelectObject = null;
+            currenstSelectNest = null;
 
             Debug.Log("터치업");
-        }
+        }*/
     }
 }
