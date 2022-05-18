@@ -9,18 +9,16 @@ using UnityEngine.UI;
 
 public class LoadJson : MonoBehaviour
 {
-    [SerializeField]
-    Text Test;
-    [SerializeField]
-    Text Test2;
-        
     private void Start()
     {
+
+        Save(PathInit2());
+
         PrepareGameFlowJsonData();
-        string s = Encrypt(ReadJsonFileToString(PathInit()), "key");
-        Debug.Log("암호화" + s);
-        string load = Decrypt(s, "key");
-        Debug.Log("복호화" + load);
+
+        Debug.Log(ReadJsonFileToString(PathInit2()));
+
+        
     }
 
     /// <summary>
@@ -47,6 +45,13 @@ public class LoadJson : MonoBehaviour
             return filePath;
     }
 
+    public string PathInit2()
+    {
+        string filePath;
+        filePath = Path.Combine(Application.streamingAssetsPath, "jsonAssets.Json");
+        return filePath;
+    }
+
     // JsonData의 객체화 메소드
     public static DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
     {
@@ -59,9 +64,14 @@ public class LoadJson : MonoBehaviour
         // PC 경로 체크
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            // 복호화 추가 메소드
-            string jsonString = File.ReadAllText(filePath);
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            // 복호화 추가 메소드 *****************
+            
+            //string jsonString = File.ReadAllText(filePath);
+            string originJsonString = File.ReadAllText(filePath);
+            string load = Load(originJsonString);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+            //return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
         // 모바일 경로 체크
@@ -85,10 +95,15 @@ public class LoadJson : MonoBehaviour
     public static string ReadJsonFileToString(string filePath)
     {
         string jsonString;
+
         if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             jsonString = File.ReadAllText(filePath);
-            return jsonString;
+
+            // 복호화 추가
+            string load = Load(jsonString);
+
+            return load;
         }
         else
         {
@@ -178,6 +193,27 @@ public class LoadJson : MonoBehaviour
         byte[] plainText = Encoding.UTF8.GetBytes(textToEncrypt);
 
         return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
+    }
+
+    public static void Save(string filePath, string fileName)
+    {
+        string save = ReadJsonFileToString(filePath);
+        save = Encrypt(save, "key");
+        File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"), save);
+    }
+
+    public static string Load(string filePath, string fileName)
+    {
+        string load = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"));
+        load = Decrypt(load, "key");
+        return load;
+    }
+
+    public static void JsonToDecrypt(string filePath)
+    {
+        string load = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"));
+        load = Decrypt(load, "key");
+        File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"), load);
     }
 
 }
