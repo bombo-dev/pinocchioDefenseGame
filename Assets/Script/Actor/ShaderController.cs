@@ -8,8 +8,8 @@ public class ShaderController : MonoBehaviour
     MaterialPropertyBlock mpb_emission;
     MaterialPropertyBlock mpb_outLineOption;
 
-    public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279
-    public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423
+    public int emission_propertyNameID = 279; // _Emission -> PropertyNameID = 279 , rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_Emission"));
+    public int outLineOption_propertyNameID = 423; // _OutLineOption -> PropertyNameID = 423, rendererArr[i].sharedMaterial.shader.GetPropertyNameId(rendererArr[i].sharedMaterial.shader.FindPropertyIndex("_OutLineOption"));
 
     //Color
     public static Vector4 WHITE { get { return new Vector4(0.7f, 0.7f, 0.7f, 1); } }
@@ -68,7 +68,7 @@ public class ShaderController : MonoBehaviour
     /// <param name="rendererCaches">캐싱할 쉐이더 정보 담을 리스트</param>
     /// <param name="emissionCaches">캐싱할 쉐이더 emission 프로퍼티 정보 담을 리스트</param>
     public void InitializeShaderCaches(Renderer[] rendererArr, List<Renderer> rendererCaches , List<Vector4> emissionCaches)
-    {
+    { 
         //예외처리
         if (rendererArr.Length <= 0 || (rendererCaches.Count != emissionCaches.Count))
             return;
