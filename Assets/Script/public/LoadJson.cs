@@ -12,7 +12,7 @@ public class LoadJson : MonoBehaviour
     private void Start()
     {
 
-        Save(PathInit2());
+        // Save(PathInit2());
 
         PrepareGameFlowJsonData();
 
@@ -45,13 +45,6 @@ public class LoadJson : MonoBehaviour
             return filePath;
     }
 
-    public string PathInit2()
-    {
-        string filePath;
-        filePath = Path.Combine(Application.streamingAssetsPath, "jsonAssets.Json");
-        return filePath;
-    }
-
     // JsonData의 객체화 메소드
     public static DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
     {
@@ -61,11 +54,11 @@ public class LoadJson : MonoBehaviour
     // JsonData 불러오는 메소드
     public static DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
-        // PC 경로 체크
-        if (Application.platform == RuntimePlatform.WindowsPlayer)
+        // 윈도우 유니티 에디터 경로 체크
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
             // 복호화 추가 메소드 *****************
-            
+
             //string jsonString = File.ReadAllText(filePath);
             string originJsonString = File.ReadAllText(filePath);
             string load = Load(originJsonString);
@@ -73,11 +66,19 @@ public class LoadJson : MonoBehaviour
             return JsonToObject<DefenseFlowDataList>(load);
             //return JsonToObject<DefenseFlowDataList>(jsonString);
         }
+        // PC에서 게임 실행
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            string originJsonString = File.ReadAllText(filePath);
+            string load = Load(originJsonString);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+        }
 
         // 모바일 경로 체크
         else
         {
-            string originPath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+            string originPath = filePath;
 
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
