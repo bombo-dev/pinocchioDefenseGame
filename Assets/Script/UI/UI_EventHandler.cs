@@ -16,7 +16,6 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
 
     public Action<PointerEventData,int> OnClickHandler_int = null;
 
-
     //클릭 이벤트 발생시 호출
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -33,4 +32,5 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
         if (OnDragHandler != null)
             OnDragHandler.Invoke(eventData);
     }
+
 }

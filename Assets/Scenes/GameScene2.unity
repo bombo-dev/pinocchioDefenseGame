@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 10307871}
   - component: {fileID: 10307870}
   - component: {fileID: 10307869}
+  - component: {fileID: 10307872}
   m_Layer: 5
   m_Name: TurretButton1
   m_TagString: Untagged
@@ -245,6 +246,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10307867}
   m_CullTransparentMesh: 1
+--- !u!114 &10307872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10307867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &17135527
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +271,7 @@ GameObject:
   - component: {fileID: 17135531}
   - component: {fileID: 17135530}
   - component: {fileID: 17135529}
+  - component: {fileID: 17135532}
   m_Layer: 5
   m_Name: TurretButton8
   m_TagString: Untagged
@@ -366,6 +381,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17135527}
   m_CullTransparentMesh: 1
+--- !u!114 &17135532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17135527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!4 &20268288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f30d6bf4261e2f45b397ca16edcc156,
@@ -1286,7 +1314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1672,7 +1700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2233,6 +2261,7 @@ GameObject:
   - component: {fileID: 192345944}
   - component: {fileID: 192345943}
   - component: {fileID: 192345942}
+  - component: {fileID: 192345945}
   m_Layer: 5
   m_Name: TurretButton13
   m_TagString: Untagged
@@ -2342,6 +2371,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192345940}
   m_CullTransparentMesh: 1
+--- !u!114 &192345945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192345940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &208214190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2626,6 +2668,7 @@ GameObject:
   - component: {fileID: 261345750}
   - component: {fileID: 261345749}
   - component: {fileID: 261345748}
+  - component: {fileID: 261345751}
   m_Layer: 5
   m_Name: TurretButton2
   m_TagString: Untagged
@@ -2735,6 +2778,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261345746}
   m_CullTransparentMesh: 1
+--- !u!114 &261345751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261345746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &276433896
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,7 +2845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4147,7 +4203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5142,7 +5198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5632,6 +5688,7 @@ GameObject:
   - component: {fileID: 589624505}
   - component: {fileID: 589624504}
   - component: {fileID: 589624503}
+  - component: {fileID: 589624506}
   m_Layer: 5
   m_Name: TurretButton3
   m_TagString: Untagged
@@ -5741,6 +5798,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589624501}
   m_CullTransparentMesh: 1
+--- !u!114 &589624506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589624501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &598895663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6332,7 +6402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7373,6 +7443,7 @@ GameObject:
   - component: {fileID: 724556746}
   - component: {fileID: 724556745}
   - component: {fileID: 724556744}
+  - component: {fileID: 724556747}
   m_Layer: 5
   m_Name: TurretButton7
   m_TagString: Untagged
@@ -7482,6 +7553,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724556742}
   m_CullTransparentMesh: 1
+--- !u!114 &724556747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724556742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!4 &729135064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7171607895111325692, guid: d676e67e2ec4f6d49a0d5bca47a29ec4,
@@ -7847,7 +7931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8815,7 +8899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10246,6 +10330,7 @@ GameObject:
   - component: {fileID: 1072643337}
   - component: {fileID: 1072643336}
   - component: {fileID: 1072643335}
+  - component: {fileID: 1072643338}
   m_Layer: 5
   m_Name: TurretButton6
   m_TagString: Untagged
@@ -10355,6 +10440,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072643333}
   m_CullTransparentMesh: 1
+--- !u!114 &1072643338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072643333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &1079442532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11518,6 +11616,7 @@ GameObject:
   - component: {fileID: 1183502805}
   - component: {fileID: 1183502804}
   - component: {fileID: 1183502803}
+  - component: {fileID: 1183502806}
   m_Layer: 5
   m_Name: TurretButton0
   m_TagString: Untagged
@@ -11627,6 +11726,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183502801}
   m_CullTransparentMesh: 1
+--- !u!114 &1183502806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183502801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &1195606489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11781,7 +11893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11912,6 +12024,7 @@ GameObject:
   - component: {fileID: 1220233596}
   - component: {fileID: 1220233595}
   - component: {fileID: 1220233594}
+  - component: {fileID: 1220233597}
   m_Layer: 5
   m_Name: TurretButton14
   m_TagString: Untagged
@@ -12021,6 +12134,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220233592}
   m_CullTransparentMesh: 1
+--- !u!114 &1220233597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220233592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!4 &1220356172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7171607895111325692, guid: d676e67e2ec4f6d49a0d5bca47a29ec4,
@@ -12364,7 +12490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13491,6 +13617,7 @@ GameObject:
   - component: {fileID: 1356907617}
   - component: {fileID: 1356907616}
   - component: {fileID: 1356907615}
+  - component: {fileID: 1356907618}
   m_Layer: 5
   m_Name: TurretButton9
   m_TagString: Untagged
@@ -13600,6 +13727,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356907613}
   m_CullTransparentMesh: 1
+--- !u!114 &1356907618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356907613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &1362592595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13950,7 +14090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14301,6 +14441,7 @@ GameObject:
   - component: {fileID: 1457132995}
   - component: {fileID: 1457132994}
   - component: {fileID: 1457132993}
+  - component: {fileID: 1457132996}
   m_Layer: 5
   m_Name: TurretButton12
   m_TagString: Untagged
@@ -14410,6 +14551,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457132991}
   m_CullTransparentMesh: 1
+--- !u!114 &1457132996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457132991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &1460769588
 GameObject:
   m_ObjectHideFlags: 0
@@ -15696,7 +15850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15733,6 +15887,7 @@ GameObject:
   - component: {fileID: 1537493893}
   - component: {fileID: 1537493892}
   - component: {fileID: 1537493891}
+  - component: {fileID: 1537493894}
   m_Layer: 5
   m_Name: TurretButton4
   m_TagString: Untagged
@@ -15842,6 +15997,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537493889}
   m_CullTransparentMesh: 1
+--- !u!114 &1537493894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537493889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &1540726578
 GameObject:
   m_ObjectHideFlags: 0
@@ -15854,6 +16022,7 @@ GameObject:
   - component: {fileID: 1540726582}
   - component: {fileID: 1540726581}
   - component: {fileID: 1540726580}
+  - component: {fileID: 1540726583}
   m_Layer: 5
   m_Name: TurretButton15
   m_TagString: Untagged
@@ -15963,6 +16132,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540726578}
   m_CullTransparentMesh: 1
+--- !u!114 &1540726583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540726578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &1560658801
 GameObject:
   m_ObjectHideFlags: 0
@@ -16124,7 +16306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17552,6 +17734,7 @@ GameObject:
   - component: {fileID: 1711218900}
   - component: {fileID: 1711218899}
   - component: {fileID: 1711218898}
+  - component: {fileID: 1711218901}
   m_Layer: 5
   m_Name: TurretButton11
   m_TagString: Untagged
@@ -17661,6 +17844,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1711218896}
   m_CullTransparentMesh: 1
+--- !u!114 &1711218901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711218896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &1712752773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18106,6 +18302,7 @@ GameObject:
   - component: {fileID: 1748859145}
   - component: {fileID: 1748859144}
   - component: {fileID: 1748859143}
+  - component: {fileID: 1748859146}
   m_Layer: 5
   m_Name: TurretButton16
   m_TagString: Untagged
@@ -18215,6 +18412,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748859141}
   m_CullTransparentMesh: 1
+--- !u!114 &1748859146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748859141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &1749842399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19099,7 +19309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20154,6 +20364,7 @@ GameObject:
   - component: {fileID: 1886863138}
   - component: {fileID: 1886863137}
   - component: {fileID: 1886863136}
+  - component: {fileID: 1886863139}
   m_Layer: 5
   m_Name: TurretButton5
   m_TagString: Untagged
@@ -20263,6 +20474,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886863134}
   m_CullTransparentMesh: 1
+--- !u!114 &1886863139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886863134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1 &1893888831
 GameObject:
   m_ObjectHideFlags: 0
@@ -20317,7 +20541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20648,7 +20872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22269,7 +22493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22828,6 +23052,7 @@ GameObject:
   - component: {fileID: 2134955337}
   - component: {fileID: 2134955336}
   - component: {fileID: 2134955335}
+  - component: {fileID: 2134955338}
   m_Layer: 5
   m_Name: TurretButton10
   m_TagString: Untagged
@@ -22937,6 +23162,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134955333}
   m_CullTransparentMesh: 1
+--- !u!114 &2134955338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134955333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9e2962c284800246a4197cdf92fb91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollrect: {fileID: 0}
 --- !u!1001 &2140743446
 PrefabInstance:
   m_ObjectHideFlags: 0

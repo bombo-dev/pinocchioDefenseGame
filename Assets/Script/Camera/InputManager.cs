@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    //현재 선택된 오브젝
+    [Header("Animation")]
+    //애니메이션
+    [SerializeField]
+    Animator turretMgnPanelAnimator;
+    [SerializeField]
+    AnimationClip onTurretMgnPanel;
+    [SerializeField]
+    AnimationClip offTurretMgnPanel;
+
+    [Header("Nest")]
+    //현재 선택한 둥지 오브젝트
     public GameObject currenstSelectNest;
     [SerializeField]
     List<Renderer> rendererList;
@@ -21,7 +31,7 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 터치 혹은 마우스 클릭을 이용해 오브젝트 선택
+    /// 터치 혹은 마우스 클릭을 이용해 오브젝트 선택 : 김현진
     /// </summary>
     void TouchObject()
     {
@@ -35,15 +45,10 @@ public class InputManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                //오브젝트 선택
-                currenstSelectNest = hit.transform.gameObject;
-
-                rendererList.Clear();
-                rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
-                SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList,2);
+                //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
+                SelectNest(hit.transform.gameObject);
             }
 
-            
         }
 
         /*
@@ -61,5 +66,58 @@ public class InputManager : MonoBehaviour
 
             Debug.Log("터치업");
         }*/
+    }
+
+    /// <summary>
+    /// 터렛을 소환할 둥지를 선택한다 : 김현진
+    /// </summary>
+    ///<param name="hitObject">선택할 게임 오브젝트</param>
+    void SelectNest(GameObject hitGo)
+    {
+        //이전에 선택한 오브젝트 효과초기화
+        if(currenstSelectNest != null)
+            OffHightlightObject(currenstSelectNest);
+
+        //오브젝트 선택
+        currenstSelectNest = hitGo;
+
+        //선택한 오브젝트 하이라이트 효과
+        OnHighlightObject(currenstSelectNest);
+    }
+
+
+    /// <summary>
+    /// 게임 오브젝트의 쉐이더 외곽선을 통해 하이라이트 효과를 켜는 함수 : 김현진
+    /// </summary>
+    /// <param name="go">하이라이트 효과를 표현할 게임 오브젝트</param>
+    void OnHighlightObject(GameObject go)
+    {
+        rendererList.Clear();
+
+        Renderer renderer = currenstSelectNest.GetComponent<Renderer>();
+
+        if (renderer != null)
+        {
+            rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
+            SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 2);
+        }
+    }
+
+    /// <summary>
+    /// 게임 오브젝트의 쉐이더 외곽선을 통해 하이라이트 효과를 끄는 함수 : 김현진
+    /// </summary>
+    /// <param name="go">하이라이트 효과를 표현할 게임 오브젝트</param>
+    void OffHightlightObject(GameObject go)
+    {
+        rendererList.Clear();
+
+        Renderer renderer = currenstSelectNest.GetComponent<Renderer>();
+
+        if (renderer != null)
+        {
+            rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
+            SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
+        }
+       
     }
 }
