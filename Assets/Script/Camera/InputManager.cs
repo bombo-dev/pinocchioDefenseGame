@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [Header("Animation")]
-    //애니메이션
-    [SerializeField]
-    Animator turretMgnPanelAnimator;
-    [SerializeField]
-    AnimationClip onTurretMgnPanel;
-    [SerializeField]
-    AnimationClip offTurretMgnPanel;
-
     [Header("Nest")]
     //현재 선택한 둥지 오브젝트
     public GameObject currenstSelectNest;
@@ -79,7 +70,17 @@ public class InputManager : MonoBehaviour
             OffHightlightObject(currenstSelectNest);
 
         //오브젝트 선택
-        currenstSelectNest = hitGo;
+        if(hitGo != null)
+            currenstSelectNest = hitGo;
+
+        Nest nest = currenstSelectNest.GetComponent<Nest>();
+
+        if (nest != null)
+        {
+            //터렛이 설치된 Nest의경우
+            if (nest.haveTurret)
+                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0);
+        }    
 
         //선택한 오브젝트 하이라이트 효과
         OnHighlightObject(currenstSelectNest);

@@ -5,5 +5,5 @@ using UnityEngine;
 public class Nest : MonoBehaviour
 {
     //터렛을 가지고 있는지 여부
-    bool haveTurret = false;
+    public bool haveTurret = false;
 }

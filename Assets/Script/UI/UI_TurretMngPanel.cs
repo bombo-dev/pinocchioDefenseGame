@@ -7,6 +7,15 @@ using UnityEngine.EventSystems;
 
 public class UI_TurretMngPanel : UI_Controller
 {
+    [Header("Animation")]
+    //애니메이션
+    [SerializeField]
+    Animator turretMgnPanelAnimator;
+    [SerializeField]
+    AnimationClip onTurretMgnPanel;
+    [SerializeField]
+    AnimationClip offTurretMgnPanel;
+
     const int MAXTURRET = 17;   //최대 터렛 수
 
     int currentSelectedTurretIdx = 0;   //현재 선택한 터렛 번호

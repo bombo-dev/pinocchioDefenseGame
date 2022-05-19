@@ -87,6 +87,17 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    PanelManager panelManager;
+    public PanelManager PanelManager
+    {
+        get
+        {
+            return panelManager;
+        }
+    }
+
+
+    [SerializeField]
     LoadJson loadJson;
     public LoadJson LoadJson
     {
