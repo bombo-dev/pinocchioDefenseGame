@@ -11,14 +11,8 @@ public class LoadJson : MonoBehaviour
 {
     private void Start()
     {
-
         // Save(PathInit2());
-
         PrepareGameFlowJsonData();
-
-        Debug.Log(ReadJsonFileToString(PathInit2()));
-
-        
     }
 
     /// <summary>
@@ -60,8 +54,11 @@ public class LoadJson : MonoBehaviour
             // 복호화 추가 메소드 *****************
 
             //string jsonString = File.ReadAllText(filePath);
+
+            Debug.Log("유니티 에디터에서 실행");
+
             string originJsonString = File.ReadAllText(filePath);
-            string load = Load(originJsonString);
+            string load = Load(originJsonString, "Test.Json");
 
             return JsonToObject<DefenseFlowDataList>(load);
             //return JsonToObject<DefenseFlowDataList>(jsonString);
@@ -69,8 +66,9 @@ public class LoadJson : MonoBehaviour
         // PC에서 게임 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
+            Debug.Log("PC에서 실행");
             string originJsonString = File.ReadAllText(filePath);
-            string load = Load(originJsonString);
+            string load = Load(originJsonString, "Test.Json");
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -102,7 +100,7 @@ public class LoadJson : MonoBehaviour
             jsonString = File.ReadAllText(filePath);
 
             // 복호화 추가
-            string load = Load(jsonString);
+            string load = Load(jsonString, "Test.Json");
 
             return load;
         }
