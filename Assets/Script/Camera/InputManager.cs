@@ -77,9 +77,12 @@ public class InputManager : MonoBehaviour
 
         if (nest != null)
         {
+            SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
             //터렛이 설치된 Nest의경우
             if (nest.haveTurret)
-                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0);
+            {
+                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
+            }
         }    
 
         //선택한 오브젝트 하이라이트 효과

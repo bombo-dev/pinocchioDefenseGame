@@ -62,6 +62,10 @@ public class UI_TurretMngPanel : UI_Controller
     public void OnClickTurretButton(PointerEventData data, int idx)
     {
         currentSelectedTurretIdx = idx;
+
+        //더블클릭 이벤트
+        if (data.clickCount == 2)
+            OnClickTurretSummonButton(data);
     }
 
     public void OnClickTurretSummonButton(PointerEventData data)
