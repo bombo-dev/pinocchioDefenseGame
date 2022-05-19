@@ -58,9 +58,9 @@ public class LoadJson : MonoBehaviour
             Debug.Log("유니티 에디터에서 실행");
 
             string originJsonString = File.ReadAllText(filePath);
-            string load = Load(originJsonString, "Test.Json");
+            // string load = Load(originJsonString, "Test.Json");
 
-            return JsonToObject<DefenseFlowDataList>(load);
+            return JsonToObject<DefenseFlowDataList>(originJsonString);
             //return JsonToObject<DefenseFlowDataList>(jsonString);
         }
         // PC에서 게임 실행
