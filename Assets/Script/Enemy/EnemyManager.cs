@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour
     //Load한 Enemy 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
-    // 활성화된 enemy를 받아올 배열
+    // 활성화된 enemy를 받아올 리스트
     public List<GameObject> enemies;
 
     [SerializeField]

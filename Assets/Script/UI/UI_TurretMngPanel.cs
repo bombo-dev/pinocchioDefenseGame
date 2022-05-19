@@ -7,18 +7,12 @@ using UnityEngine.EventSystems;
 
 public class UI_TurretMngPanel : UI_Controller
 {
-    [Header("Animation")]
-    //애니메이션
-    [SerializeField]
-    Animator turretMgnPanelAnimator;
-    [SerializeField]
-    AnimationClip onTurretMgnPanel;
-    [SerializeField]
-    AnimationClip offTurretMgnPanel;
+    public string filePath;
 
     const int MAXTURRET = 17;   //최대 터렛 수
 
     int currentSelectedTurretIdx = 0;   //현재 선택한 터렛 번호
+
     enum Buttons
     {
         TurretButton0,//0~
@@ -42,7 +36,7 @@ public class UI_TurretMngPanel : UI_Controller
     }
 
     /// <summary>
-    /// enum에 열거된 이름으로 UI정보를 바인딩
+    /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
     /// </summary>
     protected override void BindingUI()
     {
@@ -59,6 +53,11 @@ public class UI_TurretMngPanel : UI_Controller
 
     }
 
+    /// <summary>
+    /// 소환할 터렛을 선택하거나 더블 터치 or 클릭으로 소환
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    /// <param name="idx">소환할 터렛의 인덱스</param>
     public void OnClickTurretButton(PointerEventData data, int idx)
     {
         currentSelectedTurretIdx = idx;
@@ -68,8 +67,33 @@ public class UI_TurretMngPanel : UI_Controller
             OnClickTurretSummonButton(data);
     }
 
+    /// <summary>
+    /// 선택해놓은 터렛을 소환
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
     public void OnClickTurretSummonButton(PointerEventData data)
     {
-        SystemManager.Instance.TurretManager.EnableTurret(currentSelectedTurretIdx, SystemManager.Instance.InputManager.currenstSelectNest.transform.position);
+        if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
+        {
+            GameObject nestGo = SystemManager.Instance.InputManager.currenstSelectNest;
+            
+            //예외처리
+            if (!nestGo)
+                return;
+
+            GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(currentSelectedTurretIdx, nestGo.transform.position);
+
+            if (!turretGo)
+                return;
+            
+            Nest nest = nestGo.GetComponent<Nest>();
+            if (nest)
+            {
+                turretGo.GetComponent<Turret>().nest = nestGo;
+                nest.haveTurret = true;
+                nest.turret = turretGo;
+            }
+            
+        }
     }
 }

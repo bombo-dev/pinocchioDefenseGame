@@ -5,11 +5,12 @@ using UnityEngine;
 public class PanelManager : MonoBehaviour
 {
     [Header("PanelCachesInfo")]
-    //Load한 Enemy 프리팹 정보
+    //Load한 Panel 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
-    // 활성화된 enemy를 받아올 배열
-    public List<GameObject> panels;
+    // 활성화된 panel를 받아올 리스트
+    public UI_TurretMngPanel turretMngPanel;
+    public UI_TurretInfoPanel turretInfoPanel;
 
     [SerializeField]
     Transform canvas;
@@ -73,7 +74,10 @@ public class PanelManager : MonoBehaviour
 
         T compoenent = go.GetComponent<T>();
 
-        panels.Add(go);
+        if (typeof(T) == typeof(UI_TurretInfoPanel))
+            turretInfoPanel = (compoenent as UI_TurretInfoPanel);
+        else if(typeof(T) == typeof(UI_TurretMngPanel))
+            turretMngPanel = (compoenent as UI_TurretMngPanel);
     }
 
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
-    //Load한 Enemy 프리팹 정보
+    //Load한 Turret 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
-    // 활성화된 enemy를 받아올 배열
+    // 활성화된 turret 받아올 리스트
     public List<GameObject> turrets;
 
     [SerializeField]
@@ -58,17 +58,17 @@ public class TurretManager : MonoBehaviour
     /// </summary>
     /// <param name="enemyIndex">생성할 Turret이 저장될 인덱스</param>
     /// <param name="turretPos">Turret이 생성될 위치</param>
-    public void EnableTurret(int turretIndex, Vector3 turretPos)
+    public GameObject EnableTurret(int turretIndex, Vector3 turretPos)
     {
         //예외처리
         if (turretIndex >= prefabCacheDatas.Length || prefabCacheDatas[turretIndex].filePath == null)
-            return;
+            return null;
 
         //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[turretIndex].filePath);
 
         if (go == null)
-            return;
+            return null;
 
         //생성한 프리팹이 유효할 경우
         Turret turret = go.GetComponent<Turret>();
@@ -82,6 +82,8 @@ public class TurretManager : MonoBehaviour
 
         //터렛을 초기상태로
         turret.Reset();
+
+        return go;
     }
 
     /// <summary>

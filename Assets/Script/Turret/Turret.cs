@@ -11,6 +11,9 @@ public class Turret : Actor
         Dead,          //  Enemy에 의해 죽은 상태
     }
 
+    //소환해있는 둥지
+    public GameObject nest;
+
     [SerializeField]
     string gateNum; 
 
@@ -152,6 +155,15 @@ public class Turret : Actor
         {
             // 터렛 비활성화
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+            // 터렛 소환 정보 비활성화 상태로 변경
+            Nest _nest = nest.GetComponent<Nest>();
+            if (_nest)
+            {
+                _nest.haveTurret = false;
+                _nest.turret = null;
+            }
+            nest = null;
 
             return;
         }

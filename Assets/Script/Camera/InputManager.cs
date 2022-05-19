@@ -77,10 +77,31 @@ public class InputManager : MonoBehaviour
 
         if (nest != null)
         {
-            SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
             //터렛이 설치된 Nest의경우
             if (nest.haveTurret)
             {
+                //UI_TurretMngPanel 패널이 존재할 경우
+                if (SystemManager.Instance.PanelManager.turretMngPanel)
+                {
+                    //패널 비활성화
+                    SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(SystemManager.Instance.PanelManager.turretMngPanel.filePath,
+                        SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
+
+                    SystemManager.Instance.PanelManager.turretMngPanel = null;
+                }
+                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
+            }
+            else
+            {
+                //UI_TurretInfoPanel 패널이 존재할 경우
+                if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                {
+                    //패널 비활성화
+                    SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(SystemManager.Instance.PanelManager.turretInfoPanel.filePath,
+                        SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
+
+                    SystemManager.Instance.PanelManager.turretInfoPanel = null;
+                }
                 SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
             }
         }    
@@ -98,11 +119,11 @@ public class InputManager : MonoBehaviour
     {
         rendererList.Clear();
 
-        Renderer renderer = currenstSelectNest.GetComponent<Renderer>();
+        Renderer renderer = go.GetComponent<Renderer>();
 
         if (renderer != null)
         {
-            rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
+            rendererList.Add(go.GetComponent<Renderer>());
             SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 2);
         }
     }
@@ -115,11 +136,11 @@ public class InputManager : MonoBehaviour
     {
         rendererList.Clear();
 
-        Renderer renderer = currenstSelectNest.GetComponent<Renderer>();
+        Renderer renderer = go.GetComponent<Renderer>();
 
         if (renderer != null)
         {
-            rendererList.Add(currenstSelectNest.GetComponent<Renderer>());
+            rendererList.Add(go.GetComponent<Renderer>());
             SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
         }
        
