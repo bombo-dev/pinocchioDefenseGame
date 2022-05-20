@@ -194,16 +194,16 @@ public class LoadJson : MonoBehaviour
         return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
     }
 
-    public static void Save(string filePath, string fileName)
+    public static void Save(string filePath)
     {
         string save = ReadJsonFileToString(filePath);
         save = Encrypt(save, "key");
-        File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"), save);
+        File.WriteAllText(filePath, save);
     }
 
-    public static string Load(string filePath, string fileName)
+    public static string Load(string filePath)
     {
-        string load = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "jsonAssets.json"));
+        string load = File.ReadAllText(filePath);
         load = Decrypt(load, "key");
         return load;
     }
