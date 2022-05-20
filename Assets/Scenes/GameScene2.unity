@@ -910,7 +910,7 @@ RectTransform:
   m_Children:
   - {fileID: 64046885}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1337,7 +1337,7 @@ Transform:
   - {fileID: 1367627632}
   - {fileID: 1746624038}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &208214190
 PrefabInstance:
@@ -11112,6 +11112,58 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1653976938}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1664103176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1664103178}
+  - component: {fileID: 1664103177}
+  m_Layer: 0
+  m_Name: PanelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1664103177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664103176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f266d1b6c8a0cd8468fdecb4bb3a05ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretMngPanel: {fileID: 0}
+  turretInfoPanel: {fileID: 0}
+  canvas: {fileID: 920805637}
+  prefabCacheDatas:
+  - filePath: Panel/TurretMngPanel
+    cacheCount: 1
+  - filePath: Panel/TurretInfoPanel
+    cacheCount: 1
+--- !u!4 &1664103178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664103176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1670423486
 GameObject:
   m_ObjectHideFlags: 0
@@ -12744,7 +12796,7 @@ MonoBehaviour:
   tileManager: {fileID: 1788577325}
   inputManager: {fileID: 1776659489}
   gameFlowManager: {fileID: 1390774208}
-  panelManager: {fileID: 0}
+  panelManager: {fileID: 1664103177}
   loadJson: {fileID: 1000031783}
   shaderController: {fileID: 619129263}
 --- !u!4 &1788577324
@@ -13665,7 +13717,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1929553176
 PrefabInstance:
@@ -13996,7 +14048,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1951546603
 GameObject:
@@ -14687,7 +14739,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2032301316
 GameObject:
