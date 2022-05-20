@@ -34,7 +34,7 @@ public class LoadJson : MonoBehaviour
     //Json File √ ±‚»≠
     public string PathInit()
     {
-        string filePath;
+            string filePath;
             filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
             return filePath;
     }
@@ -80,7 +80,7 @@ public class LoadJson : MonoBehaviour
             File.WriteAllBytes(realPath, reader.bytes);
 
             // string jsonString = File.ReadAllText(realPath);
-            string load = Load(filePath);
+            string load = Load(realPath);
             return JsonToObject<DefenseFlowDataList>(load);
         }
     }
@@ -112,7 +112,7 @@ public class LoadJson : MonoBehaviour
 
         else
         {
-            string originPath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+            string originPath = filePath;
 
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
@@ -203,6 +203,7 @@ public class LoadJson : MonoBehaviour
 
     public static void Save(string filePath)
     {
+        JsonToDecrypt(filePath);
         string save = ReadJsonFileToString(filePath);
         save = Encrypt(save, "key");
         File.WriteAllText(filePath, save);
