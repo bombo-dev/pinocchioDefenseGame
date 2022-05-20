@@ -223,4 +223,15 @@ public class LoadJson : MonoBehaviour
         File.WriteAllText(filePath, load);
     }
 
+    //Json 새로 불러오기
+    public static void LoadFromJson()
+    {
+
+    }
+
+    //Json 삭제
+    public static void DeleteJson()
+    {
+
+    }
 }
