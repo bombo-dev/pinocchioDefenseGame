@@ -9,7 +9,7 @@ public class StageMngPanel : UI_Controller
 
     private void Update()
     {
-        TimerFlow();
+        //TimerFlow();
     }
 
     enum Texts
