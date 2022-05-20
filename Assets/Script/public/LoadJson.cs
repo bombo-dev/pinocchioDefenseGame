@@ -11,6 +11,8 @@ public class LoadJson : MonoBehaviour
 {
     private void Start()
     {
+        // DeleteJson()
+        // LoadFromJson()
         Save(PathInit());
         PrepareGameFlowJsonData();
     }
