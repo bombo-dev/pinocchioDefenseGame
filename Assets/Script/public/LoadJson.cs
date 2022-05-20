@@ -9,18 +9,12 @@ using UnityEngine.UI;
 
 public class LoadJson : MonoBehaviour
 {
-    [SerializeField]
-    Text Test;
-    [SerializeField]
-    Text Test2;
-        
     private void Start()
     {
+        // DeleteJson()
+        // LoadFromJson()
+        Save(PathInit());
         PrepareGameFlowJsonData();
-        string s = Encrypt(ReadJsonFileToString(PathInit()), "key");
-        Debug.Log("암호화" + s);
-        string load = Decrypt(s, "key");
-        Debug.Log("복호화" + load);
     }
 
     /// <summary>
@@ -42,7 +36,7 @@ public class LoadJson : MonoBehaviour
     //Json File 초기화
     public string PathInit()
     {
-        string filePath;
+            string filePath;
             filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
             return filePath;
     }
@@ -56,18 +50,30 @@ public class LoadJson : MonoBehaviour
     // JsonData 불러오는 메소드
     public static DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
-        // PC 경로 체크
-        if (Application.platform == RuntimePlatform.WindowsPlayer)
+        // 윈도우 유니티 에디터 경로 체크
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            // 복호화 추가 메소드
-            string jsonString = File.ReadAllText(filePath);
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            Debug.Log("유니티 에디터에서 실행");
+
+            // string originJsonString = File.ReadAllText(filePath);
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+        }
+        // PC에서 게임 실행
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            Debug.Log("PC에서 실행");
+            //string originJsonString = File.ReadAllText(filePath);
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
         }
 
         // 모바일 경로 체크
         else
         {
-            string originPath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+            string originPath = filePath;
 
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
@@ -75,9 +81,9 @@ public class LoadJson : MonoBehaviour
             string realPath = Application.persistentDataPath + ".Json";
             File.WriteAllBytes(realPath, reader.bytes);
 
-            string jsonString = File.ReadAllText(realPath);
-
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            // string jsonString = File.ReadAllText(realPath);
+            string load = Load(realPath);
+            return JsonToObject<DefenseFlowDataList>(load);
         }
     }
 
@@ -85,14 +91,30 @@ public class LoadJson : MonoBehaviour
     public static string ReadJsonFileToString(string filePath)
     {
         string jsonString;
-        if (Application.platform == RuntimePlatform.WindowsPlayer)
+
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
             jsonString = File.ReadAllText(filePath);
+
+            // 복호화 추가
+            // string load = Load(filePath);
+
             return jsonString;
         }
+
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            jsonString = File.ReadAllText(filePath);
+
+            // 복호화 추가
+            //string load = Load(filePath);
+
+            return jsonString;
+        }
+
         else
         {
-            string originPath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+            string originPath = filePath;
 
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
@@ -101,6 +123,7 @@ public class LoadJson : MonoBehaviour
             File.WriteAllBytes(realPath, reader.bytes);
 
             jsonString = File.ReadAllText(realPath);
+            // string load = Load(realPath);
             return jsonString;
         }
     }
@@ -180,4 +203,37 @@ public class LoadJson : MonoBehaviour
         return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
     }
 
+    public static void Save(string filePath)
+    {
+        JsonToDecrypt(filePath);
+        string save = ReadJsonFileToString(filePath);
+        save = Encrypt(save, "key");
+        File.WriteAllText(filePath, save);
+    }
+
+    public static string Load(string filePath)
+    {
+        string load = File.ReadAllText(filePath);
+        load = Decrypt(load, "key");
+        return load;
+    }
+
+    public static void JsonToDecrypt(string filePath)
+    {
+        string load = File.ReadAllText(filePath);
+        load = Decrypt(load, "key");
+        File.WriteAllText(filePath, load);
+    }
+
+    //Json 새로 불러오기
+    public static void LoadFromJson()
+    {
+
+    }
+
+    //Json 삭제
+    public static void DeleteJson()
+    {
+
+    }
 }
