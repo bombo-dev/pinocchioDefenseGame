@@ -8,7 +8,7 @@ public class Actor : MonoBehaviour
     [Header("Stat")]    //능력치
 
     [SerializeField]
-    protected int maxHP = 30;   //최대 체력
+    public int maxHP = 30;   //최대 체력
 
     [SerializeField]
     public int currentHP;   //현재 체력

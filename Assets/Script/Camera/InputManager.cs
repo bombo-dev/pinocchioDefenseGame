@@ -86,7 +86,10 @@ public class InputManager : MonoBehaviour
                     //패널 비활성화
                     SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
                 }
-                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
+                if (!SystemManager.Instance.PanelManager.turretMngPanel)
+                    SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
+                else//이미 InfoPanel이 존재할 경우 Reset해서 정보만 갱신
+                    SystemManager.Instance.PanelManager.turretMngPanel.GetComponent<UI_TurretInfoPanel>().Reset();
             }
             else
             {
@@ -96,7 +99,8 @@ public class InputManager : MonoBehaviour
                     //패널 비활성화
                     SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
                 }
-                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
+                if (!SystemManager.Instance.PanelManager.turretInfoPanel)
+                    SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
             }
         }    
 

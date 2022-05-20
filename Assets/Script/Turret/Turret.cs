@@ -14,11 +14,13 @@ public class Turret : Actor
     //소환해있는 둥지
     public GameObject nest;
 
+    public int turretNum;   //터렛 종류 번호 (터렛 종류에 따라 번호 부여)
+
     [SerializeField]
     string gateNum; 
 
     [SerializeField]
-    public int turretIndex;  //turret고유 번호
+    public int turretIndex;  //turret고유 번호 (생성되있는 터렛기준 번호 부여)
 
     [SerializeField]
     TurretState turretState = TurretState.Idle;
@@ -160,6 +162,17 @@ public class Turret : Actor
             Nest _nest = nest.GetComponent<Nest>();
             if (_nest)
             {
+                //현재 선택하고 있는 둥지위에있는 터렛이 Dead상태로 변하고 Turret정보 UI가 켜져있을 경우 UI off
+                //UI_TurretInfoPanel 패널이 존재할 경우
+                if (SystemManager.Instance.PanelManager.turretInfoPanel && System.Object.ReferenceEquals(SystemManager.Instance.InputManager.currenstSelectNest, _nest.gameObject))
+                {
+                    //패널 비활성화
+                    SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
+                }
+                if(!SystemManager.Instance.PanelManager.turretInfoPanel)
+                    SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
+
+
                 _nest.haveTurret = false;
                 _nest.turret = null;
             }

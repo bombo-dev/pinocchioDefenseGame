@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PanelManager : MonoBehaviour
 {
     [Header("PanelCachesInfo")]
@@ -76,8 +75,11 @@ public class PanelManager : MonoBehaviour
 
         if (typeof(T) == typeof(UI_TurretMngPanel))
             turretMngPanel = (compoenent as UI_TurretMngPanel);
-        else if(typeof(T) == typeof(UI_TurretInfoPanel))
+        else if (typeof(T) == typeof(UI_TurretInfoPanel))
+        {
             turretInfoPanel = (compoenent as UI_TurretInfoPanel);
+            (compoenent as UI_TurretInfoPanel).Reset();
+        }
     }
 
 
@@ -90,7 +92,7 @@ public class PanelManager : MonoBehaviour
         T compoenent = go.GetComponent<T>();
 
         //예외처리
-        if (compoenent = null)
+        if (compoenent == null)
             return;
 
         string filePath = null;

@@ -40,6 +40,8 @@ public class UI_TurretMngPanel : UI_Controller
     /// </summary>
     protected override void BindingUI()
     {
+        base.BindingUI();
+
         Bind<Button>(typeof(Buttons));
 
         //터렛 선택 버튼 이벤트 추가
@@ -68,7 +70,7 @@ public class UI_TurretMngPanel : UI_Controller
     }
 
     /// <summary>
-    /// 선택해놓은 터렛을 소환
+    /// 선택해놓은 터렛을 소환 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
     public void OnClickTurretSummonButton(PointerEventData data)
@@ -86,6 +88,7 @@ public class UI_TurretMngPanel : UI_Controller
             if (!turretGo)
                 return;
             
+            //둥지정보 갱신
             Nest nest = nestGo.GetComponent<Nest>();
             if (nest)
             {
@@ -93,7 +96,16 @@ public class UI_TurretMngPanel : UI_Controller
                 nest.haveTurret = true;
                 nest.turret = turretGo;
             }
-            
+
+            //UI_TurretMngPanel 패널이 존재할 경우
+            if (SystemManager.Instance.PanelManager.turretMngPanel)
+            {
+                //패널 비활성화
+                SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
+            }
+            if (!SystemManager.Instance.PanelManager.turretMngPanel)
+                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
+
         }
     }
 }
