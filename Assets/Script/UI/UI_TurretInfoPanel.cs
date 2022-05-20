@@ -51,6 +51,7 @@ public class UI_TurretInfoPanel : UI_Controller
 
     public void Reset()
     {
+        Debug.Log("Reset");
         //바인드가 아직 안된 상태
         if (!isBind)
             return;
