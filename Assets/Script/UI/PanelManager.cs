@@ -74,10 +74,40 @@ public class PanelManager : MonoBehaviour
 
         T compoenent = go.GetComponent<T>();
 
-        if (typeof(T) == typeof(UI_TurretInfoPanel))
-            turretInfoPanel = (compoenent as UI_TurretInfoPanel);
-        else if(typeof(T) == typeof(UI_TurretMngPanel))
+        if (typeof(T) == typeof(UI_TurretMngPanel))
             turretMngPanel = (compoenent as UI_TurretMngPanel);
+        else if(typeof(T) == typeof(UI_TurretInfoPanel))
+            turretInfoPanel = (compoenent as UI_TurretInfoPanel);
     }
 
+
+    public void DisablePanel<T>(GameObject go) where T: UnityEngine.Component
+    {
+        //抗寇贸府
+        if (go == null)
+            return;
+
+        T compoenent = go.GetComponent<T>();
+
+        //抗寇贸府
+        if (compoenent = null)
+            return;
+
+        string filePath = null;
+
+        if (typeof(T) == typeof(UI_TurretMngPanel))
+        {
+            filePath = (compoenent as UI_TurretMngPanel).filePath;
+            turretMngPanel = null;
+        }
+        else if (typeof(T) == typeof(UI_TurretInfoPanel))
+        {
+            filePath = (compoenent as UI_TurretInfoPanel).filePath;
+            turretInfoPanel = null;
+        }
+        else
+            return;
+
+        SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, go);
+    }
 }
