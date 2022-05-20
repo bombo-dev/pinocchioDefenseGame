@@ -356,7 +356,7 @@ public class Actor : MonoBehaviour
             return;
         }
 
-        callFlashCoroutine(ShaderController.WHITE);
+        //callFlashCoroutine(ShaderController.WHITE);
 
     }
 

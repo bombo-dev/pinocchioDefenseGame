@@ -78,6 +78,7 @@ public class ShaderController : MonoBehaviour
         //수정용 쉐이더 정보 캐싱
         for (int i = 0; i < rendererArr.Length; i++)
         {
+            
             if (!(rendererArr[i].sharedMaterial.shader.name != "Custom/CustomToon" &&
                 rendererArr[i].sharedMaterial.shader.name != "Custom/Lambert_Blinnphong"))
             {
