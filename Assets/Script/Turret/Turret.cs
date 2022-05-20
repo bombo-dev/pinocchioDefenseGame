@@ -57,27 +57,41 @@ public class Turret : Actor
     {
         base.Initialize();
 
-        currentHP = maxHP;
-
-        Ray ray = new Ray();
-        ray.origin = this.transform.position;
-        ray.direction = -this.transform.up;
-
-        // Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, 3);
-
-        /*
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray.origin, ray.direction, out hitInfo))
-        {
-            gateNum = hitInfo.transform.tag;
-            //Debug.Log(gateNum);
-            Transform gate = GameObject.Find(gateNum).transform;
-            Vector3 direction = (transform.position - gate.position).normalized;
-            transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        }*/
+        Reset();
+       
     }
 
+
+    /// <summary>
+    /// 터렛의 정보 리셋 : 김현진
+    /// </summary>
+    public override void Reset()
+    {
+        base.Reset();
+
+        //상태초기화
+        turretState = TurretState.Idle;
+
+        //애니메이션 플래그 초기화
+        if (attackTargetNum > 0)
+        {
+            animator.SetBool("attack", false);
+            animator.SetBool("attackCancel", false);
+
+            if (attackRangeType == 0)
+                animator.SetBool("meleeAttack", false);
+            else
+                animator.SetBool("rangedAttack", false);
+        }
+
+        animator.SetBool("isDead", false);
+
+        //Enemy애니메이션 State 초기상태
+        animator.Play("Idle");
+
+        //상태초기화
+        turretState = TurretState.Idle;
+    }
 
     /// <summary>
     /// Enemy를 거리순으로 감지 : 하은비
@@ -138,11 +152,21 @@ public class Turret : Actor
     {
         base.DecreseHP(damage);
         
+        //TurretInfo UI 갱신
+        if (SystemManager.Instance.PanelManager.turretInfoPanel)
+        {
+            UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
+
+            //TurretInfo UI 최신정보로 업데이트
+            panel.Reset(false);
+        }
+
         if (currentHP == 0)
         {
             SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
             turretState = TurretState.Dead;
         }
+
     }
 
     /// <summary>
@@ -182,14 +206,4 @@ public class Turret : Actor
         }
     }
 
-    /// <summary>
-    /// 터렛의 정보 리셋
-    /// </summary>
-    public override void Reset()
-    {
-        base.Reset();
-
-        //상태초기화
-        turretState = TurretState.Idle;       
-    }
 }

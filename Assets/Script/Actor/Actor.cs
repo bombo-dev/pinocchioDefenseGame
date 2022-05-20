@@ -122,6 +122,9 @@ public class Actor : MonoBehaviour
 
         //타겟배열 초기화
         attackTargets.Clear();
+
+        //HP초기화
+        currentHP = maxHP;
     }
 
     /// <summary>

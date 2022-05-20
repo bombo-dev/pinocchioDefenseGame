@@ -49,7 +49,11 @@ public class UI_TurretInfoPanel : UI_Controller
         Reset();
     }
 
-    public void Reset()
+    /// <summary>
+    /// 터렛정보 UI 최신정보로 업데이트 : 김현진
+    /// </summary>
+    /// <param name="updateAllState">true면 피격,강화 state만 갱신, false면 모든정보 갱신</param>
+    public void Reset(bool updateAllState = true)
     {
         Debug.Log("Reset");
         //바인드가 아직 안된 상태
@@ -68,9 +72,13 @@ public class UI_TurretInfoPanel : UI_Controller
 
         if (!turret)
             return;
-
-        if (turret.turretNum < turretSprite.Length)
-            GetImage((int)Images.TurretInfoImage).sprite = turretSprite[turret.turretNum];
+        if (updateAllState)
+        {
+            //이미지 정보 갱신
+            if (turret.turretNum < turretSprite.Length)
+                GetImage((int)Images.TurretInfoImage).sprite = turretSprite[turret.turretNum];
+        }
+        //HP 텍스트 정보 갱신
          GetTextMeshProUGUI((int)TextMeshProUGUIs.HpPointText).text= turret.currentHP + "/" + turret.maxHP;
     }
 }

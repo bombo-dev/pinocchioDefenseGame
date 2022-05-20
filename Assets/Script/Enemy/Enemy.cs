@@ -56,9 +56,6 @@ public class Enemy : Actor
     {
         base.Reset();
 
-        //HP초기화
-        currentHP = maxHP;
-
         //위치초기화
         transform.position = appearPos[gateNum];
 
