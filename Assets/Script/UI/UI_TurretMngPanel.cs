@@ -32,7 +32,8 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton14,
         TurretButton15,
         TurretButton16,//~16
-        TurretSummonButton
+        TurretSummonButton,
+        CloseTurretMngPanelButton
     }
 
     /// <summary>
@@ -53,6 +54,8 @@ public class UI_TurretMngPanel : UI_Controller
         //터렛 소환 버튼 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.TurretSummonButton).gameObject, OnClickTurretSummonButton, Define.UIEvent.Click);
 
+        //패널 닫기 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
     }
 
     /// <summary>
@@ -106,6 +109,20 @@ public class UI_TurretMngPanel : UI_Controller
             if (!SystemManager.Instance.PanelManager.turretMngPanel)
                 SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
 
+        }
+    }
+
+    /// <summary>
+    /// 패널을 닫는다 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void ClosePanel(PointerEventData data)
+    {
+        //UI_TurretMngPanel 패널이 존재할 경우
+        if (SystemManager.Instance.PanelManager.turretMngPanel)
+        {
+            //패널 비활성화
+            SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
         }
     }
 }

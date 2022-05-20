@@ -22,7 +22,8 @@ public class UI_TurretInfoPanel : UI_Controller
         ColorWoodButton1,
         ColorWoodButton2,
         ColorWoodButton3, //~3
-        TurretUpgradeButton
+        TurretUpgradeButton,
+        CloseTurretInfoPanelButton
     }
 
     enum Images
@@ -46,7 +47,11 @@ public class UI_TurretInfoPanel : UI_Controller
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         isBind = true;//바인드 완료
+
         Reset();
+
+        //패널 닫기 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.CloseTurretInfoPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
     }
 
     /// <summary>
@@ -80,5 +85,19 @@ public class UI_TurretInfoPanel : UI_Controller
         }
         //HP 텍스트 정보 갱신
          GetTextMeshProUGUI((int)TextMeshProUGUIs.HpPointText).text= turret.currentHP + "/" + turret.maxHP;
+    }
+
+    /// <summary>
+    /// 패널을 닫는다 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void ClosePanel(PointerEventData data)
+    {
+        //UI_TurretMngPanel 패널이 존재할 경우
+        if (SystemManager.Instance.PanelManager.turretInfoPanel)
+        {
+            //패널 비활성화
+            SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
+        }
     }
 }
