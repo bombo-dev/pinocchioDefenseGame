@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6440196328787627012}
   - component: {fileID: 2759627279674980224}
   m_Layer: 9
-  m_Name: basicBullet
+  m_Name: BasicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,8 @@ MonoBehaviour:
   bulletLifeTime: 0
   attackTarget: {fileID: 0}
   bulletSpeed: 50
-  filePath: Bullet/basicBullet
+  filePath: Bullet/BasicBullet
   bulletType: 0
   reduceHeight: 25
+  force: 0
+  attackOwner: {fileID: 0}
