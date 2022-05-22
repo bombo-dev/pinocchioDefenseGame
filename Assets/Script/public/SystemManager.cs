@@ -96,6 +96,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    EffectManager effectManager;
+    public EffectManager EffectManager
+    {
+        get
+        {
+            return effectManager;
+        }
+    }
+
 
     [SerializeField]
     LoadJson loadJson;
