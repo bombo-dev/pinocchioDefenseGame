@@ -38,7 +38,7 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected int multiAttackRange;  //다중공격 사거리
 
-    [Header("Bullet")]  //원거리 공격 유닛 - 총알 관련
+    [Header("Bullet, Effect")]  //원거리 공격 유닛 - 총알 관련
     [SerializeField]
     protected int bulletIndex;  //사용할 총알 번호
 
@@ -52,6 +52,9 @@ public class Actor : MonoBehaviour
     public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점    
 
     protected float attackTimer;  //공격시간 타이머
+
+    [SerializeField]
+    public int explosionEffectIndex; //사용할 공격 이펙트 번호
 
     [Header("data")]    //기타 데이터
     [SerializeField]
