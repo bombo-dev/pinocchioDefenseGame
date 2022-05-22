@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 977153782212270674}
   - component: {fileID: 3056672535574867608}
   - component: {fileID: 1308721875272179810}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LightningBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3561088406631894861}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.2939, y: -142.19371, z: 14.36204}
   m_LocalScale: {x: 5.0154138, y: 5.0154138, z: 5.0154138}
   m_ConstrainProportionsScale: 0
@@ -102,3 +102,5 @@ MonoBehaviour:
   filePath: Bullet/LightningBullet
   bulletType: 0
   reduceHeight: 0
+  force: 0
+  attackOwner: {fileID: 0}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2508679640927225222
+--- !u!1 &6261819653648807655
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6061117393545842831}
-  - component: {fileID: 7171566533635704420}
+  - component: {fileID: 3742406572892379886}
+  - component: {fileID: 5461517229836148651}
   m_Layer: 9
-  m_Name: BombBullet
+  m_Name: SnowBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6061117393545842831
+--- !u!4 &3742406572892379886
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508679640927225222}
+  m_GameObject: {fileID: 6261819653648807655}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57.23, y: -55.65, z: 98.62}
+  m_LocalPosition: {x: -41.5, y: 3.05, z: 1.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9020262400932141591}
+  - {fileID: 9049488894619981664}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7171566533635704420
+--- !u!114 &5461517229836148651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2508679640927225222}
+  m_GameObject: {fileID: 6261819653648807655}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: def8cd7e1f571644dab7a4b996580256, type: 3}
@@ -48,12 +48,12 @@ MonoBehaviour:
   bulletLifeTime: 0
   attackTarget: {fileID: 0}
   bulletSpeed: 50
-  filePath: Bullet/BombBullet
+  filePath: Bullet/SnowBullet
   bulletType: 0
   reduceHeight: 0
   force: 0
   attackOwner: {fileID: 0}
---- !u!1 &8531427860952318125
+--- !u!1 &8565264405214449114
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,46 +61,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9020262400932141591}
-  - component: {fileID: 5368769361115895218}
-  - component: {fileID: 7882781489845281144}
+  - component: {fileID: 9049488894619981664}
+  - component: {fileID: 5348558513551808709}
+  - component: {fileID: 7916504510828473359}
   m_Layer: 9
-  m_Name: BombBullet
+  m_Name: SnowBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9020262400932141591
+--- !u!4 &9049488894619981664
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8531427860952318125}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0.245121, y: 0.3101654, z: -1.6100006}
-  m_LocalScale: {x: 12, y: 12, z: 12}
+  m_GameObject: {fileID: 8565264405214449114}
+  m_LocalRotation: {x: 0.35495925, y: -0.63281876, z: 0.34838256, w: -0.5934425}
+  m_LocalPosition: {x: -0.7922745, y: 1.1450183, z: 2.1887388}
+  m_LocalScale: {x: 9, y: 9, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6061117393545842831}
+  m_Father: {fileID: 3742406572892379886}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!33 &5368769361115895218
+  m_LocalEulerAnglesHint: {x: 1.125, y: -266.966, z: -59.644}
+--- !u!33 &5348558513551808709
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8531427860952318125}
-  m_Mesh: {fileID: -849867405023671905, guid: 2b2b33df7f8324b42b1f204c7791c384, type: 3}
---- !u!23 &7882781489845281144
+  m_GameObject: {fileID: 8565264405214449114}
+  m_Mesh: {fileID: 849032210722914114, guid: 16ba6a7258d70d14cb0cdfdc76b2eddf, type: 3}
+--- !u!23 &7916504510828473359
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8531427860952318125}
+  m_GameObject: {fileID: 8565264405214449114}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -114,7 +114,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bef6c1d63c13fef4b977ac059cbbcd6d, type: 2}
+  - {fileID: 2100000, guid: d2c4717e934009149b30b369e7ce45ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
