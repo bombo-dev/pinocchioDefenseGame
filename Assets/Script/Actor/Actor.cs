@@ -45,7 +45,6 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected GameObject firePos;  //단일 공격시 총알이 발사되는 시작점
 
-    [SerializeField]
     public GameObject hitPos;   //총알과 충돌하는 객체의 위치
 
     [SerializeField]
@@ -53,8 +52,9 @@ public class Actor : MonoBehaviour
 
     protected float attackTimer;  //공격시간 타이머
 
-    [SerializeField]
-    public int explosionEffectIndex; //사용할 공격 이펙트 번호
+    public int damageEffectIndex; //사용할 공격 이펙트 번호
+
+    public int deadEffectIndex; //Dead시 사용할 이펙트 번호
 
     [Header("data")]    //기타 데이터
     [SerializeField]
@@ -284,6 +284,9 @@ public class Actor : MonoBehaviour
 
                 Turret attacker = gameObject.GetComponent<Turret>();
                 enemy.DecreseHP(attacker.power);
+
+                //피 공격자의 데미지 이펙트 출력
+                enemy.EnableDamageEffect(attacker);
             }
             else if (attackTargets[0].tag == "Turret")
             {
@@ -291,6 +294,10 @@ public class Actor : MonoBehaviour
 
                 Enemy attacker = gameObject.GetComponent<Enemy>();
                 turret.DecreseHP(attacker.power);
+
+
+                //피 공격자의 데미지 이펙트 출력
+                turret.EnableDamageEffect(attacker);
             }
 
             animator.SetBool("meleeAttack", false);
@@ -361,6 +368,19 @@ public class Actor : MonoBehaviour
 
         callFlashCoroutine(ShaderController.WHITE);
 
+    }
+
+    /// <summary>
+    /// 이펙트 출력
+    /// </summary>
+    /// <param name="attacker">공격자</param>
+    public virtual void EnableDamageEffect(Actor attacker)
+    {
+        //이펙트 출력 
+        if(currentHP > 0)
+            SystemManager.Instance.EffectManager.EnableEffect(attacker.damageEffectIndex, hitPos.transform.position);   //피격 이펙트 출력
+        else
+            SystemManager.Instance.EffectManager.EnableEffect(deadEffectIndex, hitPos.transform.position);    //Dead 이펙트 출력
     }
 
     /// <summary>

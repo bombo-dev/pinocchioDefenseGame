@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 50
   currentHP: 0
   power: 10
   attackSpeed: 2
@@ -428,6 +428,9 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 8509142495205303143}
   dropPos: {fileID: 2223364200199077230}
+  damageEffectIndex: 2
+  deadEffectIndex: 1
+  filePath: Enemy/SwordMan
   animator: {fileID: 273522508076308593}
   attackTargets: []
   attackTargetsActor: []
@@ -452,7 +455,6 @@ MonoBehaviour:
   enemyState: 0
   speed: 15
   enemyIndex: 0
-  filePath: Enemy/SwordMan
   gateNum: 0
   appearPos:
   - {x: -85, y: -150, z: 257.5}

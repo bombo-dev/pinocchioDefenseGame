@@ -3551,7 +3551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 50
   currentHP: 0
   power: 10
   attackSpeed: 3
@@ -3564,6 +3564,9 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 208268308960011774}
   dropPos: {fileID: 6519443654991449682}
+  damageEffectIndex: 2
+  deadEffectIndex: 1
+  filePath: Enemy/DarkKnight
   animator: {fileID: 8694855269465626146}
   attackTargets: []
   attackTargetsActor: []
@@ -3592,7 +3595,6 @@ MonoBehaviour:
   enemyState: 0
   speed: 18
   enemyIndex: 0
-  filePath: Enemy/DarkKnight
   gateNum: 0
   appearPos:
   - {x: -85, y: -168.5, z: 257.5}

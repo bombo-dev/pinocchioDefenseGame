@@ -3400,7 +3400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef00f96f63faba4a9d1b20ed42fa2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 50
   currentHP: 0
   power: 10
   attackSpeed: 0
@@ -3413,6 +3413,9 @@ MonoBehaviour:
   firePos: {fileID: 0}
   hitPos: {fileID: 8849969496732994687}
   dropPos: {fileID: 814229640209166185}
+  damageEffectIndex: 2
+  deadEffectIndex: 1
+  filePath: Enemy/ShieldMan
   animator: {fileID: 3876745101699669110}
   attackTargets: []
   attackTargetsActor: []
@@ -3437,7 +3440,6 @@ MonoBehaviour:
   enemyState: 0
   speed: 9
   enemyIndex: 0
-  filePath: Enemy/ShieldMan
   gateNum: 0
   appearPos:
   - {x: -85, y: -150, z: 257.5}

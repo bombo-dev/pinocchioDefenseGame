@@ -97,7 +97,7 @@ public class Bullet : MonoBehaviour
                 return;
             }
             
-            if (attackTarget.tag == "Enemy")
+            if (target.tag == "Enemy")
             {
                 Enemy enemy = target.GetComponent<Enemy>();
 
@@ -105,34 +105,22 @@ public class Bullet : MonoBehaviour
                 
                 enemy.DecreseHP(attacker.power);
 
-                //이펙트 출력
-                EnableEffect(attacker,enemy);
+                //피 공격자의 데미지 이펙트 출력
+                enemy.EnableDamageEffect(attacker);
             }
-            else if(attackTarget.tag == "Turret")
+            else if(target.tag == "Turret")
             {
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
-
+                Debug.Log(turret.name);
                 turret.DecreseHP(attacker.power);
 
-                 //이펙트 출력
-                EnableEffect(attacker,turret);
+                //피 공격자의 데미지 이펙트 출력
+                turret.EnableDamageEffect(attacker);
             }
 
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }
-    }
-
-
-    /// <summary>
-    /// 이펙트 출력
-    /// </summary>
-    /// <param name="attacker">공격자</param>
-    /// <param name="target">피공격자</param>
-    void EnableEffect(Actor attacker, Actor target)
-    {
-        //이펙트 출력 
-        SystemManager.Instance.EffectManager.EnableEffect(attacker.explosionEffectIndex,target.transform.position);
     }
 }

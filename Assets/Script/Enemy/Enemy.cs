@@ -284,6 +284,15 @@ public class Enemy : Actor
     }
 
     /// <summary>
+    /// 이펙트 출력
+    /// </summary>
+    /// <param name="attacker">공격자</param>
+    public override void EnableDamageEffect(Actor attacker)
+    {
+        base.EnableDamageEffect(attacker);
+    }
+
+    /// <summary>
     /// 적의 Dead 애니메이션 지연 처리 : 하은비
     /// </summary>
     protected override void UpdateDead()
