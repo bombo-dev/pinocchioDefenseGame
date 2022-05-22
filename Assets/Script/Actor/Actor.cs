@@ -246,7 +246,7 @@ public class Actor : MonoBehaviour
     protected virtual void UpdateBattle()
     {
         //예외처리
-        if (attackDirVec == Vector3.zero)
+        if (attackDirVec == Vector3.zero && tag == "Turret")
             return;
 
         //단일타겟 예외처리
@@ -268,7 +268,7 @@ public class Actor : MonoBehaviour
 
         if (animator.GetBool("attackCancel"))
             return;
-
+        
         //원거리 유닛 전용 총알 생성
         if (attackRangeType == 1 && animator.GetBool("rangedAttack"))
         {
@@ -330,10 +330,9 @@ public class Actor : MonoBehaviour
         //다중 타겟 유닛일 경우
         else
         {
-
             for (int i = 0; i < attackTargets.Count; i++)
             {
-                if (attackTargetsActor[i].currentHP > 0 && attackTargets[i].activeSelf) //타겟이 없는경우
+                if (attackTargetsActor[i].currentHP > 0 && attackTargets[i].activeSelf) //타겟이 존재하는경우
                 {
                     SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, attackTargetsActor[i].dropPos.transform.position, attackTargets[i], this.gameObject);
                 }

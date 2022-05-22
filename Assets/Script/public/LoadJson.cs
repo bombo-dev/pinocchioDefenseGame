@@ -15,6 +15,7 @@ public class LoadJson : MonoBehaviour
         // LoadFromJson()
         Save(PathInit());
         PrepareGameFlowJsonData();
+        //JsonToDecrypt(Path.Combine(Application.streamingAssetsPath, "Test.Json"));
     }
 
     /// <summary>
