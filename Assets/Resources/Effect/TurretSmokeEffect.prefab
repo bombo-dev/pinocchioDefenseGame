@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2883620193154939874}
   - component: {fileID: -9067198989295512595}
   m_Layer: 0
-  m_Name: SmokeEffect
+  m_Name: TurretSmokeEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1340,10 +1340,10 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.3137255, b: 0, a: 0}
-        key2: {r: 1, g: 0.3944637, b: 0.11764705, a: 0.039215688}
-        key3: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
-        key4: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
+        key1: {r: 1, g: 0.62417626, b: 0, a: 0}
+        key2: {r: 1, g: 0.6683908, b: 0.11764705, a: 0.039215688}
+        key3: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
+        key4: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
         key5: {r: 1, g: 1, b: 1, a: 0.039215688}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
@@ -5023,7 +5023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b288d400ea7144e46b12bc0a3a158def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Effect/ExplosionEffect
+  filePath: Effect/TurretSmokeExplosionEffect
 --- !u!1 &2433282508753476420
 GameObject:
   m_ObjectHideFlags: 0
@@ -5041,7 +5041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2433282508753476421
 Transform:
   m_ObjectHideFlags: 0
@@ -5211,7 +5211,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.69803923}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6281,9 +6281,9 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 0}
-        key2: {r: 1, g: 0.40522876, b: 0.13333333, a: 0.039215688}
-        key3: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
-        key4: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
+        key2: {r: 1, g: 0.6742861, b: 0.13333333, a: 0.039215688}
+        key3: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
+        key4: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
         key5: {r: 1, g: 1, b: 1, a: 0.039215688}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
@@ -9985,7 +9985,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.3490566, g: 0.34411713, b: 0.34411713, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -11108,8 +11108,8 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.3137255, b: 0, a: 0}
-        key2: {r: 1, g: 0.40522876, b: 0.13333333, a: 0}
+        key1: {r: 1, g: 0.62417626, b: 0, a: 0}
+        key2: {r: 1, g: 0.6742861, b: 0.13333333, a: 0}
         key3: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
         key4: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0.039215688}
         key5: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0.039215688}
@@ -14517,7 +14517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2433282509751658719
 Transform:
   m_ObjectHideFlags: 0
@@ -15756,10 +15756,10 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.3137255, b: 0, a: 0}
-        key2: {r: 1, g: 0.40522876, b: 0.13333333, a: 0.039215688}
-        key3: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
-        key4: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
+        key1: {r: 1, g: 0.62417626, b: 0, a: 0}
+        key2: {r: 1, g: 0.6742861, b: 0.13333333, a: 0.039215688}
+        key3: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
+        key4: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
         key5: {r: 1, g: 1, b: 1, a: 0.039215688}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
@@ -19291,7 +19291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2433282510014370362
 Transform:
   m_ObjectHideFlags: 0
@@ -20494,11 +20494,11 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.78431374}
-        key1: {r: 1, g: 0.3137255, b: 0, a: 0}
-        key2: {r: 1, g: 0.40522876, b: 0.13333333, a: 0.039215688}
-        key3: {r: 0.5188679, g: 0.1627821, b: 0, a: 0.039215688}
-        key4: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
-        key5: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
+        key1: {r: 1, g: 0.62417626, b: 0, a: 0}
+        key2: {r: 1, g: 0.6742861, b: 0.13333333, a: 0.039215688}
+        key3: {r: 0.5188679, g: 0.32386506, b: 0, a: 0.039215688}
+        key4: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
+        key5: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 9830
@@ -24020,7 +24020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9057382292862005428
 Transform:
   m_ObjectHideFlags: 0
@@ -24226,7 +24226,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.8}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -25367,10 +25367,10 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.3137255, b: 0, a: 0.23529412}
-        key2: {r: 1, g: 0.3944637, b: 0.11764705, a: 0}
-        key3: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
-        key4: {r: 1, g: 0.3137255, b: 0, a: 0.039215688}
+        key1: {r: 1, g: 0.62417626, b: 0, a: 0.23529412}
+        key2: {r: 1, g: 0.6683908, b: 0.11764705, a: 0}
+        key3: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
+        key4: {r: 1, g: 0.62417626, b: 0, a: 0.039215688}
         key5: {r: 1, g: 1, b: 1, a: 0.039215688}
         key6: {r: 1, g: 1, b: 1, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}

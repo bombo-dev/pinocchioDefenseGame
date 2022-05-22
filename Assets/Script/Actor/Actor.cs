@@ -377,9 +377,10 @@ public class Actor : MonoBehaviour
     public virtual void EnableDamageEffect(Actor attacker)
     {
         //이펙트 출력 
-        if(currentHP > 0)
-            SystemManager.Instance.EffectManager.EnableEffect(attacker.damageEffectIndex, hitPos.transform.position);   //피격 이펙트 출력
-        else
+
+        SystemManager.Instance.EffectManager.EnableEffect(attacker.damageEffectIndex, hitPos.transform.position);   //피격 이펙트 출력
+ 
+        if (currentHP <= 0)
             SystemManager.Instance.EffectManager.EnableEffect(deadEffectIndex, hitPos.transform.position);    //Dead 이펙트 출력
     }
 
