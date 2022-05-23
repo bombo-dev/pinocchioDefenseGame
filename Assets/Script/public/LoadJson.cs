@@ -18,7 +18,7 @@ public class LoadJson : MonoBehaviour
     }
 
     /// <summary>
-    /// Json 파일로부터 Json 데이터 가져오기
+    /// Json 파일로부터 암호화 되어있는 Json 데이터 가져오기 
     /// </summary>
     public DefenseFlowDataList PrepareGameFlowJsonData()
     {
@@ -33,6 +33,11 @@ public class LoadJson : MonoBehaviour
         return LoadJsonFile<DefenseFlowDataList>(filePath);
     }
 
+
+    /// <summary>
+	/// Json 파일로부터 복호화 되어있는 Json 데이터 가져오기 
+	/// </summary>
+	
     public DefenseFlowDataList PrepareGameFlowDecryptJsonData()
     {
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
@@ -43,11 +48,11 @@ public class LoadJson : MonoBehaviour
         //Json 경로 체크
         filePath = PathInit();
 
-        return LoadJsonFile<DefenseFlowDataList>(filePath);
+        return DecryptLoadJsonFile<DefenseFlowDataList>(filePath);
 
     }
 
-    //Json File 초기화
+    //Json filePath 경로 초기화
     public string PathInit()
     {
             string filePath;
@@ -64,21 +69,22 @@ public class LoadJson : MonoBehaviour
     // JsonData 불러오는 메소드
     public static DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
-        // 윈도우 유니티 에디터 경로 체크
+        // 윈도우 유니티 에디터 경로
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
             Debug.Log("유니티 에디터에서 실행");
 
-            // string originJsonString = File.ReadAllText(filePath);
+            // 암호화 되어 있는 JsonData 복호화해서 저장
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
-        // PC에서 게임 실행
+        // Windows PC에서 게임 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             Debug.Log("PC에서 실행");
-            //string originJsonString = File.ReadAllText(filePath);
+
+            // 암호화 되어 있는 JsonData 복호화해서 저장
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
@@ -95,7 +101,7 @@ public class LoadJson : MonoBehaviour
             string realPath = Application.persistentDataPath + ".Json";
             File.WriteAllBytes(realPath, reader.bytes);
 
-            // string jsonString = File.ReadAllText(realPath);
+            // 암호화 되어 있는 JsonData 복호화해서 저장
             string load = Load(realPath);
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -118,9 +124,9 @@ public class LoadJson : MonoBehaviour
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             Debug.Log("PC에서 실행");
+
             string jsonString = File.ReadAllText(filePath);
             
-
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
@@ -250,11 +256,14 @@ public class LoadJson : MonoBehaviour
         return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
     }
 
+
     public static void Save(string filePath)
     {
+        // 암호화 된 Json 파일 복호화
         JsonToDecrypt(filePath);
         string save = ReadJsonFileToString(filePath);
         save = Encrypt(save, "key");
+        // Json 파일 암호화 하여 재 저장
         File.WriteAllText(filePath, save);
     }
 
