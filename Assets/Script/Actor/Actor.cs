@@ -56,6 +56,17 @@ public class Actor : MonoBehaviour
 
     public int deadEffectIndex; //Dead시 사용할 이펙트 번호
 
+    public int fireEffectIndex; //fire시 사용할 이펙트 번호
+
+    [SerializeField]
+    GameObject currentDamageEffect;   //현재 출력한 피격 이펙트
+
+    [SerializeField]
+    GameObject currentDeadEffect;   //현재 출력한 Dead 이펙트
+
+    [SerializeField]
+    GameObject currentFireEffect;   //현재 출력한 데미지 이펙트
+
     [Header("data")]    //기타 데이터
     [SerializeField]
     protected string filePath; //프리팹 저장 파일 경로
@@ -230,12 +241,14 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void Attack()
     {
+        //공격 이펙트 호출
+        EnableFireEffect(this);
+
         //공격
         animator.SetBool("attack", true);
 
         //공격시간 측정 변수 초기화
-        attackTimer = Time.time;
-        
+        attackTimer = Time.time;      
     }
 
 
@@ -303,11 +316,17 @@ public class Actor : MonoBehaviour
             animator.SetBool("meleeAttack", false);
         }
 
-            Quaternion rotation;
+        //위치 업데이트
+        Quaternion rotation;
 
-            rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
+        rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+
+        //이펙트 위치 업데이트
+        if(currentFireEffect)
+            if(currentFireEffect.activeSelf)
+                currentFireEffect.transform.position = firePos.transform.position;
 
     }
 
@@ -370,18 +389,33 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// 이펙트 출력
+    /// 피격 이펙트 출력 : 김현진
     /// </summary>
     /// <param name="attacker">공격자</param>
     public virtual void EnableDamageEffect(Actor attacker)
     {
         //이펙트 출력 
+        if (hitPos)
+            currentDamageEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.damageEffectIndex, hitPos.transform.position);   //피격 이펙트 출력
 
-        SystemManager.Instance.EffectManager.EnableEffect(attacker.damageEffectIndex, hitPos.transform.position);   //피격 이펙트 출력
- 
         if (currentHP <= 0)
-            SystemManager.Instance.EffectManager.EnableEffect(deadEffectIndex, hitPos.transform.position);    //Dead 이펙트 출력
+        {
+            if (hitPos)
+                currentDeadEffect = SystemManager.Instance.EffectManager.EnableEffect(deadEffectIndex, hitPos.transform.position);    //Dead 이펙트 출력
+        }
     }
+
+    /// <summary>
+    /// 공격 이펙트 출력 : 김현진
+    /// </summary>
+    /// <param name="attacker">공격자</param>
+    public virtual void EnableFireEffect(Actor attacker)
+    {
+        //이펙트 출력 
+        if(firePos && attacker.fireEffectIndex != -1)
+            currentFireEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.fireEffectIndex, firePos.transform.position);   //피격 이펙트 출력
+    }
+
 
     /// <summary>
     /// Flash효과를 나타내기 위한 코루틴을 호출 : 김현진

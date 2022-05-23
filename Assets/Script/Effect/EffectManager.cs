@@ -57,20 +57,22 @@ public class EffectManager : MonoBehaviour
     /// Effect객체를 생성
     /// </summary>
     /// <param name="effectIndex">생성할 이팩트 번호</param>
-    public void EnableEffect(int effectIndex, Vector3 appearPos)
+    public GameObject EnableEffect(int effectIndex, Vector3 appearPos)
     {
         //예외처리
         if (effectIndex >= prefabCacheDatas.Length || prefabCacheDatas[effectIndex].filePath == null)
-            return;
+            return null;
 
         //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[effectIndex].filePath);
 
         //예외처리
         if (!go)
-            return;
+            return null;
 
         //이펙트 위치 설정
         go.transform.position = appearPos;
+
+        return go;
     }
 }

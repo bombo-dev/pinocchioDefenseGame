@@ -621,7 +621,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9121432405020688576}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -28.28, y: -161.928, z: 129.58}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
@@ -632,7 +632,7 @@ Transform:
   - {fileID: 8238420313194280449}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &8238420314335628790
 Animator:
   serializedVersion: 4
@@ -680,6 +680,10 @@ MonoBehaviour:
   dropPos: {fileID: 8238420313194280450}
   damageEffectIndex: 0
   deadEffectIndex: 3
+  fireEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/OwlTurret
   animator: {fileID: 8238420314335628790}
   attackTargets: []

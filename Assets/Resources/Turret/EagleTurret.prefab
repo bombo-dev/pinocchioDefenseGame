@@ -384,6 +384,7 @@ Transform:
   - {fileID: 830116092786604732}
   - {fileID: 598464223505052374}
   - {fileID: 598464221971472227}
+  - {fileID: 2423581017452935821}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -409,11 +410,12 @@ MonoBehaviour:
   attackTargetNum: 5
   multiAttackRange: 10000
   bulletIndex: 6
-  firePos: {fileID: 0}
+  firePos: {fileID: 6543969448578226131}
   hitPos: {fileID: 598464223505052375}
   dropPos: {fileID: 598464221971472236}
   damageEffectIndex: 10
   deadEffectIndex: 3
+  fireEffectIndex: 12
   filePath: Turret/EagleTurret
   animator: {fileID: 58259395981680645}
   attackTargets: []
@@ -1267,6 +1269,37 @@ Transform:
   - {fileID: 2093601041836708907}
   m_Father: {fileID: 7298422621749965983}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6543969448578226131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2423581017452935821}
+  m_Layer: 7
+  m_Name: firePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2423581017452935821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6543969448578226131}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: -0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 598464223639886347}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7184719789872840332
 GameObject:

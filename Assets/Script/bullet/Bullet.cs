@@ -113,7 +113,6 @@ public class Bullet : MonoBehaviour
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
-                Debug.Log(turret.name);
                 turret.DecreseHP(attacker.power);
 
                 //피 공격자의 데미지 이펙트 출력
