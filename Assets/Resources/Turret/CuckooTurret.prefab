@@ -504,6 +504,9 @@ MonoBehaviour:
   damageEffectIndex: 0
   deadEffectIndex: 3
   fireEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/CuckooTurret
   animator: {fileID: 5671559121613602507}
   attackTargets: []
@@ -670,7 +673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5671559121892171476}
   m_LocalRotation: {x: -0.000000021855696, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.16666667, y: 7.516668, z: 0.786664}
+  m_LocalPosition: {x: 0.16666667, y: 9.5, z: 0.786664}
   m_LocalScale: {x: 2.5, y: 2.5000007, z: 2.5000007}
   m_ConstrainProportionsScale: 0
   m_Children: []

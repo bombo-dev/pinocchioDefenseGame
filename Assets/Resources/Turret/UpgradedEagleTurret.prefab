@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4939335590128918700}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.011354437, y: 3.0886354, z: -0.117810994}
+  m_LocalPosition: {x: -0.011354437, y: 5, z: -0.117810994}
   m_LocalScale: {x: 0.9935869, y: 0.99358684, z: 0.9935869}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126,6 +126,9 @@ MonoBehaviour:
   damageEffectIndex: 11
   deadEffectIndex: 3
   fireEffectIndex: 13
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/UpgradedEagleTurret
   animator: {fileID: 1193653362438545800}
   attackTargets: []

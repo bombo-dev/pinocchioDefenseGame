@@ -313,11 +313,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598464221971472236}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.011354437, y: 3.0886354, z: -0.117810994}
+  m_LocalPosition: {x: -0.011354437, y: 5, z: -0.117810994}
   m_LocalScale: {x: 0.9935868, y: 0.9935868, z: 0.9935868}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7837223172554645494}
+  m_Children: []
   m_Father: {fileID: 598464223639886347}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -416,6 +415,9 @@ MonoBehaviour:
   damageEffectIndex: 10
   deadEffectIndex: 3
   fireEffectIndex: 12
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/EagleTurret
   animator: {fileID: 58259395981680645}
   attackTargets: []
@@ -1069,6 +1071,7 @@ Transform:
   - {fileID: 490025524221298346}
   - {fileID: 2691695205716166283}
   - {fileID: 7453977242123356351}
+  - {fileID: 7837223172554645494}
   m_Father: {fileID: 830116092786604732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1491,13 +1494,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7834564716264868044}
-  m_LocalRotation: {x: 0.17018683, y: 0.7172505, z: -0.6460832, w: 0.19790101}
-  m_LocalPosition: {x: 0.5497688, y: -2.2679691, z: 0.012468535}
-  m_LocalScale: {x: 0.30178657, y: 0.30013523, z: 0.14199302}
+  m_LocalRotation: {x: 0.26027748, y: 0.96402246, z: 0.050323058, w: 0.019596906}
+  m_LocalPosition: {x: 0.5456398, y: -0.13408053, z: 0.6206672}
+  m_LocalScale: {x: 0.29985118, y: 0.29821026, z: 0.14108235}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 598464221971472227}
-  m_RootOrder: 0
+  m_Father: {fileID: 7298422621749965983}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &7202544140361934512
 SkinnedMeshRenderer:

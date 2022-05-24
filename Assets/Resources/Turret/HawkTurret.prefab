@@ -95,6 +95,9 @@ MonoBehaviour:
   damageEffectIndex: 6
   deadEffectIndex: 3
   fireEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/HawkTurret
   animator: {fileID: 2656619348047488236}
   attackTargets: []
@@ -149,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5448352423529637177}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.010002376, y: 37.550003, z: -1.5400012}
+  m_LocalPosition: {x: 0.010002376, y: 46, z: -1.5400012}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []

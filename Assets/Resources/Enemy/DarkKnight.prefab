@@ -2645,7 +2645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6519443654991449682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 5, z: 0.491}
+  m_LocalPosition: {x: 0.15, y: 7, z: 0.491}
   m_LocalScale: {x: 0.087658554, y: 0.087658554, z: 0.087658554}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3567,6 +3567,9 @@ MonoBehaviour:
   damageEffectIndex: 4
   deadEffectIndex: 1
   fireEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Enemy/DarkKnight
   animator: {fileID: 8694855269465626146}
   attackTargets: []

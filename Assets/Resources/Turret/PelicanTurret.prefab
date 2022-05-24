@@ -605,7 +605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5418818577528743530}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00080754695, y: 3.8724666, z: 0.030657116}
+  m_LocalPosition: {x: 0.00080754695, y: 5, z: 0.030657116}
   m_LocalScale: {x: 1.2908221, y: 1.2908221, z: 1.2908221}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -849,6 +849,9 @@ MonoBehaviour:
   damageEffectIndex: 5
   deadEffectIndex: 3
   fireEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
   filePath: Turret/PelicanTurret
   animator: {fileID: 8925692699006820559}
   attackTargets: []
