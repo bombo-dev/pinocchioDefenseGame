@@ -6,8 +6,13 @@ using UnityEngine.UI;
 
 public class StatusMngPanel : UI_Controller
 {
-    const int MAXDEBUFF = 4;    // 최대 디버프 수
+    const int MAXDEBUFF = 4;    // 최대 디버프 수    
 
+
+
+    public int HPBarsListIndex;  // 활성화된 패널 배열의 인덱스
+
+    public string filePath;
     
     enum Images
     {
@@ -17,7 +22,7 @@ public class StatusMngPanel : UI_Controller
         Debuff_4_img,
     }
 
-    enum Sliders
+    public enum Sliders
     {
         HPBar
     }
@@ -28,7 +33,18 @@ public class StatusMngPanel : UI_Controller
 
         base.BindingUI();
 
-
     }
 
+    public void SetHPBar(float currentHP, float maxHP)
+    {
+        if (currentHP > maxHP)
+            currentHP = maxHP;
+
+        currentHP /= maxHP;
+        //Debug.Log("currentHP= " + currentHP);
+        GetSlider((int)Sliders.HPBar).value = currentHP;
+        //Debug.Log("slider.value= "+ GetSlider((int)Sliders.HPBar).value);
+    }
+
+    
 }

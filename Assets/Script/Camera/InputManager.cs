@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -28,18 +29,21 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("터치");
-
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit);
-
-            if (hit.collider != null)
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
-                SelectNest(hit.transform.gameObject);
-            }
+                Debug.Log("터치");
 
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Physics.Raycast(ray, out hit);
+
+                if (hit.collider != null)
+                {
+                    //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
+                    SelectNest(hit.transform.gameObject);
+                }
+
+            }
         }
 
         /*

@@ -30,7 +30,9 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
     public void OnDrag(PointerEventData eventData)
     {
         if (OnDragHandler != null)
+        {
             OnDragHandler.Invoke(eventData);
+        }
     }
 
 }
