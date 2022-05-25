@@ -25,6 +25,8 @@ public class Turret : Actor
     [SerializeField]
     TurretState turretState = TurretState.Idle;
 
+    [SerializeField]
+    float turretAppearPosY; //터렛이 생성될때 고정되는 Y축 위치
 
     private void Start()
     {
@@ -68,6 +70,9 @@ public class Turret : Actor
     public override void Reset()
     {
         base.Reset();
+
+        //위치 초기화
+        this.transform.position = new Vector3(this.transform.position.x, turretAppearPosY, this.transform.position.z);
 
         //상태초기화
         turretState = TurretState.Idle;
