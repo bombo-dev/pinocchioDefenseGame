@@ -15,7 +15,6 @@ public class SystemManager : MonoBehaviour
             return instance;
         }
     }
-
     [SerializeField]
     PrefabCacheSystem prefabCacheSystem;
     public PrefabCacheSystem PrefabCacheSystem

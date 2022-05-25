@@ -117,12 +117,14 @@ public class Enemy : Actor
         switch (enemyState)
         {
             case EnemyState.Walk:
+                UpdateHPBarsPos();
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(SystemManager.Instance.TurretManager.turrets);
+                DetectTarget(SystemManager.Instance.TurretManager.turrets);                
                 break;
             case EnemyState.Battle:
-                UpdateBattle();
+                UpdateHPBarsPos();
+                UpdateBattle();                
                 break;
             case EnemyState.Dead:
                 UpdateDead();
@@ -195,6 +197,11 @@ public class Enemy : Actor
     protected override void DetectTarget(List<GameObject> target)
     {
         base.DetectTarget(target);
+    }
+
+    public void UpdateEnemyPos(GameObject go)
+    {        
+        go.transform.position = transform.position;
     }
 
     #endregion
@@ -276,9 +283,19 @@ public class Enemy : Actor
     {
         base.DecreseHP(damage);
 
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetHPBar(currentHP, maxHP);
+        }
+        else
+            return;
+
         if (currentHP == 0)
         {
             SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
+            SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex);
             enemyState = EnemyState.Dead;
         }
     }
@@ -307,6 +324,16 @@ public class Enemy : Actor
             return;
         }         
     }
+
+    protected override void UpdateHPBarsPos()
+    {
+        base.UpdateHPBarsPos();
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+        SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
+    }
 }
+
+
 
 #endregion

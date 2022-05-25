@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class DefenseFlowData
@@ -26,7 +27,9 @@ public class GameFlowManager : MonoBehaviour
 {
     //게이트 숫자
     const int GATENUM = 3;
-    
+
+    public GameObject HPBar;
+
     enum GameState
     {
         Start,   //게임시작
@@ -64,6 +67,10 @@ public class GameFlowManager : MonoBehaviour
 
         //스테이지 정보
         stage = 0;
+
+        //스테이지 제한시간 초기화
+        //timer = limitTime;
+
     }
 
     // Update is called once per frame
@@ -82,7 +89,8 @@ public class GameFlowManager : MonoBehaviour
             case GameState.Start:
                 break;
             case GameState.Defense:
-                UpdateDefense();
+                UpdateDefense();                                    
+                //UpdateTimer();
                 break;
             case GameState.End:
                 break;
@@ -103,6 +111,13 @@ public class GameFlowManager : MonoBehaviour
                 SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]
                                                                          , i, defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr);
 
+                //GameObject go = SystemManager.Instance.EnemyManager.enemies[defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]];
+                //SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go.transform.position);
+                
+                //HPBar = SystemManager.Instance.PanelManager.statusMngPanel.gameObject;
+                //Enemy enemy = go.GetComponent<Enemy>();
+                //enemy.UpdateEnemyPos(HPBar);
+
                 //마지막 인덱스
                 if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)
                 {
@@ -121,4 +136,54 @@ public class GameFlowManager : MonoBehaviour
         }   
 
     }
+
+    
+    /*
+    float timer;
+    float limitTime = 30;
+    bool needFlowTimer = true;
+
+    /// <summary>
+    ///  스테이지에 제한 시간 추가
+    /// </summary>
+    void UpdateTimer()
+    {
+        if (!needFlowTimer)
+        {
+            PauseTimer();
+            return;
+        }
+
+        GameObject go = PanelManager.Instance.stageMngPanel.GetTimerText();
+        TextMesh timerText = go.GetComponent<TextMesh>();
+
+        if (!timerText)
+        {
+            Debug.Log("timerText is null");
+            return;
+        }
+
+        if (timer > 0)
+        {
+            FlowTimer(timerText);
+        }
+        else
+        {
+            timerText.text = "0";
+            Debug.Log("게임 클리어!");
+            gameState = GameState.End;
+        }
+    }
+    void FlowTimer(TextMesh timerText)
+    {
+        timer -= Time.deltaTime;        
+        timerText.text = timer.ToString();
+        Debug.Log("timer= " + timer);
+    }
+
+    void PauseTimer()
+    {
+        Debug.Log("게임 일시정지");
+    }
+    */
 }
