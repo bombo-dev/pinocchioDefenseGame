@@ -13,8 +13,15 @@ public class LoadJson : MonoBehaviour
     {
         // DeleteJson()
         // LoadFromJson()
-        Save(PathInit());
-        PrepareGameFlowJsonData();
+
+        // 암호화 관련 Json 메소드
+        Save(PathInit()); // 암호화 된 Json 불러오고 저장
+        PrepareGameFlowJsonData(); // 암호화 된 Json 데이터 불러와 실행
+
+        // 암호화 되어있지 않은 Json메소드
+
+        // PrepareGameFlowDecryptJsonData();
+
     }
 
     /// <summary>
@@ -107,7 +114,7 @@ public class LoadJson : MonoBehaviour
         }
     }
 
-    // JsonData 불러오는 메소드
+    // 암호화 되지 않은 JsonData 불러오는 메소드
     public static DefenseFlowDataList DecryptLoadJsonFile<DefenseFlowDataList>(string filePath)
     {
 
