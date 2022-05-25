@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &87219768082783008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4634853967432719078}
+  m_Layer: 0
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4634853967432719078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87219768082783008}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.004, y: 2.304, z: 0.02}
+  m_LocalScale: {x: 0.07097047, y: 0.070970476, z: 0.07097047}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4939335590624765387}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1540673457322355443
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +126,7 @@ Transform:
   - {fileID: 4939335591297518870}
   - {fileID: 4939335590128918691}
   - {fileID: 1623466323590220147}
+  - {fileID: 4634853967432719078}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -110,10 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 5
+  currentAttackSpeed: 0
   range: 5000
   regeneration: 0
   attackRangeType: 1
@@ -122,6 +159,7 @@ MonoBehaviour:
   bulletIndex: 6
   firePos: {fileID: 1540673457322355443}
   hitPos: {fileID: 4939335591297518871}
+  hpPos: {fileID: 87219768082783008}
   dropPos: {fileID: 4939335590128918700}
   damageEffectIndex: 11
   deadEffectIndex: 3

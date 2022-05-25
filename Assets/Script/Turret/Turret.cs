@@ -238,7 +238,7 @@ public class Turret : Actor
     {
         base.UpdateHPBarsPos();
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);        
         SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
     }
 

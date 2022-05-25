@@ -211,6 +211,7 @@ Transform:
   - {fileID: 5137736177345185167}
   - {fileID: 2241712521914524285}
   - {fileID: 824447964368716242}
+  - {fileID: 413940173655934755}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -246,10 +247,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 3
+  currentAttackSpeed: 0
   range: 5000
   regeneration: 0
   attackRangeType: 1
@@ -258,6 +264,7 @@ MonoBehaviour:
   bulletIndex: 0
   firePos: {fileID: 1016148645083788321}
   hitPos: {fileID: 1972162216428876265}
+  hpPos: {fileID: 2797716731623767338}
   dropPos: {fileID: 1672127275696819862}
   damageEffectIndex: 0
   deadEffectIndex: 3
@@ -289,6 +296,37 @@ MonoBehaviour:
   turretIndex: 0
   turretState: 0
   turretAppearPosY: -158.4
+--- !u!1 &2797716731623767338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413940173655934755}
+  m_Layer: 0
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &413940173655934755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797716731623767338}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.00000003667978, y: 1.583, z: 0.2674546}
+  m_LocalScale: {x: 0.07692305, y: 0.07692307, z: 0.07692305}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1675766536454283650}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2857776281394620553
 GameObject:
   m_ObjectHideFlags: 0

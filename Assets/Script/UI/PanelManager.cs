@@ -155,9 +155,7 @@ public class PanelManager : MonoBehaviour
         //패널 위치 초기화
         Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y+30, startPos.z));
         go.transform.position = screenPos;
-
-        statusMngPanel.HPBarsListIndex = turretHPBars.FindIndex(x => x == go);
-        
+       
         return;
 
     }

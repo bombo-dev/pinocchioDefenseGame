@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7622427811499692}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.0000025431316, y: 2.54, z: 0.189305}
+  m_LocalPosition: {x: -0.0000025431316, y: 2.68, z: 0.189305}
   m_LocalScale: {x: 0.083333336, y: 0.083333336, z: 0.083333336}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -831,10 +831,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 0.4
+  currentAttackSpeed: 0
   range: 1225
   regeneration: 0
   attackRangeType: 0
