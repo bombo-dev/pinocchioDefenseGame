@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class Debuff
 {
     public float durationTime = 0;  //지속시간
 
-    int stack = 0;  //중첩스택
+    public int stack = 0;  //중첩스택
 }
 
 public class Actor : MonoBehaviour
 {
     public enum debuff  //디버프 종류
     {
-        None,   //초기값
-        DecreaseAttackSpeed,    //공격 속도 감소
-        Slow,   //이동속도 감소
-        DecreaseDefense,    //방어력 감소
-        DecreasePower,  //공격력 감소
-        ElectricShock,  //감전 - 공격속도,이동속도 대폭감소
-        Burn    //화상 - 방어력 대폭감소
+        None,   //초기값 0
+        DecreaseAttackSpeed,    //공격 속도 감소 1
+        Slow,   //이동속도 감소 2
+        DecreaseDefense,    //방어력 감소 3
+        DecreasePower,  //공격력 감소 4
+        ElectricShock,  //감전 - 공격속도,이동속도 대폭감소 5 
+        Burn    //화상 - 방어력 대폭감소 6
     }
 
     [SerializeField]
@@ -59,7 +60,7 @@ public class Actor : MonoBehaviour
     protected int regeneration;   // 회복력
 
     [Header("Debuff")]  //디버프
-    public Dictionary<debuff, Debuff> debuffList = new Dictionary<debuff, Debuff>();
+    public Dictionary<debuff, Debuff> debuffs = new Dictionary<debuff, Debuff>();
 
     [Header("AttackType")]  //공격타입 : 원거리, 근거리, 단일공격, 다중공격 
 
@@ -189,7 +190,7 @@ public class Actor : MonoBehaviour
         currentAttackSpeed = attackSpeed;
 
         //디버프 리스트 초기화
-        debuffList.Clear();
+        debuffs.Clear();
     }
 
     /// <summary>
@@ -198,21 +199,6 @@ public class Actor : MonoBehaviour
     protected virtual void UpdateActor()
     {
         
-    }
-
-    /// <summary>
-    /// 실시간 디버프 동작 처리 : 김현진
-    /// </summary>
-    protected virtual void UpdateDebuff()
-    {
-        if (debuffList.Count > 0)
-        {
-            for (int i = 0; i < debuffList.Count(); i++)
-            {
-
-            }
-        }
-
     }
 
     /// <summary>
@@ -518,5 +504,56 @@ public class Actor : MonoBehaviour
     {
         
     }
-   
+
+    #region 디버프
+
+    /// <summary>
+    /// 실시간 디버프 동작 처리 : 김현진
+    /// </summary>
+    protected virtual void UpdateDebuff()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            AddDebuff(2,10);
+        if (Input.GetKeyDown(KeyCode.S))
+            AddDebuff(1, 5);
+        if (Input.GetKeyDown(KeyCode.D))
+            AddDebuff(3, 3);
+
+        if (debuffs.Count > 0)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(debuff)).Length; i++)
+            {
+                if(debuffs.ContainsKey((debuff)i))
+                    Debug.Log("디버프:" + (debuff)i + " 지속시간:" + debuffs[(debuff)i].durationTime + " 스택:" + debuffs[(debuff)i].stack);
+            }
+        }
+
+    }
+
+    public void AddDebuff(int debuffIndex, float time)
+    {
+        //예외처리
+        if (debuffIndex >= Enum.GetValues(typeof(debuff)).Length)
+            return;
+
+        //이미 존재하는 디버프인경우
+        if (debuffs.ContainsKey((debuff)debuffIndex))
+        {
+            if (debuffs[(debuff)debuffIndex].stack < 5)
+                debuffs[(debuff)debuffIndex].stack++;   //중첩 스택 추가
+
+            debuffs[(debuff)debuffIndex].durationTime = time;   //지속시간 초기화
+        }
+        //새로 추가될 디버프인경우
+        else 
+        {
+            Debuff debuff = new Debuff(); //객체 생성
+
+            debuff.durationTime = time; //지속시간 초기화
+            debuff.stack = 1;   //중첩 스택 초기화
+            debuffs.Add((debuff)debuffIndex, debuff);   //자료구조에 추가
+        }
+    }
+
+    #endregion
 }
