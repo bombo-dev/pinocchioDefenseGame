@@ -2538,6 +2538,37 @@ Transform:
   m_Father: {fileID: 7658174730895058556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6374448196808900746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6672416259476250766}
+  m_Layer: 0
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6672416259476250766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374448196808900746}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.28044695, y: 2.9, z: 0.06804051}
+  m_LocalScale: {x: 0.087658554, y: 0.087658554, z: 0.087658554}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9160582990467948728}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6382801477086371138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3516,6 +3547,7 @@ Transform:
   - {fileID: 497261322245466722}
   - {fileID: 4840131937082311146}
   - {fileID: 7716412034350985349}
+  - {fileID: 6672416259476250766}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3563,7 +3595,9 @@ MonoBehaviour:
   bulletIndex: 0
   firePos: {fileID: 0}
   hitPos: {fileID: 208268308960011774}
+  hpPos: {fileID: 6374448196808900746}
   dropPos: {fileID: 6519443654991449682}
+  filePath: Enemy/DarkKnight
   animator: {fileID: 8694855269465626146}
   attackTargets: []
   attackTargetsActor: []
@@ -3592,7 +3626,6 @@ MonoBehaviour:
   enemyState: 0
   speed: 18
   enemyIndex: 0
-  filePath: Enemy/DarkKnight
   gateNum: 0
   appearPos:
   - {x: -85, y: -168.5, z: 257.5}

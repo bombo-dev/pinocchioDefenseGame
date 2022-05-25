@@ -38,9 +38,11 @@ public class Turret : Actor
         switch (turretState)
         {
             case TurretState.Idle:
+                UpdateHPBarsPos();
                 DetectTarget(SystemManager.Instance.EnemyManager.enemies);
                 break;
             case TurretState.Battle:
+                UpdateHPBarsPos();
                 UpdateBattle();
                 break;
             case TurretState.Dead:
@@ -151,7 +153,16 @@ public class Turret : Actor
     public override void DecreseHP(int damage)
     {
         base.DecreseHP(damage);
-        
+
+
+        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetHPBar(currentHP, maxHP);
+        }
+        else
+            return;
+
         //TurretInfo UI 갱신
         if (SystemManager.Instance.PanelManager.turretInfoPanel)
         {
@@ -163,7 +174,10 @@ public class Turret : Actor
 
         if (currentHP == 0)
         {
-            SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
+            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
+            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex);
+            SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);            
+            
             turretState = TurretState.Dead;
         }
 
@@ -204,6 +218,14 @@ public class Turret : Actor
 
             return;
         }
+    }
+
+    protected override void UpdateHPBarsPos()
+    {
+        base.UpdateHPBarsPos();
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+        SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
     }
 
 }

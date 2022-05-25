@@ -13,6 +13,11 @@ public class UI_TurretMngPanel : UI_Controller
 
     int currentSelectedTurretIdx = 0;   //현재 선택한 터렛 번호
 
+    
+    Actor actor; // HPBar 위치 업데이트를 위함
+
+
+
     enum Buttons
     {
         TurretButton0,//0~
@@ -35,6 +40,7 @@ public class UI_TurretMngPanel : UI_Controller
         TurretSummonButton,
         CloseTurretMngPanelButton
     }
+    
 
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
@@ -46,7 +52,7 @@ public class UI_TurretMngPanel : UI_Controller
         Bind<Button>(typeof(Buttons));
 
         //터렛 선택 버튼 이벤트 추가
-        for (int i = 0; i< MAXTURRET; i++)
+        for (int i = 0; i < MAXTURRET; i++)
         {
             AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
         }
@@ -56,6 +62,9 @@ public class UI_TurretMngPanel : UI_Controller
 
         //패널 닫기 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
+
+        // 스크롤 바 드래그 시, 화면 스크롤 막기
+        
     }
 
     /// <summary>
@@ -78,6 +87,7 @@ public class UI_TurretMngPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     public void OnClickTurretSummonButton(PointerEventData data)
     {
+
         if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
         {
             GameObject nestGo = SystemManager.Instance.InputManager.currenstSelectNest;
@@ -87,10 +97,20 @@ public class UI_TurretMngPanel : UI_Controller
                 return;
 
             GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(currentSelectedTurretIdx, nestGo.transform.position);
-
+                      
             if (!turretGo)
                 return;
-            
+
+            Turret turret = turretGo.GetComponent<Turret>();
+
+            // 터렛 상태 관리 패널 생성
+            SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, turret.hpPos.transform.position, turret.turretIndex, turret.GetType());
+            //Debug.Log("turret.type=" + turret.GetType().Name);
+            if (!SystemManager.Instance.PanelManager.statusMngPanel)
+                return;
+
+
+
             //둥지정보 갱신
             Nest nest = nestGo.GetComponent<Nest>();
             if (nest)
@@ -125,4 +145,5 @@ public class UI_TurretMngPanel : UI_Controller
             SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
         }
     }
+
 }

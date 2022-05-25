@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PanelManager : MonoBehaviour
 {
+    public static PanelManager instance = null;
+
+    public static PanelManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    // 활성화된 turret의 HPBar 패널을 저장할 리스트
+    public List<GameObject> turretHPBars;
+
+    // 활성화된 enemy의 HPBar 패널을 저장할 리스트
+    public List<GameObject> enemyHPBars;
+
     [Header("PanelCachesInfo")]
     //Load한 Panel 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
@@ -10,6 +26,8 @@ public class PanelManager : MonoBehaviour
     // 활성화된 panel를 받아올 리스트
     public UI_TurretMngPanel turretMngPanel;
     public UI_TurretInfoPanel turretInfoPanel;
+    public StageMngPanel stageMngPanel;
+    public StatusMngPanel statusMngPanel;
 
     [SerializeField]
     Transform canvas;
@@ -17,6 +35,8 @@ public class PanelManager : MonoBehaviour
     //filePath, cacheCount 저장
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +91,7 @@ public class PanelManager : MonoBehaviour
         if (go == null)
             return;
 
+        
         T compoenent = go.GetComponent<T>();
 
         if (typeof(T) == typeof(UI_TurretMngPanel))
@@ -80,8 +101,93 @@ public class PanelManager : MonoBehaviour
             turretInfoPanel = (compoenent as UI_TurretInfoPanel);
             (compoenent as UI_TurretInfoPanel).Reset();
         }
+        else if (typeof(T) == typeof(StageMngPanel))
+        {
+            stageMngPanel = (compoenent as StageMngPanel);
+        }
+        /*
+        else if (typeof(T) == typeof(StatusMngPanel))
+        {
+            statusMngPanel = (compoenent as StatusMngPanel);
+            // (compoenent as StatusMngPanel).Reset();
+            
+        }
+        */
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="panelIndex"></param>
+    /// <param name="startPos"></param>
+    /// <param name="hpBarsPanelIndex"></param>
+    public void EnablePanel<T>(int panelIndex, Vector3 startPos, int hpBarsPanelIndex, System.Type type) where T : UnityEngine.Component
+    {
+        
+        //예외처리
+        if (panelIndex >= prefabCacheDatas.Length || prefabCacheDatas[panelIndex].filePath == null)
+            return;
+
+        //생성한 프리팹 게임오브젝트 정보 받아오기
+        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[panelIndex].filePath);
+
+        if (go == null)
+            return;
+
+        // HPBar 리스트에 삽입
+        if (type.Name == "Turret")
+            turretHPBars.Add(go);
+        else if (type.Name == "Enemy")
+            enemyHPBars.Add(go);
+
+        T compoenent = go.GetComponent<T>();
+
+        if (typeof(T) == typeof(StatusMngPanel))
+        {
+            statusMngPanel = (compoenent as StatusMngPanel);
+            // (compoenent as StatusMngPanel).Reset();
+            
+        }
+        else
+            return;
+
+        //패널 위치 초기화
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y+30, startPos.z));
+        go.transform.position = screenPos;
+
+        statusMngPanel.HPBarsListIndex = turretHPBars.FindIndex(x => x == go);
+        
+        return;
+
+    }
+    
+    public void ReorganizationPanelList(int removePanelIndex)
+    {
+        List<GameObject> tempPanels = new List<GameObject>();
+        int index = 0;
+
+        for (int i = 0; i < turretHPBars.Count; i++)
+        {
+            //제거할 gameObject면 제외
+            if (i != removePanelIndex)
+            {
+                //enemies[i]가 null이면 제외
+                if (turretHPBars[i])
+                {
+                    //리스트 재구성
+                    tempPanels.Add(turretHPBars[i]);
+                    //panelIndex번호 초기화
+                    turretHPBars[i].GetComponent<StatusMngPanel>().HPBarsListIndex = index;
+
+                    index++;
+                }
+            }
+        }//end of for
+
+        turretHPBars = tempPanels;
+    }
+    
 
     public void DisablePanel<T>(GameObject go) where T: UnityEngine.Component
     {
@@ -107,9 +213,20 @@ public class PanelManager : MonoBehaviour
             filePath = (compoenent as UI_TurretInfoPanel).filePath;
             turretInfoPanel = null;
         }
+        else if (typeof(T) == typeof(StageMngPanel))
+        {
+            filePath = (compoenent as StageMngPanel).filePath;
+            stageMngPanel = null;
+        }
+        else if (typeof(T) == typeof(StatusMngPanel))
+        {
+            filePath = (compoenent as StatusMngPanel).filePath;
+            statusMngPanel = null;
+        }
         else
             return;
 
         SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, go);
     }
+
 }

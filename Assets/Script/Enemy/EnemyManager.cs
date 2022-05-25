@@ -66,7 +66,7 @@ public class EnemyManager : MonoBehaviour
             return;
 
         //생성한 프리팹 게임오브젝트 정보 받아오기
-        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);
+        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[enemyIndex].filePath);     
 
         if (go == null)
             return;
@@ -83,6 +83,10 @@ public class EnemyManager : MonoBehaviour
 
         //적을 초기상태로
         enemy.Reset();
+
+        // 에너미 상태 관리 패널 생성
+        SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, enemy.hpPos.transform.position, enemy.enemyIndex, enemy.GetType());
+
     }
 
     /// <summary>

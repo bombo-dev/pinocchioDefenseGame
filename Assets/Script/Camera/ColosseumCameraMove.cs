@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ColosseumCameraMove : MonoBehaviour
 {    
@@ -26,6 +27,8 @@ public class ColosseumCameraMove : MonoBehaviour
     Vector3 movePos;
 
     float preDistance, curDistance, moveDistance;
+
+    Vector3 fixedPos;
 
     // Start is called before the first frame update
     void Start()
@@ -64,11 +67,12 @@ public class ColosseumCameraMove : MonoBehaviour
     void UpdateInputAtAnd()
     {
         // 화면에 접촉된 손가락의 개수가 1개이면
-        if (Input.touchCount == 1)  
+        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
             MoveAndCam();
-
         else if (Input.touchCount == 2)
             ZoomAndCam();
+        else
+            return;
     }
 
     /// <summary>
@@ -121,8 +125,6 @@ public class ColosseumCameraMove : MonoBehaviour
         //  카메라를 줌인, 줌아웃
 
             Camera.main.fieldOfView -= 0.3f * moveDistance;
-
-
     }
     
 
@@ -136,6 +138,7 @@ public class ColosseumCameraMove : MonoBehaviour
     void UpdateInputAtWin()
     {
         MoveWinCam();
+
         if (Input.GetAxisRaw("Mouse ScrollWheel") != 0)
             ZoomWinCam();
     }
@@ -145,9 +148,14 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
-        // 마우스 왼쪽 버튼 입력 처리
-        if (Input.GetMouseButton(0))
-        {
+        
+        // 마우스 왼쪽 버튼 드래그 처리
+        if (Input.GetMouseButton(0))            
+        {            
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             // 마우스 변위값 구하기
             moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
             moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Actor : MonoBehaviour
 {
@@ -49,6 +50,9 @@ public class Actor : MonoBehaviour
     public GameObject hitPos;   //총알과 충돌하는 객체의 위치
 
     [SerializeField]
+    public GameObject hpPos;
+
+    [SerializeField]
     public GameObject dropPos;  //다중 공격시 총알이 떨어지는 시작점    
 
     protected float attackTimer;  //공격시간 타이머
@@ -84,6 +88,8 @@ public class Actor : MonoBehaviour
     List<Vector4> emissionCaches;
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -343,8 +349,11 @@ public class Actor : MonoBehaviour
         if (currentHP <= 0)
             return;
 
+
         if (currentHP > damage)
-            currentHP -= damage;
+        {
+            currentHP -= damage;            
+        }
         else
         {
             callFlashCoroutine(ShaderController.RED);
@@ -354,9 +363,9 @@ public class Actor : MonoBehaviour
             animator.Play("Dead");//Test
 
             return;
-        }
+        }        
 
-        //callFlashCoroutine(ShaderController.WHITE);
+        callFlashCoroutine(ShaderController.WHITE);
 
     }
 
@@ -396,4 +405,10 @@ public class Actor : MonoBehaviour
         
     }
    
+    protected virtual void UpdateHPBarsPos()
+    {
+        if (!SystemManager.Instance.PanelManager.statusMngPanel)
+            return;
+        
+    }
 }

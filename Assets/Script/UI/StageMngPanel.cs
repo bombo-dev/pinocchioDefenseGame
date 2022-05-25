@@ -5,12 +5,7 @@ using UnityEngine.UI;
 
 public class StageMngPanel : UI_Controller
 {
-    float limitTime = 30;    // 제한 시간
-
-    private void Update()
-    {
-        //TimerFlow();
-    }
+    public string filePath;
 
     enum Texts
     {
@@ -21,23 +16,20 @@ public class StageMngPanel : UI_Controller
 
     protected override void BindingUI()
     {
-        Bind<Text>(typeof(Texts));
-               
+        Bind<TextMesh>(typeof(Texts));
     }
 
-    void TimerFlow()
-    {                
-        if (limitTime >= 0)
-        {
-            limitTime -= Time.deltaTime;
-            Debug.Log("limitTime=" + limitTime);
-            GetText(2).text = limitTime.ToString();
-        }
-        else
-        {
-            GetText(2).text = 0.ToString();
-            Debug.Log("GameOver!");
-        }
-        
+    /// <summary>
+    /// 타이머 텍스트 UI를 return해주는 함수
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetTimerText()
+    {
+        GameObject go = GetTextMeshProUGUI((int)Texts.StageTimer).gameObject;
+
+        if (!go)
+            return null;
+
+        return go;
     }
 }
