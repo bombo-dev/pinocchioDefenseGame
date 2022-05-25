@@ -5,7 +5,14 @@ using System.Linq;
 
 public class Debuff
 {
-    public enum debuff
+    public float durationTime = 0;  //지속시간
+
+    int stack = 0;  //중첩스택
+}
+
+public class Actor : MonoBehaviour
+{
+    public enum debuff  //디버프 종류
     {
         None,   //초기값
         DecreaseAttackSpeed,    //공격 속도 감소
@@ -19,11 +26,6 @@ public class Debuff
     [SerializeField]
     public debuff _debuff = debuff.None;    //디버프
 
-    public float durationTime;  //지속시간
-}
-
-public class Actor : MonoBehaviour
-{
     [Header("Stat")]    //능력치
 
     [SerializeField]
@@ -57,7 +59,7 @@ public class Actor : MonoBehaviour
     protected int regeneration;   // 회복력
 
     [Header("Debuff")]  //디버프
-    public List<Debuff> debuffList = new List<Debuff>();
+    public Dictionary<debuff, Debuff> debuffList = new Dictionary<debuff, Debuff>();
 
     [Header("AttackType")]  //공격타입 : 원거리, 근거리, 단일공격, 다중공격 
 
@@ -199,11 +201,18 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// 실시간 디버프 동작 처리
+    /// 실시간 디버프 동작 처리 : 김현진
     /// </summary>
     protected virtual void UpdateDebuff()
     {
-        
+        if (debuffList.Count > 0)
+        {
+            for (int i = 0; i < debuffList.Count(); i++)
+            {
+
+            }
+        }
+
     }
 
     /// <summary>
