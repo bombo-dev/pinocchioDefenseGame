@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 public class Debuff
 {
@@ -10,7 +11,6 @@ public class Debuff
 
     public int stack = 0;  //¡ﬂ√∏Ω∫≈√
 }
-using UnityEngine.UI;
 
 public class Actor : MonoBehaviour
 {
