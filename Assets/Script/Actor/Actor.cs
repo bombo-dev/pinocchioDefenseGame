@@ -512,47 +512,74 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateDebuff()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-            AddDebuff(2,10);
-        if (Input.GetKeyDown(KeyCode.S))
-            AddDebuff(1, 5);
-        if (Input.GetKeyDown(KeyCode.D))
-            AddDebuff(3, 3);
-
         if (debuffs.Count > 0)
         {
             for (int i = 0; i < Enum.GetValues(typeof(debuff)).Length; i++)
             {
-                if(debuffs.ContainsKey((debuff)i))
-                    Debug.Log("디버프:" + (debuff)i + " 지속시간:" + debuffs[(debuff)i].durationTime + " 스택:" + debuffs[(debuff)i].stack);
+                //인덱스를 debuff로 형변환
+                debuff _debuffIndex = (debuff)i;
+
+                if (debuffs.ContainsKey((debuff)i))
+                    Debug.Log("디버프:" + (debuff)i + " 스택:" + debuffs[(debuff)i].stack);
+
+                //디버프 업데이트
+                if (debuffs.ContainsKey(_debuffIndex))
+                {
+                    //지속시간 업데이트
+                    debuffs[_debuffIndex].durationTime -= Time.deltaTime;
+
+                    //지속시간 경과시 디버프 제거
+                    if (debuffs[_debuffIndex].durationTime < 0)
+                        RemoveDebuff(i);
+
+                }
             }
         }
 
     }
 
+    /// <summary>
+    /// 디버프 추가 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">추가할 디버프 종류 인덱스</param>
+    /// <param name="time">추가할 디버프의 지속시간</param>
     public void AddDebuff(int debuffIndex, float time)
     {
         //예외처리
         if (debuffIndex >= Enum.GetValues(typeof(debuff)).Length)
             return;
 
-        //이미 존재하는 디버프인경우
-        if (debuffs.ContainsKey((debuff)debuffIndex))
-        {
-            if (debuffs[(debuff)debuffIndex].stack < 5)
-                debuffs[(debuff)debuffIndex].stack++;   //중첩 스택 추가
+        //인덱스를 debuff로 형변환
+        debuff _debuffIndex = (debuff)debuffIndex;
 
-            debuffs[(debuff)debuffIndex].durationTime = time;   //지속시간 초기화
+        //이미 존재하는 디버프인경우
+        if (debuffs.ContainsKey(_debuffIndex))
+        {
+            if (debuffs[_debuffIndex].stack < 5)
+                debuffs[_debuffIndex].stack++;   //중첩 스택 추가
         }
         //새로 추가될 디버프인경우
         else 
         {
             Debuff debuff = new Debuff(); //객체 생성
 
-            debuff.durationTime = time; //지속시간 초기화
             debuff.stack = 1;   //중첩 스택 초기화
-            debuffs.Add((debuff)debuffIndex, debuff);   //자료구조에 추가
+            debuffs.Add(_debuffIndex, debuff);   //자료구조에 추가
         }
+        debuffs[_debuffIndex].durationTime = time;   //지속시간 초기화
+    }
+
+    /// <summary>
+    /// 디버프 제거 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">제거할 디버프</param>
+    public void RemoveDebuff(int debuffIndex)
+    {
+        //인덱스를 debuff로 형변환
+        debuff _debuffIndex = (debuff)debuffIndex;
+
+        //키 값 참조하여 해당 요소 제거
+        debuffs.Remove(_debuffIndex);
     }
 
     #endregion
