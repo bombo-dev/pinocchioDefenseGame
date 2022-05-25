@@ -3,6 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public class Debuff
+{
+    public enum debuff
+    {
+        None,   //초기값
+        DecreaseAttackSpeed,    //공격 속도 감소
+        Slow,   //이동속도 감소
+        DecreaseDefense,    //방어력 감소
+        DecreasePower,  //공격력 감소
+        ElectricShock,  //감전 - 공격속도,이동속도 대폭감소
+        Burn    //화상 - 방어력 대폭감소
+    }
+
+    [SerializeField]
+    public debuff _debuff = debuff.None;    //디버프
+
+    public float durationTime;  //지속시간
+}
+
 public class Actor : MonoBehaviour
 {
     [Header("Stat")]    //능력치
@@ -14,16 +33,31 @@ public class Actor : MonoBehaviour
     public int currentHP;   //현재 체력
 
     [SerializeField]
-    public int power = 10;  // 공격력
+    public int power = 10;  //공격력
+
+    [SerializeField]
+    public int currentPower;    //현재 공격력
+
+    [SerializeField]
+    public int defense = 10;    //방어력
+
+    [SerializeField]
+    public int currentDefense;  //현재 방어력
 
     [SerializeField]
     public float attackSpeed;    //공격속도
+
+    [SerializeField]
+    public float currentAttackSpeed;    //현재 공격속도
 
     [SerializeField]
     protected int range;  //사거리
 
     [SerializeField]
     protected int regeneration;   // 회복력
+
+    [Header("Debuff")]  //디버프
+    public List<Debuff> debuffList = new List<Debuff>();
 
     [Header("AttackType")]  //공격타입 : 원거리, 근거리, 단일공격, 다중공격 
 
@@ -110,6 +144,9 @@ public class Actor : MonoBehaviour
     void Update()
     {
         UpdateActor();
+
+        //디버프 동작 
+        UpdateDebuff();
     }
 
     /// <summary>
@@ -139,12 +176,32 @@ public class Actor : MonoBehaviour
 
         //HP초기화
         currentHP = maxHP;
+
+        //공격력 초기화
+        currentPower = power;
+
+        //방어력 초기화
+        currentDefense = defense;
+
+        //공격속도 초기화
+        currentAttackSpeed = attackSpeed;
+
+        //디버프 리스트 초기화
+        debuffList.Clear();
     }
 
     /// <summary>
     /// 실시간 상태별 액터의 동작 : 김현진
     /// </summary>
     protected virtual void UpdateActor()
+    {
+        
+    }
+
+    /// <summary>
+    /// 실시간 디버프 동작 처리
+    /// </summary>
+    protected virtual void UpdateDebuff()
     {
         
     }
