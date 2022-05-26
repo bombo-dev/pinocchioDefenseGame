@@ -6359,12 +6359,12 @@ MonoBehaviour:
   range: 10000
   regeneration: 0
   attackRangeType: 1
-  isRecoveryTower: 0
+  isRecoveryTower: 1
   attackTargetNum: 5
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 8000
-  bulletIndex: 0
+  bulletIndex: 9
   firePos: {fileID: 0}
   hitPos: {fileID: 8170058543372686200}
   hpPos: {fileID: 1345910117149618142}
@@ -6372,10 +6372,11 @@ MonoBehaviour:
   damageEffectIndex: 0
   deadEffectIndex: 3
   fireEffectIndex: -1
-  healEffectIndex: -1
+  healEffectIndex: 20
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
   filePath: Turret/RosasioTurret
   animator: {fileID: 8170058543693756013}
   attackTargets: []
