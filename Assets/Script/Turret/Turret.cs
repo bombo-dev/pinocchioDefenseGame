@@ -41,7 +41,10 @@ public class Turret : Actor
         {
             case TurretState.Idle:
                 UpdateHPBarsPos();
-                DetectTarget(SystemManager.Instance.EnemyManager.enemies);
+                if(!isRecoveryTower)    //공격타워
+                    DetectTarget(SystemManager.Instance.EnemyManager.enemies);
+                else    //회복타워        
+                    DetectTarget(SystemManager.Instance.TurretManager.turrets);
                 break;
             case TurretState.Battle:
                 UpdateHPBarsPos();
@@ -128,7 +131,7 @@ public class Turret : Actor
         base.UpdateBattle();
 
         //공격시간이 종료시 공격 종료
-        if (Time.time - attackTimer > attackSpeed)
+        if (Time.time - attackTimer > currentAttackSpeed)
         {
             turretState = TurretState.Idle;
 
@@ -233,6 +236,19 @@ public class Turret : Actor
             return;
         }
     }
+
+    #region 디버프
+    /// <summary>
+    /// 디버프 추가 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">추가할 디버프 종류 인덱스</param>
+    /// <param name="time">추가할 디버프의 지속시간</param>
+    public override void AddDebuff(int debuffIndex, float time)
+    {
+        base.AddDebuff(debuffIndex, time); 
+    }
+
+    #endregion
 
     protected override void UpdateHPBarsPos()
     {

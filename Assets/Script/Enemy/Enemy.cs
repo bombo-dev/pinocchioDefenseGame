@@ -18,6 +18,9 @@ public class Enemy : Actor
     [SerializeField]
     int speed;  //이동속도
 
+    [SerializeField]
+    int currentSpeed; //현재 이동속도
+
     [Header("EnemyInfo")]   //Enemy 정보
 
     [SerializeField]
@@ -55,6 +58,9 @@ public class Enemy : Actor
     public override void Reset()
     {
         base.Reset();
+
+        //이동속도 초기화
+        currentSpeed = speed;
 
         //위치초기화
         transform.position = appearPos[gateNum];
@@ -181,7 +187,7 @@ public class Enemy : Actor
         if (dirVec == Vector3.zero)
             return;
 
-        Vector3 updateVec = new Vector3(dirVec.x * speed * Time.deltaTime, 0 , dirVec.z * speed * Time.deltaTime);
+        Vector3 updateVec = new Vector3(dirVec.x * currentSpeed * Time.deltaTime, 0 , dirVec.z * currentSpeed * Time.deltaTime);
         transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
 
@@ -231,7 +237,7 @@ public class Enemy : Actor
         base.UpdateBattle();
 
         //attackSpeed초에 1번 공격
-        if (Time.time - attackTimer > attackSpeed)
+        if (Time.time - attackTimer > currentAttackSpeed)
         {
             //단일,다중 타겟 애니메이션 파라미터 초기화
             if (attackTargetNum >= 1)
@@ -324,6 +330,79 @@ public class Enemy : Actor
             return;
         }         
     }
+
+    #region 디버프
+    /// <summary>
+    /// 디버프 추가 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">추가할 디버프 종류 인덱스</param>
+    /// <param name="time">추가할 디버프의 지속시간</param>
+    public override void AddDebuff(int debuffIndex, float time)
+    {
+        base.AddDebuff(debuffIndex, time);
+
+        //풀스택일경우 예외처리
+        if (debuffs[(debuff)debuffIndex].stack > 5)
+            return;
+
+        //디버프 효과
+        switch (debuffIndex)
+        {
+            case 1: //공격 속도 감소
+                currentAttackSpeed *= 1.2f;
+                break;
+            case 2: //이동 속도 감소
+                currentSpeed -= (currentSpeed / 5);
+                break;
+            case 3: //방어력 감소
+                currentDefense -= (currentDefense / 5);
+                break;
+            case 4: //공격력 감소
+                currentPower -= (currentPower / 5);
+                break;
+            case 5: //감전 - 공격속도, 이동속도 대폭감소
+                currentPower -= (currentPower / 2);
+                currentSpeed -= (currentSpeed / 2);
+                break;
+            case 6: //화상 - 방어력 대폭감소
+                currentDefense -= (currentDefense / 2);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 디버프 제거 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">제거할 디버프</param>
+    protected override void RemoveDebuff(int debuffIndex)
+    {
+        base.RemoveDebuff(debuffIndex);
+
+        //디버프 효과
+        switch (debuffIndex)
+        {
+            case 1: //공격 속도 감소
+                currentAttackSpeed = attackSpeed;
+                break;
+            case 2: //이동 속도 감소
+                currentSpeed = speed;
+                break;
+            case 3: //방어력 감소
+                currentDefense = defense;
+                break;
+            case 4: //공격력 감소
+                currentPower = power;
+                break;
+            case 5: //감전 - 공격속도, 이동속도 대폭감소
+                currentPower = power;
+                currentSpeed = speed;
+                break;
+            case 6: //화상 - 방어력 대폭감소
+                currentDefense = defense;
+                break;
+        }
+    }
+    #endregion
 
     protected override void UpdateHPBarsPos()
     {

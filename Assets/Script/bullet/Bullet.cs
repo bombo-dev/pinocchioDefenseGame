@@ -105,6 +105,9 @@ public class Bullet : MonoBehaviour
                 
                 enemy.DecreseHP(attacker.power);
 
+                //피 공격자 디버프 걸기
+                if (attacker.debuffType > 0)
+                    enemy.AddDebuff(attacker.debuffType, attacker.debuffDuration);
                 //피 공격자의 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
             }
@@ -115,6 +118,9 @@ public class Bullet : MonoBehaviour
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
                 turret.DecreseHP(attacker.power);
 
+                //피 공격자 디버프 걸기
+                if (attacker.debuffType > 0)
+                    turret.AddDebuff(attacker.debuffType, attacker.debuffDuration);
                 //피 공격자의 데미지 이펙트 출력
                 turret.EnableDamageEffect(attacker);
             }

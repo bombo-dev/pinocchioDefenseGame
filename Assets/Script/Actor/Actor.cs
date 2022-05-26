@@ -69,7 +69,16 @@ public class Actor : MonoBehaviour
     protected int attackRangeType; // 0:근거리타입 1:원거리타입
 
     [SerializeField]
-    protected int attackTargetNum;    //공격 타겟 수 
+    public bool isRecoveryTower; // false - 공격타워 true - 회복타워
+
+    [SerializeField]
+    public int attackTargetNum;    //공격 타겟 수 
+
+    [SerializeField]
+    public int debuffType;   //디버프 타입 
+
+    [SerializeField]
+    public float debuffDuration; //디버프 지속시간
 
     [Header("multipleAttack")]    //다중 공격 유닛 전용 능력치
 
@@ -354,8 +363,11 @@ public class Actor : MonoBehaviour
                 Enemy enemy = attackTargets[0].GetComponent<Enemy>();
 
                 Turret attacker = gameObject.GetComponent<Turret>();
-                enemy.DecreseHP(attacker.power);
+                enemy.DecreseHP(attacker.currentPower);
 
+                //피 공격자 디버프 걸기
+                if (debuffType > 0)
+                    enemy.AddDebuff(debuffType, debuffDuration);
                 //피 공격자의 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
             }
@@ -364,9 +376,11 @@ public class Actor : MonoBehaviour
                 Turret turret = attackTargets[0].GetComponent<Turret>();
 
                 Enemy attacker = gameObject.GetComponent<Enemy>();
-                turret.DecreseHP(attacker.power);
+                turret.DecreseHP(attacker.currentPower);
 
-
+                //피 공격자 디버프 걸기
+                if(debuffType > 0)
+                    turret.AddDebuff(debuffType, debuffDuration);
                 //피 공격자의 데미지 이펙트 출력
                 turret.EnableDamageEffect(attacker);
             }
@@ -518,7 +532,7 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// 실시간 디버프 동작 처리 : 김현진
     /// </summary>
-    protected virtual void UpdateDebuff()
+    void UpdateDebuff()
     {
         if (debuffs.Count > 0)
         {
@@ -551,7 +565,7 @@ public class Actor : MonoBehaviour
     /// </summary>
     /// <param name="debuffIndex">추가할 디버프 종류 인덱스</param>
     /// <param name="time">추가할 디버프의 지속시간</param>
-    public void AddDebuff(int debuffIndex, float time)
+    public virtual void AddDebuff(int debuffIndex, float time)
     {
         //예외처리
         if (debuffIndex >= Enum.GetValues(typeof(debuff)).Length)
@@ -563,7 +577,7 @@ public class Actor : MonoBehaviour
         //이미 존재하는 디버프인경우
         if (debuffs.ContainsKey(_debuffIndex))
         {
-            if (debuffs[_debuffIndex].stack < 5)
+            if (debuffs[_debuffIndex].stack < 6)//최대 5스택 -> 효과적용을 위해 6까지
                 debuffs[_debuffIndex].stack++;   //중첩 스택 추가
         }
         //새로 추가될 디버프인경우
@@ -574,6 +588,7 @@ public class Actor : MonoBehaviour
             debuff.stack = 1;   //중첩 스택 초기화
             debuffs.Add(_debuffIndex, debuff);   //자료구조에 추가
         }
+
         debuffs[_debuffIndex].durationTime = time;   //지속시간 초기화
     }
 
@@ -581,7 +596,7 @@ public class Actor : MonoBehaviour
     /// 디버프 제거 : 김현진
     /// </summary>
     /// <param name="debuffIndex">제거할 디버프</param>
-    public void RemoveDebuff(int debuffIndex)
+    protected virtual void RemoveDebuff(int debuffIndex)
     {
         //인덱스를 debuff로 형변환
         debuff _debuffIndex = (debuff)debuffIndex;
