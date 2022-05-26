@@ -665,10 +665,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 3
+  currentAttackSpeed: 0
   range: 5000
   regeneration: 0
   attackRangeType: 1
@@ -903,7 +908,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7467798692019638216}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.003, y: 2.45, z: 0.245}
+  m_LocalPosition: {x: -0.003, y: 2.59, z: 0.245}
   m_LocalScale: {x: 0.10806263, y: 0.10806265, z: 0.10806263}
   m_ConstrainProportionsScale: 0
   m_Children: []

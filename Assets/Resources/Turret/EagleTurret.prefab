@@ -384,6 +384,7 @@ Transform:
   - {fileID: 598464223505052374}
   - {fileID: 598464221971472227}
   - {fileID: 2423581017452935821}
+  - {fileID: 4484155345693481088}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -399,10 +400,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 5
+  currentAttackSpeed: 0
   range: 5000
   regeneration: 0
   attackRangeType: 1
@@ -411,6 +417,7 @@ MonoBehaviour:
   bulletIndex: 6
   firePos: {fileID: 6543969448578226131}
   hitPos: {fileID: 598464223505052375}
+  hpPos: {fileID: 5860714233174403769}
   dropPos: {fileID: 598464221971472236}
   damageEffectIndex: 10
   deadEffectIndex: 3
@@ -1273,6 +1280,37 @@ Transform:
   - {fileID: 2093601041836708907}
   m_Father: {fileID: 7298422621749965983}
   m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5860714233174403769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4484155345693481088}
+  m_Layer: 0
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4484155345693481088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5860714233174403769}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.01, y: 2.22, z: 0.03}
+  m_LocalScale: {x: 0.07097047, y: 0.070970476, z: 0.07097047}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 598464223639886347}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6543969448578226131
 GameObject:

@@ -330,6 +330,7 @@ public class Enemy : Actor
         base.UpdateHPBarsPos();
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+        Debug.Log("Enemy.screenPos=" + screenPos);
         SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
     }
 }
