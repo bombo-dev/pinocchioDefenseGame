@@ -331,7 +331,7 @@ public class Actor : MonoBehaviour
     protected virtual void UpdateBattle()
     {
         //抗寇贸府
-        if (attackDirVec == Vector3.zero && tag == "Turret")
+        if (attackDirVec == Vector3.zero && tag == "Turret" && isRecoveryTower == false)
             return;
 
         //窜老鸥百 抗寇贸府

@@ -307,6 +307,15 @@ public class Enemy : Actor
     }
 
     /// <summary>
+    /// 터렛 HP 증가 : 김현진
+    /// </summary>
+    /// <param name="recoveryPower">증가량</param>
+    public override void IncreaseHP(int recoveryPower)
+    {
+        base.IncreaseHP(recoveryPower);
+    }
+
+    /// <summary>
     /// 이펙트 출력
     /// </summary>
     /// <param name="attacker">공격자</param>

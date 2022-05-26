@@ -192,6 +192,24 @@ public class Turret : Actor
     }
 
     /// <summary>
+    /// 터렛 HP 증가 : 김현진
+    /// </summary>
+    /// <param name="recoveryPower">증가량</param>
+    public override void IncreaseHP(int recoveryPower)
+    {
+        base.IncreaseHP(recoveryPower);
+
+        //TurretInfo UI 갱신
+        if (SystemManager.Instance.PanelManager.turretInfoPanel)
+        {
+            UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
+
+            //TurretInfo UI 최신정보로 업데이트
+            panel.Reset(false);
+        }
+    }
+
+    /// <summary>
     /// 이펙트 출력
     /// </summary>
     /// <param name="attacker">공격자</param>
