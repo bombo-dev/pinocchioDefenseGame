@@ -298,10 +298,11 @@ public class Enemy : Actor
             return;
 
         if (currentHP == 0)
-        {
-            SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+        {            
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex);
+            SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
+            SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+            
             enemyState = EnemyState.Dead;
         }
     }
@@ -418,7 +419,7 @@ public class Enemy : Actor
         base.UpdateHPBarsPos();
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
-        Debug.Log("Enemy.screenPos=" + screenPos);
+        //Debug.Log("Enemy.screenPos=" + screenPos);
         SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
     }
 }

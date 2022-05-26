@@ -135,12 +135,6 @@ public class PanelManager : MonoBehaviour
         if (go == null)
             return;
 
-        // HPBar 리스트에 삽입
-        if (type.Name == "Turret")
-            turretHPBars.Add(go);
-        else if (type.Name == "Enemy")
-            enemyHPBars.Add(go);
-
         T compoenent = go.GetComponent<T>();
 
         if (typeof(T) == typeof(StatusMngPanel))
@@ -152,6 +146,19 @@ public class PanelManager : MonoBehaviour
         else
             return;
 
+        // HPBar 리스트에 삽입
+        if (type.Name == "Turret")
+        {
+            turretHPBars.Add(go);
+            statusMngPanel.turretHPBarIndex = turretHPBars.FindIndex(x => x == go);
+        }
+
+        else if (type.Name == "Enemy")
+        {
+            enemyHPBars.Add(go);
+            statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);                
+        }
+
         //패널 위치 초기화
         Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y+30, startPos.z));
         go.transform.position = screenPos;
@@ -160,30 +167,53 @@ public class PanelManager : MonoBehaviour
 
     }
     
-    public void ReorganizationPanelList(int removePanelIndex)
+    public void ReorganizationPanelList(int removePanelIndex, System.Type type)
     {
         List<GameObject> tempPanels = new List<GameObject>();
         int index = 0;
+        int listLength;        
 
-        for (int i = 0; i < turretHPBars.Count; i++)
+        if (type.Name == "Turret")
+            listLength = turretHPBars.Count;
+        else if (type.Name == "Enemy")
+            listLength = enemyHPBars.Count;
+        else
+        {
+            Debug.LogError("ReorganizationPanelList Error!");
+            return;
+        }
+
+        for (int i = 0; i < listLength; i++)
         {
             //제거할 gameObject면 제외
             if (i != removePanelIndex)
             {
                 //enemies[i]가 null이면 제외
-                if (turretHPBars[i])
+                if (type.Name == "Turret" && turretHPBars[i])
                 {
                     //리스트 재구성
                     tempPanels.Add(turretHPBars[i]);
                     //panelIndex번호 초기화
-                    turretHPBars[i].GetComponent<StatusMngPanel>().HPBarsListIndex = index;
+                    turretHPBars[i].GetComponent<StatusMngPanel>().turretHPBarIndex = index;
+
+                    index++;
+                }
+                else if (type.Name == "Enemy" && enemyHPBars[i])
+                {
+                    //리스트 재구성
+                    tempPanels.Add(enemyHPBars[i]);
+                    //panelIndex번호 초기화
+                    enemyHPBars[i].GetComponent<StatusMngPanel>().enemyHPBarIndex = index;
 
                     index++;
                 }
             }
         }//end of for
 
-        turretHPBars = tempPanels;
+        if (type.Name == "Turret")
+            turretHPBars = tempPanels;
+        else if (type.Name == "Enemy")
+            enemyHPBars = tempPanels;
     }
     
 

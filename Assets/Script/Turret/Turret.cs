@@ -182,8 +182,9 @@ public class Turret : Actor
 
         if (currentHP == 0)
         {
+            //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.turretHPBarIndex;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex);
+            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
             SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);            
             
             turretState = TurretState.Dead;

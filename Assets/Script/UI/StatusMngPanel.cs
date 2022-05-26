@@ -8,9 +8,9 @@ public class StatusMngPanel : UI_Controller
 {
     const int MAXDEBUFF = 4;    // 최대 디버프 수    
 
+    public int enemyHPBarIndex;  // 활성화된 에너미 패널의 배열 인덱스
 
-
-    public int HPBarsListIndex;  // 활성화된 패널 배열의 인덱스
+    public int turretHPBarIndex; // 활성화된 터렛 패널의 배열 인덱스
 
     public string filePath;
     
