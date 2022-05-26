@@ -285,9 +285,9 @@ public class Enemy : Actor
 
     #region Dead - HP °¨¼Ò¿Í »ç¸Á
 
-    public override void DecreseHP(int damage)
+    public override void DecreaseHP(int damage)
     {
-        base.DecreseHP(damage);
+        base.DecreaseHP(damage);
 
         if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
         {

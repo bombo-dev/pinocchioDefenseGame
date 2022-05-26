@@ -96,8 +96,24 @@ public class Bullet : MonoBehaviour
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
                 return;
             }
-            
-            if (target.tag == "Enemy")
+
+            //회복타워 
+            if (attackOwner.GetComponent<Actor>().isRecoveryTower)
+            {
+                if (target.tag == "Enemy")
+                {
+                    Enemy targetEnemy = target.GetComponent<Enemy>();
+                    Enemy attacker = attackOwner.GetComponent<Enemy>();
+                }
+                else if (target.tag == "Turret")
+                {
+                    Turret targetTurret = target.GetComponent<Turret>();
+                    Turret attacker = attackOwner.GetComponent<Turret>();
+                }
+
+                SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            }
+            else if (target.tag == "Enemy")
             {
                 Enemy enemy = target.GetComponent<Enemy>();
 
@@ -116,6 +132,7 @@ public class Bullet : MonoBehaviour
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
+
                 turret.DecreseHP(attacker.power);
 
                 //피 공격자 디버프 걸기

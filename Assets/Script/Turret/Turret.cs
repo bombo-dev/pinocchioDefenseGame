@@ -158,9 +158,9 @@ public class Turret : Actor
     /// 터렛 HP 감소와 사망처리 : 하은비
     /// </summary>
     /// <param name="damage"></param>
-    public override void DecreseHP(int damage)
+    public override void DecreaseHP(int damage)
     {
-        base.DecreseHP(damage);
+        base.DecreaseHP(damage);
 
 
         if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])

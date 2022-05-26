@@ -363,7 +363,7 @@ public class Actor : MonoBehaviour
                 Enemy enemy = attackTargets[0].GetComponent<Enemy>();
 
                 Turret attacker = gameObject.GetComponent<Turret>();
-                enemy.DecreseHP(attacker.currentPower);
+                enemy.DecreaseHP(attacker.currentPower);
 
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
@@ -376,7 +376,7 @@ public class Actor : MonoBehaviour
                 Turret turret = attackTargets[0].GetComponent<Turret>();
 
                 Enemy attacker = gameObject.GetComponent<Enemy>();
-                turret.DecreseHP(attacker.currentPower);
+                turret.DecreaseHP(attacker.currentPower);
 
                 //피 공격자 디버프 걸기
                 if(debuffType > 0)
@@ -438,7 +438,7 @@ public class Actor : MonoBehaviour
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
     /// <param name="attackTarget"></param>
-    public virtual void DecreseHP(int damage)
+    public virtual void DecreaseHP(int damage)
     {
         if (currentHP <= 0)
             return;
