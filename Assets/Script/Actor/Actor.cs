@@ -108,6 +108,8 @@ public class Actor : MonoBehaviour
 
     public int fireEffectIndex; //fire시 사용할 이펙트 번호
 
+    public int healEffectIndex; //heal시 사용할 이펙트 번호
+
     [SerializeField]
     GameObject currentDamageEffect;   //현재 출력한 피격 이펙트
 
@@ -116,6 +118,9 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     GameObject currentFireEffect;   //현재 출력한 데미지 이펙트
+
+    [SerializeField]
+    GameObject currentHealEffect;   //현재 출력한 회복 이펙트
 
     [Header("data")]    //기타 데이터
     [SerializeField]
@@ -437,7 +442,7 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
-    /// <param name="attackTarget"></param>
+    /// <param name="attackTarget">데미지를 감소시킬 타겟</param>
     public virtual void DecreaseHP(int damage)
     {
         if (currentHP <= 0)
@@ -461,6 +466,19 @@ public class Actor : MonoBehaviour
 
         callFlashCoroutine(ShaderController.WHITE);
     }
+
+    /// <summary>
+    /// 회복이 들어간 타겟의 HP를 증가 : 김현진
+    /// </summary>
+    /// <param name="recoveryPower">데미지를 증가시킬 타겟</param>
+    public virtual void IncreaseHP(int recoveryPower)
+    {
+        if (currentHP + recoveryPower >= maxHP)
+            currentHP = maxHP;
+        else
+            currentHP += recoveryPower;
+    }
+
 
     /// <summary>
     /// 피격 이펙트 출력 : 김현진
@@ -488,6 +506,17 @@ public class Actor : MonoBehaviour
         //이펙트 출력 
         if(firePos && attacker.fireEffectIndex != -1)
             currentFireEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.fireEffectIndex, firePos.transform.position);   //피격 이펙트 출력
+    }
+
+    /// <summary>
+    /// 회복 이펙트 출력 : 김현진
+    /// </summary>
+    /// <param name="attacker">회복시전자</param>
+    public virtual void EnableHealEffect(Actor attacker)
+    {
+        //이펙트 출력 
+        if (hitPos && attacker.healEffectIndex != -1)
+            currentHealEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.healEffectIndex, hitPos.transform.position);   //회복 이펙트 출력
     }
 
 

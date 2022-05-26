@@ -387,7 +387,10 @@ MonoBehaviour:
   range: 0
   regeneration: 0
   attackRangeType: 0
+  isRecoveryTower: 0
   attackTargetNum: 0
+  debuffType: 0
+  debuffDuration: 0
   multiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
@@ -397,6 +400,7 @@ MonoBehaviour:
   damageEffectIndex: 2
   deadEffectIndex: 1
   fireEffectIndex: -1
+  healEffectIndex: -1
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
@@ -430,6 +434,7 @@ MonoBehaviour:
   showWhiteFlash_coroutine_is_running: 0
   enemyState: 0
   speed: 25
+  currentSpeed: 0
   enemyIndex: 0
   gateNum: 0
   appearPos:

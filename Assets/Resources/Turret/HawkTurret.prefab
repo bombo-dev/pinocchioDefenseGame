@@ -80,14 +80,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debuff: 0
   maxHP: 30
   currentHP: 0
   power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
   attackSpeed: 5
+  currentAttackSpeed: 0
   range: 15000
   regeneration: 0
   attackRangeType: 1
+  isRecoveryTower: 0
   attackTargetNum: 1
+  debuffType: 0
+  debuffDuration: 0
   multiAttackRange: 0
   bulletIndex: 2
   firePos: {fileID: 494387481802417684}
@@ -97,6 +105,7 @@ MonoBehaviour:
   damageEffectIndex: 6
   deadEffectIndex: 3
   fireEffectIndex: -1
+  healEffectIndex: -1
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}

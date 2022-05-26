@@ -412,7 +412,10 @@ MonoBehaviour:
   range: 5000
   regeneration: 0
   attackRangeType: 1
+  isRecoveryTower: 0
   attackTargetNum: 5
+  debuffType: 0
+  debuffDuration: 0
   multiAttackRange: 10000
   bulletIndex: 6
   firePos: {fileID: 6543969448578226131}
@@ -422,6 +425,7 @@ MonoBehaviour:
   damageEffectIndex: 10
   deadEffectIndex: 3
   fireEffectIndex: 12
+  healEffectIndex: -1
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}

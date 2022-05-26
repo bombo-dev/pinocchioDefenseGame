@@ -97,29 +97,40 @@ public class Bullet : MonoBehaviour
                 return;
             }
 
-            //회복타워 
+            //회복 타워 
             if (attackOwner.GetComponent<Actor>().isRecoveryTower)
             {
                 if (target.tag == "Enemy")
                 {
-                    Enemy targetEnemy = target.GetComponent<Enemy>();
+                    Enemy recoveryTarget = target.GetComponent<Enemy>();
                     Enemy attacker = attackOwner.GetComponent<Enemy>();
+                     
+                    //피 공격자 회복
+                    recoveryTarget.IncreaseHP(recoveryTarget.power);
+                    //피 공격자의 데미지 이펙트 출력
+                    recoveryTarget.EnableHealEffect(attacker);
                 }
                 else if (target.tag == "Turret")
                 {
-                    Turret targetTurret = target.GetComponent<Turret>();
+                    Turret recoveryTarget = target.GetComponent<Turret>();
                     Turret attacker = attackOwner.GetComponent<Turret>();
+
+                    //피 공격자 회복
+                    recoveryTarget.IncreaseHP(recoveryTarget.power);
+                    //피 공격자의 데미지 이펙트 출력
+                    recoveryTarget.EnableHealEffect(attacker);
                 }
 
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
             }
+            //공격 타워
             else if (target.tag == "Enemy")
             {
                 Enemy enemy = target.GetComponent<Enemy>();
 
                 Turret attacker = attackOwner.GetComponent<Turret>();
                 
-                enemy.DecreseHP(attacker.power);
+                enemy.DecreaseHP(attacker.power);
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
@@ -127,13 +138,14 @@ public class Bullet : MonoBehaviour
                 //피 공격자의 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
             }
+            //공격 타워
             else if(target.tag == "Turret")
             {
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
 
-                turret.DecreseHP(attacker.power);
+                turret.DecreaseHP(attacker.power);
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
