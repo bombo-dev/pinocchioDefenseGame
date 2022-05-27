@@ -110,6 +110,8 @@ public class Actor : MonoBehaviour
 
     public int healEffectIndex; //heal시 사용할 이펙트 번호
 
+    public int debuffEffectIndex; //debuff시 사용할 이펙트 번호
+
     [SerializeField]
     GameObject currentDamageEffect;   //현재 출력한 피격 이펙트
 
@@ -121,6 +123,9 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     GameObject currentHealEffect;   //현재 출력한 회복 이펙트
+
+    [SerializeField]
+    GameObject currentDebuffEffect;   //현재 출력한 디버프 이펙트
 
     [Header("data")]    //기타 데이터
     [SerializeField]
@@ -372,8 +377,13 @@ public class Actor : MonoBehaviour
 
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
+                {
                     enemy.AddDebuff(debuffType, debuffDuration);
-                //피 공격자의 데미지 이펙트 출력
+
+                    //피 공격자에게 디버프 이펙트 출력
+                    enemy.EnableDebuffEffect(attacker);
+                }
+                //피 공격자에게 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
             }
             else if (attackTargets[0].tag == "Turret")
@@ -384,9 +394,14 @@ public class Actor : MonoBehaviour
                 turret.DecreaseHP(attacker.currentPower);
 
                 //피 공격자 디버프 걸기
-                if(debuffType > 0)
+                if (debuffType > 0)
+                {
                     turret.AddDebuff(debuffType, debuffDuration);
-                //피 공격자의 데미지 이펙트 출력
+
+                    //피 공격자에게 디버프 이펙트 출력
+                    turret.EnableDebuffEffect(attacker);
+                }
+                //피 공격자에게 데미지 이펙트 출력
                 turret.EnableDamageEffect(attacker);
             }
 
@@ -445,7 +460,7 @@ public class Actor : MonoBehaviour
     /// <param name="attackTarget">데미지를 감소시킬 타겟</param>
     public virtual void DecreaseHP(int damage)
     {
-        if (currentHP <= 0)
+        if (currentHP <= 0 || damage <= 0)
             return;
 
 
@@ -479,7 +494,7 @@ public class Actor : MonoBehaviour
             currentHP += recoveryPower;
     }
 
-
+    #region 이펙트
     /// <summary>
     /// 피격 이펙트 출력 : 김현진
     /// </summary>
@@ -519,6 +534,19 @@ public class Actor : MonoBehaviour
             currentHealEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.healEffectIndex, hitPos.transform.position);   //회복 이펙트 출력
     }
 
+    /// <summary>
+    /// 디버프 이펙트 출력 : 김현진
+    /// </summary>
+    /// <param name="attacker">공격자</param>
+    public virtual void EnableDebuffEffect(Actor attacker)
+    {
+        //이펙트 출력 
+        if (hpPos || debuffEffectIndex != -1)
+            currentDebuffEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.debuffEffectIndex, hpPos.transform.position);   //디버프 이펙트 출력
+    }
+
+
+    #endregion
 
     /// <summary>
     /// Flash효과를 나타내기 위한 코루틴을 호출 : 김현진

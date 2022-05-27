@@ -802,7 +802,7 @@ MonoBehaviour:
   _debuff: 0
   maxHP: 30
   currentHP: 0
-  power: 10
+  power: 0
   currentPower: 0
   defense: 10
   currentDefense: 0
@@ -812,22 +812,25 @@ MonoBehaviour:
   regeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
-  attackTargetNum: 5
-  debuffType: 0
-  debuffDuration: 0
+  attackTargetNum: 6
+  debuffType: 4
+  debuffDuration: 10
   multiAttackRange: 5000
-  bulletIndex: 0
+  bulletIndex: 6
   firePos: {fileID: 0}
   hitPos: {fileID: 6044047565517363758}
   hpPos: {fileID: 8009463609187832861}
   dropPos: {fileID: 6044047564497755161}
-  damageEffectIndex: 0
+  damageEffectIndex: 27
   deadEffectIndex: 3
   fireEffectIndex: -1
   healEffectIndex: -1
+  debuffEffectIndex: 22
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
   filePath: Turret/UpgradedBabyBirdTurret
   animator: {fileID: 6044047564147702696}
   attackTargets: []

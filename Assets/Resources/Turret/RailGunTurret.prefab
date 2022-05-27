@@ -4976,8 +4976,8 @@ MonoBehaviour:
   attackRangeType: 1
   isRecoveryTower: 0
   attackTargetNum: 1
-  debuffType: 0
-  debuffDuration: 0
+  debuffType: 5
+  debuffDuration: 10
   multiAttackRange: 0
   bulletIndex: 4
   firePos: {fileID: 9005797504291082129}
@@ -4988,9 +4988,12 @@ MonoBehaviour:
   deadEffectIndex: 3
   fireEffectIndex: 15
   healEffectIndex: -1
+  debuffEffectIndex: 26
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
   filePath: Turret/RailGunTurret
   animator: {fileID: 9005797505159781520}
   attackTargets: []

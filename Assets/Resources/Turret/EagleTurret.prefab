@@ -414,8 +414,8 @@ MonoBehaviour:
   attackRangeType: 1
   isRecoveryTower: 0
   attackTargetNum: 5
-  debuffType: 0
-  debuffDuration: 0
+  debuffType: 2
+  debuffDuration: 5
   multiAttackRange: 10000
   bulletIndex: 6
   firePos: {fileID: 6543969448578226131}
@@ -426,9 +426,12 @@ MonoBehaviour:
   deadEffectIndex: 3
   fireEffectIndex: 12
   healEffectIndex: -1
+  debuffEffectIndex: 21
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
   filePath: Turret/EagleTurret
   animator: {fileID: 58259395981680645}
   attackTargets: []

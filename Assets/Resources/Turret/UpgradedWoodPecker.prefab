@@ -845,8 +845,8 @@ MonoBehaviour:
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 1
-  debuffType: 0
-  debuffDuration: 0
+  debuffType: 3
+  debuffDuration: 5
   multiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
@@ -857,9 +857,12 @@ MonoBehaviour:
   deadEffectIndex: 3
   fireEffectIndex: -1
   healEffectIndex: -1
+  debuffEffectIndex: 24
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
   filePath: Turret/UpgradedWoodPecker
   animator: {fileID: 5955207092836017613}
   attackTargets: []

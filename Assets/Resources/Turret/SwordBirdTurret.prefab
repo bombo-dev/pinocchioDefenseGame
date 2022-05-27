@@ -125,8 +125,8 @@ MonoBehaviour:
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 1
-  debuffType: 0
-  debuffDuration: 0
+  debuffType: 6
+  debuffDuration: 10
   multiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 8806831629310038810}
@@ -137,9 +137,12 @@ MonoBehaviour:
   deadEffectIndex: 3
   fireEffectIndex: 16
   healEffectIndex: -1
+  debuffEffectIndex: 25
   currentDamageEffect: {fileID: 0}
   currentDeadEffect: {fileID: 0}
   currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
   filePath: Turret/SwordBirdTurret
   animator: {fileID: 599137727384516497}
   attackTargets: []

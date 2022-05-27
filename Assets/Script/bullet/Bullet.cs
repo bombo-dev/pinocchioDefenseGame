@@ -134,8 +134,13 @@ public class Bullet : MonoBehaviour
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
+                {
                     enemy.AddDebuff(attacker.debuffType, attacker.debuffDuration);
-                //피 공격자의 데미지 이펙트 출력
+
+                    //피 공격자에게 디버프 이펙트 출력
+                    enemy.EnableDebuffEffect(attacker);
+                }
+                //피 공격자에게 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
             }
             //공격 타워
@@ -149,8 +154,13 @@ public class Bullet : MonoBehaviour
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
+                {
                     turret.AddDebuff(attacker.debuffType, attacker.debuffDuration);
-                //피 공격자의 데미지 이펙트 출력
+
+                    //피 공격자에게 디버프 이펙트 출력
+                    turret.EnableDebuffEffect(attacker);
+                }
+                //피 공격자에게 데미지 이펙트 출력
                 turret.EnableDamageEffect(attacker);
             }
 
