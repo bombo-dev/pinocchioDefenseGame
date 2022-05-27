@@ -30,6 +30,10 @@ public class ColosseumCameraMove : MonoBehaviour
 
     Vector3 fixedPos;
 
+    bool isMouseButtonOver;
+
+    bool isMapClick;
+
     // Start is called before the first frame update
     void Start()
     {        
@@ -39,6 +43,7 @@ public class ColosseumCameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isCheckPointerOverGameObject();
         UpdateInputAtAnd();
         UpdateInputAtWin();
     }
@@ -148,21 +153,45 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
-        
         // 마우스 왼쪽 버튼 드래그 처리
-        if (Input.GetMouseButton(0))            
-        {            
-            if (EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(0))
+        {
+            
+            if (!isMouseButtonOver && !EventSystem.current.IsPointerOverGameObject())
             {
-                return;
-            }
-            // 마우스 변위값 구하기
-            moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
-            moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
+                isMapClick = true;
 
-            // 카메라 이동
-            cameraMove.Translate(-moveX, 0, -moveZ);
+                // 마우스 변위값 구하기
+                moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
+                moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
+
+                // 카메라 이동
+                cameraMove.Translate(-moveX, 0, -moveZ);
+            }
+            else if(isMapClick && EventSystem.current.IsPointerOverGameObject())
+            {
+                // 마우스 변위값 구하기
+                moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
+                moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
+
+                // 카메라 이동
+                cameraMove.Translate(-moveX, 0, -moveZ);
+            }
+            else if(!isMapClick && EventSystem.current.IsPointerOverGameObject())
+            {
+                isMouseButtonOver = true;
+            }
         }
+    }
+
+    void isCheckPointerOverGameObject()
+    {
+        if (!Input.GetMouseButton(0))
+        {
+            isMouseButtonOver = false;
+            isMapClick = false;
+        }
+
     }
 
     /// <summary>
@@ -177,6 +206,7 @@ public class ColosseumCameraMove : MonoBehaviour
         // 카메라 줌인
         Camera.main.fieldOfView -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
     }
+
 
     #endregion
 }
