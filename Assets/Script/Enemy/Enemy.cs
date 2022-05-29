@@ -273,6 +273,8 @@ public class Enemy : Actor
                 //다음 공격
                 animator.SetBool("attack", true);
                 animator.SetBool("finAttack", false);
+                //공격 이펙트 호출
+                EnableFireEffect(this);
             }
         }
     }
