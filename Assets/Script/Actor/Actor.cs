@@ -251,7 +251,7 @@ public class Actor : MonoBehaviour
                     //사거리 안에 가장 먼저 감지된 타겟
                     attackTargets.Add(target[i]);
                     attackTargetsActor.Add(target[i].GetComponent<Actor>());
-                    attackDirVec = Vector3.zero;
+                    attackDirVec = (target[i].transform.position - transform.position).normalized; ;
 
                     //공격 사거리 안에 감지 될 타겟 추가
                     DetectTargets(target, i);
