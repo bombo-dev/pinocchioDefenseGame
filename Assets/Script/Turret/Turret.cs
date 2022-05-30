@@ -200,6 +200,14 @@ public class Turret : Actor
     {
         base.IncreaseHP(recoveryPower);
 
+        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetHPBar(currentHP, maxHP);
+        }
+        else
+            return;
+
         //TurretInfo UI 갱신
         if (SystemManager.Instance.PanelManager.turretInfoPanel)
         {
@@ -264,7 +272,16 @@ public class Turret : Actor
     /// <param name="time">추가할 디버프의 지속시간</param>
     public override void AddDebuff(int debuffIndex, float time)
     {
-        base.AddDebuff(debuffIndex, time); 
+        base.AddDebuff(debuffIndex, time);
+        
+        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
+        }
+        else
+            return;
+        
     }
 
     #endregion
