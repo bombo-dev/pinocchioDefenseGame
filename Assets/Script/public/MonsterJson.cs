@@ -53,9 +53,9 @@ public class MonsterJson : MonoBehaviour
         string filepath = Path.Combine(Application.streamingAssetsPath, "Monster.json");
         string jsonString = File.ReadAllText(filepath);
 
-        TurretDatas[] turretdata = JsonMonsterHelper.FromJson<TurretDatas>(jsonString);
+        MonsterData[] monsterData = JsonMonsterHelper.FromJson<MonsterData>(jsonString);
 
-        Debug.Log(turretdata[0].filepath);
+        Debug.Log(monsterData[0].filepath);
     }
 
 }
@@ -66,18 +66,18 @@ public class MonsterJson : MonoBehaviour
 public static class JsonMonsterHelper
 {
     [Serializable]
-    private class Wrapper<T>
+    private class Wrapper<T> 
     {
         public T[] Monster;
     }
 
-    public static T[] FromJson<T>(string json)
+    public static T[] FromJson<T>(string json) 
     {
         Wrapper<T> wrapper = UnityEngine.JsonUtility.FromJson<Wrapper<T>>(json);
         return wrapper.Monster;
     }
 
-    public static string ToJson<T>(T[] array)
+    public static string ToJson<T>(T[] array) 
     {
         Wrapper<T> wrapper = new Wrapper<T>();
         wrapper.Monster = array;

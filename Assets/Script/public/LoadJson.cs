@@ -83,7 +83,6 @@ public class LoadJson : MonoBehaviour
             string jsonString = File.ReadAllText(filePath);
 
 
-            string jsonString = File.ReadAllText(filePath);
             // 암호화 되어 있는 JsonData 복호화해서 저장
             // string load = Load(filePath);
 
