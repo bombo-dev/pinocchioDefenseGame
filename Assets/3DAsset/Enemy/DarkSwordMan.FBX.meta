@@ -1,17 +1,23 @@
 fileFormatVersion: 2
-guid: a364aa12109b6c045997077dd1579bf7
+guid: b27b3bd1412193f479c6801445238a68
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: PelicanTurret_Idle
+    second: DarkSwordMan_Walk
   - first:
-      74: -8686285293474181577
-    second: PelicanTurret_Attack1
+      74: -5962687044835570623
+    second: DarkSwordMan_Attack1
   - first:
-      74: -343527999316519427
-    second: PelicanTurret_Dead
+      74: -6751181647046957861
+    second: DarkSwordMan_Attack2
+  - first:
+      74: -3218660172532706119
+    second: DarkSwordMan_Idle
+  - first:
+      74: 108085007450949493
+    second: DarkSwordMan_Dead
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -42,11 +48,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: PelicanTurret_Idle
+      name: DarkSwordMan_Walk
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 30
+      firstFrame: 10
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -71,11 +77,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: PelicanTurret_Attack1
+      name: DarkSwordMan_Attack1
       takeName: Take 001
       internalID: 0
-      firstFrame: 40
-      lastFrame: 80
+      firstFrame: 60
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -100,11 +106,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: PelicanTurret_Dead
+      name: DarkSwordMan_Attack2
       takeName: Take 001
       internalID: 0
-      firstFrame: 80
-      lastFrame: 100
+      firstFrame: 101
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DarkSwordMan_Idle
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 140
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DarkSwordMan_Dead
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 160
+      lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
