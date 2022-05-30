@@ -13,9 +13,9 @@ public class LoadJson : MonoBehaviour
     {
         // DeleteJson()
         // LoadFromJson()
-
+        
         // 암호화 관련 Json 메소드
-        Save(PathInit()); // 암호화 된 Json 불러오고 저장
+        // Save(PathInit()); // 암호화 된 Json 불러오고 저장
         PrepareGameFlowJsonData(); // 암호화 된 Json 데이터 불러와 실행
 
         // 암호화 되어있지 않은 Json메소드
@@ -80,20 +80,22 @@ public class LoadJson : MonoBehaviour
         {
             Debug.Log("유니티 에디터에서 실행");
 
+            string jsonString = File.ReadAllText(filePath);
             // 암호화 되어 있는 JsonData 복호화해서 저장
-            string load = Load(filePath);
+            // string load = Load(filePath);
 
-            return JsonToObject<DefenseFlowDataList>(load);
+            return JsonToObject<DefenseFlowDataList>(jsonString);
         }
         // Windows PC에서 게임 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             Debug.Log("PC에서 실행");
 
+            string jsonString = File.ReadAllText(filePath);
             // 암호화 되어 있는 JsonData 복호화해서 저장
-            string load = Load(filePath);
+            //string load = Load(filePath);
 
-            return JsonToObject<DefenseFlowDataList>(load);
+            return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
         // 모바일 경로 체크
@@ -108,8 +110,9 @@ public class LoadJson : MonoBehaviour
             File.WriteAllBytes(realPath, reader.bytes);
 
             // 암호화 되어 있는 JsonData 복호화해서 저장
-            string load = Load(realPath);
-            return JsonToObject<DefenseFlowDataList>(load);
+            string jsonString = File.ReadAllText(realPath);
+            //string load = Load(realPath);
+            return JsonToObject<DefenseFlowDataList>(jsonString);
         }
     }
 
