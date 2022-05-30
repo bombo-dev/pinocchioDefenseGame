@@ -457,7 +457,7 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
-    /// <param name="attackTarget">데미지를 감소시킬 타겟</param>
+    /// <param name="damage">타겟이 받을 데미지</param>
     public virtual void DecreaseHP(int damage)
     {
         if (currentHP <= 0 || damage <= 0)
@@ -481,6 +481,7 @@ public class Actor : MonoBehaviour
 
         callFlashCoroutine(ShaderController.WHITE);
     }
+
 
     /// <summary>
     /// 회복이 들어간 타겟의 HP를 증가 : 김현진

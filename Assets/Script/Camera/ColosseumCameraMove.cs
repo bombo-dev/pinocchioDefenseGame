@@ -26,11 +26,9 @@ public class ColosseumCameraMove : MonoBehaviour
     Vector2 curPos, prePos;
     Vector3 movePos;
 
-    float preDistance, curDistance, moveDistance;
+    float preDistance, curDistance, moveDistance;   // 화면 줌을 위한 변수
 
-    Vector3 fixedPos;
-
-    bool isMouseButtonOver;
+    bool isMouseButtonOver;     // 
 
     bool isMapClick;
 
@@ -43,7 +41,7 @@ public class ColosseumCameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isCheckPointerOverGameObject();
+        UpdateFlag();
         UpdateInputAtAnd();
         UpdateInputAtWin();
     }
@@ -142,10 +140,39 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void UpdateInputAtWin()
     {
-        MoveWinCam();
+        // 마우스 왼쪽 버튼을 클릭하는 동안
+        IsWinCamMove();
 
+        // 마우스 스크롤 입력이 들어오면
         if (Input.GetAxisRaw("Mouse ScrollWheel") != 0)
             ZoomWinCam();
+    }
+
+    /// <summary>
+    /// 카메라 이동 여부 검사 : 하은비
+    /// </summary>
+    void IsWinCamMove()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            // UI를 제외한 카메라 화면에서 입력이 들어오면
+            if (!isMouseButtonOver && !EventSystem.current.IsPointerOverGameObject())
+            {
+                isMapClick = true;
+
+                MoveWinCam();
+            }
+            // 화면을 드래그하고 있는 상태에서 커서가 UI 안으로 들어가면
+            else if (isMapClick && EventSystem.current.IsPointerOverGameObject())
+            {
+                MoveWinCam();
+            }
+            // 화면을 드래그하고 있지 않은 상태에서 UI를 클릭하면
+            else if (!isMapClick && EventSystem.current.IsPointerOverGameObject())
+            {
+                isMouseButtonOver = true;
+            }
+        }
     }
 
     /// <summary>
@@ -153,45 +180,24 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
-        // 마우스 왼쪽 버튼 드래그 처리
-        if (Input.GetMouseButton(0))
-        {
-            
-            if (!isMouseButtonOver && !EventSystem.current.IsPointerOverGameObject())
-            {
-                isMapClick = true;
+        // 마우스 변위값 구하기
+        moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
+        moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
 
-                // 마우스 변위값 구하기
-                moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
-                moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
-
-                // 카메라 이동
-                cameraMove.Translate(-moveX, 0, -moveZ);
-            }
-            else if(isMapClick && EventSystem.current.IsPointerOverGameObject())
-            {
-                // 마우스 변위값 구하기
-                moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
-                moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
-
-                // 카메라 이동
-                cameraMove.Translate(-moveX, 0, -moveZ);
-            }
-            else if(!isMapClick && EventSystem.current.IsPointerOverGameObject())
-            {
-                isMouseButtonOver = true;
-            }
-        }
+        // 카메라 이동
+        cameraMove.Translate(-moveX, 0, -moveZ);
     }
 
-    void isCheckPointerOverGameObject()
+    /// <summary>
+    /// 입력이 없으면 플래그 변수 초기화 : 하은비
+    /// </summary>
+    void UpdateFlag()
     {
         if (!Input.GetMouseButton(0))
         {
             isMouseButtonOver = false;
             isMapClick = false;
         }
-
     }
 
     /// <summary>

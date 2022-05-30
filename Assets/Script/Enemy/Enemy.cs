@@ -316,6 +316,14 @@ public class Enemy : Actor
     public override void IncreaseHP(int recoveryPower)
     {
         base.IncreaseHP(recoveryPower);
+
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetHPBar(currentHP, maxHP);
+        }
+        else
+            return;
     }
 
     /// <summary>
@@ -357,6 +365,15 @@ public class Enemy : Actor
         if (debuffs[(debuff)debuffIndex].stack > 5)
             return;
 
+
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        {
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
+        }
+        else
+            return;
+
         //디버프 효과
         switch (debuffIndex)
         {
@@ -380,6 +397,8 @@ public class Enemy : Actor
                 currentDefense -= (currentDefense / 2);
                 break;
         }
+
+
     }
 
     /// <summary>
