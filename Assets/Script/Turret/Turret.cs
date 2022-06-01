@@ -184,9 +184,13 @@ public class Turret : Actor
         {
             //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.turretHPBarIndex;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
-            SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);            
+            // 터렛 
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.StatusReset();
             
+            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
+            SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
+
             turretState = TurretState.Dead;
         }
 
@@ -239,6 +243,8 @@ public class Turret : Actor
         {
             // 터렛 비활성화
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            
+
 
             // 터렛 소환 정보 비활성화 상태로 변경
             Nest _nest = nest.GetComponent<Nest>();
@@ -283,7 +289,18 @@ public class Turret : Actor
             return;
         
     }
+    /// <summary>
+    /// 디버프 제거 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">제거할 디버프</param>
+    protected override void RemoveDebuff(int debuffIndex)
+    {
+        base.RemoveDebuff(debuffIndex);
 
+
+        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[turretIndex].GetComponent<StatusMngPanel>();
+        statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
+    }
     #endregion
 
     protected override void UpdateHPBarsPos()

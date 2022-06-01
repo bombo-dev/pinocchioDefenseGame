@@ -43,7 +43,6 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
-    
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -92,6 +91,8 @@ public class Enemy : Actor
 
         //이동 타겟 배열의 첫번째 타일로 방향벡터 초기화
         dirVec = FindDirVec(currentTarget);
+
+       
 
     }
 
@@ -302,9 +303,16 @@ public class Enemy : Actor
         if (currentHP == 0)
         {            
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
+            //에너미 StatusMngPanel 리셋 
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.StatusReset();
+            
             SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
             SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+
+
             
+
             enemyState = EnemyState.Dead;
         }
     }
@@ -365,14 +373,9 @@ public class Enemy : Actor
         if (debuffs[(debuff)debuffIndex].stack > 5)
             return;
 
+        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
-        }
-        else
-            return;
 
         //디버프 효과
         switch (debuffIndex)
@@ -432,6 +435,9 @@ public class Enemy : Actor
                 currentDefense = defense;
                 break;
         }
+
+        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
     }
     #endregion
 

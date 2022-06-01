@@ -37,7 +37,6 @@ public class PanelManager : MonoBehaviour
     PrefabCacheData[] prefabCacheDatas;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +128,7 @@ public class PanelManager : MonoBehaviour
         if (panelIndex >= prefabCacheDatas.Length || prefabCacheDatas[panelIndex].filePath == null)
             return;
 
+
         //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[panelIndex].filePath);
 
@@ -140,24 +140,31 @@ public class PanelManager : MonoBehaviour
         if (typeof(T) == typeof(StatusMngPanel))
         {
             statusMngPanel = (compoenent as StatusMngPanel);
-            // (compoenent as StatusMngPanel).Reset();
-            
+            //(compoenent as StatusMngPanel).Reset();
+
+
+
         }
         else
             return;
+
+
 
         // HPBar 리스트에 삽입
         if (type.Name == "Turret")
         {
             turretHPBars.Add(go);
             statusMngPanel.turretHPBarIndex = turretHPBars.FindIndex(x => x == go);
+            statusMngPanel.SetHPBarColor();
         }
 
         else if (type.Name == "Enemy")
         {
             enemyHPBars.Add(go);
-            statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);                
+            statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);              
         }
+
+
 
         //패널 위치 초기화
         Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y+30, startPos.z));
@@ -249,12 +256,19 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(StatusMngPanel))
         {
             filePath = (compoenent as StatusMngPanel).filePath;
+
+
             statusMngPanel = null;
+
+
         }
         else
             return;
 
         SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, go);
+
+        // 패널 HPBar 초기화
+        
     }
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class StatusMngPanel : UI_Controller
@@ -13,6 +14,11 @@ public class StatusMngPanel : UI_Controller
 
     public string filePath;
 
+    [SerializeField]
+    GameObject[] Debuffs;
+
+    [SerializeField]
+    Image Fill;
 
     enum Images
     {
@@ -48,6 +54,13 @@ public class StatusMngPanel : UI_Controller
 
 
     }
+    
+    public void SetHPBarColor()
+    {
+        //Fill.color = Color.blue; //파랑
+        //Fill.color = new Color(255 / 255f, 121 / 255f, 0 / 255f); //주황
+        Fill.color = Color.green;
+    }
 
     public void SetHPBar(float currentHP, float maxHP)
     {
@@ -57,27 +70,43 @@ public class StatusMngPanel : UI_Controller
         currentHP /= maxHP;
 
         GetSlider((int)Sliders.HPBar).value = currentHP;
+
     }
 
 
     public void SetDebuff(int debuffIdx, Dictionary<Actor.debuff, Debuff> debuffs , float time)
     {
+
+        GameObject go = Debuffs[debuffIdx];
+        go.SetActive(true);
         
-        //Debug.Log("go=" + GetImage(debuffIdx).gameObject);
+        TextMeshProUGUI debuffText = go.GetComponentInChildren<TextMeshProUGUI>();
 
+        int stack = debuffs[(Actor.debuff)debuffIdx].stack;
 
-        /*
-        while (time > 0)
+        if (stack >= 2)
+            debuffText.text = "X"+ stack.ToString();
+      
+    }
+
+    public void RemoveDebuff(int debuffIndex, Dictionary<Actor.debuff, Debuff> debuffs)
+    {
+        GameObject go = Debuffs[debuffIndex];
+        go.SetActive(false);
+    }
+
+    public void StatusReset()
+    {
+        // HPbar 정보 Reset
+        GetSlider((int)Sliders.HPBar).value = 1.0f/1.0f;
+        Fill.color = Color.red;
+
+        // 디버프 정보 Reset
+        /*for(int i=0; i<Debuffs.Length; i++)
         {
-            GetTextMeshProUGUI(debuffIdx).text = "X"+ debuffs[(Actor.debuff)debuffIdx].stack.ToString();
-            go.SetActive(true);
-            time--;
+            Debuffs[i].SetActive(false);
+            Debuffs[i].GetComponentInChildren<TextMeshProUGUI>().text = null;
         }
-
-        if (time <= 0)
-            go.SetActive(false);
         */
     }
-    
-
 }
