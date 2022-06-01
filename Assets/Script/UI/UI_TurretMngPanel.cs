@@ -110,7 +110,7 @@ public class UI_TurretMngPanel : UI_Controller
             if (!SystemManager.Instance.PanelManager.statusMngPanel)
                 return;
 
-
+            
 
             //둥지정보 갱신
             Nest nest = nestGo.GetComponent<Nest>();
