@@ -7,6 +7,8 @@ Shader "Custom/AlphaBlendingEffect"
         _MainTex("Albedo (RGB)", 2D) = "white" {}
 
         _X0Y1("X0Y1", int) = 0
+
+        _Color("Color", Color) = (1,1,1,1)
     }
         SubShader
         {
@@ -21,6 +23,8 @@ Shader "Custom/AlphaBlendingEffect"
             float _Speed;
 
             int _X0Y1;
+
+            float4 _Color;
 
             struct Input
             {
@@ -38,7 +42,7 @@ Shader "Custom/AlphaBlendingEffect"
                     c = tex2D(_MainTex, float2(IN.uv_MainTex.x, IN.uv_MainTex.y + _Time.y * _Speed));//UV y축으로 기본속도(_Time.y) 만큼 이동
 
                 //o.Albedo = lerp(c.rgb, float4(0,0,0,0), c.a);
-                o.Emission = c.rgb;
+                o.Emission = c.rgb * _Color.rgb;
                 o.Alpha = 1 - c.a;
             }
 
