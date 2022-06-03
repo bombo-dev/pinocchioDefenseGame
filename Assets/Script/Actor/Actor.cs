@@ -241,62 +241,15 @@ public class Actor : MonoBehaviour
         attackTargets.Clear();
         attackTargetsActor.Clear();
 
-        for (int i = 0; i < target.Count; i++)
-        {
-            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
-            if (mine && isRecoveryTower)
-            {
-                if (System.Object.ReferenceEquals(target[i], mine))
-                    if (i >= target.Count - 1)
-                        break;
-                    else
-                        i++;
-            }
-
-
-            //사거리 안에 가장 먼저 감지된 타겟
-            if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
-            {
-                //다중 타겟 유닛일경우
-                if (attackTargetNum > 1)
-                {
-                    //사거리 안에 가장 먼저 감지된 타겟
-                    attackTargets.Add(target[i]);
-                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
-                    attackDirVec = (target[i].transform.position - transform.position).normalized; ;
-
-                    //공격 사거리 안에 감지 될 타겟 추가
-                    if(isRecoveryTower)
-                        DetectTargets(target, i, mine);
-                    else
-                        DetectTargets(target, i);
-                }
-                else
-                {              
-                    //타겟과 타겟 방향벡터 초기화
-                    attackTargets.Add(target[i]);
-                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
-                    attackDirVec = (attackTargets[0].transform.position - transform.position).normalized;
-
-                    //공격
-                    Attack();
-                }   
-
-                return;
-            }
-
-        }//end of for
-    }
-
-    /// <summary>
-    /// 다중 타겟 유닛일 경우, this 객체의 공격 사거리 안에있는 타겟을 감지해 그중 공격할 타겟들을 지정 : 김현진
-    /// </summary>
-    /// <param name="target">타겟이 될 대상 배열</param>
-    /// <param name="detectedUnitIndex">가장 먼저 감지된 유닛 인덱스</param>
-    protected void DetectTargets(List<GameObject> target,int detectedUnitIndex, GameObject mine = null)
-    {
+        //타겟과 타겟과의 거리를 저장할 딕셔너리
         Dictionary<GameObject, float> targetDistances = new Dictionary<GameObject, float>();
 
+        // --------------- 타겟별 거리 측정 ---------------
+
+        //다중타겟 유닛이 range 안에 공격할 적이 존재하는지 판단, * 다중타겟 공격은 range범위 안쪽의 타겟이 존재할 경우 나머지 target은 multiAttackRange범위로 찾는다 *
+        bool isTargetInRange = false;
+
+        //타겟 리스트의 모든 요소를 검사하여 사거리안에 들어온 타겟인 경우 딕셔너리에 저장
         for (int i = 0; i < target.Count; i++)
         {
             //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
@@ -309,12 +262,37 @@ public class Actor : MonoBehaviour
                         i++;
             }
 
-            //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
-            if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange) && (i != detectedUnitIndex))
+            //타겟이 존재하는경우
+            if (target[i].activeSelf)
             {
-                targetDistances.Add(target[i],Vector3.SqrMagnitude(target[i].transform.position - transform.position)); 
+                //단일타겟
+                if (attackTargetNum <= 1)
+                {
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
+                        targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
+                }
+                //다중타겟
+                else
+                {
+                    if (!isTargetInRange && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
+                        isTargetInRange = true;
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange)
+                        targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
+                }
             }
-        }
+        }//end of for
+
+        // --------------- 공격 가능한 타겟이 존재하는지 판단 ---------------
+
+        //타겟 없으면 종료
+        if (targetDistances.Count <= 0)
+            return;
+
+        //다중 타겟유닛 - range내 타겟 없으면 종료
+        if (attackTargetNum > 1 && !isTargetInRange)
+            return;
+
+        // --------------- 타겟이 존재할 경우 최종 타겟 선정 ---------------
 
         //거리순으로 오름차순 정렬
         var sortedTargetDistances = targetDistances.OrderBy(x => x.Value);
@@ -335,7 +313,6 @@ public class Actor : MonoBehaviour
         Attack();
 
         return;
-
     }
 
     /// <summary>
