@@ -9,7 +9,7 @@ public class UI_TurretMngPanel : UI_Controller
 {
     public string filePath;
 
-    const int MAXTURRET = 17;   //최대 터렛 수
+    const int MAXTURRET = 23;   //최대 터렛 수
 
     int currentSelectedTurretIdx = 0;   //현재 선택한 터렛 번호
 
@@ -36,7 +36,13 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton13,
         TurretButton14,
         TurretButton15,
-        TurretButton16,//~16
+        TurretButton16,
+        TurretButton17,
+        TurretButton18,
+        TurretButton19,
+        TurretButton20,
+        TurretButton21,
+        TurretButton22,//~22
         TurretSummonButton,
         CloseTurretMngPanelButton
     }

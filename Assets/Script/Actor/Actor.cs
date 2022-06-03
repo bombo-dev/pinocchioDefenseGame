@@ -424,7 +424,6 @@ public class Actor : MonoBehaviour
         if(currentFireEffect)
             if(currentFireEffect.activeSelf)
                 currentFireEffect.transform.position = firePos.transform.position;
-
     }
 
     /// <summary>
