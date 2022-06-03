@@ -44,7 +44,7 @@ public class Turret : Actor
                 if(!isRecoveryTower)    //공격타워
                     DetectTarget(SystemManager.Instance.EnemyManager.enemies);
                 else    //회복타워        
-                    DetectTarget(SystemManager.Instance.TurretManager.turrets);
+                    DetectTarget(SystemManager.Instance.TurretManager.turrets, gameObject);
                 break;
             case TurretState.Battle:
                 UpdateHPBarsPos();
@@ -107,9 +107,12 @@ public class Turret : Actor
     /// Enemy를 거리순으로 감지 : 하은비
     /// </summary>
     /// <param name="target"></param>
-    protected override void DetectTarget(List<GameObject> target)
+    protected override void DetectTarget(List<GameObject> target, GameObject mine = null)
     {
-        base.DetectTarget(target);
+        if (mine)
+            base.DetectTarget(target, mine);
+        else
+            base.DetectTarget(target);
     }
 
     /// <summary>

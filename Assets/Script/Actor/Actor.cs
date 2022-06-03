@@ -230,7 +230,8 @@ public class Actor : MonoBehaviour
     /// this 객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
     /// <param name="target">타겟이 될 대상 배열</param>
-    protected virtual void DetectTarget(List<GameObject> target)
+    /// <param name="mine">호출한 오브젝트</param>
+    protected virtual void DetectTarget(List<GameObject> target , GameObject mine = null)
     {
         //공격 유닛이 아닌경우
         if (attackTargetNum == 0)
@@ -242,6 +243,17 @@ public class Actor : MonoBehaviour
 
         for (int i = 0; i < target.Count; i++)
         {
+            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
+            if (mine && isRecoveryTower)
+            {
+                if (System.Object.ReferenceEquals(target[i], mine))
+                    if (i >= target.Count - 1)
+                        break;
+                    else
+                        i++;
+            }
+
+
             //사거리 안에 가장 먼저 감지된 타겟
             if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
             {
@@ -254,7 +266,10 @@ public class Actor : MonoBehaviour
                     attackDirVec = (target[i].transform.position - transform.position).normalized; ;
 
                     //공격 사거리 안에 감지 될 타겟 추가
-                    DetectTargets(target, i);
+                    if(isRecoveryTower)
+                        DetectTargets(target, i, mine);
+                    else
+                        DetectTargets(target, i);
                 }
                 else
                 {              
@@ -278,12 +293,22 @@ public class Actor : MonoBehaviour
     /// </summary>
     /// <param name="target">타겟이 될 대상 배열</param>
     /// <param name="detectedUnitIndex">가장 먼저 감지된 유닛 인덱스</param>
-    protected void DetectTargets(List<GameObject> target,int detectedUnitIndex)
+    protected void DetectTargets(List<GameObject> target,int detectedUnitIndex, GameObject mine = null)
     {
         Dictionary<GameObject, float> targetDistances = new Dictionary<GameObject, float>();
 
         for (int i = 0; i < target.Count; i++)
         {
+            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
+            if (mine && isRecoveryTower)
+            {
+                if (System.Object.ReferenceEquals(target[i], mine))
+                    if (i >= target.Count - 1)
+                        break;
+                    else
+                        i++;
+            }
+
             //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
             if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange) && (i != detectedUnitIndex))
             {
@@ -409,11 +434,14 @@ public class Actor : MonoBehaviour
         }
 
         //위치 업데이트
-        Quaternion rotation;
+        if (!isRecoveryTower)
+        {
+            Quaternion rotation;
 
-        rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
+            rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        }
 
         //이펙트 위치 업데이트
         if(currentFireEffect)
@@ -434,11 +462,11 @@ public class Actor : MonoBehaviour
         //총알 생성
 
         // 단일 타겟 유닛일 경우
-        if (attackTargetNum == 1)
+        if (attackTargetNum == 1 && !isRecoveryTower)
         {            
             SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0], gameObject);
         }
-        //다중 타겟 유닛일 경우
+        //다중 타겟 유닛, 회복 유닛일 경우
         else
         {
             for (int i = 0; i < attackTargets.Count; i++)

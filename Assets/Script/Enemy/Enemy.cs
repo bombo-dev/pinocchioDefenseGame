@@ -127,7 +127,11 @@ public class Enemy : Actor
                 UpdateHPBarsPos();
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(SystemManager.Instance.TurretManager.turrets);                
+
+                if (!isRecoveryTower)    //공격 유닛
+                    DetectTarget(SystemManager.Instance.TurretManager.turrets);
+                else    //회복 유닛
+                    DetectTarget(SystemManager.Instance.EnemyManager.enemies, gameObject);
                 break;
             case EnemyState.Battle:
                 UpdateHPBarsPos();
@@ -201,9 +205,12 @@ public class Enemy : Actor
     /// <summary>
     /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
-    protected override void DetectTarget(List<GameObject> target)
+    protected override void DetectTarget(List<GameObject> target, GameObject mine = null)
     {
-        base.DetectTarget(target);
+        if (mine)
+            base.DetectTarget(target, mine);
+        else
+            base.DetectTarget(target);
     }
 
     public void UpdateEnemyPos(GameObject go)
@@ -249,6 +256,17 @@ public class Enemy : Actor
                     animator.SetBool("meleeAttack", false);
                 else
                     animator.SetBool("rangedAttack", false);
+            }
+
+            //회복타워일경우
+            if (isRecoveryTower)
+            {
+                animator.SetBool("attack", false);
+                animator.SetBool("finAttack", true);
+
+                enemyState = EnemyState.Walk;
+
+                return;
             }
 
             //공격할 대상의 존재 유무에 따른 상태 변화
