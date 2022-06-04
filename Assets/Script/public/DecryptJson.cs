@@ -8,9 +8,13 @@ using System.Security.Cryptography;
 
 public class DecryptJson : MonoBehaviour
 {
-    // Start is called before the first frame update
+    /// <summary>
+    /// *** JSON을 복호화 할 때는 암호화가 되어있어야 합니다 꼭꼭 ***
+    /// </summary>
     void Start()
     {
+        // ********** JSON을 복호화 할 때는 암호화가 되어있어야 합니다 꼭꼭 ************
+
         // 1. 몬스터 게이트 데이터가 담긴 JSON을 복호화 할 때 사용
         // JsonDecrypt(TestPath());
         // 2. 몬스터들의 상태치 데이터가 담긴 JSON을 복호화 할 때 사용
