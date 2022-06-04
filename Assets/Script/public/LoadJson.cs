@@ -11,14 +11,15 @@ public class LoadJson : MonoBehaviour
 {
     private void Start()
     {
-        // DeleteJson()
         // LoadFromJson()
         
         // 암호화 관련 Json 메소드
-        // Save(PathInit()); // 암호화 된 Json 불러오고 저장
-        PrepareGameFlowJsonData(); // 암호화 된 Json 데이터 불러와 실행
+
+        //Save(PathInit()); // 암호화 된 Json 불러오고 저장
+        //PrepareGameFlowJsonData(); // 암호화 된 Json 데이터 불러와 실행
+
         // 암호화 되어있지 않은 Json메소드
-        // PrepareGameFlowDecryptJsonData();
+         PrepareGameFlowDecryptJsonData();
     }
 
     /// <summary>
@@ -29,10 +30,7 @@ public class LoadJson : MonoBehaviour
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
         //Json 불러오기
-        string filePath;
-
-        //Json 경로 체크
-        filePath = PathInit();
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
 
         return LoadJsonFile<DefenseFlowDataList>(filePath);
     }
@@ -47,10 +45,7 @@ public class LoadJson : MonoBehaviour
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
         //Json 불러오기
-        string filePath;
-
-        //Json 경로 체크
-        filePath = PathInit();
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
 
         return DecryptLoadJsonFile<DefenseFlowDataList>(filePath);
 
@@ -157,7 +152,7 @@ public class LoadJson : MonoBehaviour
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
     }
-
+    
     // JsonData만 읽어오는 메소드
     public static string ReadJsonFileToString(string filePath)
     {
@@ -192,7 +187,39 @@ public class LoadJson : MonoBehaviour
         }
     }
 
-    // 암호화 메소드
+    public static void Save(string filePath)
+    {
+        // 암호화 된 Json 파일 복호화
+        JsonToDecrypt(filePath);
+        string save = ReadJsonFileToString(filePath);
+        save = Encrypt(save, "key");
+        // Json 파일 암호화 하여 재 저장
+        File.WriteAllText(filePath, save);
+    }
+
+    public static string Load(string filePath)
+    {
+        string load = File.ReadAllText(filePath);
+        load = Decrypt(load, "key");
+        return load;
+    }
+
+    public static void JsonToDecrypt(string filePath)
+    {
+        string load = File.ReadAllText(filePath);
+        load = Decrypt(load, "key");
+        File.WriteAllText(filePath, load);
+    }
+
+
+
+    /// <summary>
+    /// 암호화, 복호화 관련 메소드 모음
+    /// </summary>
+    /// <returns></returns>
+
+
+    // 복호화 메소드
     public static string Decrypt(string textToDecrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
@@ -229,7 +256,7 @@ public class LoadJson : MonoBehaviour
         return Encoding.UTF8.GetString(plainText);
     }
 
-    // 복호화 메소드
+    // 암호화 메소드
     public static string Encrypt(string textToEncrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
@@ -267,40 +294,4 @@ public class LoadJson : MonoBehaviour
         return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
     }
 
-
-    public static void Save(string filePath)
-    {
-        // 암호화 된 Json 파일 복호화
-        JsonToDecrypt(filePath);
-        string save = ReadJsonFileToString(filePath);
-        save = Encrypt(save, "key");
-        // Json 파일 암호화 하여 재 저장
-        File.WriteAllText(filePath, save);
-    }
-
-    public static string Load(string filePath)
-    {
-        string load = File.ReadAllText(filePath);
-        load = Decrypt(load, "key");
-        return load;
-    }
-
-    public static void JsonToDecrypt(string filePath)
-    {
-        string load = File.ReadAllText(filePath);
-        load = Decrypt(load, "key");
-        File.WriteAllText(filePath, load);
-    }
-
-    //Json 새로 불러오기
-    public static void LoadFromJson()
-    {
-
-    }
-
-    //Json 삭제
-    public static void DeleteJson()
-    {
-
-    }
 }
