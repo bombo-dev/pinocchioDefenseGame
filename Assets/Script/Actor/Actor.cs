@@ -458,7 +458,7 @@ public class Actor : MonoBehaviour
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
     /// <param name="damage">타겟이 받을 데미지</param>
-    public virtual void DecreaseHP(int damage)
+    public virtual void DecreaseHP(int damage )
     {
         if (currentHP <= 0 || damage <= 0)
             return;
@@ -466,7 +466,10 @@ public class Actor : MonoBehaviour
 
         if (currentHP > damage)
         {
-            currentHP -= damage;            
+            currentHP -= damage;
+
+
+
         }
         else
         {
@@ -665,10 +668,9 @@ public class Actor : MonoBehaviour
 
     #endregion
    
-    protected virtual void UpdateHPBarsPos()
+    protected virtual void UpdatePanelPos()
     {
         if (!SystemManager.Instance.PanelManager.statusMngPanel)
-            return;
-        
+            return;       
     }
 }

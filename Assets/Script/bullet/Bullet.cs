@@ -129,7 +129,15 @@ public class Bullet : MonoBehaviour
                 Enemy enemy = target.GetComponent<Enemy>();
 
                 Turret attacker = attackOwner.GetComponent<Turret>();
-                
+
+                /*
+                SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, enemy.hitPos.transform.position, 0, GetType());
+                if (SystemManager.Instance.PanelManager.damageMngPanel)
+                    SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(attacker.power);
+                else
+                    Debug.Log("damageMngPanel is null");
+                */
+
                 enemy.DecreaseHP(attacker.power);
 
                 //피 공격자 디버프 걸기
@@ -149,6 +157,15 @@ public class Bullet : MonoBehaviour
                 Turret turret = target.GetComponent<Turret>();
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
+                 /*
+                SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, turret.hitPos.transform.position, 0, GetType());
+                
+
+                if (SystemManager.Instance.PanelManager.damageMngPanel)
+                    SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(attacker.power);
+                else
+                    Debug.Log("damageMngPanel is null");
+                */
 
                 turret.DecreaseHP(attacker.power);
 

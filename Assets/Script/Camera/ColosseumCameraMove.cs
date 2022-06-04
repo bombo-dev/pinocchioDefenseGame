@@ -28,9 +28,9 @@ public class ColosseumCameraMove : MonoBehaviour
 
     float preDistance, curDistance, moveDistance;   // 화면 줌을 위한 변수
 
-    bool isMouseButtonOver;     // 
+    bool isMouseButtonOver;     // 마우스(터치)가 UI 위에 있는 경우 
 
-    bool isMapClick;
+    bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +41,29 @@ public class ColosseumCameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateFlag();
+
         UpdateInputAtAnd();
         UpdateInputAtWin();
+        UpdateAndFlag();
+        UpdateWinFlag();
+        /*
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Application.Quit();
+            else
+            {
+                UpdateInputAtAnd();
+                UpdateAndFlag();
+            }
+        }
+        */
+        /*else
+        {
+            UpdateInputAtWin();
+            UpdateWinFlag();
+        }
+        */
     }
 
     /// <summary>
@@ -69,13 +89,35 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void UpdateInputAtAnd()
     {
+
         // 화면에 접촉된 손가락의 개수가 1개이면
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
-            MoveAndCam();
+        if (Input.touchCount == 1)
+        {
+
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMouseButtonOver)
+            {
+                isMapClick = true;
+
+                MoveAndCam();
+            }
+            else if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && isMapClick)
+            {
+                MoveAndCam();
+            }
+            else if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMapClick)
+            {
+                isMouseButtonOver = true;
+            }
+            else
+                return;
+
+        }
         else if (Input.touchCount == 2)
             ZoomAndCam();
         else
             return;
+
+
     }
 
     /// <summary>
@@ -129,10 +171,19 @@ public class ColosseumCameraMove : MonoBehaviour
 
             Camera.main.fieldOfView -= 0.3f * moveDistance;
     }
-    
+
+    void UpdateAndFlag()
+    {
+        if (Input.touchCount <= 0)
+        {
+            isMouseButtonOver = false;
+            isMapClick = false;
+        }
+    }
 
     #endregion
 
+  
     #region Window
 
     /// <summary>
@@ -191,7 +242,7 @@ public class ColosseumCameraMove : MonoBehaviour
     /// <summary>
     /// 입력이 없으면 플래그 변수 초기화 : 하은비
     /// </summary>
-    void UpdateFlag()
+    void UpdateWinFlag()
     {
         if (!Input.GetMouseButton(0))
         {
@@ -215,4 +266,5 @@ public class ColosseumCameraMove : MonoBehaviour
 
 
     #endregion
+
 }

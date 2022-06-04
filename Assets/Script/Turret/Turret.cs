@@ -40,14 +40,14 @@ public class Turret : Actor
         switch (turretState)
         {
             case TurretState.Idle:
-                UpdateHPBarsPos();
+                UpdatePanelPos();
                 if(!isRecoveryTower)    //공격타워
                     DetectTarget(SystemManager.Instance.EnemyManager.enemies);
                 else    //회복타워        
                     DetectTarget(SystemManager.Instance.TurretManager.turrets);
                 break;
             case TurretState.Battle:
-                UpdateHPBarsPos();
+                UpdatePanelPos();
                 UpdateBattle();
                 break;
             case TurretState.Dead:
@@ -171,6 +171,7 @@ public class Turret : Actor
         else
             return;
 
+
         //TurretInfo UI 갱신
         if (SystemManager.Instance.PanelManager.turretInfoPanel)
         {
@@ -182,7 +183,8 @@ public class Turret : Actor
 
         if (currentHP == 0)
         {
-            //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.turretHPBarIndex;
+            //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.
+            //;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
             // 터렛 
             StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
@@ -303,12 +305,23 @@ public class Turret : Actor
     }
     #endregion
 
-    protected override void UpdateHPBarsPos()
+    protected override void UpdatePanelPos()
     {
-        base.UpdateHPBarsPos();
+        base.UpdatePanelPos();
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);        
-        SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
+        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+            //Debug.Log("Enemy.screenPos=" + screenPos);
+            SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
+        }
+
+        if (SystemManager.Instance.PanelManager.damageMngPanel)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
+            //Debug.Log("Enemy.screenPos=" + screenPos);
+            SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
+        }
     }
 
 }
