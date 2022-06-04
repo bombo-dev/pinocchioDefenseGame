@@ -12,6 +12,8 @@ public class EncryptJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // ****** 암호화 할때는 파일이 복호화 되어 있는 상태여야 합니다 . 암호화 된 파일을 두 번 암호화 하면 파일이 꼬이니 실행 전에 복호화 된 JSON 파일 백업해주세요 ******
+
         // 1. 몬스터 게이트 데이터가 담긴 JSON을 암호화 할 때 사용
         // JsonEncrypt(TestPath());
         // 2. 몬스터들의 상태치 데이터가 담긴 JSON을 암호화 할 때 사용
