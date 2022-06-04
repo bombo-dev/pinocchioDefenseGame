@@ -309,9 +309,8 @@ public class Enemy : Actor
         else
             Debug.Log("damageMngPanel is null");
 
-        //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
-        //hitPos = go.GetComponent<Enemy>().hitPos;
-        //Debug.Log("hitted enemy=" + hitPos.GetComponent<GameObject>().name);
+
+        Debug.Log("hitted enemy=" + hitPos.transform.parent.gameObject.name);
 
         /*
         if (isEndShow == false)
@@ -496,14 +495,15 @@ public class Enemy : Actor
             //Debug.Log("Enemy.screenPos=" + screenPos);
             SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
         }
-        
+
+        /*
         if (SystemManager.Instance.PanelManager.damageMngPanel) 
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
             SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
         }
-            
+            */
         
     }
 }
