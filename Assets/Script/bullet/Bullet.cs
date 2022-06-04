@@ -106,7 +106,7 @@ public class Bullet : MonoBehaviour
                     Enemy attacker = attackOwner.GetComponent<Enemy>();
                      
                     //피 공격자 회복
-                    recoveryTarget.IncreaseHP(recoveryTarget.power);
+                    recoveryTarget.IncreaseHP(recoveryTarget.currentPower);
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
@@ -116,7 +116,7 @@ public class Bullet : MonoBehaviour
                     Turret attacker = attackOwner.GetComponent<Turret>();
 
                     //피 공격자 회복
-                    recoveryTarget.IncreaseHP(recoveryTarget.power);
+                    recoveryTarget.IncreaseHP(recoveryTarget.currentPower);
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
@@ -130,7 +130,7 @@ public class Bullet : MonoBehaviour
 
                 Turret attacker = attackOwner.GetComponent<Turret>();
                 
-                enemy.DecreaseHP(attacker.power);
+                enemy.DecreaseHP(attacker.currentPower);
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
@@ -150,7 +150,7 @@ public class Bullet : MonoBehaviour
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
 
-                turret.DecreaseHP(attacker.power);
+                turret.DecreaseHP(attacker.currentPower);
 
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)

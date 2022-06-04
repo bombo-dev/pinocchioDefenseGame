@@ -241,8 +241,8 @@ public class Actor : MonoBehaviour
         //회복력 초기화
         currentRegeneration = regeneration;
 
-        //디버프 리스트 초기화
-        debuffs.Clear();
+        //디버프 초기화
+        ClearDebuff();
     }
 
     /// <summary>
@@ -633,9 +633,6 @@ public class Actor : MonoBehaviour
                 //인덱스를 debuff로 형변환
                 debuff _debuffIndex = (debuff)i;
 
-                if (debuffs.ContainsKey((debuff)i))
-                    Debug.Log("디버프:" + (debuff)i + " 스택:" + debuffs[(debuff)i].stack);
-
                 //디버프 업데이트
                 if (debuffs.ContainsKey(_debuffIndex))
                 {
@@ -696,6 +693,24 @@ public class Actor : MonoBehaviour
         //키 값 참조하여 해당 요소 제거
         if(debuffs.ContainsKey(_debuffIndex))
             debuffs.Remove(_debuffIndex);
+    }
+
+    /// <summary>
+    /// 모든 디버프를 제거
+    /// </summary>
+    void ClearDebuff()
+    {
+        if (debuffs.Count > 0)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(debuff)).Length; i++)
+            {
+                //디버프 제거
+                RemoveDebuff(i);
+            }
+        }
+
+        //딕셔너리 초기화
+        debuffs.Clear();
     }
 
     #endregion

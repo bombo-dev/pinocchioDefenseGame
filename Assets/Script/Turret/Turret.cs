@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Turret : Actor
 {
@@ -12,13 +13,16 @@ public class Turret : Actor
         Dead,          //  Enemy에 의해 죽은 상태
     }
 
-    public class Buff
-    {
-        public float durationTime = 0;  //지속시간
-    }
-
     [Header("buff")]  //버프
-    public Dictionary<buff, Buff> buffs = new Dictionary<buff, Buff>();
+    //버프 정보 담을 자료구조 , <buff, durationTime>
+    Dictionary<buff, float> buffs = new Dictionary<buff, float>();
+
+    [SerializeField]
+    int[] buffEffectIndex;  //활성화할 버프 이펙트 번호
+    [SerializeField]
+    GameObject[] CurrentBuffEffect; //현재 활성화된 버프 이펙트
+    [SerializeField]
+    string[] CurrentBuffEffectFilePath; //현재 활성화된 버프 이펙트 파일 주소
 
     //소환해있는 둥지
     public GameObject nest;
@@ -45,6 +49,8 @@ public class Turret : Actor
     {
         base.UpdateActor();
 
+        if (Input.GetKeyDown(KeyCode.A))
+            ClearBuff();
         //버프 동작 
         UpdateBuff();
 
@@ -112,6 +118,9 @@ public class Turret : Actor
 
         //상태초기화
         turretState = TurretState.Idle;
+
+        //버프초기화
+        ClearBuff();
     }
 
     /// <summary>
@@ -196,7 +205,7 @@ public class Turret : Actor
         {
             //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.turretHPBarIndex;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
-            // 터렛 
+            //터렛 
             StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.StatusReset();
             
@@ -253,11 +262,6 @@ public class Turret : Actor
         //Dead상태 종료
         if (!animator.GetBool("isDead"))
         {
-            // 터렛 비활성화
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-            
-
-
             // 터렛 소환 정보 비활성화 상태로 변경
             Nest _nest = nest.GetComponent<Nest>();
             if (_nest)
@@ -278,9 +282,36 @@ public class Turret : Actor
             }
             nest = null;
 
+            //버프 초기화
+            ClearBuff();
+
+            // 터렛 비활성화
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
             return;
         }
     }
+
+    #region 이펙트
+    /// <summary>
+    /// 버프 이펙트 출력 : 김현진
+    /// </summary>
+    /// <param name="attacker">공격자</param>
+    public void EnableBuffEffect(int buffIndex)
+    {
+        //예외처리
+        if (!nest)
+            return;
+
+        Nest _nest = nest.GetComponent<Nest>();
+        //이펙트 출력 
+        if (_nest || buffs.Count > 0 || buffs.Count <= Enum.GetValues(typeof(buff)).Length - 2)
+        {
+            CurrentBuffEffect[buffIndex] = SystemManager.Instance.EffectManager.
+                EnableEffect(buffEffectIndex[buffIndex], _nest.buffEffectPos[buffs.Count-1].transform.position);   //피격 이펙트 출력
+        }
+    }
+    #endregion 이펙트
 
     #region 디버프
     /// <summary>
@@ -362,10 +393,10 @@ public class Turret : Actor
                 if (buffs.ContainsKey(_buffIndex))
                 {
                     //지속시간 업데이트
-                    buffs[_buffIndex].durationTime -= Time.deltaTime;
+                    buffs[_buffIndex] -= Time.deltaTime;
 
                     //지속시간 경과시 버프 제거
-                    if (buffs[_buffIndex].durationTime < 0)
+                    if (buffs[_buffIndex] < 0)
                         RemoveBuff(i);
 
                 }
@@ -391,9 +422,7 @@ public class Turret : Actor
         //이미 존재하는 버프가 아닌 경우
         if (!buffs.ContainsKey(_buffIndex))
         {
-            Buff buff = new Buff(); //객체 생성
-
-            buffs.Add(_buffIndex, buff);   //자료구조에 추가
+            buffs.Add(_buffIndex, time);   //딕셔너리 자료구조에 추가
 
             //버프 효과
             switch (buffIndex)
@@ -406,7 +435,6 @@ public class Turret : Actor
                     break;
                 case 3: //회복력 증가 + 즉시 회복
                     currentRegeneration += (currentRegeneration / 3);
-                    IncreaseHP(currentHP / 3);
                     break;
                 case 4: //방어력 증가
                     currentDefense += (currentDefense / 3);
@@ -421,9 +449,18 @@ public class Turret : Actor
                     currentRegeneration += (currentRegeneration / 3);
                     break;
             }
+
+            //이펙트 생성
+            EnableBuffEffect(buffIndex - 1);
         }
 
-        buffs[_buffIndex].durationTime = time;   //지속시간 초기화
+        buffs[_buffIndex] = time;   //지속시간 초기화
+        //HP즉시회복은 중첩 적용
+        if(buffIndex == 3)
+            IncreaseHP(currentHP / 3);
+
+        //버프 이펙트 위치 재배치
+        RePositionBuffEffect();
     }
 
     /// <summary>
@@ -438,7 +475,7 @@ public class Turret : Actor
         //키 값 참조하여 해당 요소 제거
         if (buffs.ContainsKey(_buffIndex))
         {
-            buffs.Remove(_buffIndex);
+            buffs.Remove(_buffIndex);   //딕셔너리 자료구조에서 제거
 
             //버프 효과 제거
             switch (buffIndex)
@@ -465,7 +502,67 @@ public class Turret : Actor
                     currentRegeneration = regeneration;
                     break;
             }
+
+            //버프 이펙트 제거
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(CurrentBuffEffectFilePath[buffIndex - 1], CurrentBuffEffect[buffIndex - 1]);
         }
+    }
+
+    /// <summary>
+    /// 남은 시간 기준 버프 이펙트 위치를 다시배열
+    /// </summary>
+    void RePositionBuffEffect()
+    {
+        //남은 시간 기준 내림차순 정렬
+        if (buffs.Count > 0)
+        {
+            //딕셔너리 내림차순 정렬
+            var sortedbuffs = buffs.OrderByDescending(x => x.Value);
+
+            //예외처리
+            if (!nest)
+                return;
+ 
+            Nest _nest = nest.GetComponent<Nest>();
+
+            //예외처리
+            if (!_nest)
+                return;
+
+            //버프 이펙트 위치 재배열
+            int i = 0;
+            foreach (KeyValuePair<buff, float> item in sortedbuffs)
+            {
+                //버프가 존재할 경우
+                if (CurrentBuffEffect[(int)item.Key - 1])
+                {
+                    //위치 재설정 -> 지속시간이 가장 많이남은 이펙트가 맨 아래로 위치
+                    CurrentBuffEffect[(int)item.Key - 1].transform.position
+                        = _nest.buffEffectPos[i].transform.position;
+                    i++;
+                }
+            }
+
+        }
+
+    }
+
+    /// <summary>
+    /// 모든 버프를 제거
+    /// </summary>
+    void ClearBuff()
+    {
+        if (buffs.Count > 0)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(buff)).Length; i++)
+            {
+                //디버프 제거
+                RemoveBuff(i);
+            }
+        }
+
+        //딕셔너리 초기화
+        buffs.Clear();
     }
 
     #endregion

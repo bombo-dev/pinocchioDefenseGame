@@ -483,13 +483,16 @@ MonoBehaviour:
   attackSpeed: 2
   currentAttackSpeed: 0
   range: 5000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
   attackTargetNum: 5
   debuffType: 4
   debuffDuration: 5
   multiAttackRange: 10000
+  currentMultiAttackRange: 0
   bulletIndex: 20
   firePos: {fileID: 2368416261582619105}
   hitPos: {fileID: 6891054191369601506}
@@ -528,8 +531,23 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  buffEffectIndex: 300000003100000032000000330000003400000035000000
+  CurrentBuffEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentBuffEffectFilePath:
+  - Effect/FireRingEffect1
+  - Effect/FireRingEffect2
+  - Effect/FireRingEffect3
+  - Effect/FireRingEffect4
+  - Effect/FireRingEffect5
+  - Effect/FireRingEffect6
   nest: {fileID: 0}
-  turretNum: 2
+  turretNum: 15
   gateNum: 
   turretIndex: 0
   turretState: 0
