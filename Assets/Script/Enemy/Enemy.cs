@@ -43,6 +43,9 @@ public class Enemy : Actor
 
     Vector3 dirVec; //이동처리할 방향벡터
 
+    bool isEndShow = false; // 코루틴의 종료여부 확인 플래그
+
+    int i=0;
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -124,7 +127,7 @@ public class Enemy : Actor
         switch (enemyState)
         {
             case EnemyState.Walk:
-                UpdateHPBarsPos();
+                UpdatePanelPos();
                 CheckArrive();
                 UpdateMove(dirVec);
 
@@ -134,7 +137,7 @@ public class Enemy : Actor
                     DetectTarget(SystemManager.Instance.EnemyManager.enemies, gameObject);
                 break;
             case EnemyState.Battle:
-                UpdateHPBarsPos();
+                UpdatePanelPos();
                 UpdateBattle();                
                 break;
             case EnemyState.Dead:
@@ -307,7 +310,7 @@ public class Enemy : Actor
 
     #region Dead - HP 감소와 사망
 
-    public override void DecreaseHP(int damage)
+    public override void DecreaseHP(int damage )
     {
         base.DecreaseHP(damage);
 
@@ -317,23 +320,65 @@ public class Enemy : Actor
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
-            return;
+            Debug.Log("statusMngPanel is null");
+
+        SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
+        if (SystemManager.Instance.PanelManager.damageMngPanel)
+            SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(damage);
+        else
+            Debug.Log("damageMngPanel is null");
+
+        //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
+        //hitPos = go.GetComponent<Enemy>().hitPos;
+        //Debug.Log("hitted enemy=" + hitPos.GetComponent<GameObject>().name);
+
+        /*
+        if (isEndShow == false)
+        {
+            StartCoroutine(showDmgCoroutine());
+            Debug.Log("2. isEndShow=" + isEndShow);
+        }
+        else
+        {
+            StopCoroutine(showDmgCoroutine());
+            Debug.Log("3. isEndShow=" + isEndShow);
+            if (SystemManager.Instance.PanelManager.damageMngPanel == null)
+                Debug.Log("Disable Panel Successed");
+            else
+                Debug.Log("Disable Pabel UnSuccessed");
+            SystemManager.Instance.PanelManager.DisablePanel<DamageMngPanel>(SystemManager.Instance.PanelManager.damageMngPanel.gameObject);
+            
+            if (SystemManager.Instance.PanelManager.damageMngPanel == null)
+                Debug.Log("Disable Panel Successed");
+            else
+                Debug.Log("Disable Pabel UnSuccessed");
+        }
+        */
 
         if (currentHP == 0)
-        {            
+        {
+            // StatusMngPanel 비활성화
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
-            //에너미 StatusMngPanel 리셋 
+
+            //StatusMngPanel 리셋 
             StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.StatusReset();
-            
+
+            // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성
             SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
+
+            // 에너미 리스트 재구성
             SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
-
-
-            
 
             enemyState = EnemyState.Dead;
         }
+    }
+
+    IEnumerator showDmgCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        isEndShow = true;
+        Debug.Log("1. idEndShow=" + isEndShow);
     }
 
     /// <summary>
@@ -460,13 +505,25 @@ public class Enemy : Actor
     }
     #endregion
 
-    protected override void UpdateHPBarsPos()
+    protected override void UpdatePanelPos()
     {
-        base.UpdateHPBarsPos();
+        base.UpdatePanelPos();
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
-        //Debug.Log("Enemy.screenPos=" + screenPos);
-        SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+            //Debug.Log("Enemy.screenPos=" + screenPos);
+            SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
+        }
+        
+        if (SystemManager.Instance.PanelManager.damageMngPanel) 
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
+            //Debug.Log("Enemy.screenPos=" + screenPos);
+            SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
+        }
+            
+        
     }
 }
 

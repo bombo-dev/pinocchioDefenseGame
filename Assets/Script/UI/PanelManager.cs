@@ -19,6 +19,8 @@ public class PanelManager : MonoBehaviour
     // 활성화된 enemy의 HPBar 패널을 저장할 리스트
     public List<GameObject> enemyHPBars;
 
+
+
     [Header("PanelCachesInfo")]
     //Load한 Panel 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
@@ -28,6 +30,8 @@ public class PanelManager : MonoBehaviour
     public UI_TurretInfoPanel turretInfoPanel;
     public StageMngPanel stageMngPanel;
     public StatusMngPanel statusMngPanel;
+    public DamageMngPanel damageMngPanel;
+
 
     [SerializeField]
     Transform canvas;
@@ -94,11 +98,17 @@ public class PanelManager : MonoBehaviour
         T compoenent = go.GetComponent<T>();
 
         if (typeof(T) == typeof(UI_TurretMngPanel))
+        {
             turretMngPanel = (compoenent as UI_TurretMngPanel);
+            go.transform.SetAsLastSibling();
+        }
         else if (typeof(T) == typeof(UI_TurretInfoPanel))
         {
             turretInfoPanel = (compoenent as UI_TurretInfoPanel);
-            (compoenent as UI_TurretInfoPanel).Reset();
+            {
+                (compoenent as UI_TurretInfoPanel).Reset();
+                go.transform.SetAsLastSibling();
+            }
         }
         else if (typeof(T) == typeof(StageMngPanel))
         {
@@ -141,36 +151,45 @@ public class PanelManager : MonoBehaviour
         {
             statusMngPanel = (compoenent as StatusMngPanel);
             //(compoenent as StatusMngPanel).Reset();
-
-
-
+            //go.transform.SetAsFirstSibling();
+        }
+        else if (typeof(T) == typeof(DamageMngPanel))
+        {
+            damageMngPanel = (compoenent as DamageMngPanel);
+            //go.transform.SetAsFirstSibling();
         }
         else
             return;
 
-
-
-        // HPBar 리스트에 삽입
-        if (type.Name == "Turret")
+        if (typeof(T) == typeof(StatusMngPanel))
         {
-            turretHPBars.Add(go);
-            statusMngPanel.turretHPBarIndex = turretHPBars.FindIndex(x => x == go);
-            statusMngPanel.SetHPBarColor();
-        }
+            // HPBar 리스트에 삽입
+            if (type.Name == "Turret")
+            {
+                turretHPBars.Add(go);
+                //statusMngPanel.turretHPBarIndex = turretHPBars.FindIndex(x => x == go);
+                statusMngPanel.SetHPBarColor();
+            }
 
-        else if (type.Name == "Enemy")
-        {
-            enemyHPBars.Add(go);
-            statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);              
-        }
-
-
+            else if (type.Name == "Enemy")
+            {
+                enemyHPBars.Add(go);
+                //statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);
+            }
+        }        
 
         //패널 위치 초기화
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y+30, startPos.z));
-        go.transform.position = screenPos;
-       
-        return;
+        if (typeof(T) == typeof(StatusMngPanel))
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y + 30, startPos.z));
+            go.transform.position = screenPos;
+        }
+
+        else if (typeof(T) == typeof(DamageMngPanel))
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y, startPos.z));
+            go.transform.position = screenPos;
+        }      
 
     }
     
@@ -256,11 +275,12 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(StatusMngPanel))
         {
             filePath = (compoenent as StatusMngPanel).filePath;
-
-
             statusMngPanel = null;
-
-
+        }
+        else if (typeof(T) == typeof(DamageMngPanel))
+        {
+            filePath = (compoenent as DamageMngPanel).filePath;
+            damageMngPanel = null;
         }
         else
             return;
