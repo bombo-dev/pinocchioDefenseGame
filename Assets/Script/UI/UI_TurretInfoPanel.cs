@@ -10,7 +10,9 @@ public class UI_TurretInfoPanel : UI_Controller
 {
     public string filePath;
 
-    const int MAXCOLORWOOD = 4;   //최대 나무 수
+    const int MAXCOLORWOOD = 6;   //최대 나무 수
+
+    const float BuffDurationTime = 10f;   //버프 지속시간
 
     bool isBind = false;
 
@@ -21,7 +23,9 @@ public class UI_TurretInfoPanel : UI_Controller
         ColorWoodButton0,//0~
         ColorWoodButton1,
         ColorWoodButton2,
-        ColorWoodButton3, //~3
+        ColorWoodButton3, 
+        ColorWoodButton4, 
+        ColorWoodButton5, //~5
         TurretUpgradeButton,
         CloseTurretInfoPanelButton
     }
@@ -50,6 +54,12 @@ public class UI_TurretInfoPanel : UI_Controller
 
         Reset();
 
+        //터렛 강화 버튼 이벤트 추가
+        for (int i = 0; i < MAXCOLORWOOD; i++)
+        {
+            AddUIEvent(GetButton(i).gameObject, i, AddBuffTurret, Define.UIEvent.Click);
+        }
+
         //패널 닫기 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.CloseTurretInfoPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
     }
@@ -64,18 +74,12 @@ public class UI_TurretInfoPanel : UI_Controller
         if (!isBind)
             return;
 
-        Nest nest = null;
-        if (SystemManager.Instance.InputManager.currenstSelectNest)
-            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+        Turret turret = getTurret();
 
         //예외처리
-        if (!nest)
-            return;
-
-        Turret turret = nest.turret.GetComponent<Turret>();
-
         if (!turret)
             return;
+
         if (updateAllState)
         {
             //이미지 정보 갱신
@@ -84,6 +88,22 @@ public class UI_TurretInfoPanel : UI_Controller
         }
         //HP 텍스트 정보 갱신
          GetTextMeshProUGUI((int)TextMeshProUGUIs.HpPointText).text= turret.currentHP + "/" + turret.maxHP;
+    }
+
+    /// <summary>
+    /// 터렛에 해당 idx에 해당하는 버프를 추가한다 : 김현진
+    /// </summary>
+    /// <param name="datam">이벤트 정보</param>
+    /// <param name="idx">추가할 버프의 종류 인덱스</param>
+    void AddBuffTurret(PointerEventData datam, int idx)
+    {
+        Turret turret = getTurret();
+
+        //예외처리
+        if (!turret)
+            return;
+
+        turret.AddBebuff(idx + 1, BuffDurationTime);
     }
 
     /// <summary>
@@ -98,5 +118,25 @@ public class UI_TurretInfoPanel : UI_Controller
             //패널 비활성화
             SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
         }
+    }
+
+    /// <summary>
+    /// 클릭된 둥지로 부터 둥지 위에 소환 되어있는 터렛의 정보를 받아온다 : 김현진
+    /// </summary>
+    /// <returns></returns>
+    Turret getTurret()
+    {
+        Nest nest = null;
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+
+        //예외처리
+        if (!nest)
+            return null;
+
+        if (!nest.turret)
+            return null;
+
+        return nest.turret.GetComponent<Turret>();
     }
 }

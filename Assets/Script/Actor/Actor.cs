@@ -25,6 +25,17 @@ public class Actor : MonoBehaviour
         Burn    //화상 - 방어력 대폭감소 6
     }
 
+    public enum buff  //버프 종류
+    {
+        None,   //초기값 0
+        IncreaseAttack,    //공격력 증가 1, 빨간나무
+        IncreaseAttackSpeed,   //공격속도 증가 2, 노랑나무
+        IncreaseRegeneration,    //회복력 증가 3, 초록나무
+        IncreaseDefense,  //방어력 증가 4, 하얀나무
+        IncreaseRange,  //사거리 증가 5, 파란나무 
+        IncreaseAll    //올스텟 증가 6, 검정나무
+    }
+
     [SerializeField]
     public debuff _debuff = debuff.None;    //디버프
 
@@ -58,7 +69,13 @@ public class Actor : MonoBehaviour
     protected int range;  //사거리
 
     [SerializeField]
+    protected int currentRange;  //현재 사거리
+
+    [SerializeField]
     protected int regeneration;   // 회복력
+
+    [SerializeField]
+    protected int currentRegeneration;   // 회복력
 
     [Header("Debuff")]  //디버프
     public Dictionary<debuff, Debuff> debuffs = new Dictionary<debuff, Debuff>();
@@ -84,6 +101,9 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     protected int multiAttackRange;  //다중공격 사거리
+
+    [SerializeField]
+    protected int currentMultiAttackRange;  //현재 다중공격 사거리
 
     [Header("Bullet, Effect")]  //원거리 공격 유닛 - 총알 관련
     [SerializeField]
@@ -214,6 +234,13 @@ public class Actor : MonoBehaviour
         //공격속도 초기화
         currentAttackSpeed = attackSpeed;
 
+        //사거리 초기화
+        currentRange = range;
+        currentMultiAttackRange = multiAttackRange;
+
+        //회복력 초기화
+        currentRegeneration = regeneration;
+
         //디버프 리스트 초기화
         debuffs.Clear();
     }
@@ -268,15 +295,15 @@ public class Actor : MonoBehaviour
                 //단일타겟
                 if (attackTargetNum <= 1)
                 {
-                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentRange)
                         targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
                 }
                 //다중타겟
                 else
                 {
-                    if (!isTargetInRange && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
+                    if (!isTargetInRange && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentRange)
                         isTargetInRange = true;
-                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange)
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentMultiAttackRange)
                         targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
                 }
             }
@@ -667,11 +694,12 @@ public class Actor : MonoBehaviour
         debuff _debuffIndex = (debuff)debuffIndex;
 
         //키 값 참조하여 해당 요소 제거
-        debuffs.Remove(_debuffIndex);
+        if(debuffs.ContainsKey(_debuffIndex))
+            debuffs.Remove(_debuffIndex);
     }
 
     #endregion
-   
+
     protected virtual void UpdateHPBarsPos()
     {
         if (!SystemManager.Instance.PanelManager.statusMngPanel)

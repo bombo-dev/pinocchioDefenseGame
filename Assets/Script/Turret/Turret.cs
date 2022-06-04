@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Turret : Actor
 {
@@ -10,6 +11,14 @@ public class Turret : Actor
         Battle = 1,        // 감지한 Enemy를 공격
         Dead,          //  Enemy에 의해 죽은 상태
     }
+
+    public class Buff
+    {
+        public float durationTime = 0;  //지속시간
+    }
+
+    [Header("buff")]  //버프
+    public Dictionary<buff, Buff> buffs = new Dictionary<buff, Buff>();
 
     //소환해있는 둥지
     public GameObject nest;
@@ -34,8 +43,10 @@ public class Turret : Actor
     }
     protected override void UpdateActor()
     {
-
         base.UpdateActor();
+
+        //버프 동작 
+        UpdateBuff();
 
         switch (turretState)
         {
@@ -331,6 +342,132 @@ public class Turret : Actor
         StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[turretIndex].GetComponent<StatusMngPanel>();
         statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
     }
+    #endregion
+
+    #region 버프
+
+    /// <summary>
+    /// 실시간 버프 동작 처리 : 김현진
+    /// </summary>
+    void UpdateBuff()
+    {
+        if (buffs.Count > 0)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(buff)).Length; i++)
+            {
+                //인덱스를 buff로 형변환
+                buff _buffIndex = (buff)i;
+
+                //버프 업데이트
+                if (buffs.ContainsKey(_buffIndex))
+                {
+                    //지속시간 업데이트
+                    buffs[_buffIndex].durationTime -= Time.deltaTime;
+
+                    //지속시간 경과시 버프 제거
+                    if (buffs[_buffIndex].durationTime < 0)
+                        RemoveBuff(i);
+
+                }
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 버프 추가 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">추가할 버프 종류 인덱스</param>
+    /// <param name="time">추가할 버프의 지속시간</param>
+    public void AddBebuff(int buffIndex, float time)
+    {
+        //예외처리
+        if (buffIndex >= Enum.GetValues(typeof(buff)).Length)
+            return;
+
+        //인덱스를 buff로 형변환
+        buff _buffIndex = (buff)buffIndex;
+
+        //이미 존재하는 버프가 아닌 경우
+        if (!buffs.ContainsKey(_buffIndex))
+        {
+            Buff buff = new Buff(); //객체 생성
+
+            buffs.Add(_buffIndex, buff);   //자료구조에 추가
+
+            //버프 효과
+            switch (buffIndex)
+            {
+                case 1: //공격력 증가
+                    currentPower += (currentPower / 3);
+                    break;
+                case 2: //공격속도 증가
+                    currentAttackSpeed *= 0.7f;
+                    break;
+                case 3: //회복력 증가 + 즉시 회복
+                    currentRegeneration += (currentRegeneration / 3);
+                    IncreaseHP(currentHP / 3);
+                    break;
+                case 4: //방어력 증가
+                    currentDefense += (currentDefense / 3);
+                    break;
+                case 5: //사거리 증가
+                    currentRange += (currentRange / 3);
+                    currentMultiAttackRange += (currentMultiAttackRange / 3);
+                    break;
+                case 6: //올스텟 증가
+                    currentPower += (currentPower / 3);
+                    currentDefense += (currentDefense / 3);
+                    currentRegeneration += (currentRegeneration / 3);
+                    break;
+            }
+        }
+
+        buffs[_buffIndex].durationTime = time;   //지속시간 초기화
+    }
+
+    /// <summary>
+    /// 버프 제거 : 김현진
+    /// </summary>
+    /// <param name="debuffIndex">제거할 버프</param>
+    protected void RemoveBuff(int buffIndex)
+    {
+        //인덱스를 debuff로 형변환
+        buff _buffIndex = (buff)buffIndex;
+
+        //키 값 참조하여 해당 요소 제거
+        if (buffs.ContainsKey(_buffIndex))
+        {
+            buffs.Remove(_buffIndex);
+
+            //버프 효과 제거
+            switch (buffIndex)
+            {
+                case 1: //공격력 초기화
+                    currentPower = power;
+                    break;
+                case 2: //공격속도 초기화
+                    currentAttackSpeed = attackSpeed;
+                    break;
+                case 3: //회복력 초기화
+                    currentRegeneration = regeneration;
+                    break;
+                case 4: //방어력 초기화
+                    currentDefense = defense;
+                    break;
+                case 5: //사거리 초기화
+                    currentRange = range;
+                    currentMultiAttackRange = multiAttackRange;
+                    break;
+                case 6: //올스텟 증가
+                    currentPower = power;
+                    currentDefense = defense;
+                    currentRegeneration = regeneration;
+                    break;
+            }
+        }
+    }
+
     #endregion
 
     protected override void UpdateHPBarsPos()

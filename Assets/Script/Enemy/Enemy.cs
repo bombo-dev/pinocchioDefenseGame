@@ -431,26 +431,26 @@ public class Enemy : Actor
     {
         base.RemoveDebuff(debuffIndex);
 
-        //디버프 효과
+        //디버프 효과 제거
         switch (debuffIndex)
         {
-            case 1: //공격 속도 감소
+            case 1: //공격 속도 초기화
                 currentAttackSpeed = attackSpeed;
                 break;
-            case 2: //이동 속도 감소
+            case 2: //이동 속도 초기화
                 currentSpeed = speed;
                 break;
-            case 3: //방어력 감소
+            case 3: //방어력 초기화
                 currentDefense = defense;
                 break;
-            case 4: //공격력 감소
+            case 4: //공격력 초기화
                 currentPower = power;
                 break;
-            case 5: //감전 - 공격속도, 이동속도 대폭감소
+            case 5: //감전 - 공격속도, 이동속도 초기화
                 currentPower = power;
                 currentSpeed = speed;
                 break;
-            case 6: //화상 - 방어력 대폭감소
+            case 6: //화상 - 방어력 초기화
                 currentDefense = defense;
                 break;
         }
