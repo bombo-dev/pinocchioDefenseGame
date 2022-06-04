@@ -337,6 +337,9 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
+        // 이동하는 Enemy 방향으로 터렛이 계속 회전하도록 타겟 위치 업데이트
+        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
+
         //예외처리
         if (attackDirVec == Vector3.zero && tag == "Turret" && isRecoveryTower == false)
             return;

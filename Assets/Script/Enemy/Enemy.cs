@@ -296,6 +296,7 @@ public class Enemy : Actor
                 EnableFireEffect(this);
             }
         }
+        
     }
 
     /// <summary>

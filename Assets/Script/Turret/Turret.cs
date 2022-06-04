@@ -153,8 +153,6 @@ public class Turret : Actor
             return;
         }
 
-        // 이동하는 Enemy 방향으로 터렛이 계속 회전하도록 타겟 위치 업데이트
-        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
     }
 
     /// <summary>
@@ -290,7 +288,22 @@ public class Turret : Actor
         }
         else
             return;
-        
+
+
+        //디버프 효과
+        switch (debuffIndex)
+        {
+            case 1: //공격 속도 감소
+                currentAttackSpeed *= 1.2f;
+                break;
+            case 3: //방어력 감소
+                currentDefense -= (currentDefense / 5);
+                break;
+            case 4: //공격력 감소
+                currentPower -= (currentPower / 5);
+                break;
+        }
+
     }
     /// <summary>
     /// 디버프 제거 : 김현진
@@ -299,6 +312,20 @@ public class Turret : Actor
     protected override void RemoveDebuff(int debuffIndex)
     {
         base.RemoveDebuff(debuffIndex);
+
+        //디버프 효과 제거
+        switch (debuffIndex)
+        {
+            case 1: //공격 속도 초기화
+                currentAttackSpeed = attackSpeed;
+                break;
+            case 3: //방어력 초기화
+                currentDefense = defense;
+                break;
+            case 4: //공격력 초기화
+                currentPower = power;
+                break;
+        }
 
 
         StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[turretIndex].GetComponent<StatusMngPanel>();
