@@ -151,13 +151,16 @@ MonoBehaviour:
   attackSpeed: 5
   currentAttackSpeed: 0
   range: 15000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
   attackTargetNum: 5
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 20000
+  currentMultiAttackRange: 0
   bulletIndex: 8
   firePos: {fileID: 0}
   hitPos: {fileID: 3153756295195923762}
@@ -216,12 +219,27 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  buffEffectIndex: 300000003100000032000000330000003400000035000000
+  CurrentBuffEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentBuffEffectFilePath:
+  - Effect/FireRingEffect1
+  - Effect/FireRingEffect2
+  - Effect/FireRingEffect3
+  - Effect/FireRingEffect4
+  - Effect/FireRingEffect5
+  - Effect/FireRingEffect6
   nest: {fileID: 0}
-  turretNum: 16
+  turretNum: 21
   gateNum: 0
   turretIndex: 0
   turretState: 0
-  turretAppearPosY: -158.4
+  turretAppearPosY: -154.4
 --- !u!1 &4302736336139568524
 GameObject:
   m_ObjectHideFlags: 0
@@ -20233,7 +20251,7 @@ Animator:
   m_GameObject: {fileID: 2811668341211285166}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 64d09ff364a28c64bae142da0a36fe75, type: 2}
+  m_Controller: {fileID: 9100000, guid: 59cf6b31e9e853b4a970f24de03afa23, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

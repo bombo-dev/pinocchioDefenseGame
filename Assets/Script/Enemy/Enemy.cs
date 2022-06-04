@@ -130,7 +130,11 @@ public class Enemy : Actor
                 UpdatePanelPos();
                 CheckArrive();
                 UpdateMove(dirVec);
-                DetectTarget(SystemManager.Instance.TurretManager.turrets);                
+
+                if (!isRecoveryTower)    //공격 유닛
+                    DetectTarget(SystemManager.Instance.TurretManager.turrets);
+                else    //회복 유닛
+                    DetectTarget(SystemManager.Instance.EnemyManager.enemies, gameObject);
                 break;
             case EnemyState.Battle:
                 UpdatePanelPos();
@@ -204,9 +208,12 @@ public class Enemy : Actor
     /// <summary>
     /// this객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
-    protected override void DetectTarget(List<GameObject> target)
+    protected override void DetectTarget(List<GameObject> target, GameObject mine = null)
     {
-        base.DetectTarget(target);
+        if (mine)
+            base.DetectTarget(target, mine);
+        else
+            base.DetectTarget(target);
     }
 
     public void UpdateEnemyPos(GameObject go)
@@ -254,6 +261,17 @@ public class Enemy : Actor
                     animator.SetBool("rangedAttack", false);
             }
 
+            //회복타워일경우
+            if (isRecoveryTower)
+            {
+                animator.SetBool("attack", false);
+                animator.SetBool("finAttack", true);
+
+                enemyState = EnemyState.Walk;
+
+                return;
+            }
+
             //공격할 대상의 존재 유무에 따른 상태 변화
             if (attackTargetsActor[0].currentHP <= 0 || !(attackTargets[0].activeSelf))
             {
@@ -281,6 +299,7 @@ public class Enemy : Actor
                 EnableFireEffect(this);
             }
         }
+        
     }
 
     /// <summary>
@@ -456,26 +475,26 @@ public class Enemy : Actor
     {
         base.RemoveDebuff(debuffIndex);
 
-        //디버프 효과
+        //디버프 효과 제거
         switch (debuffIndex)
         {
-            case 1: //공격 속도 감소
+            case 1: //공격 속도 초기화
                 currentAttackSpeed = attackSpeed;
                 break;
-            case 2: //이동 속도 감소
+            case 2: //이동 속도 초기화
                 currentSpeed = speed;
                 break;
-            case 3: //방어력 감소
+            case 3: //방어력 초기화
                 currentDefense = defense;
                 break;
-            case 4: //공격력 감소
+            case 4: //공격력 초기화
                 currentPower = power;
                 break;
-            case 5: //감전 - 공격속도, 이동속도 대폭감소
+            case 5: //감전 - 공격속도, 이동속도 초기화
                 currentPower = power;
                 currentSpeed = speed;
                 break;
-            case 6: //화상 - 방어력 대폭감소
+            case 6: //화상 - 방어력 초기화
                 currentDefense = defense;
                 break;
         }

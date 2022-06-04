@@ -477,7 +477,7 @@ Transform:
   m_GameObject: {fileID: 4788457977514264918}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -58.7, y: -160.6, z: 129.5}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3594507657823418597}
@@ -527,16 +527,19 @@ MonoBehaviour:
   currentPower: 0
   defense: 10
   currentDefense: 0
-  attackSpeed: 3
+  attackSpeed: 1
   currentAttackSpeed: 0
-  range: 1800
+  range: 3000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 1
   debuffType: 1
   debuffDuration: 5
   multiAttackRange: 0
+  currentMultiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
   hitPos: {fileID: 5671559121657279894}
@@ -575,12 +578,27 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  buffEffectIndex: 300000003100000032000000330000003400000035000000
+  CurrentBuffEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentBuffEffectFilePath:
+  - Effect/FireRingEffect1
+  - Effect/FireRingEffect2
+  - Effect/FireRingEffect3
+  - Effect/FireRingEffect4
+  - Effect/FireRingEffect5
+  - Effect/FireRingEffect6
   nest: {fileID: 0}
   turretNum: 5
   gateNum: 
   turretIndex: 0
   turretState: 0
-  turretAppearPosY: -157.9
+  turretAppearPosY: -153.9
 --- !u!1 &5373158096343913878
 GameObject:
   m_ObjectHideFlags: 0

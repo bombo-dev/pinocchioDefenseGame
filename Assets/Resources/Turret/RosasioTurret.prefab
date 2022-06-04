@@ -979,6 +979,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3986450315960105621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7284118107770160542}
+  m_Layer: 0
+  m_Name: firePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7284118107770160542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3986450315960105621}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.1, y: 22.7, z: 0.3}
+  m_LocalScale: {x: 0.99999964, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8170058543499446889}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4496404486497395162
 GameObject:
   m_ObjectHideFlags: 0
@@ -6332,6 +6363,7 @@ Transform:
   - {fileID: 8170058543372686201}
   - {fileID: 8170058543090348462}
   - {fileID: 4208817227749735652}
+  - {fileID: 7284118107770160542}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -6357,21 +6389,24 @@ MonoBehaviour:
   attackSpeed: 5
   currentAttackSpeed: 0
   range: 10000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 1
   attackTargetNum: 5
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 8000
+  currentMultiAttackRange: 0
   bulletIndex: 10
-  firePos: {fileID: 0}
+  firePos: {fileID: 3986450315960105621}
   hitPos: {fileID: 8170058543372686200}
   hpPos: {fileID: 1345910117149618142}
   dropPos: {fileID: 8170058543090348461}
   damageEffectIndex: 0
   deadEffectIndex: 34
-  fireEffectIndex: -1
+  fireEffectIndex: 45
   healEffectIndex: 20
   debuffEffectIndex: -1
   currentDamageEffect: {fileID: 0}
@@ -6406,12 +6441,27 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  buffEffectIndex: 300000003100000032000000330000003400000035000000
+  CurrentBuffEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentBuffEffectFilePath:
+  - Effect/FireRingEffect1
+  - Effect/FireRingEffect2
+  - Effect/FireRingEffect3
+  - Effect/FireRingEffect4
+  - Effect/FireRingEffect5
+  - Effect/FireRingEffect6
   nest: {fileID: 0}
-  turretNum: 14
+  turretNum: 19
   gateNum: 
   turretIndex: 0
   turretState: 0
-  turretAppearPosY: -157
+  turretAppearPosY: -153
 --- !u!1 &9052386041057050239
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,4 +9,7 @@ public class Nest : MonoBehaviour
 
     //가지고 있는 터렛
     public GameObject turret;
+
+    //버프 이펙트 포지션
+    public GameObject[] buffEffectPos;
 }

@@ -9,9 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: cfxr ring spikes revert hdr ab
   m_Shader: {fileID: 4800000, guid: e198026df304af84a85675be636192ea, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _CFXR_DITHERED_SHADOWS_OFF _CFXR_EDGE_FADING _CFXR_HDR_BOOST
-    _CFXR_OVERLAYBLEND_RGBA _CFXR_SINGLE_CHANNEL _CFXR_UV2_DISTORTION _CFXR_UV_DISTORTION
-    _CFXR_UV_DISTORTION_ADD _FADING_ON _OVERLAYTEX_OFF
+  m_ShaderKeywords: _ALPHABLEND_ON _CFXR_EDGE_FADING _CFXR_SINGLE_CHANNEL _CFXR_UV2_DISTORTION
+    _CFXR_UV_DISTORTION _CFXR_UV_DISTORTION_ADD _FADING_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -53,6 +52,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BacklightTransmittance: 1
     - _BlendingType: 0
@@ -68,7 +68,7 @@ Material:
     - _DstBlend: 10
     - _EdgeFadePow: 1
     - _FadeAlongU: 0
-    - _HdrBoost: 1
+    - _HdrBoost: 0
     - _HdrMultiply: 4
     - _IndirectLightingMix: 0.5
     - _InvertDissolveTex: 0
@@ -103,3 +103,4 @@ Material:
     - _DistortScrolling: {r: 0.3, g: -1, b: 4, a: 4}
     - _OverlayTex_Scroll: {r: 0.1, g: 0.1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []

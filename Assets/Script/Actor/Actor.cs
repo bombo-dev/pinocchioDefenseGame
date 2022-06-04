@@ -25,6 +25,17 @@ public class Actor : MonoBehaviour
         Burn    //화상 - 방어력 대폭감소 6
     }
 
+    public enum buff  //버프 종류
+    {
+        None,   //초기값 0
+        IncreaseAttack,    //공격력 증가 1, 빨간나무
+        IncreaseAttackSpeed,   //공격속도 증가 2, 노랑나무
+        IncreaseRegeneration,    //회복력 증가 3, 초록나무
+        IncreaseDefense,  //방어력 증가 4, 하얀나무
+        IncreaseRange,  //사거리 증가 5, 파란나무 
+        IncreaseAll    //올스텟 증가 6, 검정나무
+    }
+
     [SerializeField]
     public debuff _debuff = debuff.None;    //디버프
 
@@ -58,7 +69,13 @@ public class Actor : MonoBehaviour
     protected int range;  //사거리
 
     [SerializeField]
+    protected int currentRange;  //현재 사거리
+
+    [SerializeField]
     protected int regeneration;   // 회복력
+
+    [SerializeField]
+    protected int currentRegeneration;   // 회복력
 
     [Header("Debuff")]  //디버프
     public Dictionary<debuff, Debuff> debuffs = new Dictionary<debuff, Debuff>();
@@ -84,6 +101,9 @@ public class Actor : MonoBehaviour
 
     [SerializeField]
     protected int multiAttackRange;  //다중공격 사거리
+
+    [SerializeField]
+    protected int currentMultiAttackRange;  //현재 다중공격 사거리
 
     [Header("Bullet, Effect")]  //원거리 공격 유닛 - 총알 관련
     [SerializeField]
@@ -214,8 +234,15 @@ public class Actor : MonoBehaviour
         //공격속도 초기화
         currentAttackSpeed = attackSpeed;
 
-        //디버프 리스트 초기화
-        debuffs.Clear();
+        //사거리 초기화
+        currentRange = range;
+        currentMultiAttackRange = multiAttackRange;
+
+        //회복력 초기화
+        currentRegeneration = regeneration;
+
+        //디버프 초기화
+        ClearDebuff();
     }
 
     /// <summary>
@@ -230,7 +257,8 @@ public class Actor : MonoBehaviour
     /// this 객체의 사거리 안에있는 타겟을 감지해 그중 공격할 타겟을 지정 : 김현진
     /// </summary>
     /// <param name="target">타겟이 될 대상 배열</param>
-    protected virtual void DetectTarget(List<GameObject> target)
+    /// <param name="mine">호출한 오브젝트</param>
+    protected virtual void DetectTarget(List<GameObject> target , GameObject mine = null)
     {
         //공격 유닛이 아닌경우
         if (attackTargetNum == 0)
@@ -240,56 +268,58 @@ public class Actor : MonoBehaviour
         attackTargets.Clear();
         attackTargetsActor.Clear();
 
-        for (int i = 0; i < target.Count; i++)
-        {
-            //사거리 안에 가장 먼저 감지된 타겟
-            if (target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < range)
-            {
-                //다중 타겟 유닛일경우
-                if (attackTargetNum > 1)
-                {
-                    //사거리 안에 가장 먼저 감지된 타겟
-                    attackTargets.Add(target[i]);
-                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
-                    attackDirVec = (target[i].transform.position - transform.position).normalized; ;
-
-                    //공격 사거리 안에 감지 될 타겟 추가
-                    DetectTargets(target, i);
-                }
-                else
-                {              
-                    //타겟과 타겟 방향벡터 초기화
-                    attackTargets.Add(target[i]);
-                    attackTargetsActor.Add(target[i].GetComponent<Actor>());
-                    attackDirVec = (attackTargets[0].transform.position - transform.position).normalized;
-
-                    //공격
-                    Attack();
-                }   
-
-                return;
-            }
-
-        }//end of for
-    }
-
-    /// <summary>
-    /// 다중 타겟 유닛일 경우, this 객체의 공격 사거리 안에있는 타겟을 감지해 그중 공격할 타겟들을 지정 : 김현진
-    /// </summary>
-    /// <param name="target">타겟이 될 대상 배열</param>
-    /// <param name="detectedUnitIndex">가장 먼저 감지된 유닛 인덱스</param>
-    protected void DetectTargets(List<GameObject> target,int detectedUnitIndex)
-    {
+        //타겟과 타겟과의 거리를 저장할 딕셔너리
         Dictionary<GameObject, float> targetDistances = new Dictionary<GameObject, float>();
 
+        // --------------- 타겟별 거리 측정 ---------------
+
+        //다중타겟 유닛이 range 안에 공격할 적이 존재하는지 판단, * 다중타겟 공격은 range범위 안쪽의 타겟이 존재할 경우 나머지 target은 multiAttackRange범위로 찾는다 *
+        bool isTargetInRange = false;
+
+        //타겟 리스트의 모든 요소를 검사하여 사거리안에 들어온 타겟인 경우 딕셔너리에 저장
         for (int i = 0; i < target.Count; i++)
         {
-            //사거리 안에 가장 먼저 감지된 타겟을 제외한 공격 사거리 안에 감지된 유닛들
-            if ((target[i].activeSelf && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < multiAttackRange) && (i != detectedUnitIndex))
+            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
+            if (mine && isRecoveryTower)
             {
-                targetDistances.Add(target[i],Vector3.SqrMagnitude(target[i].transform.position - transform.position)); 
+                if (System.Object.ReferenceEquals(target[i], mine))
+                    if (i >= target.Count - 1)
+                        break;
+                    else
+                        i++;
             }
-        }
+
+            //타겟이 존재하는경우
+            if (target[i].activeSelf)
+            {
+                //단일타겟
+                if (attackTargetNum <= 1)
+                {
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentRange)
+                        targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
+                }
+                //다중타겟
+                else
+                {
+                    if (!isTargetInRange && Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentRange)
+                        isTargetInRange = true;
+                    if (Vector3.SqrMagnitude(target[i].transform.position - transform.position) < currentMultiAttackRange)
+                        targetDistances.Add(target[i], Vector3.SqrMagnitude(target[i].transform.position - transform.position));
+                }
+            }
+        }//end of for
+
+        // --------------- 공격 가능한 타겟이 존재하는지 판단 ---------------
+
+        //타겟 없으면 종료
+        if (targetDistances.Count <= 0)
+            return;
+
+        //다중 타겟유닛 - range내 타겟 없으면 종료
+        if (attackTargetNum > 1 && !isTargetInRange)
+            return;
+
+        // --------------- 타겟이 존재할 경우 최종 타겟 선정 ---------------
 
         //거리순으로 오름차순 정렬
         var sortedTargetDistances = targetDistances.OrderBy(x => x.Value);
@@ -310,7 +340,6 @@ public class Actor : MonoBehaviour
         Attack();
 
         return;
-
     }
 
     /// <summary>
@@ -335,6 +364,9 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected virtual void UpdateBattle()
     {
+        // 이동하는 Enemy 방향으로 터렛이 계속 회전하도록 타겟 위치 업데이트
+        attackDirVec = (attackTargets[0].transform.position - this.transform.position).normalized;
+
         //예외처리
         if (attackDirVec == Vector3.zero && tag == "Turret" && isRecoveryTower == false)
             return;
@@ -409,17 +441,19 @@ public class Actor : MonoBehaviour
         }
 
         //위치 업데이트
-        Quaternion rotation;
+        if (!isRecoveryTower)
+        {
+            Quaternion rotation;
 
-        rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
+            rotation = Quaternion.LookRotation(-(new Vector3(attackDirVec.x, 0, attackDirVec.z)));
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        }
 
         //이펙트 위치 업데이트
         if(currentFireEffect)
             if(currentFireEffect.activeSelf)
                 currentFireEffect.transform.position = firePos.transform.position;
-
     }
 
     /// <summary>
@@ -434,11 +468,11 @@ public class Actor : MonoBehaviour
         //총알 생성
 
         // 단일 타겟 유닛일 경우
-        if (attackTargetNum == 1)
+        if (attackTargetNum == 1 && !isRecoveryTower)
         {            
             SystemManager.Instance.BulletManager.EnableBullet(bulletIndex, firePos.transform.position, attackTargets[0], gameObject);
         }
-        //다중 타겟 유닛일 경우
+        //다중 타겟 유닛, 회복 유닛일 경우
         else
         {
             for (int i = 0; i < attackTargets.Count; i++)
@@ -602,9 +636,6 @@ public class Actor : MonoBehaviour
                 //인덱스를 debuff로 형변환
                 debuff _debuffIndex = (debuff)i;
 
-                if (debuffs.ContainsKey((debuff)i))
-                    Debug.Log("디버프:" + (debuff)i + " 스택:" + debuffs[(debuff)i].stack);
-
                 //디버프 업데이트
                 if (debuffs.ContainsKey(_debuffIndex))
                 {
@@ -663,11 +694,29 @@ public class Actor : MonoBehaviour
         debuff _debuffIndex = (debuff)debuffIndex;
 
         //키 값 참조하여 해당 요소 제거
-        debuffs.Remove(_debuffIndex);
+        if(debuffs.ContainsKey(_debuffIndex))
+            debuffs.Remove(_debuffIndex);
+    }
+
+    /// <summary>
+    /// 모든 디버프를 제거
+    /// </summary>
+    void ClearDebuff()
+    {
+        if (debuffs.Count > 0)
+        {
+            for (int i = 0; i < Enum.GetValues(typeof(debuff)).Length; i++)
+            {
+                //디버프 제거
+                RemoveDebuff(i);
+            }
+        }
+
+        //딕셔너리 초기화
+        debuffs.Clear();
     }
 
     #endregion
-   
     protected virtual void UpdatePanelPos()
     {
         if (!SystemManager.Instance.PanelManager.statusMngPanel)
