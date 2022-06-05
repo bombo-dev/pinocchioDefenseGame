@@ -43,7 +43,7 @@ public class Turret : Actor
 
     private void Start()
     {
-        InitializeTurret();
+        Initialize();
     }
     protected override void UpdateActor()
     {
@@ -77,14 +77,13 @@ public class Turret : Actor
     /// <summary>
     /// 터렛 초기화 : 하은비
     /// </summary>
-    void InitializeTurret()
+    protected override void Initialize()
     {
         base.Initialize();
 
         Reset();
-       
-    }
 
+    }
 
     /// <summary>
     /// 터렛의 정보 리셋 : 김현진
@@ -212,6 +211,7 @@ public class Turret : Actor
             statusMngPanel.StatusReset();
             
             SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
+
             SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
 
             turretState = TurretState.Dead;

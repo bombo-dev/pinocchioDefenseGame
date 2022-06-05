@@ -117,7 +117,8 @@ public class EnemyManager : MonoBehaviour
 
                     index++;
                 }
-            }
+            }else
+                enemies[i].GetComponent<Enemy>().enemyIndex = -1;
         }//end of for
 
         enemies = tempEnemies;

@@ -23,6 +23,8 @@ public class Enemy : Actor
 
     [Header("EnemyInfo")]   //Enemy 정보
 
+    public int enemyNum;   //enemy 종류 번호 (enemy 종류에 따라 번호 부여)
+
     [SerializeField]
     public int enemyIndex;  //enemy고유 번호
 
@@ -310,40 +312,27 @@ public class Enemy : Actor
 
     #region Dead - HP 감소와 사망
 
-    public override void DecreaseHP(int damage )
+    public override void DecreaseHP(int damage)
     {
         base.DecreaseHP(damage);
 
-        //Debug.Log("gameObject.name=" + gameObject.name);
-        //Debug.Log(".enemies[enemyIndex].gameObject.name)="+ SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject.name);
-        //Debug.Log("enemyIdx=" + enemyIndex);
-        //if (gameObject.name != SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject.name)
-        //    enemyIndex = SystemManager.Instance.EnemyManager.enemies.FindIndex(x => x == gameObject);
-
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex] == null)
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
         {
-            return;
+            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            statusMngPanel.SetHPBar(currentHP, maxHP);
         }
-        else 
-        { 
-            if (currentHP > 0)
-            {
-                StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-                statusMngPanel.SetHPBar(currentHP, maxHP);
-            }
-            else
-                Debug.Log("currentHP Error! currentHP=" + currentHP);
-        }
+        else
+            Debug.Log("statusMngPanel is null");
 
-
-            SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
+        SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
         if (SystemManager.Instance.PanelManager.damageMngPanel)
             SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(damage);
         else
             Debug.Log("damageMngPanel is null");
 
-
-        Debug.Log("hitted enemy=" + hitPos.transform.parent.gameObject.name);
+        //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
+        //hitPos = go.GetComponent<Enemy>().hitPos;
+        //Debug.Log("hitted enemy=" + hitPos.GetComponent<GameObject>().name);
 
         /*
         if (isEndShow == false)
@@ -368,29 +357,23 @@ public class Enemy : Actor
         }
         */
 
-        if (currentHP <= 0)
+        if (currentHP == 0)
         {
-            OnDead();
+            //StatusMngPanel 리셋 
+            //StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            //statusMngPanel.StatusReset();
+
+            // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성
+            //SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
+
+            // 에너미 리스트 재구성
+            SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+
+            // StatusMngPanel 비활성화
+            //SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
+
+            enemyState = EnemyState.Dead;
         }
-    }
-
-    protected override void OnDead()
-    {
-        //StatusMngPanel 리셋 
-        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-        statusMngPanel.gameObject.SetActive(false);
-        statusMngPanel.StatusReset();
-
-        // StatusMngPanel 비활성화
-        SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
-
-        // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성            
-        SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
-
-        // 에너미 리스트 재구성
-        SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
-
-        enemyState = EnemyState.Dead;
     }
 
     IEnumerator showDmgCoroutine()
@@ -528,31 +511,21 @@ public class Enemy : Actor
     {
         base.UpdatePanelPos();
 
-        if (enemyIndex < 0)
-            return;
-        if (hpPos == null)
-            return;
-
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex] != null && currentHP != 0)
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
             SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
         }
-        else
-        {
-            return;
-        }
-
-        /*
+        
         if (SystemManager.Instance.PanelManager.damageMngPanel) 
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
             SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
         }
-            */
-
+            
+        
     }
 }
 

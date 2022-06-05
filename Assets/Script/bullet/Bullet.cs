@@ -140,8 +140,6 @@ public class Bullet : MonoBehaviour
                     Debug.Log("damageMngPanel is null");
                 */
 
-                enemy.DecreaseHP(attacker.currentPower);
-
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
                 {

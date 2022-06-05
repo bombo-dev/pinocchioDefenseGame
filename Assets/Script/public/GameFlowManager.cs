@@ -49,6 +49,7 @@ public class GameFlowManager : MonoBehaviour
     float[] flowTimer = new float[GATENUM];
 
     //게임 스테이지 인덱스
+    [SerializeField]
     int stage;
 
 
@@ -64,9 +65,6 @@ public class GameFlowManager : MonoBehaviour
             arrPointer[i] = 0;
             flowTimer[i] = Time.time;
         }
-
-        //스테이지 정보
-        stage = 0;
 
         //스테이지 제한시간 초기화
         //timer = limitTime;
@@ -105,6 +103,9 @@ public class GameFlowManager : MonoBehaviour
         //Gate 1~3
         for (int i = 0; i < GATENUM; i++)
         {
+            if (defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr.Length <= 0)
+                continue;
+
             if(Time.time - flowTimer[i] > defenseFlowDataList.datas[stage].defenseFlowDataArr[i].timeFlowIndexArr[arrPointer[i]])
             {
                 //Enemy 활성화
@@ -133,7 +134,7 @@ public class GameFlowManager : MonoBehaviour
                 }
             }
 
-        }   
+        }//end of for   
 
     }
 
