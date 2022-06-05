@@ -314,15 +314,29 @@ public class Enemy : Actor
     {
         base.DecreaseHP(damage);
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.SetHPBar(currentHP, maxHP);
-        }
-        else
-            Debug.Log("statusMngPanel is null");
+        //Debug.Log("gameObject.name=" + gameObject.name);
+        //Debug.Log(".enemies[enemyIndex].gameObject.name)="+ SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject.name);
+        //Debug.Log("enemyIdx=" + enemyIndex);
+        //if (gameObject.name != SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject.name)
+        //    enemyIndex = SystemManager.Instance.EnemyManager.enemies.FindIndex(x => x == gameObject);
 
-        SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex] == null)
+        {
+            return;
+        }
+        else 
+        { 
+            if (currentHP > 0)
+            {
+                StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+                statusMngPanel.SetHPBar(currentHP, maxHP);
+            }
+            else
+                Debug.Log("currentHP Error! currentHP=" + currentHP);
+        }
+
+
+            SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
         if (SystemManager.Instance.PanelManager.damageMngPanel)
             SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(damage);
         else
@@ -354,23 +368,29 @@ public class Enemy : Actor
         }
         */
 
-        if (currentHP == 0)
+        if (currentHP <= 0)
         {
-            // StatusMngPanel 비활성화
-            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
-
-            //StatusMngPanel 리셋 
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.StatusReset();
-
-            // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
-
-            // 에너미 리스트 재구성
-            SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
-
-            enemyState = EnemyState.Dead;
+            OnDead();
         }
+    }
+
+    protected override void OnDead()
+    {
+        //StatusMngPanel 리셋 
+        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        statusMngPanel.gameObject.SetActive(false);
+        statusMngPanel.StatusReset();
+
+        // StatusMngPanel 비활성화
+        SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
+
+        // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성            
+        SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
+
+        // 에너미 리스트 재구성
+        SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+
+        enemyState = EnemyState.Dead;
     }
 
     IEnumerator showDmgCoroutine()
@@ -508,11 +528,20 @@ public class Enemy : Actor
     {
         base.UpdatePanelPos();
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        if (enemyIndex < 0)
+            return;
+        if (hpPos == null)
+            return;
+
+        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex] != null && currentHP != 0)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
             SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
+        }
+        else
+        {
+            return;
         }
 
         /*
@@ -523,7 +552,7 @@ public class Enemy : Actor
             SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
         }
             */
-        
+
     }
 }
 

@@ -64,6 +64,9 @@ public class StatusMngPanel : UI_Controller
 
     public void SetHPBar(float currentHP, float maxHP)
     {
+        if (currentHP <= 0)
+            return;
+
         if (currentHP > maxHP)
             currentHP = maxHP;
 
