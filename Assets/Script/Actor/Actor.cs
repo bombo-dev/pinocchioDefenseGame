@@ -502,7 +502,7 @@ public class Actor : MonoBehaviour
             return;
 
         //데미지 계산 공식
-        damage -= damage * (currentDefense / 100);
+        damage = damage - (damage * (currentDefense / 100));
 
         //예외처리
         if (damage <= 0)

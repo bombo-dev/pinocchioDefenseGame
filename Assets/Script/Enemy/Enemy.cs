@@ -23,6 +23,8 @@ public class Enemy : Actor
 
     [Header("EnemyInfo")]   //Enemy 정보
 
+    public int enemyNum;   //enemy 종류 번호 (enemy 종류에 따라 번호 부여)
+
     [SerializeField]
     public int enemyIndex;  //enemy고유 번호
 
@@ -310,7 +312,7 @@ public class Enemy : Actor
 
     #region Dead - HP 감소와 사망
 
-    public override void DecreaseHP(int damage )
+    public override void DecreaseHP(int damage)
     {
         base.DecreaseHP(damage);
 
@@ -357,18 +359,18 @@ public class Enemy : Actor
 
         if (currentHP == 0)
         {
-            // StatusMngPanel 비활성화
-            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
-
             //StatusMngPanel 리셋 
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.StatusReset();
+            //StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+            //statusMngPanel.StatusReset();
 
             // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
+            //SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
 
             // 에너미 리스트 재구성
             SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
+
+            // StatusMngPanel 비활성화
+            //SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
 
             enemyState = EnemyState.Dead;
         }

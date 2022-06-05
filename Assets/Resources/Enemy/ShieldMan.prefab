@@ -3433,22 +3433,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 50
+  maxHP: 320
   currentHP: 0
   power: 10
   currentPower: 0
-  defense: 10
+  defense: 20
   currentDefense: 0
   attackSpeed: 0
   currentAttackSpeed: 0
   range: 0
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 0
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 0
+  currentMultiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
   hitPos: {fileID: 8849969496732994687}
@@ -3486,8 +3489,53 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  turretDatas:
+    turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    filepath: 
+  monsterDatas:
+    enemyIndex: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    speed: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    appearPos: 0
+    filepath: 
   enemyState: 0
-  speed: 9
+  speed: 8
   currentSpeed: 0
   enemyIndex: 0
   gateNum: 0

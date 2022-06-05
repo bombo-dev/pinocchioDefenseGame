@@ -49,6 +49,7 @@ public class GameFlowManager : MonoBehaviour
     float[] flowTimer = new float[GATENUM];
 
     //게임 스테이지 인덱스
+    [SerializeField]
     int stage;
 
 
@@ -64,9 +65,6 @@ public class GameFlowManager : MonoBehaviour
             arrPointer[i] = 0;
             flowTimer[i] = Time.time;
         }
-
-        //스테이지 정보
-        stage = 0;
 
         //스테이지 제한시간 초기화
         //timer = limitTime;
