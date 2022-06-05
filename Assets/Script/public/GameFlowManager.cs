@@ -56,9 +56,13 @@ public class GameFlowManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Json데이터 불러와 자료구조와 사상
-        defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
+        //************** 암호화된 Json데이터 불러와 자료구조와 사상 ****************
+        // defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
+        // ***************************************************************************
 
+        //************** 암호화 되어 있지 않은 Json데이터 불러와 자료구조와 사상 **************
+        defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowDecryptJsonData();
+        //***************************************************************************************
         //배열 포인터 초기화
         for (int i = 0; i < GATENUM; i++)
         {
