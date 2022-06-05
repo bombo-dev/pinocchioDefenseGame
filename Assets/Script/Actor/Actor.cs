@@ -179,7 +179,11 @@ public class Actor : MonoBehaviour
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
 
-
+    //JsonData
+    [SerializeField]
+    protected TurretDatas turretDatas;
+    [SerializeField]
+    protected MonsterData monsterDatas;
 
     // Start is called before the first frame update
     void Start()
@@ -497,13 +501,16 @@ public class Actor : MonoBehaviour
         if (currentHP <= 0 || damage <= 0)
             return;
 
+        //데미지 계산 공식
+        damage -= damage * (currentDefense / 100);
+
+        //예외처리
+        if (damage <= 0)
+            damage = 1;
 
         if (currentHP > damage)
         {
             currentHP -= damage;
-
-
-
         }
         else
         {
@@ -526,6 +533,9 @@ public class Actor : MonoBehaviour
     /// <param name="recoveryPower">데미지를 증가시킬 타겟</param>
     public virtual void IncreaseHP(int recoveryPower)
     {
+        //데미지 계산 공식
+        recoveryPower += recoveryPower * (currentRegeneration / 100);
+
         if (currentHP + recoveryPower >= maxHP)
             currentHP = maxHP;
         else

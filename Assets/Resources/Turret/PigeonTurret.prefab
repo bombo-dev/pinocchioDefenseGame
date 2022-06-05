@@ -248,13 +248,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 30
+  maxHP: 150
   currentHP: 0
-  power: 10
+  power: 20
   currentPower: 0
   defense: 10
   currentDefense: 0
-  attackSpeed: 3
+  attackSpeed: 2
   currentAttackSpeed: 0
   range: 5000
   currentRange: 0
@@ -300,6 +300,51 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  turretDatas:
+    turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    filepath: 
+  monsterDatas:
+    enemyIndex: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    speed: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    appearPos: 0
+    filepath: 
   buffEffectIndex: 300000003100000032000000330000003400000035000000
   CurrentBuffEffect:
   - {fileID: 0}

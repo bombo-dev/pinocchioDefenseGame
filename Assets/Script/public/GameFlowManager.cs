@@ -105,6 +105,9 @@ public class GameFlowManager : MonoBehaviour
         //Gate 1~3
         for (int i = 0; i < GATENUM; i++)
         {
+            if (defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr.Length <= 0)
+                continue;
+
             if(Time.time - flowTimer[i] > defenseFlowDataList.datas[stage].defenseFlowDataArr[i].timeFlowIndexArr[arrPointer[i]])
             {
                 //Enemy È°¼ºÈ­
@@ -133,7 +136,7 @@ public class GameFlowManager : MonoBehaviour
                 }
             }
 
-        }   
+        }//end of for   
 
     }
 
