@@ -56,8 +56,6 @@ public class Turret : Actor
     {
         base.UpdateActor();
 
-        if (Input.GetKeyDown(KeyCode.A))
-            ClearBuff();
         //버프 동작 
         UpdateBuff();
 
@@ -101,6 +99,9 @@ public class Turret : Actor
 
         //위치 초기화
         this.transform.position = new Vector3(this.transform.position.x, turretAppearPosY, this.transform.position.z);
+
+        //사거리 초기화
+        currentRange = range;
 
         //상태초기화
         turretState = TurretState.Idle;
@@ -210,6 +211,14 @@ public class Turret : Actor
 
         if (currentHP == 0)
         {
+            //BaseTurret
+            if (turretNum == 23)
+            {
+                //게임오버
+                return;
+            }    
+
+
             //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.
             //;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);

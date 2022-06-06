@@ -239,7 +239,6 @@ public class Actor : MonoBehaviour
         currentAttackSpeed = attackSpeed;
 
         //사거리 초기화
-        currentRange = range;
         currentMultiAttackRange = multiAttackRange;
 
         //회복력 초기화
@@ -496,7 +495,7 @@ public class Actor : MonoBehaviour
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
     /// <param name="damage">타겟이 받을 데미지</param>
-    public virtual void DecreaseHP(int damage )
+    public virtual void DecreaseHP(int damage)
     {
         if (currentHP <= 0 || damage <= 0)
             return;
@@ -518,7 +517,7 @@ public class Actor : MonoBehaviour
 
             currentHP = 0;
             animator.SetBool("isDead", true);
-            animator.Play("Dead");//Test
+            animator.Play("Dead");
 
             return;
         }        
@@ -600,7 +599,7 @@ public class Actor : MonoBehaviour
     /// Flash효과를 나타내기 위한 코루틴을 호출 : 김현진
     /// </summary>
     /// <param name="color">Flash효과의 색</param>
-    void callFlashCoroutine(Vector4 color)
+    protected void callFlashCoroutine(Vector4 color)
     {
         //WhiteFlash 피격효과
 

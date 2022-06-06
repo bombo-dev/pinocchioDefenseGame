@@ -104,7 +104,7 @@ MonoBehaviour:
   hitPos: {fileID: 2417765509597669246}
   hpPos: {fileID: 6915840985366508906}
   dropPos: {fileID: 4998918253004784}
-  damageEffectIndex: 2
+  damageEffectIndex: 1
   deadEffectIndex: 1
   fireEffectIndex: -1
   healEffectIndex: -1
@@ -177,6 +177,7 @@ MonoBehaviour:
   enemyState: 0
   speed: 12
   currentSpeed: 0
+  enemyNum: 0
   enemyIndex: 0
   gateNum: 0
   appearPos:
@@ -184,6 +185,9 @@ MonoBehaviour:
   - {x: 0, y: -164, z: 300}
   - {x: 85, y: -164, z: 257.5}
   targetPoint: []
+  targetPointIndex: 0
+  currentTarget: {fileID: 0}
+  rewardWoodResource: 30
 --- !u!1 &1013520916532758343
 GameObject:
   m_ObjectHideFlags: 0

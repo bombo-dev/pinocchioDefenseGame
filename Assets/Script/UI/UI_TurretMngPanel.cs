@@ -127,7 +127,7 @@ public class UI_TurretMngPanel : UI_Controller
         if (cost <= 0)
             return;
 
-        //비용이 부족한경우
+        //비용이 부족한경우 건설불가
         if (cost > SystemManager.Instance.ResourceManager.woodResource)
         {
             //비용부족 처리

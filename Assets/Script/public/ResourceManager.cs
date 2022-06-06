@@ -13,7 +13,7 @@ public class ResourceManager : MonoBehaviour
 
     //나무 자원 생성 주기
     [SerializeField]
-    float woodResourceIncreaseCycle = 2.0f;
+    float woodResourceIncreaseCycle = 1.0f;
 
     //나무 자원 생성 주기마다 생성되는 나무 자원 수
     [SerializeField]
@@ -64,7 +64,7 @@ public class ResourceManager : MonoBehaviour
     /// 나무 자원 증가시키고 UI정보에도 갱신 : 김현진
     /// </summary>
     /// <param name="increaseValue">증가시킬 값</param>
-    void IncreaseWoodResource(int increaseValue)
+    public void IncreaseWoodResource(int increaseValue)
     {
         //나무 자원값 갱신
         woodResource += increaseValue;
