@@ -71,7 +71,7 @@ public class EncryptJson : MonoBehaviour
         else
         {
             string originPath = filePath;
-
+            #pragma warning disable 612, 618
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 

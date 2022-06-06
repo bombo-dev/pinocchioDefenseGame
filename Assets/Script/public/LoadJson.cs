@@ -6,20 +6,22 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class LoadJson : MonoBehaviour
 {
     private void Start()
     {
-        // LoadFromJson()
         
-        // 암호화 관련 Json 메소드
-
+        // *************** 암호화 되어있는 JSON 메소드 실행 *****************************
         //Save(PathInit()); // 암호화 된 Json 불러오고 저장
         //PrepareGameFlowJsonData(); // 암호화 된 Json 데이터 불러와 실행
+        // ********************************************************************************
 
-        // 암호화 되어있지 않은 Json메소드
-         PrepareGameFlowDecryptJsonData();
+
+        // **************** 암호화 되어있지 않은 Json 메소드 실행 ************************
+        // PrepareGameFlowDecryptJsonData();
+        // ********************************************************************************
     }
 
     /// <summary>
@@ -60,61 +62,60 @@ public class LoadJson : MonoBehaviour
     }
 
     // JsonData의 객체화 메소드
-    public static DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
+    public DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
     {
         return JsonUtility.FromJson<DefenseFlowDataList>(jsonString);
     }
 
     // JsonData 불러오는 메소드
-    public static DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
+    public DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
         // 윈도우 유니티 에디터 경로
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
             Debug.Log("유니티 에디터에서 실행");
 
-
-            //
-            string jsonString = File.ReadAllText(filePath);
-
+            //string jsonString = File.ReadAllText(filePath);
 
             // 암호화 되어 있는 JsonData 복호화해서 저장
-            // string load = Load(filePath);
+            string load = Load(filePath);
 
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            return JsonToObject<DefenseFlowDataList>(load);
         }
         // Windows PC에서 게임 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
             Debug.Log("PC에서 실행");
 
-            string jsonString = File.ReadAllText(filePath);
-            // 암호화 되어 있는 JsonData 복호화해서 저장
-            //string load = Load(filePath);
 
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            // string jsonString = File.ReadAllText(filePath);
+            // 암호화 되어 있는 JsonData 복호화해서 저장
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
         }
 
         // 모바일 경로 체크
         else
         {
             string originPath = filePath;
-
+            #pragma warning disable 612, 618
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 
             string realPath = Application.persistentDataPath + ".Json";
             File.WriteAllBytes(realPath, reader.bytes);
 
+
             string jsonString = File.ReadAllText(realPath);
-            // 암호화 되어 있는 JsonData 복호화해서 저장
+            //암호화 되어 있는 JsonData 복호화해서 저장
             //string load = Load(realPath);
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
     }
 
     // 암호화 되지 않은 JsonData 불러오는 메소드
-    public static DefenseFlowDataList DecryptLoadJsonFile<DefenseFlowDataList>(string filePath)
+    public DefenseFlowDataList DecryptLoadJsonFile<DefenseFlowDataList>(string filePath)
     {
 
         // 윈도우 유니티 에디터 경로 체크
@@ -140,7 +141,8 @@ public class LoadJson : MonoBehaviour
         else
         {
             string originPath = filePath;
-
+            
+            #pragma warning disable 612, 618
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 
@@ -154,7 +156,7 @@ public class LoadJson : MonoBehaviour
     }
     
     // JsonData만 읽어오는 메소드
-    public static string ReadJsonFileToString(string filePath)
+    public string ReadJsonFileToString(string filePath)
     {
         string jsonString;
 
@@ -175,7 +177,7 @@ public class LoadJson : MonoBehaviour
         else
         {
             string originPath = filePath;
-
+            #pragma warning disable 612, 618
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 
@@ -187,7 +189,7 @@ public class LoadJson : MonoBehaviour
         }
     }
 
-    public static void Save(string filePath)
+    public void Save(string filePath)
     {
         // 암호화 된 Json 파일 복호화
         JsonToDecrypt(filePath);
@@ -197,14 +199,14 @@ public class LoadJson : MonoBehaviour
         File.WriteAllText(filePath, save);
     }
 
-    public static string Load(string filePath)
+    public string Load(string filePath)
     {
         string load = File.ReadAllText(filePath);
         load = Decrypt(load, "key");
         return load;
     }
 
-    public static void JsonToDecrypt(string filePath)
+    public void JsonToDecrypt(string filePath)
     {
         string load = File.ReadAllText(filePath);
         load = Decrypt(load, "key");
