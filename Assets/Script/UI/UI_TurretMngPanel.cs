@@ -178,8 +178,6 @@ public class UI_TurretMngPanel : UI_Controller
                 //패널 비활성화
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
-            if (!SystemManager.Instance.PanelManager.turretMngPanel)
-                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
 
         }
     }

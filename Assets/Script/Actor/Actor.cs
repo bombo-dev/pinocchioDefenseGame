@@ -282,14 +282,17 @@ public class Actor : MonoBehaviour
         //타겟 리스트의 모든 요소를 검사하여 사거리안에 들어온 타겟인 경우 딕셔너리에 저장
         for (int i = 0; i < target.Count; i++)
         {
-            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
+            //회복 타워일 경우
             if (mine && isRecoveryTower)
             {
-                if (System.Object.ReferenceEquals(target[i], mine))
+                // 감지된 타겟이 자신이거나 또다른 회복타워일 경우 다음 유닛 감지
+                if ((System.Object.ReferenceEquals(target[i], mine)) || (target[i].GetComponent<Actor>().isRecoveryTower))
+                {
                     if (i >= target.Count - 1)
                         break;
                     else
-                        i++;
+                        continue;
+                }
             }
 
             //타겟이 존재하는경우
