@@ -41,6 +41,13 @@ public class Turret : Actor
     [SerializeField]
     float turretAppearPosY; //터렛이 생성될때 고정되는 Y축 위치
 
+    //터렛 건설 코스트
+    //건설비용
+    int turretCost;
+    //터렛 건설에 걸리는 시간
+    int turretConstructionTime;
+    
+
     private void Start()
     {
         Initialize();
@@ -49,8 +56,6 @@ public class Turret : Actor
     {
         base.UpdateActor();
 
-        if (Input.GetKeyDown(KeyCode.A))
-            ClearBuff();
         //버프 동작 
         UpdateBuff();
 
@@ -94,6 +99,9 @@ public class Turret : Actor
 
         //위치 초기화
         this.transform.position = new Vector3(this.transform.position.x, turretAppearPosY, this.transform.position.z);
+
+        //사거리 초기화
+        currentRange = range;
 
         //상태초기화
         turretState = TurretState.Idle;
@@ -203,6 +211,14 @@ public class Turret : Actor
 
         if (currentHP == 0)
         {
+            //BaseTurret
+            if (turretNum == 23)
+            {
+                //게임오버
+                return;
+            }    
+
+
             //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.
             //;
             SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);

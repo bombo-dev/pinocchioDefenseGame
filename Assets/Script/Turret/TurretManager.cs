@@ -21,6 +21,9 @@ public class TurretManager : MonoBehaviour
     void Start()
     {
         PrepareData();
+
+        //베이스 터렛 건설
+        EnableBase();
     }
 
     /// <summary>
@@ -32,6 +35,24 @@ public class TurretManager : MonoBehaviour
         {
             SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), turretParents);
         }
+    }
+
+    /// <summary>
+    /// 기지 역할을 하는 베이스 터렛 건설 : 김현진
+    /// </summary>
+    void EnableBase()
+    {
+        GameObject go = EnableTurret(prefabCacheDatas.Length - 1, Vector3.zero);
+
+        //위치 초기화
+        go.transform.localPosition = new Vector3(0f, 0f, -178f);
+
+        Turret baseTurret = go.GetComponent<Turret>();
+        // 터렛 상태 관리 패널 생성
+        SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, baseTurret.hpPos.transform.position, baseTurret.turretIndex, baseTurret.GetType());
+        //Debug.Log("turret.type=" + turret.GetType().Name);
+        if (!SystemManager.Instance.PanelManager.statusMngPanel)
+            return;
     }
 
     /// <summary>

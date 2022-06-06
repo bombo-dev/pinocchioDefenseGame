@@ -86,6 +86,16 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    ResourceManager resourceManager;
+    public ResourceManager ResourceManager
+    {
+        get
+        {
+            return resourceManager;
+        }
+    }
+
+    [SerializeField]
     PanelManager panelManager;
     public PanelManager PanelManager
     {

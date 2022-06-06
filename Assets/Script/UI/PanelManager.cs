@@ -31,6 +31,7 @@ public class PanelManager : MonoBehaviour
     public StageMngPanel stageMngPanel;
     public StatusMngPanel statusMngPanel;
     public DamageMngPanel damageMngPanel;
+    public UI_ResourcePanel resoursePanel;
 
 
     [SerializeField]
@@ -45,6 +46,9 @@ public class PanelManager : MonoBehaviour
     void Start()
     {
         PrepareData();
+
+        //바로 생성해야할 패널 생성
+        EnableFixedPanel();
     }
 
     /// <summary>
@@ -56,6 +60,15 @@ public class PanelManager : MonoBehaviour
         {
             SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), canvas);
         }
+    }
+
+    /// <summary>
+    /// 게임 시작 부터 바로 나타나 있는 고정된 패널 생성 : 김현진
+    /// </summary>
+    void EnableFixedPanel()
+    {
+        //ResourceManaerPanel
+        EnablePanel<UI_ResourcePanel>(4);
     }
 
     /// <summary>
@@ -78,7 +91,7 @@ public class PanelManager : MonoBehaviour
     }
 
     /// <summary>
-    ///  Panel 객체를 생성
+    ///  Panel 객체를 생성 : 김현진
     /// </summary>
     /// <typeparam name="T">패널이 가지고 있는 UI_Panel 스크립트</typeparam>
     /// <param name="panelIndex">생성할 패널 번호</param>
@@ -122,6 +135,10 @@ public class PanelManager : MonoBehaviour
             
         }
         */
+        else if (typeof(T) == typeof(UI_ResourcePanel))
+        {
+            resoursePanel = (compoenent as UI_ResourcePanel);
+        }
     }
 
     /// <summary>

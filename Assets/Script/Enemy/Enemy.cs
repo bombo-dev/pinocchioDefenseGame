@@ -39,8 +39,10 @@ public class Enemy : Actor
     [SerializeField]
     public GameObject[] targetPoint;    //타일맵 위에 있는 이동 타겟
 
+    [SerializeField]
     int targetPointIndex = 0;    //타일맵 타겟 인덱스
 
+    [SerializeField]
     GameObject currentTarget;   //현재 타겟
 
     Vector3 dirVec; //이동처리할 방향벡터
@@ -48,6 +50,11 @@ public class Enemy : Actor
     bool isEndShow = false; // 코루틴의 종료여부 확인 플래그
 
     int i=0;
+
+    bool selfDestruct = false;  //자폭일 경우 true
+
+    [SerializeField]
+    int rewardWoodResource; //잡았을때 보상 woodResource
 
     /// <summary>
     /// 초기화 함수 : 김현진
@@ -65,6 +72,9 @@ public class Enemy : Actor
 
         //이동속도 초기화
         currentSpeed = speed;
+
+        //사거리 초기화 - 게이트를 완전히 빠져나오기 전까진(targetIndex > 0) Walk상태 
+        currentRange = 0;
 
         //위치초기화
         transform.position = appearPos[gateNum];
@@ -158,9 +168,7 @@ public class Enemy : Actor
     {
         //예외처리
         if (currentTarget == null)
-            return;
-        if (targetPointIndex >= targetPoint.Length - 1)
-            return;
+            return;    
 
         //타겟에 도착하지 않았을 경우
         if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 2f)
@@ -180,10 +188,38 @@ public class Enemy : Actor
         }
 
         //이동 타겟 변경
-        transform.position = new Vector3(currentTarget.transform.position.x, transform.position.y, currentTarget.transform.position.z);
-        
-        currentTarget = targetPoint[++targetPointIndex];
+        //transform.position = new Vector3(currentTarget.transform.position.x, transform.position.y, currentTarget.transform.position.z);
 
+        //사거리초기화
+        if (targetPointIndex == 0)
+        {
+            //사거리 초기화 - 게이트를 완전히 빠져나온 상태
+            currentRange = range;
+        }
+
+        //타겟 인덱스 증가
+        targetPointIndex++;
+
+        //마지막 타겟에 도착했을경우
+        if (targetPointIndex >= targetPoint.Length)
+        {
+            //공격 타겟이 아닌경우 폭발 처리
+            if (attackTargetNum <= 0 || isRecoveryTower)
+            {
+                selfDestruct = true;
+
+                //Dead처리 하기
+                DecreaseHP(0);
+
+                //Base터렛 타격
+                SystemManager.Instance.TurretManager.turrets[0].GetComponent<Turret>().DecreaseHP(power);
+            }
+            return;
+        }
+
+        //타겟 변경
+        currentTarget = targetPoint[targetPointIndex];
+        //방향벡터 변경된 타겟으로 갱신 
         dirVec = FindDirVec(currentTarget);
     }
 
@@ -212,7 +248,7 @@ public class Enemy : Actor
     /// </summary>
     protected override void DetectTarget(List<GameObject> target, GameObject mine = null)
     {
-        if (mine)
+        if (mine)   //회복타워가 자신을 감지하지 않게한다
             base.DetectTarget(target, mine);
         else
             base.DetectTarget(target);
@@ -357,7 +393,8 @@ public class Enemy : Actor
         }
         */
 
-        if (currentHP == 0)
+        //HP가 0밑으로 떨어지거나 자폭상태가 될 경우
+        if (currentHP <= 0 || selfDestruct)
         {
             //StatusMngPanel 리셋 
             //StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
@@ -373,6 +410,27 @@ public class Enemy : Actor
             //SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
 
             enemyState = EnemyState.Dead;
+
+            //퇴치
+            if (!selfDestruct)
+                //잡았을때 보상 지급
+                SystemManager.Instance.ResourceManager.IncreaseWoodResource(rewardWoodResource);
+            //자폭
+            else
+            {
+                //자폭 이펙트 출력
+                EnableDamageEffect(this);
+
+                //Flash효과 
+                callFlashCoroutine(ShaderController.RED);
+
+                //Dead처리
+                currentHP = 0;
+                animator.SetBool("isDead", true);
+                animator.Play("Dead");
+
+                return;
+            }
         }
     }
 

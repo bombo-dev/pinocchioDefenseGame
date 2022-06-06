@@ -447,19 +447,22 @@ MonoBehaviour:
   attackSpeed: 0
   currentAttackSpeed: 0
   range: 0
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 0
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 0
+  currentMultiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
   hitPos: {fileID: 5765690004076246376}
   hpPos: {fileID: 1968412523105748405}
   dropPos: {fileID: 1408111137987901943}
-  damageEffectIndex: 2
+  damageEffectIndex: 1
   deadEffectIndex: 1
   fireEffectIndex: -1
   healEffectIndex: -1
@@ -483,9 +486,55 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  turretDatas:
+    turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    filepath: 
+  monsterDatas:
+    enemyIndex: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    speed: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    appearPos: 0
+    filepath: 
   enemyState: 0
   speed: 45
   currentSpeed: 0
+  enemyNum: 0
   enemyIndex: 0
   gateNum: 0
   appearPos:
@@ -493,6 +542,9 @@ MonoBehaviour:
   - {x: 0, y: -164, z: 300}
   - {x: 85, y: -164, z: 257.5}
   targetPoint: []
+  targetPointIndex: 0
+  currentTarget: {fileID: 0}
+  rewardWoodResource: 0
 --- !u!1 &5765690004076246376
 GameObject:
   m_ObjectHideFlags: 0

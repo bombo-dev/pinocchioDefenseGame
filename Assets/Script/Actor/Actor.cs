@@ -239,7 +239,6 @@ public class Actor : MonoBehaviour
         currentAttackSpeed = attackSpeed;
 
         //사거리 초기화
-        currentRange = range;
         currentMultiAttackRange = multiAttackRange;
 
         //회복력 초기화
@@ -283,14 +282,17 @@ public class Actor : MonoBehaviour
         //타겟 리스트의 모든 요소를 검사하여 사거리안에 들어온 타겟인 경우 딕셔너리에 저장
         for (int i = 0; i < target.Count; i++)
         {
-            //회복 타워일 경우 감지된 타겟이 자신이면 다음 유닛 감지
+            //회복 타워일 경우
             if (mine && isRecoveryTower)
             {
-                if (System.Object.ReferenceEquals(target[i], mine))
+                // 감지된 타겟이 자신이거나 또다른 회복타워일 경우 다음 유닛 감지
+                if ((System.Object.ReferenceEquals(target[i], mine)) || (target[i].GetComponent<Actor>().isRecoveryTower))
+                {
                     if (i >= target.Count - 1)
                         break;
                     else
-                        i++;
+                        continue;
+                }
             }
 
             //타겟이 존재하는경우
@@ -496,7 +498,7 @@ public class Actor : MonoBehaviour
     /// 공격을 당한 타겟의 HP를 감소 : 하은비
     /// </summary>
     /// <param name="damage">타겟이 받을 데미지</param>
-    public virtual void DecreaseHP(int damage )
+    public virtual void DecreaseHP(int damage)
     {
         if (damage <= 0 || currentHP < 0)
             return;
@@ -518,7 +520,7 @@ public class Actor : MonoBehaviour
 
             currentHP = 0;
             animator.SetBool("isDead", true);
-            animator.Play("Dead");//Test
+            animator.Play("Dead");
 
             OnDead();
             return;
@@ -604,7 +606,7 @@ public class Actor : MonoBehaviour
     /// Flash효과를 나타내기 위한 코루틴을 호출 : 김현진
     /// </summary>
     /// <param name="color">Flash효과의 색</param>
-    void callFlashCoroutine(Vector4 color)
+    protected void callFlashCoroutine(Vector4 color)
     {
         //WhiteFlash 피격효과
 

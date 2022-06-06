@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UI_TurretMngPanel : UI_Controller
 {
@@ -16,11 +17,36 @@ public class UI_TurretMngPanel : UI_Controller
     
     Actor actor; // HPBar 위치 업데이트를 위함
 
-
+    enum TextMeshProUGUIs
+    {
+        TurretText0, //0~
+        TurretText1,
+        TurretText2,
+        TurretText3,
+        TurretText4,
+        TurretText5,
+        TurretText6,
+        TurretText7,
+        TurretText8,
+        TurretText9,
+        TurretText10,
+        TurretText11,
+        TurretText12,
+        TurretText13,
+        TurretText14,
+        TurretText15,
+        TurretText16,
+        TurretText17,
+        TurretText18,
+        TurretText19,
+        TurretText20,
+        TurretText21,
+        TurretText22 //~22
+    }
 
     enum Buttons
     {
-        TurretButton0,//0~
+        TurretButton0, //0~
         TurretButton1,
         TurretButton2,
         TurretButton3,
@@ -42,7 +68,7 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton19,
         TurretButton20,
         TurretButton21,
-        TurretButton22,//~22
+        TurretButton22, //~22
         TurretSummonButton,
         CloseTurretMngPanelButton
     }
@@ -56,6 +82,7 @@ public class UI_TurretMngPanel : UI_Controller
         base.BindingUI();
 
         Bind<Button>(typeof(Buttons));
+        Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
 
         //터렛 선택 버튼 이벤트 추가
         for (int i = 0; i < MAXTURRET; i++)
@@ -94,6 +121,24 @@ public class UI_TurretMngPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     public void OnClickTurretSummonButton(PointerEventData data)
     {
+        //건설 비용 지불
+        int cost = int.Parse(GetTextMeshProUGUI(currentSelectedTurretIdx).text);
+
+        if (cost <= 0)
+            return;
+
+        //비용이 부족한경우 건설불가
+        if (cost > SystemManager.Instance.ResourceManager.woodResource)
+        {
+            //비용부족 처리
+            return;
+        }
+        else
+        {
+            //비용지불
+            SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
+        }
+        
 
         if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
         {
@@ -133,8 +178,6 @@ public class UI_TurretMngPanel : UI_Controller
                 //패널 비활성화
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
-            if (!SystemManager.Instance.PanelManager.turretMngPanel)
-                SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
 
         }
     }

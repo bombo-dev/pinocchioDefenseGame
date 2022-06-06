@@ -1,0 +1,331 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &69360183166871943
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7985224597606652554}
+  m_Layer: 7
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7985224597606652554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69360183166871943}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2380855751409788766}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2011055300436271396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8727533055978356963}
+  m_Layer: 7
+  m_Name: hitPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8727533055978356963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011055300436271396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2380855751409788766}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3532511721862182196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6918412573305270703}
+  m_Layer: 7
+  m_Name: dropPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6918412573305270703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532511721862182196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2380855751409788766}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7126106460821985378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2380855751409788766}
+  - component: {fileID: 5095461647247515107}
+  - component: {fileID: 8671009279749490620}
+  - component: {fileID: 5218216072034607285}
+  - component: {fileID: 1350427830655279993}
+  - component: {fileID: -3246967034882608225}
+  m_Layer: 7
+  m_Name: Base
+  m_TagString: Turret
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2380855751409788766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -155.8, z: -166}
+  m_LocalScale: {x: 15.490623, y: 15.490623, z: 15.490623}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8727533055978356963}
+  - {fileID: 6918412573305270703}
+  - {fileID: 7985224597606652554}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5095461647247515107
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8671009279749490620
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6ea2314183f63b1439a1a5fa6755f5c4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5218216072034607285
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1350427830655279993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debuff: 0
+  maxHP: 1000
+  currentHP: 0
+  power: 10
+  currentPower: 0
+  defense: 10
+  currentDefense: 0
+  attackSpeed: 0
+  currentAttackSpeed: 0
+  range: 0
+  currentRange: 0
+  regeneration: 0
+  currentRegeneration: 0
+  attackRangeType: 0
+  isRecoveryTower: 0
+  attackTargetNum: 0
+  debuffType: 0
+  debuffDuration: 0
+  multiAttackRange: 0
+  currentMultiAttackRange: 0
+  bulletIndex: 0
+  firePos: {fileID: 0}
+  hitPos: {fileID: 2011055300436271396}
+  hpPos: {fileID: 69360183166871943}
+  dropPos: {fileID: 3532511721862182196}
+  damageEffectIndex: 0
+  deadEffectIndex: 0
+  fireEffectIndex: 0
+  healEffectIndex: 0
+  debuffEffectIndex: 0
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
+  filePath: Turret/Base
+  animator: {fileID: -3246967034882608225}
+  attackTargets: []
+  attackTargetsActor: []
+  attackDirVec: {x: 0, y: 0, z: 0}
+  bulletSpeed: 100
+  maxBulletSpeed: 0
+  finAttack: 0
+  rendererArr:
+  - {fileID: 8671009279749490620}
+  rendererCaches: []
+  emissionCaches: []
+  showWhiteFlash_coroutine_is_running: 0
+  turretDatas:
+    turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    filepath: 
+  monsterDatas:
+    enemyIndex: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    speed: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    appearPos: 0
+    filepath: 
+  buffEffectIndex: 
+  CurrentBuffEffect: []
+  CurrentBuffEffectFilePath: []
+  nest: {fileID: 0}
+  turretNum: 23
+  gateNum: 
+  turretIndex: 0
+  turretState: 0
+  turretAppearPosY: -154.2
+--- !u!95 &-3246967034882608225
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126106460821985378}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2678863c82fec04487fc863273262f6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
