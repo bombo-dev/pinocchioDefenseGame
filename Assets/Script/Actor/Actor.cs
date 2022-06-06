@@ -500,7 +500,7 @@ public class Actor : MonoBehaviour
     /// <param name="damage">타겟이 받을 데미지</param>
     public virtual void DecreaseHP(int damage)
     {
-        if (currentHP <= 0 || damage <= 0)
+        if (damage <= 0 || currentHP < 0)
             return;
 
         //데미지 계산 공식
@@ -522,13 +522,17 @@ public class Actor : MonoBehaviour
             animator.SetBool("isDead", true);
             animator.Play("Dead");
 
+            OnDead();
             return;
         }        
 
         callFlashCoroutine(ShaderController.WHITE);
     }
 
+    protected virtual void OnDead()
+    {
 
+    }
     /// <summary>
     /// 회복이 들어간 타겟의 HP를 증가 : 김현진
     /// </summary>
