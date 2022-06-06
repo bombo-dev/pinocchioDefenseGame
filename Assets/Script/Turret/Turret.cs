@@ -41,6 +41,13 @@ public class Turret : Actor
     [SerializeField]
     float turretAppearPosY; //터렛이 생성될때 고정되는 Y축 위치
 
+    //터렛 건설 코스트
+    //건설비용
+    int turretCost;
+    //터렛 건설에 걸리는 시간
+    int turretConstructionTime;
+    
+
     private void Start()
     {
         Initialize();
