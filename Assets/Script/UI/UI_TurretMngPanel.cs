@@ -110,9 +110,7 @@ public class UI_TurretMngPanel : UI_Controller
     {
         currentSelectedTurretIdx = idx;
 
-        //더블클릭 이벤트
-        if (data.clickCount == 2)
-            OnClickTurretSummonButton(data);
+        OnClickTurretSummonButton(data);
     }
 
     /// <summary>
@@ -164,17 +162,19 @@ public class UI_TurretMngPanel : UI_Controller
             //UI_ConstructionGaugePanel생성
             GameObject constructionGaugePanel = SystemManager.Instance.PanelManager.EnablePanel<UI_ConstructionGauge>(5, turretGo);
 
-            //Debug.Log("turret.type=" + turret.GetType().Name);
-            if (!SystemManager.Instance.PanelManager.statusMngPanel)
-                return;
-
-            //터렛공사 시작 - 주요 변수정보 넘겨주기
+            //공사용 터렛에 주요 변수정보 넘겨주기
             constructTurret.timer = Time.time;  //타이머 초기화
             constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;    //소환될 터렛 인덱스
             constructTurret.nestGo = nestGo;    //소환할 둥지    
             constructTurret.constructionValue = 0;  //건설 게이지 값 초기화
             constructTurret.constructionTime = SystemManager.Instance.TurretManager.turretConstructionTime[currentSelectedTurretIdx]; //건설에 걸리는 시간 초기화
             constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
+
+            //공사중정보 둥지에 전달
+            nestGo.GetComponent<Nest>().construction = true;
+
+            //터렛 공사시작
+            constructTurret.startConstruction = true;   //공사시작
 
             //UI_TurretMngPanel 패널이 존재할 경우
             if (SystemManager.Instance.PanelManager.turretMngPanel)
