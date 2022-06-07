@@ -56,12 +56,12 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
-    TileManager tileManager;
-    public TileManager TileManager
+    BlockManager blockManager;
+    public BlockManager BlockManager
     {
         get
         {
-            return tileManager;
+            return blockManager;
         }
     }
 
