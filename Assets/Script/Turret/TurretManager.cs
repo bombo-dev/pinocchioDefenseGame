@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
+    //특수터렛 인덱스
+    int BASETURRET_INDEX = 23;
+    public int CONSTRUCTIONTURRET_INDEX = 24;
+
+
     //Load한 Turret 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
@@ -16,6 +21,9 @@ public class TurretManager : MonoBehaviour
     //filePath, cacheCount 저장
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
+
+    //TurretNum으로 액세스 할 수 있는 터렛 건설시간 배열
+    public int[] turretConstructionTime;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +50,7 @@ public class TurretManager : MonoBehaviour
     /// </summary>
     void EnableBase()
     {
-        GameObject go = EnableTurret(prefabCacheDatas.Length - 1, Vector3.zero);
+        GameObject go = EnableTurret(BASETURRET_INDEX, Vector3.zero);
 
         //위치 초기화
         go.transform.localPosition = new Vector3(0f, 0f, -178f);
@@ -90,6 +98,13 @@ public class TurretManager : MonoBehaviour
 
         if (go == null)
             return null;
+
+        //공사터렛일 경우
+        if (turretIndex == CONSTRUCTIONTURRET_INDEX)
+        {
+            go.transform.position = turretPos;
+            return go;
+        }
 
         //생성한 프리팹이 유효할 경우
         Turret turret = go.GetComponent<Turret>();

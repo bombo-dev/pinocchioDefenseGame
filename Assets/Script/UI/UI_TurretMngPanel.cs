@@ -148,29 +148,23 @@ public class UI_TurretMngPanel : UI_Controller
             if (!nestGo)
                 return;
 
-            GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(currentSelectedTurretIdx, nestGo.transform.position);
-                      
+            //공사용 터렛 소환
+            GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(SystemManager.Instance.TurretManager.CONSTRUCTIONTURRET_INDEX, nestGo.transform.position);
+
+            //예외처리
             if (!turretGo)
                 return;
 
-            Turret turret = turretGo.GetComponent<Turret>();
+            ConstructionTurret constructTurret = turretGo.GetComponent<ConstructionTurret>();
 
-            // 터렛 상태 관리 패널 생성
-            SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, turret.hpPos.transform.position, turret.turretIndex, turret.GetType());
-            //Debug.Log("turret.type=" + turret.GetType().Name);
-            if (!SystemManager.Instance.PanelManager.statusMngPanel)
+            //예외처리
+            if (!constructTurret)
                 return;
 
-            
-
-            //둥지정보 갱신
-            Nest nest = nestGo.GetComponent<Nest>();
-            if (nest)
-            {
-                turretGo.GetComponent<Turret>().nest = nestGo;
-                nest.haveTurret = true;
-                nest.turret = turretGo;
-            }
+            //터렛공사 시작 - 주요 변수정보 넘겨주기
+            constructTurret.timer = Time.time;
+            constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;
+            constructTurret.nestGo = nestGo;
 
             //UI_TurretMngPanel 패널이 존재할 경우
             if (SystemManager.Instance.PanelManager.turretMngPanel)
@@ -178,7 +172,6 @@ public class UI_TurretMngPanel : UI_Controller
                 //패널 비활성화
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
-
         }
     }
 
