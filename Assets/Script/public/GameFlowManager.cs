@@ -52,6 +52,9 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField]
     int stage;
 
+    //∞‘¿” ∏  ∫Ì∑œ ¿Œµ¶Ω∫
+    public int block;
+
 
     // Start is called before the first frame update
     void Start()
