@@ -23,7 +23,7 @@ public class TurretManager : MonoBehaviour
     PrefabCacheData[] prefabCacheDatas;
 
     //TurretNum으로 액세스 할 수 있는 터렛 건설시간 배열
-    public int[] turretConstructionTime;
+    public float[] turretConstructionTime;
 
     // Start is called before the first frame update
     void Start()

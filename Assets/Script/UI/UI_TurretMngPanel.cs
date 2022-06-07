@@ -161,10 +161,20 @@ public class UI_TurretMngPanel : UI_Controller
             if (!constructTurret)
                 return;
 
+            //UI_ConstructionGaugePanel생성
+            GameObject constructionGaugePanel = SystemManager.Instance.PanelManager.EnablePanel<UI_ConstructionGauge>(5, turretGo);
+
+            //Debug.Log("turret.type=" + turret.GetType().Name);
+            if (!SystemManager.Instance.PanelManager.statusMngPanel)
+                return;
+
             //터렛공사 시작 - 주요 변수정보 넘겨주기
-            constructTurret.timer = Time.time;
-            constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;
-            constructTurret.nestGo = nestGo;
+            constructTurret.timer = Time.time;  //타이머 초기화
+            constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;    //소환될 터렛 인덱스
+            constructTurret.nestGo = nestGo;    //소환할 둥지    
+            constructTurret.constructionValue = 0;  //건설 게이지 값 초기화
+            constructTurret.constructionTime = SystemManager.Instance.TurretManager.turretConstructionTime[currentSelectedTurretIdx]; //건설에 걸리는 시간 초기화
+            constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
 
             //UI_TurretMngPanel 패널이 존재할 경우
             if (SystemManager.Instance.PanelManager.turretMngPanel)

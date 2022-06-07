@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UI_ResourcePanel : UI_Controller
 {
+    public string filePath;
+
     enum TextMeshProUGUIs
     {
         woodResourceText
