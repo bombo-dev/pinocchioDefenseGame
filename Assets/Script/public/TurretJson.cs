@@ -26,7 +26,7 @@ public class TurretDatas
     public int debuffType;
     public int debuffDuration;
     public int multiAttackRange;
-    public int bullet_index;
+    public int bulletIndex;
     public int damageEffectIndex;
     public int deadEffectIndex;
     public int fireEffectIndex;
