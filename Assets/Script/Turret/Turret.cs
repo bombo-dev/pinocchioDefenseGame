@@ -613,7 +613,6 @@ public class Turret : Actor
         switch (filePath)
         {
             case "Turret/PigeonTurret":
-                Debug.Log("PigeonTurret 초기화");
                 turretNum = turretDatas[0].turretNum;
                 maxHP = turretDatas[0].maxHP;
                 power = turretDatas[0].power;
