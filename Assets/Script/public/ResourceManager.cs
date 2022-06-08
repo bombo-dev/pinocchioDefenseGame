@@ -19,6 +19,9 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     int woodResourceIncreaseValue = 10;
 
+    //강화 나무 자원
+    public int[] colorWoodResource; //0 - red, 1- yellow, 2 - green, 3 - white, 4 - blue, 5 - black
+
     //시간 측정용 변수
     float timer;
 

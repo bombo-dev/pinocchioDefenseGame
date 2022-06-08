@@ -69,7 +69,6 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton20,
         TurretButton21,
         TurretButton22, //~22
-        TurretSummonButton,
         CloseTurretMngPanelButton
     }
     
@@ -89,9 +88,6 @@ public class UI_TurretMngPanel : UI_Controller
         {
             AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
         }
-
-        //터렛 소환 버튼 이벤트 추가
-        AddUIEvent(GetButton((int)Buttons.TurretSummonButton).gameObject, OnClickTurretSummonButton, Define.UIEvent.Click);
 
         //패널 닫기 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
@@ -131,12 +127,6 @@ public class UI_TurretMngPanel : UI_Controller
             //비용부족 처리
             return;
         }
-        else
-        {
-            //비용지불
-            SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
-        }
-        
 
         if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
         {
@@ -144,6 +134,10 @@ public class UI_TurretMngPanel : UI_Controller
             
             //예외처리
             if (!nestGo)
+                return;
+
+            //이미 터렛이 존재하거나 공사중일 경우
+            if (nestGo.GetComponent<Nest>().haveTurret || nestGo.GetComponent<Nest>().construction)
                 return;
 
             //공사용 터렛 소환
@@ -182,6 +176,9 @@ public class UI_TurretMngPanel : UI_Controller
                 //패널 비활성화
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
+
+            //비용지불
+            SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
         }
     }
 

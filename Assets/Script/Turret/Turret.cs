@@ -15,7 +15,7 @@ public class Turret : Actor
 
     [Header("buff")]  //버프
     //버프 정보 담을 자료구조 , <buff, durationTime>
-    Dictionary<buff, float> buffs = new Dictionary<buff, float>();
+    public Dictionary<buff, float> buffs = new Dictionary<buff, float>();
 
     [SerializeField]
     int[] buffEffectIndex;  //활성화할 버프 이펙트 번호
@@ -206,7 +206,7 @@ public class Turret : Actor
             UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
 
             //TurretInfo UI 최신정보로 업데이트
-            panel.Reset(false);
+            panel.Reset(false, false);
         }
 
         if (currentHP == 0)
@@ -257,7 +257,7 @@ public class Turret : Actor
             UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
 
             //TurretInfo UI 최신정보로 업데이트
-            panel.Reset(false);
+            panel.Reset(false, false);
         }
     }
 
@@ -500,30 +500,55 @@ public class Turret : Actor
             switch (buffIndex)
             {
                 case 1: //공격력 초기화
-                    currentPower = power;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentPower -= ((power + (power / 3)) / 3);
+                    else
+                        currentPower = power;
                     break;
                 case 2: //공격속도 초기화
                     currentAttackSpeed = attackSpeed;
                     break;
                 case 3: //회복력 초기화
-                    currentRegeneration = regeneration;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentRegeneration -= ((regeneration + (regeneration / 3)) / 3);
+                    else
+                        currentRegeneration = regeneration;
                     break;
                 case 4: //방어력 초기화
-                    currentDefense = defense;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentDefense -= ((defense + (defense / 3)) / 3);
+                    else
+                        currentDefense = defense;
                     break;
                 case 5: //사거리 초기화
                     currentRange = range;
                     currentMultiAttackRange = multiAttackRange;
                     break;
                 case 6: //올스텟 증가
-                    currentPower = power;
-                    currentDefense = defense;
-                    currentRegeneration = regeneration;
+                    if (buffs.ContainsKey(buff.IncreasePower))//공격력 버프가 존재할 경우
+                        currentPower -= ((power + (power / 3)) / 3);
+                    else
+                        currentPower = power;
+
+                    if(buffs.ContainsKey(buff.IncreaseDefense))//방어력 버프가 존재할 경우
+                        currentDefense -= ((defense + (defense / 3)) / 3);
+                    else
+                        currentDefense = defense;
+
+                    if (buffs.ContainsKey(buff.IncreaseRegeneration))//회복력 버프가 존재할 경우
+                        currentRegeneration -= ((regeneration + (regeneration / 3)) / 3);
+                    else
+                        currentRegeneration = regeneration;
                     break;
             }
 
             //버프 이펙트 제거
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(CurrentBuffEffectFilePath[buffIndex - 1], CurrentBuffEffect[buffIndex - 1]);
+
+            //UI업데이트
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                if (SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.activeSelf)
+                    SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
         }
     }
 
