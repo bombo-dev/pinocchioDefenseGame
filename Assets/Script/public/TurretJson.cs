@@ -17,7 +17,7 @@ public class TurretDatas
     public int maxHP;
     public int power;
     public int defense;
-    public double attackSpeed;
+    public float attackSpeed;
     public int range;
     public int regeneration;
     public int attackRangeType;
