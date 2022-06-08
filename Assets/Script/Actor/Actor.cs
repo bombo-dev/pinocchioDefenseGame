@@ -413,6 +413,20 @@ public class Actor : MonoBehaviour
                 Turret attacker = gameObject.GetComponent<Turret>();
                 enemy.DecreaseHP(attacker.currentPower);
 
+                // 데미지 UI 생성
+                GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, attackTargets[0]);
+
+                if (!damageMngPanelGo)
+                    return;
+
+                DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                // 데미지 UI 화면에 띄우기
+                damageMngPanel.ShowDamage(attacker.currentPower);
+
+                enemy.damageMngPanel = damageMngPanel;
+                damageMngPanel.damageOwner = enemy.gameObject;
+
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
                 {
