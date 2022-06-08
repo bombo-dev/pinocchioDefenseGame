@@ -81,6 +81,28 @@ public class GameFlowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //타임스케일 테스트
+
+        //X2
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (Time.timeScale == 1.0F)
+                Time.timeScale = 2.0F;
+            else
+                Time.timeScale = 1.0F;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+        }
+
+        //Stop
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (Time.timeScale == 1.0F)
+                Time.timeScale = 0;
+            else
+                Time.timeScale = 1.0F;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+        }
+
         UpdateGame();
     }
 

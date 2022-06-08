@@ -52,6 +52,13 @@ public class UI_TurretInfoPanel : UI_Controller
         TargetPointText 
     }
 
+    enum Gameobjects
+    {
+        ColorWoodScrollView,
+        TurretStatePanel,
+        IsConstructionPanel
+    }
+
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
     /// </summary>
@@ -62,6 +69,8 @@ public class UI_TurretInfoPanel : UI_Controller
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+        Bind<GameObject>(typeof(Gameobjects));
+
         isBind = true;//바인드 완료
 
         Reset();
@@ -85,6 +94,42 @@ public class UI_TurretInfoPanel : UI_Controller
         //바인드가 아직 안된 상태
         if (!isBind)
             return;
+
+        GameObject nestGo = SystemManager.Instance.InputManager.currenstSelectNest;
+
+        //공사중일때, 공사완료상태일때 UI구분
+        if (nestGo)
+        {
+            //공사중일 경우
+            if (nestGo.GetComponent<Nest>().construction)
+            {
+                ConstructionTurret constructionTurret = nestGo.GetComponent<Nest>().turret.GetComponent<ConstructionTurret>();
+
+                //이미지 정보 갱신
+                GetImage((int)Images.TurretInfoImage).sprite = turretSprite[constructionTurret.currentSelectedTurretIdx];
+
+                if (GetGameobject((int)Gameobjects.ColorWoodScrollView).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodScrollView).SetActive(false);
+                if (GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
+                    GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(false);
+
+                if (!GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
+                    GetGameobject((int)Gameobjects.IsConstructionPanel).SetActive(true);
+
+                return;
+            }
+            //공사 완료된 상태일 경우
+            else
+            {
+                if (!GetGameobject((int)Gameobjects.ColorWoodScrollView).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodScrollView).SetActive(true);
+                if (!GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
+                    GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(true);
+
+                if (GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
+                    GetGameobject((int)Gameobjects.IsConstructionPanel).SetActive(false);
+            }
+        }
 
         Turret turret = getTurret();
 
@@ -143,7 +188,12 @@ public class UI_TurretInfoPanel : UI_Controller
         //Color Wood정보 갱신
         for (int i = 0; i < MAXCOLORWOOD; i++)
         {
-            GetTextMeshProUGUI((int)i).text = SystemManager.Instance.ResourceManager.colorWoodResource[i].ToString();
+            GetTextMeshProUGUI((int)i).text = (turret.turretNum + 1).ToString() + "/" + SystemManager.Instance.ResourceManager.colorWoodResource[i].ToString();
+
+            if (turret.turretNum + 1 > SystemManager.Instance.ResourceManager.colorWoodResource[i])
+                GetTextMeshProUGUI((int)i).color = Color.red;
+            else
+                GetTextMeshProUGUI((int)i).color = Color.white;
         }
 
         //강화시 소비되는 ColorWood 개수 정보

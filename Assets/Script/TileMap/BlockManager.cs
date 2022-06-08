@@ -101,7 +101,6 @@ public class BlockManager : MonoBehaviour
         for (int i = 0; i < targetIndexArr.Length; i++)
         {
             goArr[i] = targetList[targetIndexArr[i]];
-            Debug.Log("goArr[i] = " + goArr[i]);
         }
 
         return goArr;

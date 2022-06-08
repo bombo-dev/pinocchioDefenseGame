@@ -131,13 +131,19 @@ public class UI_TurretMngPanel : UI_Controller
         if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
         {
             GameObject nestGo = SystemManager.Instance.InputManager.currenstSelectNest;
-            
+
             //예외처리
             if (!nestGo)
                 return;
 
+            Nest nest = nestGo.GetComponent<Nest>();
+
+            //예외처리
+            if (!nest)
+                return;
+
             //이미 터렛이 존재하거나 공사중일 경우
-            if (nestGo.GetComponent<Nest>().haveTurret || nestGo.GetComponent<Nest>().construction)
+            if (nest.haveTurret || nest.construction)
                 return;
 
             //공사용 터렛 소환
@@ -165,7 +171,8 @@ public class UI_TurretMngPanel : UI_Controller
             constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
 
             //공사중정보 둥지에 전달
-            nestGo.GetComponent<Nest>().construction = true;
+            nest.construction = true;
+            nest.turret = turretGo;
 
             //터렛 공사시작
             constructTurret.startConstruction = true;   //공사시작
