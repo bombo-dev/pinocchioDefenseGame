@@ -52,15 +52,24 @@ public class TurretManager : MonoBehaviour
     {
         GameObject go = EnableTurret(BASETURRET_INDEX, Vector3.zero);
 
+        if (!go)
+            return;
+
         //위치 초기화
         go.transform.localPosition = new Vector3(0f, 0f, -178f);
 
         Turret baseTurret = go.GetComponent<Turret>();
         // 터렛 상태 관리 패널 생성
-        SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, baseTurret.hpPos.transform.position, baseTurret.turretIndex, baseTurret.GetType());
-        //Debug.Log("turret.type=" + turret.GetType().Name);
+        GameObject statusMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go);
+
         if (!SystemManager.Instance.PanelManager.statusMngPanel)
             return;
+
+        StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
+        baseTurret.statusMngPanel = statusMngPanel;
+
+        statusMngPanel.panelPos = baseTurret.transform.position;
+        statusMngPanel.hpBarOwner = go;
     }
 
     /// <summary>

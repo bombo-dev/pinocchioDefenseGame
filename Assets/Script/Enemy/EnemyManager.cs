@@ -82,15 +82,24 @@ public class EnemyManager : MonoBehaviour
         enemy.targetPoint = SystemManager.Instance.TileManager.CreateTileMapArr(targetPoint);
 
         //적을 초기상태로
-        enemy.Reset();      
+        enemy.Reset();
 
         // 에너미 상태 관리 패널 생성        
-        SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, enemy.hpPos.transform.position, enemy.enemyIndex, enemy.GetType());
-
-        if (!SystemManager.Instance.PanelManager.statusMngPanel)
+        GameObject statusMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go);
+        
+        if (!statusMngPanelGo)
         {
             Debug.Log("Enable statusMngPanel is null");
+            return;
         }
+
+        StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
+
+        // 패널 정보 넘겨줌
+        enemy.statusMngPanel = statusMngPanel;
+
+        statusMngPanel.panelPos = enemy.hpPos.transform.position;
+        statusMngPanel.hpBarOwner = go;
     }
 
     /// <summary>

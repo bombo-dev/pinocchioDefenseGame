@@ -14,6 +14,10 @@ public class StatusMngPanel : UI_Controller
 
     public string filePath;
 
+    public Vector3 panelPos;
+
+    public GameObject hpBarOwner;
+
     [SerializeField]
     GameObject[] Debuffs;
 
@@ -104,12 +108,12 @@ public class StatusMngPanel : UI_Controller
         GetSlider((int)Sliders.HPBar).value = 1.0f/1.0f;
         Fill.color = Color.red;
 
-        // 디버프 정보 Reset
-        /*for(int i=0; i<Debuffs.Length; i++)
+        //디버프 정보 Reset
+        for(int i=0; i<Debuffs.Length; i++)
         {
             Debuffs[i].SetActive(false);
             Debuffs[i].GetComponentInChildren<TextMeshProUGUI>().text = null;
         }
-        */
+
     }
 }
