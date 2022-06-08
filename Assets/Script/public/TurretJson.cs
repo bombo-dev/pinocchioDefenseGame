@@ -33,6 +33,8 @@ public class TurretDatas
     public int healEffectIndex;
     public int debuffEffectIndex;
     public float turretAppearPosY;
+    public int turretCost;
+    public int turretConstructionTime;
     public string filepath;
 }
 
