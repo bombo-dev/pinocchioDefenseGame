@@ -32,7 +32,7 @@ public class TurretDatas
     public int fireEffectIndex;
     public int healEffectIndex;
     public int debuffEffectIndex;
-    public double turretAppearPosY;
+    public float turretAppearPosY;
     public string filepath;
 }
 
