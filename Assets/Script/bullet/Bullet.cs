@@ -142,7 +142,7 @@ public class Bullet : MonoBehaviour
                 DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
                 
                 // 데미지 UI 화면에 띄우기
-                damageMngPanel.ShowDamage(attacker.power);
+                damageMngPanel.ShowDamage(attacker.currentPower);
 
                 enemy.damageMngPanel = damageMngPanel;
                 damageMngPanel.damageOwner = enemy.gameObject;
@@ -177,7 +177,7 @@ public class Bullet : MonoBehaviour
                 DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
                 
                 // 데미지 UI 화면에 띄우기
-                damageMngPanel.ShowDamage(attacker.power);     
+                damageMngPanel.ShowDamage(attacker.currentPower);     
                 
                 damageMngPanel.damageOwner = turret.gameObject;
                 turret.damageMngPanel = damageMngPanel;
