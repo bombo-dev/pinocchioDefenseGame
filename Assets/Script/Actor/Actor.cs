@@ -183,7 +183,7 @@ public class Actor : MonoBehaviour
     [SerializeField]
     protected TurretDatas turretDatas;
     [SerializeField]
-    protected MonsterData monsterDatas;
+    protected EnemyData enemyDatas;
 
     // Start is called before the first frame update
     void Start()
