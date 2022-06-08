@@ -416,8 +416,8 @@ public class Actor : MonoBehaviour
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
                 {
+                    Debug.Log("******디버프*******");
                     enemy.AddDebuff(debuffType, debuffDuration);
-
                     //피 공격자에게 디버프 이펙트 출력
                     enemy.EnableDebuffEffect(attacker);
                 }

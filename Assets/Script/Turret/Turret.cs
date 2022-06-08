@@ -46,7 +46,10 @@ public class Turret : Actor
     int turretCost;
     //터렛 건설에 걸리는 시간
     int turretConstructionTime;
-    
+
+    public StatusMngPanel statusMngPanel;
+
+    public DamageMngPanel damageMngPanel;
 
     private void Start()
     {
@@ -191,9 +194,8 @@ public class Turret : Actor
         base.DecreaseHP(damage);
 
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        if (statusMngPanel)
         {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
@@ -216,17 +218,13 @@ public class Turret : Actor
             {
                 //게임오버
                 return;
-            }    
+            }
 
-
-            //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.
-            //;
-            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
-            //터렛 
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.StatusReset();
+            //패널 비활성화
+            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(statusMngPanel.gameObject);
             
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
+            //패널 정보 리셋
+            statusMngPanel.StatusReset();
 
             SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
 
@@ -243,9 +241,8 @@ public class Turret : Actor
     {
         base.IncreaseHP(recoveryPower);
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        if (statusMngPanel)
         {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
@@ -341,9 +338,8 @@ public class Turret : Actor
     {
         base.AddDebuff(debuffIndex, time);
         
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+        if (statusMngPanel)
+        {            
             statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
         }
         else
@@ -388,7 +384,6 @@ public class Turret : Actor
         }
 
 
-        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[turretIndex].GetComponent<StatusMngPanel>();
         statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
     }
     #endregion
@@ -615,19 +610,15 @@ public class Turret : Actor
     {
         base.UpdatePanelPos();
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+   
+        if (statusMngPanel)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
+            statusMngPanel.gameObject.transform.position = screenPos;
         }
+        
 
-        if (SystemManager.Instance.PanelManager.damageMngPanel)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
-            //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
-        }
     }
 
     #region TurretInitilizing 터렛 초기화

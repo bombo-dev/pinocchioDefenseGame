@@ -186,6 +186,7 @@ public class UI_TurretMngPanel : UI_Controller
 
             //비용지불
             SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
+
         }
     }
 

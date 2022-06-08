@@ -14,10 +14,10 @@ public class PanelManager : MonoBehaviour
     }
 
     // 활성화된 turret의 HPBar 패널을 저장할 리스트
-    public List<GameObject> turretHPBars;
+    //public List<GameObject> turretHPBars;
 
     // 활성화된 enemy의 HPBar 패널을 저장할 리스트
-    public List<GameObject> enemyHPBars;
+    //public List<GameObject> enemyHPBars;
 
 
 
@@ -40,7 +40,7 @@ public class PanelManager : MonoBehaviour
     //filePath, cacheCount 저장
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
-
+   
 
     // Start is called before the first frame update
     void Start()
@@ -98,17 +98,22 @@ public class PanelManager : MonoBehaviour
     /// /// <param name="_gameobject">패널에 게임오브젝트 정보를 연결해야 할 경우 사용</param>
     public GameObject EnablePanel<T>(int panelIndex, GameObject _gameobject = null) where T : UnityEngine.Component
     {
+        
         //예외처리
         if (panelIndex >= prefabCacheDatas.Length || prefabCacheDatas[panelIndex].filePath == null)
             return null;
-
+       
         //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[panelIndex].filePath);
 
         if (go == null)
             return null;
 
-        
+
+        Vector3 screenPos;
+        Enemy enemy;
+        Turret turret;
+
         T compoenent = go.GetComponent<T>();
 
         if (typeof(T) == typeof(UI_TurretMngPanel))
@@ -127,15 +132,19 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(StageMngPanel))
         {
             stageMngPanel = (compoenent as StageMngPanel);
+
         }
-        /*
         else if (typeof(T) == typeof(StatusMngPanel))
         {
             statusMngPanel = (compoenent as StatusMngPanel);
-            // (compoenent as StatusMngPanel).Reset();
-            
+            // hpBar 패널 위치 초기화   
         }
-        */
+        else if (typeof(T) == typeof(DamageMngPanel))
+        {
+            damageMngPanel = (compoenent as DamageMngPanel);
+            // hpBar 패널 위치 초기화   
+        }
+
         else if (typeof(T) == typeof(UI_ResourcePanel))
         {
             resoursePanel = (compoenent as UI_ResourcePanel);
@@ -148,135 +157,60 @@ public class PanelManager : MonoBehaviour
             if (!_gameobject)
                 return null;
 
-            //패널의 게임오브젝트 정보 저장
-            constructionGaguePanel.constructionTurret = _gameobject.GetComponent<ConstructionTurret>();
+            if (constructionGaguePanel)
+            {
+                //패널의 게임오브젝트 정보 저장
+                constructionGaguePanel.constructionTurret = _gameobject.GetComponent<ConstructionTurret>();
 
-            //건설 게이지 패널 위치 설정
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(constructionGaguePanel.constructionTurret.gauegePos.transform.position);
+                //건설 게이지 패널 위치 설정
+                screenPos = Camera.main.WorldToScreenPoint(constructionGaguePanel.constructionTurret.gauegePos.transform.position);
+                go.transform.position = screenPos;
+            }
+            else if (typeof(T) == typeof(StatusMngPanel))
+            {
+                Vector3 panelPos;
+                if (_gameobject.GetType().Name == "Enemy")
+                {
+                    enemy = _gameobject.GetComponent<Enemy>();
+                    panelPos = enemy.hpPos.transform.position;
+                }
+                else if (_gameobject.GetType().Name == "Turret")
+                {
+                    turret = _gameobject.GetComponent<Turret>();
+                    panelPos = turret.hpPos.transform.position;
+                }
+                else
+                    return null;
+                screenPos = Camera.main.WorldToScreenPoint(panelPos);
+                go.transform.position = screenPos;
+            }
+
+        }
+
+        if (typeof(T) == typeof(DamageMngPanel))
+        {
+            Debug.Log("********damage*******");
+            Vector3 panelPos;
+            if (_gameobject.tag == "Enemy")
+            {
+                enemy = _gameobject.GetComponent<Enemy>();
+                panelPos = enemy.hitPos.transform.position;
+            }
+            else if (_gameobject.tag == "Turret")
+            {
+                turret = _gameobject.GetComponent<Turret>();
+                panelPos = turret.hitPos.transform.position;
+            }
+            else
+                return null;
+
+            screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
         }
 
         return go;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="panelIndex"></param>
-    /// <param name="startPos"></param>
-    /// <param name="hpBarsPanelIndex"></param>
-    public void EnablePanel<T>(int panelIndex, Vector3 startPos, int hpBarsPanelIndex, System.Type type) where T : UnityEngine.Component
-    {
-        
-        //예외처리
-        if (panelIndex >= prefabCacheDatas.Length || prefabCacheDatas[panelIndex].filePath == null)
-            return;
-
-
-        //생성한 프리팹 게임오브젝트 정보 받아오기
-        GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[panelIndex].filePath);
-
-        if (go == null)
-            return;
-
-        T compoenent = go.GetComponent<T>();
-
-        if (typeof(T) == typeof(StatusMngPanel))
-        {
-            statusMngPanel = (compoenent as StatusMngPanel);
-            //(compoenent as StatusMngPanel).Reset();
-            //go.transform.SetAsFirstSibling();
-        }
-        else if (typeof(T) == typeof(DamageMngPanel))
-        {
-            damageMngPanel = (compoenent as DamageMngPanel);
-            //go.transform.SetAsFirstSibling();
-        }
-        else
-            return;
-
-        if (typeof(T) == typeof(StatusMngPanel))
-        {
-            // HPBar 리스트에 삽입
-            if (type.Name == "Turret")
-            {
-                turretHPBars.Add(go);
-                //statusMngPanel.turretHPBarIndex = turretHPBars.FindIndex(x => x == go);
-                statusMngPanel.SetHPBarColor();
-            }
-
-            else if (type.Name == "Enemy")
-            {
-                enemyHPBars.Add(go);
-                //statusMngPanel.enemyHPBarIndex = enemyHPBars.FindIndex(x => x == go);
-            }
-        }        
-
-        //패널 위치 초기화
-        if (typeof(T) == typeof(StatusMngPanel))
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y + 30, startPos.z));
-            go.transform.position = screenPos;
-        }
-
-        else if (typeof(T) == typeof(DamageMngPanel))
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(startPos.x, startPos.y, startPos.z));
-            go.transform.position = screenPos;
-        }      
-
-    }
-    
-    public void ReorganizationPanelList(int removePanelIndex, System.Type type)
-    {
-        List<GameObject> tempPanels = new List<GameObject>();
-        int index = 0;
-        int listLength;        
-
-        if (type.Name == "Turret")
-            listLength = turretHPBars.Count;
-        else if (type.Name == "Enemy")
-            listLength = enemyHPBars.Count;
-        else
-        {
-            Debug.LogError("ReorganizationPanelList Error!");
-            return;
-        }
-
-        for (int i = 0; i < listLength; i++)
-        {
-            //제거할 gameObject면 제외
-            if (i != removePanelIndex)
-            {
-                //enemies[i]가 null이면 제외
-                if (type.Name == "Turret" && turretHPBars[i])
-                {
-                    //리스트 재구성
-                    tempPanels.Add(turretHPBars[i]);
-                    //panelIndex번호 초기화
-                    turretHPBars[i].GetComponent<StatusMngPanel>().turretHPBarIndex = index;
-
-                    index++;
-                }
-                else if (type.Name == "Enemy" && enemyHPBars[i])
-                {
-                    //리스트 재구성
-                    tempPanels.Add(enemyHPBars[i]);
-                    //panelIndex번호 초기화
-                    enemyHPBars[i].GetComponent<StatusMngPanel>().enemyHPBarIndex = index;
-
-                    index++;
-                }
-            }
-        }//end of for
-
-        if (type.Name == "Turret")
-            turretHPBars = tempPanels;
-        else if (type.Name == "Enemy")
-            enemyHPBars = tempPanels;
-    }
-    
 
     public void DisablePanel<T>(GameObject go) where T: UnityEngine.Component
     {
@@ -311,6 +245,7 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as StatusMngPanel).filePath;
             statusMngPanel = null;
+
         }
         else if (typeof(T) == typeof(DamageMngPanel))
         {
