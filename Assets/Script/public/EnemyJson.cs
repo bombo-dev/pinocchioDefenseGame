@@ -66,9 +66,9 @@ public class EnemyJson : MonoBehaviour
 
         EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
 
-        Debug.Log(enemyData[0].appearPos[0].X + " , " + enemyData[0].appearPos[0].Y + " , " + enemyData[0].appearPos[0].Z);
-        Debug.Log(enemyData[0].appearPos[1].X + " , " + enemyData[0].appearPos[1].Y + " , " + enemyData[0].appearPos[1].Z);
-        Debug.Log(enemyData[0].appearPos[2].X + " , " + enemyData[0].appearPos[2].Y + " , " + enemyData[0].appearPos[2].Z);
+        // Debug.Log(enemyData[0].appearPos[0].X + " , " + enemyData[0].appearPos[0].Y + " , " + enemyData[0].appearPos[0].Z);
+        // Debug.Log(enemyData[0].appearPos[1].X + " , " + enemyData[0].appearPos[1].Y + " , " + enemyData[0].appearPos[1].Z);
+        // Debug.Log(enemyData[0].appearPos[2].X + " , " + enemyData[0].appearPos[2].Y + " , " + enemyData[0].appearPos[2].Z);
     }
 
     public EnemyData[] GetEnemyData()
