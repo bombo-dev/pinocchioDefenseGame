@@ -5,7 +5,7 @@ using System.IO;
 using System;
 
 [Serializable]
-public class MonsterData
+public class EnemyData
 {
     public int enemyIndex;
     public int maxHP;
@@ -53,9 +53,9 @@ public class EnemyJson : MonoBehaviour
         string filepath = Path.Combine(Application.streamingAssetsPath, "Monster.json");
         string jsonString = File.ReadAllText(filepath);
 
-        MonsterData[] monsterData = JsonMonsterHelper.FromJson<MonsterData>(jsonString);
+        EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
 
-        Debug.Log(monsterData[0].filepath);
+        Debug.Log(enemyData[0].filepath);
     }
 
 }
@@ -68,19 +68,19 @@ public static class JsonMonsterHelper
     [Serializable]
     private class Wrapper<T> 
     {
-        public T[] Monster;
+        public T[] Enemy;
     }
 
     public static T[] FromJson<T>(string json) 
     {
         Wrapper<T> wrapper = UnityEngine.JsonUtility.FromJson<Wrapper<T>>(json);
-        return wrapper.Monster;
+        return wrapper.Enemy;
     }
 
     public static string ToJson<T>(T[] array) 
     {
         Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Monster = array;
+        wrapper.Enemy = array;
         return UnityEngine.JsonUtility.ToJson(wrapper);
     }
 }
