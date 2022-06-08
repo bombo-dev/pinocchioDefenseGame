@@ -476,7 +476,7 @@ public class Turret : Actor
 
         //HP즉시회복은 중첩 적용, HP가 0이 아닐경우
         if(buffIndex == 3 && currentHP != 0)
-            IncreaseHP(currentHP / 3);
+            IncreaseHP(maxHP / 5);
 
         //버프 이펙트 위치 재배치
         RePositionBuffEffect();
