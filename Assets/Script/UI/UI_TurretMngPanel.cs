@@ -69,7 +69,6 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton20,
         TurretButton21,
         TurretButton22, //~22
-        TurretSummonButton,
         CloseTurretMngPanelButton
     }
     
@@ -89,9 +88,6 @@ public class UI_TurretMngPanel : UI_Controller
         {
             AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
         }
-
-        //터렛 소환 버튼 이벤트 추가
-        AddUIEvent(GetButton((int)Buttons.TurretSummonButton).gameObject, OnClickTurretSummonButton, Define.UIEvent.Click);
 
         //패널 닫기 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
@@ -131,19 +127,23 @@ public class UI_TurretMngPanel : UI_Controller
             //비용부족 처리
             return;
         }
-        else
-        {
-            //비용지불
-            SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
-        }
-        
 
         if (currentSelectedTurretIdx >= 0 && currentSelectedTurretIdx < MAXTURRET && SystemManager.Instance.InputManager.currenstSelectNest != null)
         {
             GameObject nestGo = SystemManager.Instance.InputManager.currenstSelectNest;
-            
+
             //예외처리
             if (!nestGo)
+                return;
+
+            Nest nest = nestGo.GetComponent<Nest>();
+
+            //예외처리
+            if (!nest)
+                return;
+
+            //이미 터렛이 존재하거나 공사중일 경우
+            if (nest.haveTurret || nest.construction)
                 return;
 
             //공사용 터렛 소환
@@ -171,7 +171,8 @@ public class UI_TurretMngPanel : UI_Controller
             constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
 
             //공사중정보 둥지에 전달
-            nestGo.GetComponent<Nest>().construction = true;
+            nest.construction = true;
+            nest.turret = turretGo;
 
             //터렛 공사시작
             constructTurret.startConstruction = true;   //공사시작
@@ -183,7 +184,8 @@ public class UI_TurretMngPanel : UI_Controller
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
 
-
+            //비용지불
+            SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
 
         }
     }

@@ -56,12 +56,12 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
-    TileManager tileManager;
-    public TileManager TileManager
+    BlockManager blockManager;
+    public BlockManager BlockManager
     {
         get
         {
-            return tileManager;
+            return blockManager;
         }
     }
 
@@ -133,6 +133,26 @@ public class SystemManager : MonoBehaviour
         get
         {
             return shaderController;
+        }
+    }
+
+    [SerializeField]
+    EnemyJson enemyJson;
+    public EnemyJson EnemyJson
+    {
+        get
+        {
+            return enemyJson;
+        }
+    }
+
+    [SerializeField]
+    TurretJson turretJson;
+    public TurretJson TurretJson
+    {
+        get
+        {
+            return turretJson;
         }
     }
 

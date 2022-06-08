@@ -91,11 +91,10 @@ public class InputManager : MonoBehaviour
                     SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
                 }
 
-                if (!SystemManager.Instance.PanelManager.turretMngPanel)
+                if (!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
-                
-                if(SystemManager.Instance.PanelManager.turretInfoPanel)//이미 InfoPanel이 존재할 경우 Reset해서 정보만 갱신
-                    SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
+ 
+                 SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
             }
             else
             {

@@ -91,6 +91,10 @@ public class ConstructionTurret : MonoBehaviour
             //변수 초기화
             Reset();
 
+            //TurretIngoPanel 있는경우 초기화
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
+
             //공사용 터렛 제거
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }

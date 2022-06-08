@@ -79,7 +79,7 @@ public class EnemyManager : MonoBehaviour
         enemy.enemyIndex = enemies.FindIndex(x => x == go); //enemise 리스트의 인덱스와 일치하는 번호 저장
 
         enemy.gateNum = gateNum;
-        enemy.targetPoint = SystemManager.Instance.TileManager.CreateTileMapArr(targetPoint);
+        enemy.targetPoint = SystemManager.Instance.BlockManager.CreateTargetArr(targetPoint);
 
         //적을 초기상태로
         enemy.Reset();

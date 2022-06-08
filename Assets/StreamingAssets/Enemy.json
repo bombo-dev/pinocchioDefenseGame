@@ -1,148 +1,1037 @@
 {
-  "Monster" : [
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 15,
-	"attackSpeed" : 2,
-	"range" : 1225,
-	"regeneration" : 0,
-	"attackRangeType" : 0,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 1,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 0,
-	"bullet_index" : 0,
-	"damageEffectIndex" : 2,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/SwordMan"
-	},
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 10,
-	"attackSpeed" : 2,
-	"range" : 1225,
-	"regeneration" : 0,
-	"attackRangeType" : 0,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 1,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 0,
-	"bullet_index" : 0,
-	"damageEffectIndex" : 2,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/SpearMan"
-	},
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 18,
-	"attackSpeed" : 2,
-	"range" : 2500,
-	"regeneration" : 0,
-	"attackRangeType" : 1,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 1,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 0,
-	"bullet_index" : 5,
-	"damageEffectIndex" : 2,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/BowMan"
-	},
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 25,
-	"attackSpeed" : 0,
-	"range" : 0,
-	"regeneration" : 0,
-	"attackRangeType" : 0,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 0,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 0,
-	"bullet_index" : 0,
-	"damageEffectIndex" : 2,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/HorseMan"
-	},
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 9,
-	"attackSpeed" : 0,
-	"range" : 0,
-	"regeneration" : 0,
-	"attackRangeType" : 0,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 0,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 0,
-	"bullet_index" : 0,
-	"damageEffectIndex" : 2,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/ShieldMan"
-	},
-	{
-	"enemyIndex" : 0,
-	"maxHP" : 50,
-	"power" : 10,
-	"defense" : 10,
-	"speed" : 25,
-	"attackSpeed" : 3,
-	"range" : 2500,
-	"regeneration" : 0,
-	"attackRangeType" : 1,
-	"isRecoveryTower" : false,
-	"attackTargetNum" : 3,
-	"debuffType" : 0,
-	"debuffDuration" : 0,
-	"multiAttackRange" : 10000,
-	"bullet_index" : 6,
-	"damageEffectIndex" : 4,
-	"deadEffectIndex" : 1,
-	"fireEffectIndex" : -1,
-	"healEffectIndex" : -1,
-	"debuffEffectIndex" : -1,
-	"appearPos" : 3,
-	"filepath" : "Enemy/DarkKnight"
-	}
-  ]
+	"Enemy": [
+		{
+			"enemyNum": 0,
+			"enemyIndex": 0,
+			"maxHP": 50,
+			"power": 10,
+			"defense": 10,
+			"speed": 12,
+			"attackSpeed": 0,
+			"range": 0,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 0,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 30,
+			"filepath": "Enemy/Larva"
+		},
+		{
+			"enemyNum": 1,
+			"enemyIndex": 0,
+			"maxHP": 80,
+			"power": 10,
+			"defense": 10,
+			"speed": 15,
+			"attackSpeed": 2,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 50,
+			"filepath": "Enemy/SwordMan"
+		},
+		{
+			"enemyNum": 2,
+			"enemyIndex": 0,
+			"maxHP": 80,
+			"power": 10,
+			"defense": 10,
+			"speed": 12,
+			"attackSpeed": 1.5,
+			"range": 3300,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -164,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -164,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -164,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 100,
+			"filepath": "Enemy/CannonLarva"
+		},
+		{
+			"enemyNum": 3,
+			"enemyIndex": 0,
+			"maxHP": 70,
+			"power": 10,
+			"defense": 10,
+			"speed": 18,
+			"attackSpeed": 3,
+			"range": 1200,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": true,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 10000,
+			"bullet_index": 6,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 46,
+			"healEffectIndex": 43,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -157.2,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -157.2,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -157.2,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 110,
+			"filepath": "Enemy/Wagon"
+		},
+		{
+			"enemyNum": 4,
+			"enemyIndex": 0,
+			"maxHP": 200,
+			"power": 7,
+			"defense": 15,
+			"speed": 25,
+			"attackSpeed": 0.5,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -161.3,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -161.3,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -161.3,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 200,
+			"filepath": "Enemy/StagBeetle"
+		},
+		{
+			"enemyNum": 5,
+			"enemyIndex": 0,
+			"maxHP": 320,
+			"power": 10,
+			"defense": 20,
+			"speed": 8,
+			"attackSpeed": 0,
+			"range": 0,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 0,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 300,
+			"filepath": "Enemy/ShieldMan"
+		},
+		{
+			"enemyNum": 6,
+			"enemyIndex": 0,
+			"maxHP": 250,
+			"power": 14,
+			"defense": 13,
+			"speed": 15,
+			"attackSpeed": 2,
+			"range": 3000,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 250,
+			"filepath": "Enemy/SpearMan"
+		},
+		{
+			"enemyNum": 7,
+			"enemyIndex": 0,
+			"maxHP": 300,
+			"power": 0,
+			"defense": 13,
+			"speed": 25,
+			"attackSpeed": 0,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 0,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -168.5,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -168.5,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -168.5,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 300,
+			"filepath": "Enemy/HorseMan"
+		},
+		{
+			"enemyNum": 8,
+			"enemyIndex": 0,
+			"maxHP": 350,
+			"power": 15,
+			"defense": 20,
+			"speed": 20,
+			"attackSpeed": 3,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 5,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 10000,
+			"bullet_index": 13,
+			"damageEffectIndex": 35,
+			"deadEffectIndex": 33,
+			"fireEffectIndex": 12,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -149.8,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -149.8,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -149.8,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 400,
+			"filepath": "Enemy/Bull"
+		},
+		{
+			"enemyNum": 9,
+			"enemyIndex": 0,
+			"maxHP": 250,
+			"power": 15,
+			"defense": 10,
+			"speed": 18,
+			"attackSpeed": 1.5,
+			"range": 3300,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 5,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 330,
+			"filepath": "Enemy/BowMan"
+		},
+		{
+			"enemyNum": 10,
+			"enemyIndex": 0,
+			"maxHP": 400,
+			"power": 40,
+			"defense": 25,
+			"speed": 18,
+			"attackSpeed": 3,
+			"range": 3200,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 3,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 6000,
+			"bullet_index": 11,
+			"damageEffectIndex": 31,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 32,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -147,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -147,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -147,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 450,
+			"filepath": "Enemy/ShacklesMan"
+		},
+		{
+			"enemyNum": 11,
+			"enemyIndex": 0,
+			"maxHP": 200,
+			"power": 30,
+			"defense": 20,
+			"speed": 18,
+			"attackSpeed": 3,
+			"range": 3300,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": true,
+			"selfDestruct": false,
+			"attackTargetNum": 5,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 10000,
+			"bullet_index": 6,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 47,
+			"healEffectIndex": 43,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -157.2,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -157.2,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -157.2,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 400,
+			"filepath": "Enemy/Wagon2"
+		},
+		{
+			"enemyNum": 12,
+			"enemyIndex": 0,
+			"maxHP": 550,
+			"power": 40,
+			"defense": 30,
+			"speed": 16,
+			"attackSpeed": 2.5,
+			"range": 5500,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 12,
+			"damageEffectIndex": 33,
+			"deadEffectIndex": -1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -149.8,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -149.8,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -149.8,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 550,
+			"filepath": "Enemy/Elephant"
+		},
+		{
+			"enemyNum": 13,
+			"enemyIndex": 0,
+			"maxHP": 350,
+			"power": 35,
+			"defense": 20,
+			"speed": 16,
+			"attackSpeed": 2.5,
+			"range": 3500,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 2,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 5000,
+			"bullet_index": 6,
+			"damageEffectIndex": 29,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 30,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 450,
+			"filepath": "Enemy/Wizard"
+		},
+		{
+			"enemyNum": 14,
+			"enemyIndex": 0,
+			"maxHP": 550,
+			"power": 40,
+			"defense": 25,
+			"speed": 25,
+			"attackSpeed": 3.0,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 2,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 28,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -159.6,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -159.6,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -159.6,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 500,
+			"filepath": "Enemy/Scorpion"
+		},
+		{
+			"enemyNum": 15,
+			"enemyIndex": 0,
+			"maxHP": 650,
+			"power": 40,
+			"defense": 25,
+			"speed": 16,
+			"attackSpeed": 2,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 37,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkSwordMan"
+		},
+		{
+			"enemyNum": 16,
+			"enemyIndex": 0,
+			"maxHP": 999,
+			"power": 0,
+			"defense": 40,
+			"speed": 45,
+			"attackSpeed": 0,
+			"range": 0,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 0,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -164,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -164,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -164,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkLarva"
+		},
+		{
+			"enemyNum": 17,
+			"enemyIndex": 0,
+			"maxHP": 750,
+			"power": 0,
+			"defense": 55,
+			"speed": 10,
+			"attackSpeed": 0,
+			"range": 0,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 0,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/GateKeeper"
+		},
+		{
+			"enemyNum": 18,
+			"enemyIndex": 0,
+			"maxHP": 500,
+			"power": 40,
+			"defense": 30,
+			"speed": 25,
+			"attackSpeed": 2,
+			"range": 7000,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": true,
+			"selfDestruct": false,
+			"attackTargetNum": 6,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 10000,
+			"bullet_index": 6,
+			"damageEffectIndex": 1,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": 47,
+			"healEffectIndex": 43,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -157.2,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -157.2,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -157.2,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/Wagon3"
+		},
+		{
+			"enemyNum": 19,
+			"enemyIndex": 0,
+			"maxHP": 700,
+			"power": 18,
+			"defense": 30,
+			"speed": 35,
+			"attackSpeed": 0.3,
+			"range": 2500,
+			"regeneration": 0,
+			"attackRangeType": 0,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 0,
+			"damageEffectIndex": 37,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -161.3,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -161.3,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -161.3,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkStagBeetle"
+		},
+		{
+			"enemyNum": 20,
+			"enemyIndex": 0,
+			"maxHP": 650,
+			"power": 30,
+			"defense": 25,
+			"speed": 20,
+			"attackSpeed": 1.5,
+			"range": 9999,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 15,
+			"damageEffectIndex": 37,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkBowMan"
+		},
+		{
+			"enemyNum": 21,
+			"enemyIndex": 0,
+			"maxHP": 650,
+			"power": 40,
+			"defense": 45,
+			"speed": 25,
+			"attackSpeed": 2,
+			"range": 2000,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 5,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 6,
+			"damageEffectIndex": 4,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -168.5,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -168.5,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -168.5,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkKnight"
+		},
+		{
+			"enemyNum": 22,
+			"enemyIndex": 0,
+			"maxHP": 800,
+			"power": 80,
+			"defense": 55,
+			"speed": 20,
+			"attackSpeed": 2.5,
+			"range": 8000,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 1,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 0,
+			"bullet_index": 14,
+			"damageEffectIndex": 36,
+			"deadEffectIndex": 33,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -149.8,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -149.8,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -149.8,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 999,
+			"filepath": "Enemy/DarkElephant"
+		},
+		{
+			"enemyNum": 23,
+			"enemyIndex": 0,
+			"maxHP": 700,
+			"power": 80,
+			"defense": 40,
+			"speed": 30,
+			"attackSpeed": 2,
+			"range": 4000,
+			"regeneration": 0,
+			"attackRangeType": 1,
+			"isRecoveryTower": false,
+			"selfDestruct": false,
+			"attackTargetNum": 10,
+			"debuffType": 0,
+			"debuffDuration": 0,
+			"multiAttackRange": 15000,
+			"bullet_index": 14,
+			"damageEffectIndex": 38,
+			"deadEffectIndex": 1,
+			"fireEffectIndex": -1,
+			"healEffectIndex": -1,
+			"debuffEffectIndex": -1,
+			"appearPos": [
+				{
+					"X": -85,
+					"Y": -150,
+					"Z": 257.5
+				},
+				{
+					"X": 0,
+					"Y": -150,
+					"Z": 300
+				},
+				{
+					"X": 85,
+					"Y": -150,
+					"Z": 257.5
+				}
+			],
+			"rewardWoodResource": 3333,
+			"filepath": "Enemy/DarkWizard"
+		}
+
+	]
 }

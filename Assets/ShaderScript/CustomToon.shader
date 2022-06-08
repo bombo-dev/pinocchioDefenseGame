@@ -25,10 +25,15 @@ Shader "Custom/CustomToon"
         _OutLineOption("OutLineOption", int) = 0 //0. NoOutLine       1.Black      2.Color 
         _OutLineColor("OutLineColor", Color) = (0,0,0,1)
         _OutLinePower("OutLine Power", float) = 0.3
+
+        [Header(Cull)]
+        [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull mode", Float) = 2
     }
         SubShader
         {
         Tags { "RenderType" = "Opaque" }
+
+        Cull[_Cull]
 
         CGPROGRAM
         #pragma surface surf Toon fullforwardshadows

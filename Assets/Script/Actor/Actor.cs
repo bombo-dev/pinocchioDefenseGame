@@ -28,7 +28,7 @@ public class Actor : MonoBehaviour
     public enum buff  //버프 종류
     {
         None,   //초기값 0
-        IncreaseAttack,    //공격력 증가 1, 빨간나무
+        IncreasePower,    //공격력 증가 1, 빨간나무
         IncreaseAttackSpeed,   //공격속도 증가 2, 노랑나무
         IncreaseRegeneration,    //회복력 증가 3, 초록나무
         IncreaseDefense,  //방어력 증가 4, 하얀나무
@@ -69,13 +69,13 @@ public class Actor : MonoBehaviour
     protected int range;  //사거리
 
     [SerializeField]
-    protected int currentRange;  //현재 사거리
+    public int currentRange;  //현재 사거리
 
     [SerializeField]
     protected int regeneration;   // 회복력
 
     [SerializeField]
-    protected int currentRegeneration;   // 회복력
+    public int currentRegeneration;   // 회복력
 
     [Header("Debuff")]  //디버프
     public Dictionary<debuff, Debuff> debuffs = new Dictionary<debuff, Debuff>();
@@ -181,9 +181,9 @@ public class Actor : MonoBehaviour
 
     //JsonData
     [SerializeField]
-    protected TurretDatas turretDatas;
+    protected TurretDatas[] turretDatas;
     [SerializeField]
-    protected MonsterData monsterDatas;
+    protected EnemyData[] enemyDatas;
 
     // Start is called before the first frame update
     void Start()

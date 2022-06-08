@@ -842,7 +842,7 @@ MonoBehaviour:
   currentAttackSpeed: 0
   range: 1225
   currentRange: 0
-  regeneration: 0
+  regeneration: 10
   currentRegeneration: 0
   attackRangeType: 0
   isRecoveryTower: 0
@@ -888,6 +888,51 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  turretDatas:
+    turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    filepath: 
+  monsterDatas:
+    enemyIndex: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    speed: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bullet_index: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    appearPos: 0
+    filepath: 
   buffEffectIndex: 300000003100000032000000330000003400000035000000
   CurrentBuffEffect:
   - {fileID: 0}
@@ -897,12 +942,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   CurrentBuffEffectFilePath:
-  - Effect/FireRingEffect1
-  - Effect/FireRingEffect2
-  - Effect/FireRingEffect3
-  - Effect/FireRingEffect4
-  - Effect/FireRingEffect5
-  - Effect/FireRingEffect6
+  - Buff/RedBuff
+  - Buff/YellowBuff
+  - Buff/GreenBuff
+  - Buff/WhiteBuff
+  - Buff/BlueBuff
+  - Buff/BlackBuff
   nest: {fileID: 0}
   turretNum: 8
   gateNum: 0
