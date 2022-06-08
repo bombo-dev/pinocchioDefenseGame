@@ -181,9 +181,9 @@ public class Actor : MonoBehaviour
 
     //JsonData
     [SerializeField]
-    protected TurretDatas turretDatas;
+    protected TurretDatas[] turretDatas;
     [SerializeField]
-    protected EnemyData enemyDatas;
+    protected EnemyData[] enemyDatas;
 
     // Start is called before the first frame update
     void Start()
