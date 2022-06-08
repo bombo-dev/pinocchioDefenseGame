@@ -8,7 +8,6 @@ using System;
 public class EnemyData
 {
     public int enemyNum;
-    public int enemyIndex;
     public int maxHP;
     public int power;
     public int defense;
