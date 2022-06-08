@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 78
+  controlID: 207
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -294,14 +294,14 @@ MonoBehaviour:
     y: 0
     width: 1010
     height: 343
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 20}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
   - {fileID: 20}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1568,10 +1568,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 83}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: b4cbffff36fbffff
+      m_ExpandedIDs: 36fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1637,22 +1637,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Script/public
+    - Assets/Resources/Panel
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Script/public
+  - Assets/Resources/Panel
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\UnityProject\defenseGame\pinocchioDefenseGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 410}
-    m_SelectedIDs: ce870000
-    m_LastClickedID: 34766
-    m_ExpandedIDs: 000000007c7400007e740000807400008274000000ca9a3b
+    scrollPos: {x: 0, y: 146}
+    m_SelectedIDs: b2750000
+    m_LastClickedID: 30130
+    m_ExpandedIDs: 00000000f4730000f6730000f8730000fa73000096750000d675000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1680,7 +1680,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007c7400007e7400008074000082740000
+    m_ExpandedIDs: 00000000f4730000f6730000f8730000fa730000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1794,31 +1794,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_ObjectsLockedBeforeSerialization:
-  - {fileID: 2651228795831328118, guid: c8d6a3c8f17dee340ab39f33b88fb43f, type: 3}
-  - {fileID: 9071743630864339363, guid: 6f6e0a0f0ea707e4ca36a49c3da64b68, type: 3}
-  - {fileID: 7368594866106336660, guid: 9ce810513694e5a4fb44d5f2f06c4f41, type: 3}
-  - {fileID: 33040713475266161, guid: 7b2795abef6b51b4ca271c5fd16fb2bd, type: 3}
-  - {fileID: 3415473653307923753, guid: cee5bbbdf0c6bff4eb86a3d6aeef92d3, type: 3}
-  - {fileID: 8388865927564999170, guid: 3403ca526c662884eb045f57d3653411, type: 3}
-  - {fileID: 5070360397102094999, guid: d560c9d754a9abf49a36ce258fb8fc0f, type: 3}
-  - {fileID: 7925964443395562994, guid: 525f03a634f44f34b986b4c5ca76f2f0, type: 3}
-  - {fileID: 6531879950137344308, guid: 3b662f645f006c9418b13d711f109b57, type: 3}
-  - {fileID: 1574517267250967292, guid: 4bffa0bcdb3ddbe45bb6a1918952cd08, type: 3}
-  - {fileID: 7685375650512488320, guid: 03edd99d40c060f49a9f1befe6a2c5c3, type: 3}
-  - {fileID: 746072709500419932, guid: a07f138c608557340b0b856dbc5dc9d0, type: 3}
-  - {fileID: 705397056007154041, guid: c872352361115f24aa229fb507a78da3, type: 3}
-  - {fileID: 27958961009038975, guid: 2ea448dafaeb3064fbfec22e08ebe1bc, type: 3}
-  - {fileID: 6915996258882984151, guid: 7c869ad10f5f747408d05c1aaca4df61, type: 3}
-  - {fileID: 6964666780331966838, guid: 0742a11be36a30841b51437479f6be3e, type: 3}
-  - {fileID: 8655517531545849165, guid: 323cb5b45a7487340af5b2962ac0fc23, type: 3}
-  - {fileID: 7707885581842292741, guid: f38b2fd00348c444f8873acfe4d77f82, type: 3}
-  - {fileID: 3393365724600613452, guid: d3f12b02faa50fc44b453482e1c30344, type: 3}
-  - {fileID: 1083914592043669244, guid: c3b7a088b4c381d44a11a82f04b4dd2e, type: 3}
-  - {fileID: 1097243086849457912, guid: 5cfde568230c0a84383ae49c4acbf6d9, type: 3}
-  - {fileID: 1097243086849457912, guid: de83978d224b1914fa359160863d24ce, type: 3}
-  - {fileID: 1097243086849457912, guid: 38615109a41d23141b6b7e748ea23fd2, type: 3}
-  - {fileID: 3948921820462431089, guid: 38fa43f9ab9b56c4ab085203cb826206, type: 3}
+  m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
     m_CachedPref: 248
@@ -1829,5 +1805,5 @@ MonoBehaviour:
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
-    m_IsLocked: 1
+    m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
