@@ -3801,6 +3801,8 @@ MonoBehaviour:
     cacheCount: 100
   - filePath: Effect/FireRingEffect6
     cacheCount: 100
+  - filePath: Effect/ConstructionCompletedEffect
+    cacheCount: 100
 --- !u!1001 &859097496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8897,6 +8899,8 @@ MonoBehaviour:
     cacheCount: 100
   - filePath: Panel/ResourcePanel
     cacheCount: 1
+  - filePath: Panel/ConstructionGaugePanel
+    cacheCount: 100
 --- !u!4 &1664103178
 Transform:
   m_ObjectHideFlags: 0
@@ -12198,6 +12202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854350c098330bf4ea84196060759493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CONSTRUCTIONTURRET_INDEX: 24
   turrets: []
   turretParents: {fileID: 157117917}
   prefabCacheDatas:
@@ -12249,6 +12254,32 @@ MonoBehaviour:
     cacheCount: 50
   - filePath: Turret/Base
     cacheCount: 1
+  - filePath: Turret/ConstructionTurret
+    cacheCount: 100
+  turretConstructionTime:
+  - 1
+  - 1
+  - 2
+  - 3
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
+  - 5
 --- !u!4 &2100415477
 Transform:
   m_ObjectHideFlags: 0

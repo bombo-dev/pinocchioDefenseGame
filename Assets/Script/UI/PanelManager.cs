@@ -95,17 +95,18 @@ public class PanelManager : MonoBehaviour
     /// </summary>
     /// <typeparam name="T">패널이 가지고 있는 UI_Panel 스크립트</typeparam>
     /// <param name="panelIndex">생성할 패널 번호</param>
-    public void EnablePanel<T>(int panelIndex) where T : UnityEngine.Component
+    /// /// <param name="_gameobject">패널에 게임오브젝트 정보를 연결해야 할 경우 사용</param>
+    public GameObject EnablePanel<T>(int panelIndex, GameObject _gameobject = null) where T : UnityEngine.Component
     {
         //예외처리
         if (panelIndex >= prefabCacheDatas.Length || prefabCacheDatas[panelIndex].filePath == null)
-            return;
+            return null;
 
         //생성한 프리팹 게임오브젝트 정보 받아오기
         GameObject go = SystemManager.Instance.PrefabCacheSystem.EnablePrefabCache(prefabCacheDatas[panelIndex].filePath);
 
         if (go == null)
-            return;
+            return null;
 
         
         T compoenent = go.GetComponent<T>();
@@ -139,6 +140,23 @@ public class PanelManager : MonoBehaviour
         {
             resoursePanel = (compoenent as UI_ResourcePanel);
         }
+        else if (typeof(T) == typeof(UI_ConstructionGauge))
+        {
+            UI_ConstructionGauge constructionGaguePanel = (compoenent as UI_ConstructionGauge);
+
+            //예외처리
+            if (!_gameobject)
+                return null;
+
+            //패널의 게임오브젝트 정보 저장
+            constructionGaguePanel.constructionTurret = _gameobject.GetComponent<ConstructionTurret>();
+
+            //건설 게이지 패널 위치 설정
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(constructionGaguePanel.constructionTurret.gauegePos.transform.position);
+            go.transform.position = screenPos;
+        }
+
+        return go;
     }
 
     /// <summary>
@@ -298,6 +316,15 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as DamageMngPanel).filePath;
             damageMngPanel = null;
+        }
+        else if (typeof(T) == typeof(UI_ResourcePanel))
+        {
+            filePath = (compoenent as UI_ResourcePanel).filePath;
+            resoursePanel = null;
+        }
+        else if (typeof(T) == typeof(UI_ConstructionGauge))
+        {
+            filePath = (compoenent as UI_ConstructionGauge).filePath;
         }
         else
             return;

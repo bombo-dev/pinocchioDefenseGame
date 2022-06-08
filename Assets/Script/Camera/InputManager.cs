@@ -82,7 +82,7 @@ public class InputManager : MonoBehaviour
         if (nest != null)
         {
             //터렛이 설치된 Nest의경우
-            if (nest.haveTurret)
+            if (nest.haveTurret || nest.construction)
             {
                 //UI_TurretMngPanel 패널이 존재할 경우
                 if (SystemManager.Instance.PanelManager.turretMngPanel)

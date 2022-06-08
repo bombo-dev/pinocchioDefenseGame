@@ -110,9 +110,7 @@ public class UI_TurretMngPanel : UI_Controller
     {
         currentSelectedTurretIdx = idx;
 
-        //더블클릭 이벤트
-        if (data.clickCount == 2)
-            OnClickTurretSummonButton(data);
+        OnClickTurretSummonButton(data);
     }
 
     /// <summary>
@@ -148,29 +146,35 @@ public class UI_TurretMngPanel : UI_Controller
             if (!nestGo)
                 return;
 
-            GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(currentSelectedTurretIdx, nestGo.transform.position);
-                      
+            //공사용 터렛 소환
+            GameObject turretGo = SystemManager.Instance.TurretManager.EnableTurret(SystemManager.Instance.TurretManager.CONSTRUCTIONTURRET_INDEX, nestGo.transform.position);
+
+            //예외처리
             if (!turretGo)
                 return;
 
-            Turret turret = turretGo.GetComponent<Turret>();
+            ConstructionTurret constructTurret = turretGo.GetComponent<ConstructionTurret>();
 
-            // 터렛 상태 관리 패널 생성
-            SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, turret.hpPos.transform.position, turret.turretIndex, turret.GetType());
-            //Debug.Log("turret.type=" + turret.GetType().Name);
-            if (!SystemManager.Instance.PanelManager.statusMngPanel)
+            //예외처리
+            if (!constructTurret)
                 return;
 
-            
+            //UI_ConstructionGaugePanel생성
+            GameObject constructionGaugePanel = SystemManager.Instance.PanelManager.EnablePanel<UI_ConstructionGauge>(5, turretGo);
 
-            //둥지정보 갱신
-            Nest nest = nestGo.GetComponent<Nest>();
-            if (nest)
-            {
-                turretGo.GetComponent<Turret>().nest = nestGo;
-                nest.haveTurret = true;
-                nest.turret = turretGo;
-            }
+            //공사용 터렛에 주요 변수정보 넘겨주기
+            constructTurret.timer = Time.time;  //타이머 초기화
+            constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;    //소환될 터렛 인덱스
+            constructTurret.nestGo = nestGo;    //소환할 둥지    
+            constructTurret.constructionValue = 0;  //건설 게이지 값 초기화
+            constructTurret.constructionTime = SystemManager.Instance.TurretManager.turretConstructionTime[currentSelectedTurretIdx]; //건설에 걸리는 시간 초기화
+            constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
+
+            //공사중정보 둥지에 전달
+            nestGo.GetComponent<Nest>().construction = true;
+
+            //터렛 공사시작
+            constructTurret.startConstruction = true;   //공사시작
 
             //UI_TurretMngPanel 패널이 존재할 경우
             if (SystemManager.Instance.PanelManager.turretMngPanel)
@@ -178,7 +182,6 @@ public class UI_TurretMngPanel : UI_Controller
                 //패널 비활성화
                 SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
             }
-
         }
     }
 
