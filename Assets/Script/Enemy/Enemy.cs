@@ -591,32 +591,7 @@ public class Enemy : Actor
         {
             case "Enemy/Larva":
                 Debug.Log("Larva 초기화 완료");
-                enemyNum = enemyDatas[0].enemyNum;
-                enemyIndex = enemyDatas[0].enemyIndex;
-                maxHP = enemyDatas[0].maxHP;
-                power = enemyDatas[0].power;
-                defense = enemyDatas[0].defense;
-                speed = enemyDatas[0].speed;
-                attackSpeed = enemyDatas[0].attackSpeed;
-                range = enemyDatas[0].range;
-                regeneration = enemyDatas[0].regeneration;
-                attackRangeType = enemyDatas[0].attackRangeType;
-                isRecoveryTower = enemyDatas[0].isRecoveryTower;
-                selfDestruct = enemyDatas[0].selfDestruct;
-                attackTargetNum = enemyDatas[0].attackTargetNum;
-                debuffType = enemyDatas[0].debuffType;
-                debuffDuration = enemyDatas[0].debuffDuration;
-                multiAttackRange = enemyDatas[0].multiAttackRange;
-                bulletIndex = enemyDatas[0].bulletIndex;
-                damageEffectIndex = enemyDatas[0].damageEffectIndex;
-                deadEffectIndex = enemyDatas[0].deadEffectIndex;
-                fireEffectIndex = enemyDatas[0].fireEffectIndex;
-                healEffectIndex = enemyDatas[0].healEffectIndex;
-                debuffEffectIndex = enemyDatas[0].debuffEffectIndex;
-                appearPos[0] = new Vector3(enemyDatas[0].appearPos[0].X, enemyDatas[0].appearPos[0].Y, enemyDatas[0].appearPos[0].Z);
-                appearPos[1] = new Vector3(enemyDatas[0].appearPos[1].X, enemyDatas[0].appearPos[1].Y, enemyDatas[0].appearPos[1].Z);
-                appearPos[2] = new Vector3(enemyDatas[0].appearPos[2].X, enemyDatas[0].appearPos[2].Y, enemyDatas[0].appearPos[2].Z);
-                rewardWoodResource = enemyDatas[0].rewardWoodResource;
+                EnemyVeriableInitialize(enemyDatas, 0);
                 break;
             case "Enemy/SwordMan":
                 Debug.Log("SwordMan 초기화 완료");
@@ -1292,5 +1267,37 @@ public class Enemy : Actor
         }
     }
 
+    // 변수 초기화 함수
+    
+    public void EnemyVeriableInitialize(EnemyData[] data, int num)
+    {
+        enemyNum = data[num].enemyNum;
+        enemyIndex = data[num].enemyIndex;
+        maxHP = data[num].maxHP;
+        power = data[num].power;
+        defense = data[num].defense;
+        speed = data[num].speed;
+        attackSpeed = data[num].attackSpeed;
+        range = data[num].range;
+        regeneration = data[num].regeneration;
+        attackRangeType = data[num].attackRangeType;
+        isRecoveryTower = data[num].isRecoveryTower;
+        selfDestruct = data[num].selfDestruct;
+        attackTargetNum = data[num].attackTargetNum;
+        debuffType = data[num].debuffType;
+        debuffDuration = data[num].debuffDuration;
+        multiAttackRange = data[num].multiAttackRange;
+        bulletIndex = data[num].bulletIndex;
+        damageEffectIndex = data[num].damageEffectIndex;
+        deadEffectIndex = data[num].deadEffectIndex;
+        fireEffectIndex = data[num].fireEffectIndex;
+        healEffectIndex = data[num].healEffectIndex;
+        debuffEffectIndex = data[num].debuffEffectIndex;
+        appearPos[0] = new Vector3(data[num].appearPos[0].X, data[num].appearPos[0].Y, data[num].appearPos[0].Z);
+        appearPos[1] = new Vector3(data[num].appearPos[1].X, data[num].appearPos[1].Y, data[num].appearPos[1].Z);
+        appearPos[2] = new Vector3(data[num].appearPos[2].X, data[num].appearPos[2].Y, data[num].appearPos[2].Z);
+        rewardWoodResource = data[num].rewardWoodResource;
+    }
+    
     #endregion
 }
