@@ -7,12 +7,13 @@ using System;
 [Serializable]
 public class EnemyData
 {
+    public int enemyNum;
     public int enemyIndex;
     public int maxHP;
     public int power;
     public int defense;
     public int speed;
-    public int attackSpeed;
+    public float attackSpeed;
     public int range;
     public int regeneration;
     public int attackRangeType;
@@ -28,6 +29,7 @@ public class EnemyData
     public int healEffectIndex;
     public int debuffEffectIndex;
     public int appearPos;
+    public int rewardWoodResource;
     public string filepath;
 }
 
@@ -36,7 +38,7 @@ public class EnemyJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Load();
+        // Load();
     }
 
     // Update is called once per frame
@@ -50,12 +52,22 @@ public class EnemyJson : MonoBehaviour
     /// </summary>
     void Load()
     {
-        string filepath = Path.Combine(Application.streamingAssetsPath, "Monster.json");
+        string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
         string jsonString = File.ReadAllText(filepath);
 
         EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
 
-        Debug.Log(enemyData[0].filepath);
+        // Debug.Log(enemyData[0].filepath);
+    }
+
+    EnemyData[] GetEnemyData()
+    {
+        string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+        string jsonString = File.ReadAllText(filepath);
+
+        EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+        return enemyData;
     }
 
 }
