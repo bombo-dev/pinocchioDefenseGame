@@ -55,13 +55,22 @@ public class ConstructionTurret : MonoBehaviour
 
             Turret turret = turretGo.GetComponent<Turret>();
 
+
             // 터렛 상태 관리 패널 생성
-            SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, turret.hpPos.transform.position, turret.turretIndex, turret.GetType());
-            //Debug.Log("turret.type=" + turret.GetType().Name);
-            if (!SystemManager.Instance.PanelManager.statusMngPanel)
+            GameObject statusMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, turretGo);
+
+            if (!statusMngPanelGo)
                 return;
 
+            StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
 
+            statusMngPanel.SetHPBarColor();
+            // 패널 정보 넘겨줌
+            turret.statusMngPanel = statusMngPanel;
+
+            // 패널 정보 초기화
+            statusMngPanel.panelPos = turret.hpPos.transform.position;
+            statusMngPanel.hpBarOwner = turretGo;
 
             //둥지정보 갱신
             Nest nest = nestGo.GetComponent<Nest>();
@@ -81,6 +90,10 @@ public class ConstructionTurret : MonoBehaviour
 
             //변수 초기화
             Reset();
+
+            //TurretIngoPanel 있는경우 초기화
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
 
             //공사용 터렛 제거
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);

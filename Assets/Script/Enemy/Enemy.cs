@@ -56,6 +56,11 @@ public class Enemy : Actor
     [SerializeField]
     int rewardWoodResource; //잡았을때 보상 woodResource
 
+    // 에너미의 hpBar 패널
+    public StatusMngPanel statusMngPanel;
+
+    public DamageMngPanel damageMngPanel;
+
     /// <summary>
     /// 초기화 함수 : 김현진
     /// </summary>
@@ -352,19 +357,17 @@ public class Enemy : Actor
     {
         base.DecreaseHP(damage);
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        if (statusMngPanel)
+        {            
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
             Debug.Log("statusMngPanel is null");
 
-        SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(4, hitPos.transform.position, 0, GetType());
-        if (SystemManager.Instance.PanelManager.damageMngPanel)
-            SystemManager.Instance.PanelManager.damageMngPanel.ShowDamage(damage);
-        else
-            Debug.Log("damageMngPanel is null");
+ 
+
+
+
 
         //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
         //hitPos = go.GetComponent<Enemy>().hitPos;
@@ -396,18 +399,14 @@ public class Enemy : Actor
         //HP가 0밑으로 떨어지거나 자폭상태가 될 경우
         if (currentHP <= 0 || selfDestruct)
         {
-            //StatusMngPanel 리셋 
-            //StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
-            //statusMngPanel.StatusReset();
+            //StatusMngPanel 비활성화
+            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(statusMngPanel.gameObject);
 
-            // 비활성화된 패널을 제거하여 StatusMngPanel 리스트 재구성
-            //SystemManager.Instance.PanelManager.ReorganizationPanelList(enemyIndex, GetType());
-
+            // StatusMngPanel 리셋
+            statusMngPanel.StatusReset();
+          
             // 에너미 리스트 재구성
             SystemManager.Instance.EnemyManager.ReorganizationEnemiesList(enemyIndex);
-
-            // StatusMngPanel 비활성화
-            //SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].gameObject);
 
             enemyState = EnemyState.Dead;
 
@@ -449,9 +448,8 @@ public class Enemy : Actor
     {
         base.IncreaseHP(recoveryPower);
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        if (statusMngPanel)
+        {            
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
@@ -465,6 +463,8 @@ public class Enemy : Actor
     public override void EnableDamageEffect(Actor attacker)
     {
         base.EnableDamageEffect(attacker);
+
+        
     }
 
     /// <summary>
@@ -482,7 +482,7 @@ public class Enemy : Actor
             return;
         }
     }
-
+    
     #region 디버프
     /// <summary>
     /// 디버프 추가 : 김현진
@@ -496,8 +496,7 @@ public class Enemy : Actor
         //풀스택일경우 예외처리
         if (debuffs[(debuff)debuffIndex].stack > 5)
             return;
-
-        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        
         statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
 
 
@@ -560,7 +559,7 @@ public class Enemy : Actor
                 break;
         }
 
-        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].GetComponent<StatusMngPanel>();
+        
         statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
     }
     #endregion
@@ -569,20 +568,11 @@ public class Enemy : Actor
     {
         base.UpdatePanelPos();
 
-        if (SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex])
+        if (statusMngPanel)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
-            //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.enemyHPBars[enemyIndex].transform.position = screenPos;
+            statusMngPanel.transform.position = screenPos;
         }
-
-        if (SystemManager.Instance.PanelManager.damageMngPanel)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
-            //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
-        }
-
 
     }
 

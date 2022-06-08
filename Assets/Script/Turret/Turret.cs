@@ -15,7 +15,7 @@ public class Turret : Actor
 
     [Header("buff")]  //버프
     //버프 정보 담을 자료구조 , <buff, durationTime>
-    Dictionary<buff, float> buffs = new Dictionary<buff, float>();
+    public Dictionary<buff, float> buffs = new Dictionary<buff, float>();
 
     [SerializeField]
     int[] buffEffectIndex;  //활성화할 버프 이펙트 번호
@@ -46,7 +46,10 @@ public class Turret : Actor
     int turretCost;
     //터렛 건설에 걸리는 시간
     int turretConstructionTime;
-    
+
+    public StatusMngPanel statusMngPanel;
+
+    public DamageMngPanel damageMngPanel;
 
     private void Start()
     {
@@ -191,9 +194,8 @@ public class Turret : Actor
         base.DecreaseHP(damage);
 
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        if (statusMngPanel)
         {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
@@ -206,7 +208,7 @@ public class Turret : Actor
             UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
 
             //TurretInfo UI 최신정보로 업데이트
-            panel.Reset(false);
+            panel.Reset(false, false);
         }
 
         if (currentHP == 0)
@@ -216,17 +218,13 @@ public class Turret : Actor
             {
                 //게임오버
                 return;
-            }    
+            }
 
-
-            //int panelIndex = SystemManager.Instance.PanelManager.statusMngPanel.
-            //;
-            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(SystemManager.Instance.PanelManager.turretHPBars[turretIndex].gameObject);
-            //터렛 
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
-            statusMngPanel.StatusReset();
+            //패널 비활성화
+            SystemManager.Instance.PanelManager.DisablePanel<StatusMngPanel>(statusMngPanel.gameObject);
             
-            SystemManager.Instance.PanelManager.ReorganizationPanelList(turretIndex, GetType());
+            //패널 정보 리셋
+            statusMngPanel.StatusReset();
 
             SystemManager.Instance.TurretManager.ReorganizationEnemiesList(turretIndex);
 
@@ -243,9 +241,8 @@ public class Turret : Actor
     {
         base.IncreaseHP(recoveryPower);
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+        if (statusMngPanel)
         {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
             statusMngPanel.SetHPBar(currentHP, maxHP);
         }
         else
@@ -257,7 +254,7 @@ public class Turret : Actor
             UI_TurretInfoPanel panel = SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>();
 
             //TurretInfo UI 최신정보로 업데이트
-            panel.Reset(false);
+            panel.Reset(false, false);
         }
     }
 
@@ -341,9 +338,8 @@ public class Turret : Actor
     {
         base.AddDebuff(debuffIndex, time);
         
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
-        {
-            StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.turretHPBars[turretIndex].GetComponent<StatusMngPanel>();
+        if (statusMngPanel)
+        {            
             statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
         }
         else
@@ -388,7 +384,6 @@ public class Turret : Actor
         }
 
 
-        StatusMngPanel statusMngPanel = SystemManager.Instance.PanelManager.enemyHPBars[turretIndex].GetComponent<StatusMngPanel>();
         statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
     }
     #endregion
@@ -476,7 +471,7 @@ public class Turret : Actor
 
         //HP즉시회복은 중첩 적용, HP가 0이 아닐경우
         if(buffIndex == 3 && currentHP != 0)
-            IncreaseHP(currentHP / 3);
+            IncreaseHP(maxHP / 5);
 
         //버프 이펙트 위치 재배치
         RePositionBuffEffect();
@@ -500,30 +495,55 @@ public class Turret : Actor
             switch (buffIndex)
             {
                 case 1: //공격력 초기화
-                    currentPower = power;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentPower -= ((power + (power / 3)) / 3);
+                    else
+                        currentPower = power;
                     break;
                 case 2: //공격속도 초기화
                     currentAttackSpeed = attackSpeed;
                     break;
                 case 3: //회복력 초기화
-                    currentRegeneration = regeneration;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentRegeneration -= ((regeneration + (regeneration / 3)) / 3);
+                    else
+                        currentRegeneration = regeneration;
                     break;
                 case 4: //방어력 초기화
-                    currentDefense = defense;
+                    if (buffs.ContainsKey(buff.IncreaseAll))//올스텟 버프가 존재할 경우
+                        currentDefense -= ((defense + (defense / 3)) / 3);
+                    else
+                        currentDefense = defense;
                     break;
                 case 5: //사거리 초기화
                     currentRange = range;
                     currentMultiAttackRange = multiAttackRange;
                     break;
                 case 6: //올스텟 증가
-                    currentPower = power;
-                    currentDefense = defense;
-                    currentRegeneration = regeneration;
+                    if (buffs.ContainsKey(buff.IncreasePower))//공격력 버프가 존재할 경우
+                        currentPower -= ((power + (power / 3)) / 3);
+                    else
+                        currentPower = power;
+
+                    if(buffs.ContainsKey(buff.IncreaseDefense))//방어력 버프가 존재할 경우
+                        currentDefense -= ((defense + (defense / 3)) / 3);
+                    else
+                        currentDefense = defense;
+
+                    if (buffs.ContainsKey(buff.IncreaseRegeneration))//회복력 버프가 존재할 경우
+                        currentRegeneration -= ((regeneration + (regeneration / 3)) / 3);
+                    else
+                        currentRegeneration = regeneration;
                     break;
             }
 
             //버프 이펙트 제거
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(CurrentBuffEffectFilePath[buffIndex - 1], CurrentBuffEffect[buffIndex - 1]);
+
+            //UI업데이트
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                if (SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.activeSelf)
+                    SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
         }
     }
 
@@ -590,19 +610,15 @@ public class Turret : Actor
     {
         base.UpdatePanelPos();
 
-        if (SystemManager.Instance.PanelManager.turretHPBars[turretIndex])
+   
+        if (statusMngPanel)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
             //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.turretHPBars[turretIndex].transform.position = screenPos;
+            statusMngPanel.gameObject.transform.position = screenPos;
         }
+        
 
-        if (SystemManager.Instance.PanelManager.damageMngPanel)
-        {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(hitPos.transform.position);
-            //Debug.Log("Enemy.screenPos=" + screenPos);
-            SystemManager.Instance.PanelManager.damageMngPanel.transform.position = screenPos;
-        }
     }
 
     #region TurretInitilizing 터렛 초기화

@@ -79,18 +79,27 @@ public class EnemyManager : MonoBehaviour
         enemy.enemyIndex = enemies.FindIndex(x => x == go); //enemise 리스트의 인덱스와 일치하는 번호 저장
 
         enemy.gateNum = gateNum;
-        enemy.targetPoint = SystemManager.Instance.TileManager.CreateTileMapArr(targetPoint);
+        enemy.targetPoint = SystemManager.Instance.BlockManager.CreateTargetArr(targetPoint);
 
         //적을 초기상태로
-        enemy.Reset();      
+        enemy.Reset();
 
         // 에너미 상태 관리 패널 생성        
-        SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, enemy.hpPos.transform.position, enemy.enemyIndex, enemy.GetType());
-
-        if (!SystemManager.Instance.PanelManager.statusMngPanel)
+        GameObject statusMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go);
+        
+        if (!statusMngPanelGo)
         {
             Debug.Log("Enable statusMngPanel is null");
+            return;
         }
+
+        StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
+
+        // 패널 정보 넘겨줌
+        enemy.statusMngPanel = statusMngPanel;
+
+        statusMngPanel.panelPos = enemy.hpPos.transform.position;
+        statusMngPanel.hpBarOwner = go;
     }
 
     /// <summary>
