@@ -41,7 +41,7 @@ public class TurretJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Load();
+        // Load();
     }
 
     // Update is called once per frame
@@ -60,9 +60,19 @@ public class TurretJson : MonoBehaviour
 
         TurretDatas[] turretdata = JsonHelper.FromJson<TurretDatas>(jsonString);
 
-        Debug.Log(turretdata[0].filepath);
+        //Debug.Log(turretdata[0].filepath);
     }
-    
+
+    public TurretDatas[] GetTurretData()
+    {
+        string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+        string jsonString = File.ReadAllText(filepath);
+
+        TurretDatas[] turretdata = JsonMonsterHelper.FromJson<TurretDatas>(jsonString);
+
+        return turretdata;
+    }
+
 }
 
 /// <summary>
