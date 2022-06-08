@@ -85,7 +85,7 @@ public class Turret : Actor
     protected override void Initialize()
     {
         base.Initialize();
-
+        TurretInitializing();
         Reset();
 
     }
@@ -605,4 +605,640 @@ public class Turret : Actor
         }
     }
 
+    #region TurretInitilizing 터렛 초기화
+    void TurretInitializing()
+    {
+        turretDatas = SystemManager.Instance.TurretJson.GetTurretData();
+
+        switch (filePath)
+        {
+            case "Turret/PigeonTurret":
+                Debug.Log("PigeonTurret 초기화");
+                turretNum = turretDatas[0].turretNum;
+                maxHP = turretDatas[0].maxHP;
+                power = turretDatas[0].power;
+                defense = turretDatas[0].defense;
+                attackSpeed = turretDatas[0].attackSpeed;
+                range = turretDatas[0].range;
+                regeneration = turretDatas[0].regeneration;
+                attackRangeType = turretDatas[0].attackRangeType;
+                isRecoveryTower = turretDatas[0].isRecoveryTower;
+                attackTargetNum = turretDatas[0].attackTargetNum;
+                debuffType = turretDatas[0].debuffType;
+                debuffDuration = turretDatas[0].debuffDuration;
+                multiAttackRange = turretDatas[0].multiAttackRange;
+                bulletIndex = turretDatas[0].bulletIndex;
+                damageEffectIndex = turretDatas[0].damageEffectIndex;
+                deadEffectIndex = turretDatas[0].deadEffectIndex;
+                fireEffectIndex = turretDatas[0].fireEffectIndex;
+                healEffectIndex = turretDatas[0].healEffectIndex;
+                debuffEffectIndex = turretDatas[0].debuffEffectIndex;
+                turretAppearPosY = turretDatas[0].turretAppearPosY;
+                turretCost = turretDatas[0].turretCost;
+                turretConstructionTime = turretDatas[0].turretConstructionTime;
+                break;
+
+            case "Turret/WoodpeckerTurret":
+                Debug.Log("WoodpeckerTurret 초기화");
+                turretNum = turretDatas[1].turretNum;
+                maxHP = turretDatas[1].maxHP;
+                power = turretDatas[1].power;
+                defense = turretDatas[1].defense;
+                attackSpeed = turretDatas[1].attackSpeed;
+                range = turretDatas[1].range;
+                regeneration = turretDatas[1].regeneration;
+                attackRangeType = turretDatas[1].attackRangeType;
+                isRecoveryTower = turretDatas[1].isRecoveryTower;
+                attackTargetNum = turretDatas[1].attackTargetNum;
+                debuffType = turretDatas[1].debuffType;
+                debuffDuration = turretDatas[1].debuffDuration;
+                multiAttackRange = turretDatas[1].multiAttackRange;
+                bulletIndex = turretDatas[1].bulletIndex;
+                damageEffectIndex = turretDatas[1].damageEffectIndex;
+                deadEffectIndex = turretDatas[1].deadEffectIndex;
+                fireEffectIndex = turretDatas[1].fireEffectIndex;
+                healEffectIndex = turretDatas[1].healEffectIndex;
+                debuffEffectIndex = turretDatas[1].debuffEffectIndex;
+                turretAppearPosY = turretDatas[1].turretAppearPosY;
+                turretCost = turretDatas[1].turretCost;
+                turretConstructionTime = turretDatas[1].turretConstructionTime;
+                break;
+
+            case "Turret/BabyBirdTurret":
+                Debug.Log("BabyBirdTurret 초기화");
+                turretNum = turretDatas[2].turretNum;
+                maxHP = turretDatas[2].maxHP;
+                power = turretDatas[2].power;
+                defense = turretDatas[2].defense;
+                attackSpeed = turretDatas[2].attackSpeed;
+                range = turretDatas[2].range;
+                regeneration = turretDatas[2].regeneration;
+                attackRangeType = turretDatas[2].attackRangeType;
+                isRecoveryTower = turretDatas[2].isRecoveryTower;
+                attackTargetNum = turretDatas[2].attackTargetNum;
+                debuffType = turretDatas[2].debuffType;
+                debuffDuration = turretDatas[2].debuffDuration;
+                multiAttackRange = turretDatas[2].multiAttackRange;
+                bulletIndex = turretDatas[2].bulletIndex;
+                damageEffectIndex = turretDatas[2].damageEffectIndex;
+                deadEffectIndex = turretDatas[2].deadEffectIndex;
+                fireEffectIndex = turretDatas[2].fireEffectIndex;
+                healEffectIndex = turretDatas[2].healEffectIndex;
+                debuffEffectIndex = turretDatas[2].debuffEffectIndex;
+                turretAppearPosY = turretDatas[2].turretAppearPosY;
+                turretCost = turretDatas[2].turretCost;
+                turretConstructionTime = turretDatas[2].turretConstructionTime;
+                break;
+
+            case "Turret/UpgradedPigeonTurret":
+                Debug.Log("UpgradedPigeonTurret 초기화");
+                turretNum = turretDatas[3].turretNum;
+                maxHP = turretDatas[3].maxHP;
+                power = turretDatas[3].power;
+                defense = turretDatas[3].defense;
+                attackSpeed = turretDatas[3].attackSpeed;
+                range = turretDatas[3].range;
+                regeneration = turretDatas[3].regeneration;
+                attackRangeType = turretDatas[3].attackRangeType;
+                isRecoveryTower = turretDatas[3].isRecoveryTower;
+                attackTargetNum = turretDatas[3].attackTargetNum;
+                debuffType = turretDatas[3].debuffType;
+                debuffDuration = turretDatas[3].debuffDuration;
+                multiAttackRange = turretDatas[3].multiAttackRange;
+                bulletIndex = turretDatas[3].bulletIndex;
+                damageEffectIndex = turretDatas[3].damageEffectIndex;
+                deadEffectIndex = turretDatas[3].deadEffectIndex;
+                fireEffectIndex = turretDatas[3].fireEffectIndex;
+                healEffectIndex = turretDatas[3].healEffectIndex;
+                debuffEffectIndex = turretDatas[3].debuffEffectIndex;
+                turretAppearPosY = turretDatas[3].turretAppearPosY;
+                turretCost = turretDatas[3].turretCost;
+                turretConstructionTime = turretDatas[3].turretConstructionTime;
+                break;
+
+            case "Turret/PelicanTurret":
+                Debug.Log("PelicanTurret 초기화");
+                turretNum = turretDatas[4].turretNum;
+                maxHP = turretDatas[4].maxHP;
+                power = turretDatas[4].power;
+                defense = turretDatas[4].defense;
+                attackSpeed = turretDatas[4].attackSpeed;
+                range = turretDatas[4].range;
+                regeneration = turretDatas[4].regeneration;
+                attackRangeType = turretDatas[4].attackRangeType;
+                isRecoveryTower = turretDatas[4].isRecoveryTower;
+                attackTargetNum = turretDatas[4].attackTargetNum;
+                debuffType = turretDatas[4].debuffType;
+                debuffDuration = turretDatas[4].debuffDuration;
+                multiAttackRange = turretDatas[4].multiAttackRange;
+                bulletIndex = turretDatas[4].bulletIndex;
+                damageEffectIndex = turretDatas[4].damageEffectIndex;
+                deadEffectIndex = turretDatas[4].deadEffectIndex;
+                fireEffectIndex = turretDatas[4].fireEffectIndex;
+                healEffectIndex = turretDatas[4].healEffectIndex;
+                debuffEffectIndex = turretDatas[4].debuffEffectIndex;
+                turretAppearPosY = turretDatas[4].turretAppearPosY;
+                turretCost = turretDatas[4].turretCost;
+                turretConstructionTime = turretDatas[4].turretConstructionTime;
+                break;
+
+            case "Turret/CuckooTurret":
+                Debug.Log("CuckooTurret 초기화");
+                turretNum = turretDatas[5].turretNum;
+                maxHP = turretDatas[5].maxHP;
+                power = turretDatas[5].power;
+                defense = turretDatas[5].defense;
+                attackSpeed = turretDatas[5].attackSpeed;
+                range = turretDatas[5].range;
+                regeneration = turretDatas[5].regeneration;
+                attackRangeType = turretDatas[5].attackRangeType;
+                isRecoveryTower = turretDatas[5].isRecoveryTower;
+                attackTargetNum = turretDatas[5].attackTargetNum;
+                debuffType = turretDatas[5].debuffType;
+                debuffDuration = turretDatas[5].debuffDuration;
+                multiAttackRange = turretDatas[5].multiAttackRange;
+                bulletIndex = turretDatas[5].bulletIndex;
+                damageEffectIndex = turretDatas[5].damageEffectIndex;
+                deadEffectIndex = turretDatas[5].deadEffectIndex;
+                fireEffectIndex = turretDatas[5].fireEffectIndex;
+                healEffectIndex = turretDatas[5].healEffectIndex;
+                debuffEffectIndex = turretDatas[5].debuffEffectIndex;
+                turretAppearPosY = turretDatas[5].turretAppearPosY;
+                turretCost = turretDatas[5].turretCost;
+                turretConstructionTime = turretDatas[5].turretConstructionTime;
+                break;
+
+            case "Turret/PenguinTurret":
+                Debug.Log("PenguinTurret 초기화");
+                turretNum = turretDatas[6].turretNum;
+                maxHP = turretDatas[6].maxHP;
+                power = turretDatas[6].power;
+                defense = turretDatas[6].defense;
+                attackSpeed = turretDatas[6].attackSpeed;
+                range = turretDatas[6].range;
+                regeneration = turretDatas[6].regeneration;
+                attackRangeType = turretDatas[6].attackRangeType;
+                isRecoveryTower = turretDatas[6].isRecoveryTower;
+                attackTargetNum = turretDatas[6].attackTargetNum;
+                debuffType = turretDatas[6].debuffType;
+                debuffDuration = turretDatas[6].debuffDuration;
+                multiAttackRange = turretDatas[6].multiAttackRange;
+                bulletIndex = turretDatas[6].bulletIndex;
+                damageEffectIndex = turretDatas[6].damageEffectIndex;
+                deadEffectIndex = turretDatas[6].deadEffectIndex;
+                fireEffectIndex = turretDatas[6].fireEffectIndex;
+                healEffectIndex = turretDatas[6].healEffectIndex;
+                debuffEffectIndex = turretDatas[6].debuffEffectIndex;
+                turretAppearPosY = turretDatas[6].turretAppearPosY;
+                turretCost = turretDatas[6].turretCost;
+                turretConstructionTime = turretDatas[6].turretConstructionTime;
+                break;
+
+            case "Turret/OwlTurret":
+                Debug.Log("OwlTurret 초기화");
+                turretNum = turretDatas[7].turretNum;
+                maxHP = turretDatas[7].maxHP;
+                power = turretDatas[7].power;
+                defense = turretDatas[7].defense;
+                attackSpeed = turretDatas[7].attackSpeed;
+                range = turretDatas[7].range;
+                regeneration = turretDatas[7].regeneration;
+                attackRangeType = turretDatas[7].attackRangeType;
+                isRecoveryTower = turretDatas[7].isRecoveryTower;
+                attackTargetNum = turretDatas[7].attackTargetNum;
+                debuffType = turretDatas[7].debuffType;
+                debuffDuration = turretDatas[7].debuffDuration;
+                multiAttackRange = turretDatas[7].multiAttackRange;
+                bulletIndex = turretDatas[7].bulletIndex;
+                damageEffectIndex = turretDatas[7].damageEffectIndex;
+                deadEffectIndex = turretDatas[7].deadEffectIndex;
+                fireEffectIndex = turretDatas[7].fireEffectIndex;
+                healEffectIndex = turretDatas[7].healEffectIndex;
+                debuffEffectIndex = turretDatas[7].debuffEffectIndex;
+                turretAppearPosY = turretDatas[7].turretAppearPosY;
+                turretCost = turretDatas[7].turretCost;
+                turretConstructionTime = turretDatas[7].turretConstructionTime;
+                break;
+
+            case "Turret/UpgradedWoodPecker":
+                Debug.Log("UpgradedWoodPecker 초기화");
+                turretNum = turretDatas[8].turretNum;
+                maxHP = turretDatas[8].maxHP;
+                power = turretDatas[8].power;
+                defense = turretDatas[8].defense;
+                attackSpeed = turretDatas[8].attackSpeed;
+                range = turretDatas[8].range;
+                regeneration = turretDatas[8].regeneration;
+                attackRangeType = turretDatas[8].attackRangeType;
+                isRecoveryTower = turretDatas[8].isRecoveryTower;
+                attackTargetNum = turretDatas[8].attackTargetNum;
+                debuffType = turretDatas[8].debuffType;
+                debuffDuration = turretDatas[8].debuffDuration;
+                multiAttackRange = turretDatas[8].multiAttackRange;
+                bulletIndex = turretDatas[8].bulletIndex;
+                damageEffectIndex = turretDatas[8].damageEffectIndex;
+                deadEffectIndex = turretDatas[8].deadEffectIndex;
+                fireEffectIndex = turretDatas[8].fireEffectIndex;
+                healEffectIndex = turretDatas[8].healEffectIndex;
+                debuffEffectIndex = turretDatas[8].debuffEffectIndex;
+                turretAppearPosY = turretDatas[8].turretAppearPosY;
+                turretCost = turretDatas[8].turretCost;
+                turretConstructionTime = turretDatas[8].turretConstructionTime;
+                break;
+
+            case "Turret/HawkTurret":
+                Debug.Log("HawkTurret 초기화");
+                turretNum = turretDatas[9].turretNum;
+                maxHP = turretDatas[9].maxHP;
+                power = turretDatas[9].power;
+                defense = turretDatas[9].defense;
+                attackSpeed = turretDatas[9].attackSpeed;
+                range = turretDatas[9].range;
+                regeneration = turretDatas[9].regeneration;
+                attackRangeType = turretDatas[9].attackRangeType;
+                isRecoveryTower = turretDatas[9].isRecoveryTower;
+                attackTargetNum = turretDatas[9].attackTargetNum;
+                debuffType = turretDatas[9].debuffType;
+                debuffDuration = turretDatas[9].debuffDuration;
+                multiAttackRange = turretDatas[9].multiAttackRange;
+                bulletIndex = turretDatas[9].bulletIndex;
+                damageEffectIndex = turretDatas[9].damageEffectIndex;
+                deadEffectIndex = turretDatas[9].deadEffectIndex;
+                fireEffectIndex = turretDatas[9].fireEffectIndex;
+                healEffectIndex = turretDatas[9].healEffectIndex;
+                debuffEffectIndex = turretDatas[9].debuffEffectIndex;
+                turretAppearPosY = turretDatas[9].turretAppearPosY;
+                turretCost = turretDatas[9].turretCost;
+                turretConstructionTime = turretDatas[9].turretConstructionTime;
+                break;
+
+            case "Turret/EagleTurret":
+                Debug.Log("EagleTurret 초기화");
+                turretNum = turretDatas[10].turretNum;
+                maxHP = turretDatas[10].maxHP;
+                power = turretDatas[10].power;
+                defense = turretDatas[10].defense;
+                attackSpeed = turretDatas[10].attackSpeed;
+                range = turretDatas[10].range;
+                regeneration = turretDatas[10].regeneration;
+                attackRangeType = turretDatas[10].attackRangeType;
+                isRecoveryTower = turretDatas[10].isRecoveryTower;
+                attackTargetNum = turretDatas[10].attackTargetNum;
+                debuffType = turretDatas[10].debuffType;
+                debuffDuration = turretDatas[10].debuffDuration;
+                multiAttackRange = turretDatas[10].multiAttackRange;
+                bulletIndex = turretDatas[10].bulletIndex;
+                damageEffectIndex = turretDatas[10].damageEffectIndex;
+                deadEffectIndex = turretDatas[10].deadEffectIndex;
+                fireEffectIndex = turretDatas[10].fireEffectIndex;
+                healEffectIndex = turretDatas[10].healEffectIndex;
+                debuffEffectIndex = turretDatas[10].debuffEffectIndex;
+                turretAppearPosY = turretDatas[10].turretAppearPosY;
+                turretCost = turretDatas[10].turretCost;
+                turretConstructionTime = turretDatas[10].turretConstructionTime;
+                break;
+
+            case "Turret/UpgradedBabyBirdTurret":
+                Debug.Log("UpgradedBabyBirdTurret 초기화");
+                turretNum = turretDatas[11].turretNum;
+                maxHP = turretDatas[11].maxHP;
+                power = turretDatas[11].power;
+                defense = turretDatas[11].defense;
+                attackSpeed = turretDatas[11].attackSpeed;
+                range = turretDatas[11].range;
+                regeneration = turretDatas[11].regeneration;
+                attackRangeType = turretDatas[11].attackRangeType;
+                isRecoveryTower = turretDatas[11].isRecoveryTower;
+                attackTargetNum = turretDatas[11].attackTargetNum;
+                debuffType = turretDatas[11].debuffType;
+                debuffDuration = turretDatas[11].debuffDuration;
+                multiAttackRange = turretDatas[11].multiAttackRange;
+                bulletIndex = turretDatas[11].bulletIndex;
+                damageEffectIndex = turretDatas[11].damageEffectIndex;
+                deadEffectIndex = turretDatas[11].deadEffectIndex;
+                fireEffectIndex = turretDatas[11].fireEffectIndex;
+                healEffectIndex = turretDatas[11].healEffectIndex;
+                debuffEffectIndex = turretDatas[11].debuffEffectIndex;
+                turretAppearPosY = turretDatas[11].turretAppearPosY;
+                turretCost = turretDatas[11].turretCost;
+                turretConstructionTime = turretDatas[11].turretConstructionTime;
+                break;
+
+            case "Turret/UpgradedEagleTurret":
+                Debug.Log("UpgradedEagleTurret 초기화");
+                turretNum = turretDatas[12].turretNum;
+                maxHP = turretDatas[12].maxHP;
+                power = turretDatas[12].power;
+                defense = turretDatas[12].defense;
+                attackSpeed = turretDatas[12].attackSpeed;
+                range = turretDatas[12].range;
+                regeneration = turretDatas[12].regeneration;
+                attackRangeType = turretDatas[12].attackRangeType;
+                isRecoveryTower = turretDatas[12].isRecoveryTower;
+                attackTargetNum = turretDatas[12].attackTargetNum;
+                debuffType = turretDatas[12].debuffType;
+                debuffDuration = turretDatas[12].debuffDuration;
+                multiAttackRange = turretDatas[12].multiAttackRange;
+                bulletIndex = turretDatas[12].bulletIndex;
+                damageEffectIndex = turretDatas[12].damageEffectIndex;
+                deadEffectIndex = turretDatas[12].deadEffectIndex;
+                fireEffectIndex = turretDatas[12].fireEffectIndex;
+                healEffectIndex = turretDatas[12].healEffectIndex;
+                debuffEffectIndex = turretDatas[12].debuffEffectIndex;
+                turretAppearPosY = turretDatas[12].turretAppearPosY;
+                turretCost = turretDatas[12].turretCost;
+                turretConstructionTime = turretDatas[12].turretConstructionTime;
+                break;
+
+            case "Turret/ArmamentPigeonTurret":
+                Debug.Log("ArmamentPigeonTurret 초기화");
+                turretNum = turretDatas[13].turretNum;
+                maxHP = turretDatas[13].maxHP;
+                power = turretDatas[13].power;
+                defense = turretDatas[13].defense;
+                attackSpeed = turretDatas[13].attackSpeed;
+                range = turretDatas[13].range;
+                regeneration = turretDatas[13].regeneration;
+                attackRangeType = turretDatas[13].attackRangeType;
+                isRecoveryTower = turretDatas[13].isRecoveryTower;
+                attackTargetNum = turretDatas[13].attackTargetNum;
+                debuffType = turretDatas[13].debuffType;
+                debuffDuration = turretDatas[13].debuffDuration;
+                multiAttackRange = turretDatas[13].multiAttackRange;
+                bulletIndex = turretDatas[13].bulletIndex;
+                damageEffectIndex = turretDatas[13].damageEffectIndex;
+                deadEffectIndex = turretDatas[13].deadEffectIndex;
+                fireEffectIndex = turretDatas[13].fireEffectIndex;
+                healEffectIndex = turretDatas[13].healEffectIndex;
+                debuffEffectIndex = turretDatas[13].debuffEffectIndex;
+                turretAppearPosY = turretDatas[13].turretAppearPosY;
+                turretCost = turretDatas[13].turretCost;
+                turretConstructionTime = turretDatas[13].turretConstructionTime;
+                break;
+
+            case "Turret/ArmamentWoodPeckerTurret":
+                Debug.Log("ArmamentWoodPeckerTurret 초기화");
+                turretNum = turretDatas[14].turretNum;
+                maxHP = turretDatas[14].maxHP;
+                power = turretDatas[14].power;
+                defense = turretDatas[14].defense;
+                attackSpeed = turretDatas[14].attackSpeed;
+                range = turretDatas[14].range;
+                regeneration = turretDatas[14].regeneration;
+                attackRangeType = turretDatas[14].attackRangeType;
+                isRecoveryTower = turretDatas[14].isRecoveryTower;
+                attackTargetNum = turretDatas[14].attackTargetNum;
+                debuffType = turretDatas[14].debuffType;
+                debuffDuration = turretDatas[14].debuffDuration;
+                multiAttackRange = turretDatas[14].multiAttackRange;
+                bulletIndex = turretDatas[14].bulletIndex;
+                damageEffectIndex = turretDatas[14].damageEffectIndex;
+                deadEffectIndex = turretDatas[14].deadEffectIndex;
+                fireEffectIndex = turretDatas[14].fireEffectIndex;
+                healEffectIndex = turretDatas[14].healEffectIndex;
+                debuffEffectIndex = turretDatas[14].debuffEffectIndex;
+                turretAppearPosY = turretDatas[14].turretAppearPosY;
+                turretCost = turretDatas[14].turretCost;
+                turretConstructionTime = turretDatas[14].turretConstructionTime;
+                break;
+
+            case "Turret/ArmamentBabyBirdTurret":
+                Debug.Log("ArmamentBabyBirdTurret 초기화");
+                turretNum = turretDatas[15].turretNum;
+                maxHP = turretDatas[15].maxHP;
+                power = turretDatas[15].power;
+                defense = turretDatas[15].defense;
+                attackSpeed = turretDatas[15].attackSpeed;
+                range = turretDatas[15].range;
+                regeneration = turretDatas[15].regeneration;
+                attackRangeType = turretDatas[15].attackRangeType;
+                isRecoveryTower = turretDatas[15].isRecoveryTower;
+                attackTargetNum = turretDatas[15].attackTargetNum;
+                debuffType = turretDatas[15].debuffType;
+                debuffDuration = turretDatas[15].debuffDuration;
+                multiAttackRange = turretDatas[15].multiAttackRange;
+                bulletIndex = turretDatas[15].bulletIndex;
+                damageEffectIndex = turretDatas[15].damageEffectIndex;
+                deadEffectIndex = turretDatas[15].deadEffectIndex;
+                fireEffectIndex = turretDatas[15].fireEffectIndex;
+                healEffectIndex = turretDatas[15].healEffectIndex;
+                debuffEffectIndex = turretDatas[15].debuffEffectIndex;
+                turretAppearPosY = turretDatas[15].turretAppearPosY;
+                turretCost = turretDatas[15].turretCost;
+                turretConstructionTime = turretDatas[15].turretConstructionTime;
+                break;
+
+            case "Turret/ArmamentPenguinTurret":
+                Debug.Log("ArmamentPenguinTurret 초기화");
+                turretNum = turretDatas[16].turretNum;
+                maxHP = turretDatas[16].maxHP;
+                power = turretDatas[16].power;
+                defense = turretDatas[16].defense;
+                attackSpeed = turretDatas[16].attackSpeed;
+                range = turretDatas[16].range;
+                regeneration = turretDatas[16].regeneration;
+                attackRangeType = turretDatas[16].attackRangeType;
+                isRecoveryTower = turretDatas[16].isRecoveryTower;
+                attackTargetNum = turretDatas[16].attackTargetNum;
+                debuffType = turretDatas[16].debuffType;
+                debuffDuration = turretDatas[16].debuffDuration;
+                multiAttackRange = turretDatas[16].multiAttackRange;
+                bulletIndex = turretDatas[16].bulletIndex;
+                damageEffectIndex = turretDatas[16].damageEffectIndex;
+                deadEffectIndex = turretDatas[16].deadEffectIndex;
+                fireEffectIndex = turretDatas[16].fireEffectIndex;
+                healEffectIndex = turretDatas[16].healEffectIndex;
+                debuffEffectIndex = turretDatas[16].debuffEffectIndex;
+                turretAppearPosY = turretDatas[16].turretAppearPosY;
+                turretCost = turretDatas[16].turretCost;
+                turretConstructionTime = turretDatas[16].turretConstructionTime;
+                break;
+
+            case "Turret/ArmamentHawkTurret":
+                Debug.Log("ArmamentHawkTurret 초기화");
+                turretNum = turretDatas[17].turretNum;
+                maxHP = turretDatas[17].maxHP;
+                power = turretDatas[17].power;
+                defense = turretDatas[17].defense;
+                attackSpeed = turretDatas[17].attackSpeed;
+                range = turretDatas[17].range;
+                regeneration = turretDatas[17].regeneration;
+                attackRangeType = turretDatas[17].attackRangeType;
+                isRecoveryTower = turretDatas[17].isRecoveryTower;
+                attackTargetNum = turretDatas[17].attackTargetNum;
+                debuffType = turretDatas[17].debuffType;
+                debuffDuration = turretDatas[17].debuffDuration;
+                multiAttackRange = turretDatas[17].multiAttackRange;
+                bulletIndex = turretDatas[17].bulletIndex;
+                damageEffectIndex = turretDatas[17].damageEffectIndex;
+                deadEffectIndex = turretDatas[17].deadEffectIndex;
+                fireEffectIndex = turretDatas[17].fireEffectIndex;
+                healEffectIndex = turretDatas[17].healEffectIndex;
+                debuffEffectIndex = turretDatas[17].debuffEffectIndex;
+                turretAppearPosY = turretDatas[17].turretAppearPosY;
+                turretCost = turretDatas[17].turretCost;
+                turretConstructionTime = turretDatas[17].turretConstructionTime;
+                break;
+
+            case "Turret/RailGunTurret":
+                Debug.Log("RailGunTurret 초기화");
+                turretNum = turretDatas[18].turretNum;
+                maxHP = turretDatas[18].maxHP;
+                power = turretDatas[18].power;
+                defense = turretDatas[18].defense;
+                attackSpeed = turretDatas[18].attackSpeed;
+                range = turretDatas[18].range;
+                regeneration = turretDatas[18].regeneration;
+                attackRangeType = turretDatas[18].attackRangeType;
+                isRecoveryTower = turretDatas[18].isRecoveryTower;
+                attackTargetNum = turretDatas[18].attackTargetNum;
+                debuffType = turretDatas[18].debuffType;
+                debuffDuration = turretDatas[18].debuffDuration;
+                multiAttackRange = turretDatas[18].multiAttackRange;
+                bulletIndex = turretDatas[18].bulletIndex;
+                damageEffectIndex = turretDatas[18].damageEffectIndex;
+                deadEffectIndex = turretDatas[18].deadEffectIndex;
+                fireEffectIndex = turretDatas[18].fireEffectIndex;
+                healEffectIndex = turretDatas[18].healEffectIndex;
+                debuffEffectIndex = turretDatas[18].debuffEffectIndex;
+                turretAppearPosY = turretDatas[18].turretAppearPosY;
+                turretCost = turretDatas[18].turretCost;
+                turretConstructionTime = turretDatas[18].turretConstructionTime;
+                break;
+
+            case "Turret/RosasioTurret":
+                Debug.Log("RosasioTurret 초기화");
+                turretNum = turretDatas[19].turretNum;
+                maxHP = turretDatas[19].maxHP;
+                power = turretDatas[19].power;
+                defense = turretDatas[19].defense;
+                attackSpeed = turretDatas[19].attackSpeed;
+                range = turretDatas[19].range;
+                regeneration = turretDatas[19].regeneration;
+                attackRangeType = turretDatas[19].attackRangeType;
+                isRecoveryTower = turretDatas[19].isRecoveryTower;
+                attackTargetNum = turretDatas[19].attackTargetNum;
+                debuffType = turretDatas[19].debuffType;
+                debuffDuration = turretDatas[19].debuffDuration;
+                multiAttackRange = turretDatas[19].multiAttackRange;
+                bulletIndex = turretDatas[19].bulletIndex;
+                damageEffectIndex = turretDatas[19].damageEffectIndex;
+                deadEffectIndex = turretDatas[19].deadEffectIndex;
+                fireEffectIndex = turretDatas[19].fireEffectIndex;
+                healEffectIndex = turretDatas[19].healEffectIndex;
+                debuffEffectIndex = turretDatas[19].debuffEffectIndex;
+                turretAppearPosY = turretDatas[19].turretAppearPosY;
+                turretCost = turretDatas[19].turretCost;
+                turretConstructionTime = turretDatas[19].turretConstructionTime;
+                break;
+
+            case "Turret/SwordBirdTurret":
+                Debug.Log("SwordBirdTurret 초기화");
+                turretNum = turretDatas[20].turretNum;
+                maxHP = turretDatas[20].maxHP;
+                power = turretDatas[20].power;
+                defense = turretDatas[20].defense;
+                attackSpeed = turretDatas[20].attackSpeed;
+                range = turretDatas[20].range;
+                regeneration = turretDatas[20].regeneration;
+                attackRangeType = turretDatas[20].attackRangeType;
+                isRecoveryTower = turretDatas[20].isRecoveryTower;
+                attackTargetNum = turretDatas[20].attackTargetNum;
+                debuffType = turretDatas[20].debuffType;
+                debuffDuration = turretDatas[20].debuffDuration;
+                multiAttackRange = turretDatas[20].multiAttackRange;
+                bulletIndex = turretDatas[20].bulletIndex;
+                damageEffectIndex = turretDatas[20].damageEffectIndex;
+                deadEffectIndex = turretDatas[20].deadEffectIndex;
+                fireEffectIndex = turretDatas[20].fireEffectIndex;
+                healEffectIndex = turretDatas[20].healEffectIndex;
+                debuffEffectIndex = turretDatas[20].debuffEffectIndex;
+                turretAppearPosY = turretDatas[20].turretAppearPosY;
+                turretCost = turretDatas[20].turretCost;
+                turretConstructionTime = turretDatas[20].turretConstructionTime;
+                break;
+
+            case "Turret/KingTurret":
+                Debug.Log("KingTurret 초기화");
+                turretNum = turretDatas[21].turretNum;
+                maxHP = turretDatas[21].maxHP;
+                power = turretDatas[21].power;
+                defense = turretDatas[21].defense;
+                attackSpeed = turretDatas[21].attackSpeed;
+                range = turretDatas[21].range;
+                regeneration = turretDatas[21].regeneration;
+                attackRangeType = turretDatas[21].attackRangeType;
+                isRecoveryTower = turretDatas[21].isRecoveryTower;
+                attackTargetNum = turretDatas[21].attackTargetNum;
+                debuffType = turretDatas[21].debuffType;
+                debuffDuration = turretDatas[21].debuffDuration;
+                multiAttackRange = turretDatas[21].multiAttackRange;
+                bulletIndex = turretDatas[21].bulletIndex;
+                damageEffectIndex = turretDatas[21].damageEffectIndex;
+                deadEffectIndex = turretDatas[21].deadEffectIndex;
+                fireEffectIndex = turretDatas[21].fireEffectIndex;
+                healEffectIndex = turretDatas[21].healEffectIndex;
+                debuffEffectIndex = turretDatas[21].debuffEffectIndex;
+                turretAppearPosY = turretDatas[21].turretAppearPosY;
+                turretCost = turretDatas[21].turretCost;
+                turretConstructionTime = turretDatas[21].turretConstructionTime;
+                break;
+
+            case "Turret/WhiteKingTurret":
+                Debug.Log("WhiteKingTurret 초기화");
+                turretNum = turretDatas[22].turretNum;
+                maxHP = turretDatas[22].maxHP;
+                power = turretDatas[22].power;
+                defense = turretDatas[22].defense;
+                attackSpeed = turretDatas[22].attackSpeed;
+                range = turretDatas[22].range;
+                regeneration = turretDatas[22].regeneration;
+                attackRangeType = turretDatas[22].attackRangeType;
+                isRecoveryTower = turretDatas[22].isRecoveryTower;
+                attackTargetNum = turretDatas[22].attackTargetNum;
+                debuffType = turretDatas[22].debuffType;
+                debuffDuration = turretDatas[22].debuffDuration;
+                multiAttackRange = turretDatas[22].multiAttackRange;
+                bulletIndex = turretDatas[22].bulletIndex;
+                damageEffectIndex = turretDatas[22].damageEffectIndex;
+                deadEffectIndex = turretDatas[22].deadEffectIndex;
+                fireEffectIndex = turretDatas[22].fireEffectIndex;
+                healEffectIndex = turretDatas[22].healEffectIndex;
+                debuffEffectIndex = turretDatas[22].debuffEffectIndex;
+                turretAppearPosY = turretDatas[22].turretAppearPosY;
+                turretCost = turretDatas[22].turretCost;
+                turretConstructionTime = turretDatas[22].turretConstructionTime;
+                break;
+
+            case "Turret/Base":
+                Debug.Log("Base 초기화");
+                turretNum = turretDatas[23].turretNum;
+                maxHP = turretDatas[23].maxHP;
+                power = turretDatas[23].power;
+                defense = turretDatas[23].defense;
+                attackSpeed = turretDatas[23].attackSpeed;
+                range = turretDatas[23].range;
+                regeneration = turretDatas[23].regeneration;
+                attackRangeType = turretDatas[23].attackRangeType;
+                isRecoveryTower = turretDatas[23].isRecoveryTower;
+                attackTargetNum = turretDatas[23].attackTargetNum;
+                debuffType = turretDatas[23].debuffType;
+                debuffDuration = turretDatas[23].debuffDuration;
+                multiAttackRange = turretDatas[23].multiAttackRange;
+                bulletIndex = turretDatas[23].bulletIndex;
+                damageEffectIndex = turretDatas[23].damageEffectIndex;
+                deadEffectIndex = turretDatas[23].deadEffectIndex;
+                fireEffectIndex = turretDatas[23].fireEffectIndex;
+                healEffectIndex = turretDatas[23].healEffectIndex;
+                debuffEffectIndex = turretDatas[23].debuffEffectIndex;
+                turretAppearPosY = turretDatas[23].turretAppearPosY;
+                turretCost = turretDatas[23].turretCost;
+                turretConstructionTime = turretDatas[23].turretConstructionTime;
+                break;
+
+            default:
+                break;
+        }
+    }
+	#endregion
 }
