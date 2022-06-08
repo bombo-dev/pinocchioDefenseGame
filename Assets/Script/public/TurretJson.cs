@@ -12,7 +12,6 @@ using System.Text;
 [Serializable]
 public class TurretDatas
 {
-    // private int turretNum_value;
     public int turretNum;
     public int maxHP;
     public int power;
@@ -60,17 +59,18 @@ public class TurretJson : MonoBehaviour
         string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
         string jsonString = File.ReadAllText(filepath);
 
-        TurretDatas[] turretdata = JsonHelper.FromJson<TurretDatas>(jsonString);
+        TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
-        //Debug.Log(turretdata[0].filepath);
-    }
+        // Debug.Log(" 0번 터렛 : " + turretdata[0].turretNum);
+		// Debug.Log(" 1번 터렛 : " + turretdata[1].turretNum);
+	}
 
-    public TurretDatas[] GetTurretData()
+	public TurretDatas[] GetTurretData()
     {
         string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
         string jsonString = File.ReadAllText(filepath);
 
-        TurretDatas[] turretdata = JsonMonsterHelper.FromJson<TurretDatas>(jsonString);
+        TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
         return turretdata;
     }
@@ -80,7 +80,7 @@ public class TurretJson : MonoBehaviour
 /// <summary>
 /// Turret Json Parsing 도와주는 클래스
 /// </summary>
-public static class JsonHelper
+public static class JsonTurretHelper
 {
     [Serializable]
     private class Wrapper<T>
