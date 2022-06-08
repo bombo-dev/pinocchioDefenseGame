@@ -136,6 +136,26 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    EnemyJson enemyJson;
+    public EnemyJson EnemyJson
+    {
+        get
+        {
+            return enemyJson;
+        }
+    }
+
+    [SerializeField]
+    TurretJson turretJson;
+    public TurretJson TurretJson
+    {
+        get
+        {
+            return turretJson;
+        }
+    }
+
     private void Awake()
     {
         //¿Ø¿œ«— instance

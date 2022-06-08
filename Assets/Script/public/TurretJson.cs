@@ -12,12 +12,11 @@ using System.Text;
 [Serializable]
 public class TurretDatas
 {
-    // private int turretNum_value;
     public int turretNum;
     public int maxHP;
     public int power;
     public int defense;
-    public double attackSpeed;
+    public float attackSpeed;
     public int range;
     public int regeneration;
     public int attackRangeType;
@@ -26,13 +25,15 @@ public class TurretDatas
     public int debuffType;
     public int debuffDuration;
     public int multiAttackRange;
-    public int bullet_index;
+    public int bulletIndex;
     public int damageEffectIndex;
     public int deadEffectIndex;
     public int fireEffectIndex;
     public int healEffectIndex;
     public int debuffEffectIndex;
-    public double turretAppearPosY;
+    public float turretAppearPosY;
+    public int turretCost;
+    public int turretConstructionTime;
     public string filepath;
 }
 
@@ -41,7 +42,7 @@ public class TurretJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Load();
+        // Load();
     }
 
     // Update is called once per frame
@@ -58,17 +59,28 @@ public class TurretJson : MonoBehaviour
         string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
         string jsonString = File.ReadAllText(filepath);
 
-        TurretDatas[] turretdata = JsonHelper.FromJson<TurretDatas>(jsonString);
+        TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
-        Debug.Log(turretdata[0].filepath);
+        // Debug.Log(" 0번 터렛 : " + turretdata[0].turretNum);
+		// Debug.Log(" 1번 터렛 : " + turretdata[1].turretNum);
+	}
+
+	public TurretDatas[] GetTurretData()
+    {
+        string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+        string jsonString = File.ReadAllText(filepath);
+
+        TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+
+        return turretdata;
     }
-    
+
 }
 
 /// <summary>
 /// Turret Json Parsing 도와주는 클래스
 /// </summary>
-public static class JsonHelper
+public static class JsonTurretHelper
 {
     [Serializable]
     private class Wrapper<T>
