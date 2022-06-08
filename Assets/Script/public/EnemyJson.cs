@@ -18,19 +18,28 @@ public class EnemyData
     public int regeneration;
     public int attackRangeType;
     public bool isRecoveryTower;
+    public bool selfDestruct;
     public int attackTargetNum;
     public int debuffType;
     public int debuffDuration;
     public int multiAttackRange;
-    public int bullet_index;
+    public int bulletIndex;
     public int damageEffectIndex;
     public int deadEffectIndex;
     public int fireEffectIndex;
     public int healEffectIndex;
     public int debuffEffectIndex;
-    public int appearPos;
+    public AppearPos[] appearPos;
     public int rewardWoodResource;
     public string filepath;
+}
+
+[Serializable]
+public class AppearPos
+{
+    public float X;
+    public float Y;
+    public float Z;
 }
 
 public class EnemyJson : MonoBehaviour
@@ -38,7 +47,7 @@ public class EnemyJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Load();
+        Load();
     }
 
     // Update is called once per frame
@@ -57,10 +66,12 @@ public class EnemyJson : MonoBehaviour
 
         EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
 
-        // Debug.Log(enemyData[0].filepath);
+        Debug.Log(enemyData[0].appearPos[0].X + " , " + enemyData[0].appearPos[0].Y + " , " + enemyData[0].appearPos[0].Z);
+        Debug.Log(enemyData[0].appearPos[1].X + " , " + enemyData[0].appearPos[1].Y + " , " + enemyData[0].appearPos[1].Z);
+        Debug.Log(enemyData[0].appearPos[2].X + " , " + enemyData[0].appearPos[2].Y + " , " + enemyData[0].appearPos[2].Z);
     }
 
-    EnemyData[] GetEnemyData()
+    public EnemyData[] GetEnemyData()
     {
         string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
         string jsonString = File.ReadAllText(filepath);
