@@ -88,7 +88,7 @@ public class Turret : Actor
     protected override void Initialize()
     {
         base.Initialize();
-        //TurretInitializing();
+        TurretInitializing();
         Reset();
 
     }
