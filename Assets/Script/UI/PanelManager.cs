@@ -32,7 +32,7 @@ public class PanelManager : MonoBehaviour
     public StatusMngPanel statusMngPanel;
     public DamageMngPanel damageMngPanel;
     public UI_ResourcePanel resoursePanel;
-
+    public UI_OptionPanel optionPanel;
 
     [SerializeField]
     Transform canvas;
@@ -69,6 +69,9 @@ public class PanelManager : MonoBehaviour
     {
         //ResourceManaerPanel
         EnablePanel<UI_ResourcePanel>(4);
+
+        //OptionPanel
+        EnablePanel<UI_OptionPanel>(7);
     }
 
     /// <summary>
@@ -185,6 +188,10 @@ public class PanelManager : MonoBehaviour
                 go.transform.position = screenPos;
             }
 
+        }
+        else if (typeof(T) == typeof(UI_OptionPanel))
+        {
+            optionPanel = (compoenent as UI_OptionPanel);
         }
 
         if (typeof(T) == typeof(DamageMngPanel))
