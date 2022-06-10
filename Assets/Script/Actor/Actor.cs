@@ -542,7 +542,6 @@ public class Actor : MonoBehaviour
         if (damage <= 0 || currentHP < 0)
             return;
 
-<<<<<<< HEAD
         //데미지 계산 공식 -> 방어력은 100미만
         if (currentDefense >= 100)
             currentDefense = 99;
@@ -550,10 +549,6 @@ public class Actor : MonoBehaviour
         damage = (int)(damage - (damage * ((float)currentDefense * 0.01f)));
 
         Debug.Log("damage -> " + damage);
-=======
-        //데미지 계산 공식
-        //damage = damage - (int)(damage * ((float)currentDefense * 0.01f));
->>>>>>> 335fad6e9798eafb8e1359f81c1a92d9e71f272d
 
         //예외처리
         if (damage <= 0)

@@ -68,7 +68,7 @@ public class TurretManager : MonoBehaviour
             //건설 비용 배열 초기화
             turretConstructionTimeArr[i] = turretDatas[i].turretConstructionTime;
             //건설 시간 배열 초기화
-            turretConstructionTimeArr[i] = turretDatas[i].turretCost;
+            turretCostArr[i] = turretDatas[i].turretCost;
         }
     }
 
