@@ -179,12 +179,6 @@ public class Actor : MonoBehaviour
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
 
-    //JsonData
-    [SerializeField]
-    protected TurretDatas[] turretDatas;
-    [SerializeField]
-    protected EnemyData[] enemyDatas;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -548,8 +542,13 @@ public class Actor : MonoBehaviour
         if (damage <= 0 || currentHP < 0)
             return;
 
-        //데미지 계산 공식
-        //damage = damage - (int)(damage * ((float)currentDefense * 0.01f));
+        //데미지 계산 공식 -> 방어력은 100미만
+        if (currentDefense >= 100)
+            currentDefense = 99;
+
+        damage = (int)(damage - (damage * ((float)currentDefense * 0.01f)));
+
+        Debug.Log("damage -> " + damage);
 
         //예외처리
         if (damage <= 0)

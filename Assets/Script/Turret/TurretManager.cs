@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
+    const int MAXTURRET = 23;   //최대 터렛 수
+
     //특수터렛 인덱스
     int BASETURRET_INDEX = 23;
     public int CONSTRUCTIONTURRET_INDEX = 24;
@@ -22,8 +24,11 @@ public class TurretManager : MonoBehaviour
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
 
+    //UI에 먼저 표시 해야할 정보들 캐싱
     //TurretNum으로 액세스 할 수 있는 터렛 건설시간 배열
-    public float[] turretConstructionTime;
+    public float[] turretConstructionTimeArr;
+    //TurretNum으로 액세스 할 수 있는 터렛 건설 코스트 배열
+    public int[] turretCostArr;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +37,9 @@ public class TurretManager : MonoBehaviour
 
         //베이스 터렛 건설
         EnableBase();
+
+        //터렛 정보 배열 초기화
+        InitializeTurretArrData();
     }
 
     /// <summary>
@@ -42,6 +50,25 @@ public class TurretManager : MonoBehaviour
         for (int i = 0; i < prefabCacheDatas.Length; i++)
         {
             SystemManager.Instance.PrefabCacheSystem.GeneratePrefabCache(prefabCacheDatas[i].filePath, prefabCacheDatas[i].cacheCount, Load(prefabCacheDatas[i].filePath), turretParents);
+        }
+    }
+
+    /// <summary>
+    /// 터렛 배열데이터 초기화 : 김현진
+    /// </summary>
+    public void InitializeTurretArrData()
+    {
+        TurretDatas[] turretDatas = SystemManager.Instance.TurretJson.GetTurretData();
+
+        turretConstructionTimeArr = new float[MAXTURRET];
+        turretCostArr = new int[MAXTURRET];
+
+        for (int i = 0; i < MAXTURRET; i++)
+        {
+            //건설 비용 배열 초기화
+            turretConstructionTimeArr[i] = turretDatas[i].turretConstructionTime;
+            //건설 시간 배열 초기화
+            turretCostArr[i] = turretDatas[i].turretCost;
         }
     }
 

@@ -61,6 +61,10 @@ public class Enemy : Actor
 
     public DamageMngPanel damageMngPanel;
 
+    //JsonData
+    [SerializeField]
+    protected EnemyData[] enemyDatas;
+
     /// <summary>
     /// 초기화 함수 : 김현진
     /// </summary>
