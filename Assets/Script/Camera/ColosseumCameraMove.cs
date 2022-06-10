@@ -26,11 +26,17 @@ public class ColosseumCameraMove : MonoBehaviour
     Vector2 curPos, prePos;
     Vector3 movePos;
 
+    Vector2?[] touchPrePos = { null, null };
+    Vector2 touchPreVec;
+    float touchPreDist;
+
     float preDistance, curDistance, moveDistance;   // 화면 줌을 위한 변수
 
     bool isMouseButtonOver;     // 마우스(터치)가 UI 위에 있는 경우 
 
     bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,28 +48,20 @@ public class ColosseumCameraMove : MonoBehaviour
     void Update()
     {
 
-        UpdateInputAtAnd();
-        UpdateInputAtWin();
-        UpdateAndFlag();
-        UpdateWinFlag();
-        /*
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
-            else
-            {
-                UpdateInputAtAnd();
-                UpdateAndFlag();
-            }
+
+            UpdateInputAtAnd();
+            //UpdateAndFlag();
         }
-        */
-        /*else
+        else
         {
             UpdateInputAtWin();
             UpdateWinFlag();
         }
-        */
+
     }
 
     /// <summary>
@@ -89,11 +87,13 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void UpdateInputAtAnd()
     {
-
+  
+        
         // 화면에 접촉된 손가락의 개수가 1개이면
-        if (Input.touchCount == 1)
+        if (Input.touchCount == 1 )
         {
-
+            MoveAndCam();
+            /*
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMouseButtonOver)
             {
                 isMapClick = true;
@@ -110,14 +110,16 @@ public class ColosseumCameraMove : MonoBehaviour
             }
             else
                 return;
-
+            */
         }
         else if (Input.touchCount == 2)
+        {            
             ZoomAndCam();
+        }
         else
             return;
 
-
+        
     }
 
     /// <summary>
@@ -128,22 +130,25 @@ public class ColosseumCameraMove : MonoBehaviour
         // 터치 상태 저장
         Touch touch = Input.GetTouch(0);    
 
+       
         // 화면을 터치하는 순간 해당 위치 값 저장
         if (touch.phase == TouchPhase.Began)
         {    
-            prePos = touch.position;
+            prePos = touch.position-touch.deltaPosition;
         }
         // 터치한 상태로 드래그하는 동안 화면 이동
         else if (touch.phase == TouchPhase.Moved)   
         {
-            curPos = touch.position;
+            curPos = touch.position-touch.deltaPosition;
             // 이동할 방향 벡터를 구함
-            Vector3 dir = (prePos - curPos).normalized;            
+            Vector2 dir = (prePos - curPos);            
             movePos = dir * Time.deltaTime * touchSpeed;
 
             // 카메라 이동
-            cameraMove.Translate(movePos);
+            Camera.main.transform.Translate(movePos);
+            prePos = touch.position - touch.deltaPosition;
         }
+
     }
 
     /// <summary>
@@ -151,6 +156,8 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void ZoomAndCam()
     {
+   
+
         Touch fstTouch = Input.GetTouch(0); // 첫 번째 터치 정보
         Touch scdTouch = Input.GetTouch(1); // 두 번째 터치 정보
         
@@ -170,6 +177,8 @@ public class ColosseumCameraMove : MonoBehaviour
         //  카메라를 줌인, 줌아웃
 
             Camera.main.fieldOfView -= 0.3f * moveDistance;
+
+
     }
 
     void UpdateAndFlag()

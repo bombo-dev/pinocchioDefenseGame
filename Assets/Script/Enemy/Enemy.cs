@@ -416,8 +416,15 @@ public class Enemy : Actor
 
             //ÅðÄ¡
             if (!selfDestruct)
+            {
                 //Àâ¾ÒÀ»¶§ º¸»ó Áö±Þ
                 SystemManager.Instance.ResourceManager.IncreaseWoodResource(rewardWoodResource);
+                GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(7);
+                if (!go)
+                    return;
+                go.GetComponent<GoodsMngPanel>().ShowGold(rewardWoodResource, 1);
+                Debug.Log("Àû Ã³Ä¡! " + rewardWoodResource + "°ñµå È¹µæ");
+            }
             //ÀÚÆø
             else
             {

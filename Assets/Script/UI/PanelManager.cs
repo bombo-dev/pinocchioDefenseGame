@@ -33,6 +33,7 @@ public class PanelManager : MonoBehaviour
     public DamageMngPanel damageMngPanel;
     public UI_ResourcePanel resoursePanel;
     public UI_OptionPanel optionPanel;
+    public GoodsMngPanel goodsMngPanel;
 
     [SerializeField]
     Transform canvas;
@@ -193,6 +194,11 @@ public class PanelManager : MonoBehaviour
         {
             optionPanel = (compoenent as UI_OptionPanel);
         }
+        else if (typeof(T) == typeof(GoodsMngPanel))
+        {
+            goodsMngPanel = (compoenent as GoodsMngPanel);
+        }
+
 
         if (typeof(T) == typeof(DamageMngPanel))
         {
@@ -268,6 +274,12 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as UI_ConstructionGauge).filePath;
         }
+        else if (typeof(T) == typeof(GoodsMngPanel))
+        {
+            filePath = (compoenent as GoodsMngPanel).filePath;
+            goodsMngPanel = null;
+        }
+
         else
             return;
 

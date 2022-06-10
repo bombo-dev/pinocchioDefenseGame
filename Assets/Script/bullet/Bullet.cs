@@ -31,6 +31,9 @@ public class Bullet : MonoBehaviour
 
     public GameObject attackOwner;
 
+    int damage; // 디버프를 적용한 데미지
+
+    int recovery; //디버프를 적용한 회복량
 
     // Update is called once per frame
     void Update()
@@ -105,9 +108,32 @@ public class Bullet : MonoBehaviour
                 {
                     Enemy recoveryTarget = target.GetComponent<Enemy>();
                     Enemy attacker = attackOwner.GetComponent<Enemy>();
-                     
+
+                    recovery = attacker.currentPower;
+
+                    // 회복력 버프를 적용한 현재 회복력
+                    recovery += recovery * (recoveryTarget.currentRegeneration / 100);
+
+                    if (recovery > 0)
+                    {
+                        // 회복 UI 생성
+                        GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
+
+                        if (!damageMngPanelGo)
+                            return;
+
+                        DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                        // 회복 UI 화면에 띄우기
+                        damageMngPanel.ShowDamage(recovery, 1);
+
+                        recoveryTarget.damageMngPanel = damageMngPanel;
+                        damageMngPanel.damageOwner = recoveryTarget.gameObject;
+                    }
+
                     //피 공격자 회복
-                    recoveryTarget.IncreaseHP(recoveryTarget.currentPower);
+                    recoveryTarget.IncreaseHP(recovery);
+
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
@@ -116,8 +142,33 @@ public class Bullet : MonoBehaviour
                     Turret recoveryTarget = target.GetComponent<Turret>();
                     Turret attacker = attackOwner.GetComponent<Turret>();
 
+                    recovery = attacker.currentPower;
+
+                    // 회복력 버프를 적용한 현재 회복력
+                    recovery += recovery * (recoveryTarget.currentRegeneration / 100);
+
+                    if (recovery > 0)
+                    {
+                        // 회복 UI 생성
+                        GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
+
+                        if (!damageMngPanelGo)
+                            return;
+
+                        DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                        // 회복 UI 화면에 띄우기
+                        damageMngPanel.ShowDamage(recovery, 1);
+
+                        recoveryTarget.damageMngPanel = damageMngPanel;
+                        damageMngPanel.damageOwner = recoveryTarget.gameObject;
+
+                        Debug.Log(attacker.currentPower + "만큼 회복");
+                    }
+
                     //피 공격자 회복
-                    recoveryTarget.IncreaseHP(recoveryTarget.currentPower);
+                    recoveryTarget.IncreaseHP(recovery
+                        );
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
@@ -130,24 +181,28 @@ public class Bullet : MonoBehaviour
                 Enemy enemy = target.GetComponent<Enemy>();
 
                 Turret attacker = attackOwner.GetComponent<Turret>();
-   
-                enemy.DecreaseHP(attacker.currentPower);
-                
-                // 데미지 UI 생성
-                GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
 
-                if (!damageMngPanelGo)
-                    return;
+                // 방어력 디버프를 적용한 데미지 계산
+                damage = attacker.currentPower - (int)(attacker.currentPower * ((float)enemy.currentDefense * 0.01f));
 
-                DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
-                
-                // 데미지 UI 화면에 띄우기
-                damageMngPanel.ShowDamage(attacker.currentPower);
+                enemy.DecreaseHP(damage);
 
-                enemy.damageMngPanel = damageMngPanel;
-                damageMngPanel.damageOwner = enemy.gameObject;
+                if (damage > 0)
+                {                                        
+                    // 데미지 UI 생성
+                    GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
 
+                    if (!damageMngPanelGo)
+                        return;
 
+                    DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                    // 데미지 UI 화면에 띄우기
+                    damageMngPanel.ShowDamage(damage, 0);
+
+                    enemy.damageMngPanel = damageMngPanel;
+                    damageMngPanel.damageOwner = enemy.gameObject;
+                }
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
                 {
@@ -166,22 +221,27 @@ public class Bullet : MonoBehaviour
 
                 Enemy attacker = attackOwner.GetComponent<Enemy>();
 
-                turret.DecreaseHP(attacker.currentPower);
+                // 방어력 디버프를 적용한 데미지 계산
+                damage = attacker.currentPower - (int)(attacker.currentPower * ((float)turret.currentDefense * 0.01f));
 
-                // 데미지 UI 생성
-                GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
+                turret.DecreaseHP(damage);
 
-                if (!damageMngPanelGo)
-                    return;
+                if (damage > 0)
+                {                    
+                    // 데미지 UI 생성
+                    GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, target);
 
-                DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
-                
-                // 데미지 UI 화면에 띄우기
-                damageMngPanel.ShowDamage(attacker.currentPower);     
-                
-                damageMngPanel.damageOwner = turret.gameObject;
-                turret.damageMngPanel = damageMngPanel;
+                    if (!damageMngPanelGo)
+                        return;
 
+                    DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                    // 데미지 UI 화면에 띄우기
+                    damageMngPanel.ShowDamage(damage, 0);
+
+                    damageMngPanel.damageOwner = turret.gameObject;
+                    turret.damageMngPanel = damageMngPanel;
+                }
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
                 {
@@ -197,4 +257,5 @@ public class Bullet : MonoBehaviour
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }
     }
+
 }
