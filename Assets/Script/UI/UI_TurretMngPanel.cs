@@ -41,7 +41,30 @@ public class UI_TurretMngPanel : UI_Controller
         TurretText19,
         TurretText20,
         TurretText21,
-        TurretText22 //~22
+        TurretText22, //~22
+        ConstructionText0,
+        ConstructionText1,
+        ConstructionText2,
+        ConstructionText3,
+        ConstructionText4,
+        ConstructionText5,
+        ConstructionText6,
+        ConstructionText7,
+        ConstructionText8,
+        ConstructionText9,
+        ConstructionText10,
+        ConstructionText11,
+        ConstructionText12,
+        ConstructionText13,
+        ConstructionText14,
+        ConstructionText15,
+        ConstructionText16,
+        ConstructionText17,
+        ConstructionText18,
+        ConstructionText19,
+        ConstructionText20,
+        ConstructionText21,
+        ConstructionText22
     }
 
     enum Buttons
@@ -71,7 +94,7 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton22, //~22
         CloseTurretMngPanelButton
     }
-    
+
 
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
@@ -94,7 +117,29 @@ public class UI_TurretMngPanel : UI_Controller
         //Debug.Log("UI_TurretMngPanel.go =" + GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject);
 
         // 스크롤 바 드래그 시, 화면 스크롤 막기
-        
+
+        //초기화
+        ResetTurretInfo();
+    }
+
+    /// <summary>
+    /// 터렛매니저 UI의 터렛정보 리셋 : 김현진
+    /// </summary>
+    private void ResetTurretInfo()
+    {
+        //예외처리
+        if (SystemManager.Instance.TurretManager.turretCostArr.Length < MAXTURRET)
+            SystemManager.Instance.TurretManager.InitializeTurretArrData();
+
+        for (int i = 0; i < MAXTURRET; i++)
+        {
+            //터렛 코스트 정보 초기화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretManager.turretCostArr[i].ToString();
+
+            //터렛 건설 시간 정보 초기화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.ConstructionText0+i).text = "공사시간: " + SystemManager.Instance.TurretManager.turretConstructionTimeArr[i].ToString() + "초";
+
+        }
     }
 
     /// <summary>
@@ -167,7 +212,7 @@ public class UI_TurretMngPanel : UI_Controller
             constructTurret.currentSelectedTurretIdx = currentSelectedTurretIdx;    //소환될 터렛 인덱스
             constructTurret.nestGo = nestGo;    //소환할 둥지    
             constructTurret.constructionValue = 0;  //건설 게이지 값 초기화
-            constructTurret.constructionTime = SystemManager.Instance.TurretManager.turretConstructionTime[currentSelectedTurretIdx]; //건설에 걸리는 시간 초기화
+            constructTurret.constructionTime = SystemManager.Instance.TurretManager.turretConstructionTimeArr[currentSelectedTurretIdx]; //건설에 걸리는 시간 초기화
             constructTurret.constructionGaugePanel = constructionGaugePanel;    //건설 게이지 패널 정보
 
             //공사중정보 둥지에 전달

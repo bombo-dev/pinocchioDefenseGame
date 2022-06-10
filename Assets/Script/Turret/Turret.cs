@@ -51,6 +51,10 @@ public class Turret : Actor
 
     public DamageMngPanel damageMngPanel;
 
+    //JsonData
+    [SerializeField]
+    protected TurretDatas[] turretDatas;
+
     private void Start()
     {
         Initialize();

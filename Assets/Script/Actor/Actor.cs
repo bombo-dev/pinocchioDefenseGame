@@ -179,12 +179,6 @@ public class Actor : MonoBehaviour
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
 
-    //JsonData
-    [SerializeField]
-    protected TurretDatas[] turretDatas;
-    [SerializeField]
-    protected EnemyData[] enemyDatas;
-
     // Start is called before the first frame update
     void Start()
     {
