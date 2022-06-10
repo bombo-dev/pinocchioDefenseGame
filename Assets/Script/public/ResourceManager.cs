@@ -114,7 +114,7 @@ public class ResourceManager : MonoBehaviour
     /// <param name="identity">증감 식별 변수: 양수면 자원 증가, 음수면 자원 감소</param>
     void CreateGoodsPanel(int value, int identity)
     {
-        GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(7);
+        GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(8);
 
         if (!go)
             return;
