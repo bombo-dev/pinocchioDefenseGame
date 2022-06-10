@@ -83,8 +83,12 @@ public class StatusMngPanel : UI_Controller
 
     public void SetDebuff(int debuffIdx, Dictionary<Actor.debuff, Debuff> debuffs , float time)
     {
+        if (debuffIdx <= 0)
+            return;
 
-        GameObject go = Debuffs[debuffIdx];
+        Debug.Log("debuffIdx="+debuffIdx);
+
+        GameObject go = Debuffs[debuffIdx-1];
         go.SetActive(true);
         
         TextMeshProUGUI debuffText = go.GetComponentInChildren<TextMeshProUGUI>();
@@ -98,7 +102,7 @@ public class StatusMngPanel : UI_Controller
 
     public void RemoveDebuff(int debuffIndex, Dictionary<Actor.debuff, Debuff> debuffs)
     {
-        GameObject go = Debuffs[debuffIndex];
+        GameObject go = Debuffs[debuffIndex-1];
         go.SetActive(false);
     }
 
