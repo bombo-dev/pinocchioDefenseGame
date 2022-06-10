@@ -87,7 +87,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -187,8 +187,8 @@ MonoBehaviour:
     y: 0
     width: 670
     height: 604
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -422,9 +422,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -8.3903885, y: 0.45184988, z: 9.567802}
+    m_Target: {x: -2.9595, y: 0.32641867, z: -4.827668}
     speed: 2
-    m_Value: {x: -8.3903885, y: 0.45184988, z: 9.567802}
+    m_Value: {x: -2.9595, y: 0.32641867, z: -4.827668}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -471,13 +471,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.098206416, y: -0.12888756, z: 0.03540872, w: 0.98837835}
+    m_Target: {x: 0.11293639, y: -0.2583603, z: 0.0531413, w: 0.96025467}
     speed: 2
-    m_Value: {x: 0.097990975, y: -0.12860481, z: 0.03533104, w: 0.9862101}
+    m_Value: {x: 0.1112513, y: -0.2578714, z: 0.052634377, w: 0.9583084}
   m_Size:
-    m_Target: 5.001655
+    m_Target: 1.1490543
     speed: 2
-    m_Value: 5.001655
+    m_Value: 1.1490543
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -552,7 +552,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: -1920
     y: 73
     width: 669
     height: 583
@@ -1346,10 +1346,10 @@ MonoBehaviour:
       e32: 0
       e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: 8741724b3ec3f8c4abedea85f32c7c4a,
+  m_AnimatorController: {fileID: 9100000, guid: c7ea2715b60af294ca53cfc578fa880f,
     type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: 6333729947893406778, guid: 8741724b3ec3f8c4abedea85f32c7c4a,
+  - m_Target: {fileID: 255137907500732298, guid: c7ea2715b60af294ca53cfc578fa880f,
       type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 20177
+  controlID: 21618
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1471,10 +1471,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 67}
-      m_SelectedIDs: 0ca517ff
-      m_LastClickedID: -15227636
-      m_ExpandedIDs: 0ea517fff0a617ff78aa17ff9eb017ff0c9c6aff94859cffc28d9cff4680e2ff4e80e2ff36fbffff004d00009a4d0000d44d00002c4f000084540100
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: ba660000
+      m_LastClickedID: 0
+      m_ExpandedIDs: c06417ff026517ff126b17ff228517ff8a8517ff488d17fff49017ff0ea517fff0a617ff78aa17ff9eb017ff0c9c6aff94859cffc28d9cff4680e2ff4e80e2ff36fbffff004d00009a4d0000d44d00002c4f000084540100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1508,7 +1508,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -1517,14 +1517,14 @@ MonoBehaviour:
     y: 0
     width: 1012
     height: 343
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 15}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1582,7 +1582,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 98}
     m_SelectedIDs: 425d0000
     m_LastClickedID: 23874
-    m_ExpandedIDs: 00000000925b0000945b0000965b0000445d000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000925b0000945b0000965b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1635,8 +1635,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 0ca517ff
-    m_LastClickedInstanceID: -15227636
+    m_SelectedInstanceIDs: ba660000
+    m_LastClickedInstanceID: 26298
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000ecf30000b05a00003c570000badb0000c273000042830000607600009a5e0000765d000000000000ac7c0000
     m_RenameOverlay:
@@ -1714,8 +1714,8 @@ MonoBehaviour:
     y: 0
     width: 396
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}

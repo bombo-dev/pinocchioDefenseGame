@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wood12
+  m_Name: hotelWood
   m_Shader: {fileID: 4800000, guid: 7e43790c2c916d34189a4bb0a3651fe5, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
@@ -25,7 +25,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpTex:
         m_Texture: {fileID: 2800000, guid: 56de42f37269a424ca7356a0532d1a80, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 8436069146dc701499c26d2c3936ce76, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -75,6 +75,7 @@ Material:
     - _OcclusionStrength: 1
     - _OutLineOption: 1
     - _OutLinePower: 0.3
+    - _Outline: 0
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecPower: 200
@@ -87,6 +88,7 @@ Material:
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _doublePassOutline: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DiffuseCol: {r: 0.667132, g: 1, b: 0, a: 1}
@@ -95,5 +97,5 @@ Material:
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecCol: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _lampColor: {r: 0.5849056, g: 0.41707265, b: 0.06897471, a: 1}
+    - _lampColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   m_BuildTextureStacks: []
