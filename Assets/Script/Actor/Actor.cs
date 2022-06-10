@@ -411,22 +411,30 @@ public class Actor : MonoBehaviour
                 Enemy enemy = attackTargets[0].GetComponent<Enemy>();
 
                 Turret attacker = gameObject.GetComponent<Turret>();
-                enemy.DecreaseHP(attacker.currentPower);
+
+                // 방어력 디버프를 적용한 데미지 계산
+                int damage = attacker.currentPower - (int)(attacker.currentPower * ((float)enemy.currentDefense * 0.01f));
+
+                // 에너미의 hp를 감소
+                enemy.DecreaseHP(damage);
 
                 // 데미지 UI 생성
-                GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, attackTargets[0]);
+                if (damage > 0)
+                {
+                    GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, attackTargets[0]);
 
-                if (!damageMngPanelGo)
-                    return;
+                    if (!damageMngPanelGo)
+                        return;
 
-                DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+                    DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
 
-                // 데미지 UI 화면에 띄우기
-                damageMngPanel.ShowDamage(attacker.currentPower);
+                    // 데미지 UI 화면에 띄우기
+                    damageMngPanel.ShowDamage(damage, 0);
 
-                enemy.damageMngPanel = damageMngPanel;
-                damageMngPanel.damageOwner = enemy.gameObject;
+                    enemy.damageMngPanel = damageMngPanel;
+                    damageMngPanel.damageOwner = enemy.gameObject;
 
+                }
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
                 {
@@ -443,7 +451,30 @@ public class Actor : MonoBehaviour
                 Turret turret = attackTargets[0].GetComponent<Turret>();
 
                 Enemy attacker = gameObject.GetComponent<Enemy>();
-                turret.DecreaseHP(attacker.currentPower);
+
+                // 방어력 디버프를 적용한 데미지 계산
+                int damage = attacker.currentPower - (int)(attacker.currentPower * ((float)turret.currentDefense * 0.01f));
+
+                // 터렛의 hp를 감소
+                turret.DecreaseHP(damage);
+
+                // 데미지 UI 생성
+                if (damage > 0)
+                {
+                    GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, attackTargets[0]);
+
+                    if (!damageMngPanelGo)
+                        return;
+
+                    DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                    // 데미지 UI 화면에 띄우기
+                    damageMngPanel.ShowDamage(damage, 0);
+
+                    turret.damageMngPanel = damageMngPanel;
+                    damageMngPanel.damageOwner = turret.gameObject;
+
+                }
 
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
@@ -518,7 +549,7 @@ public class Actor : MonoBehaviour
             return;
 
         //데미지 계산 공식
-        damage = damage - (damage * (currentDefense / 100));
+        //damage = damage - (int)(damage * ((float)currentDefense * 0.01f));
 
         //예외처리
         if (damage <= 0)
@@ -554,7 +585,7 @@ public class Actor : MonoBehaviour
     public virtual void IncreaseHP(int recoveryPower)
     {
         //데미지 계산 공식
-        recoveryPower += recoveryPower * (currentRegeneration / 100);
+        //recoveryPower += recoveryPower * (currentRegeneration / 100);
 
         if (currentHP + recoveryPower >= maxHP)
             currentHP = maxHP;

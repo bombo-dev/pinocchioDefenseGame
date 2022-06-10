@@ -51,6 +51,9 @@ public class ResourceManager : MonoBehaviour
             //나무 자원값 갱신
             woodResource += woodResourceIncreaseValue;
 
+            // GoodsMngPanel 생성
+            CreateGoodsPanel(woodResourceIncreaseValue, 1);
+
             //UI에도 적용
             if (SystemManager.Instance.PanelManager.resoursePanel)
             {
@@ -72,6 +75,8 @@ public class ResourceManager : MonoBehaviour
         //나무 자원값 갱신
         woodResource += increaseValue;
 
+        CreateGoodsPanel(increaseValue, 1);
+
         //UI에도 적용
         if (SystemManager.Instance.PanelManager.resoursePanel)
         {
@@ -92,11 +97,28 @@ public class ResourceManager : MonoBehaviour
         else
             woodResource -= decreaseValue;
 
+        CreateGoodsPanel(decreaseValue, -1);
+
         //UI에도 적용
         if (SystemManager.Instance.PanelManager.resoursePanel)
         {
             UI_ResourcePanel resourcePanel = SystemManager.Instance.PanelManager.resoursePanel;
             resourcePanel.UpdateWoodResource();
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value">증가, 감소시킬 자원량</param>
+    /// <param name="identity">증감 식별 변수: 양수면 자원 증가, 음수면 자원 감소</param>
+    void CreateGoodsPanel(int value, int identity)
+    {
+        GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(7);
+
+        if (!go)
+            return;
+        go.GetComponent<GoodsMngPanel>().ShowGold(value, identity);
+
     }
 }
