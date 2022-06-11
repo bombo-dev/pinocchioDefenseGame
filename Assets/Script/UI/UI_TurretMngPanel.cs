@@ -113,7 +113,7 @@ public class UI_TurretMngPanel : UI_Controller
         }
 
         //패널 닫기 이벤트 추가
-        AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
+        //AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
         //Debug.Log("UI_TurretMngPanel.go =" + GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject);
 
         // 스크롤 바 드래그 시, 화면 스크롤 막기
