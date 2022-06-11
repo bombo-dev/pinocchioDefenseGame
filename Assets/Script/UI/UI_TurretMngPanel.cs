@@ -91,8 +91,34 @@ public class UI_TurretMngPanel : UI_Controller
         TurretButton19,
         TurretButton20,
         TurretButton21,
-        TurretButton22, //~22
-        CloseTurretMngPanelButton
+        TurretButton22 //~22
+    }
+
+    enum GameObjects
+    {
+        TurretPanel0,   //0~
+        TurretPanel1,
+        TurretPanel2,
+        TurretPanel3,
+        TurretPanel4,
+        TurretPanel5,
+        TurretPanel6,
+        TurretPanel7,
+        TurretPanel8,
+        TurretPanel9,
+        TurretPanel10,
+        TurretPanel11,
+        TurretPanel12,
+        TurretPanel13,
+        TurretPanel14,
+        TurretPanel15,
+        TurretPanel16,
+        TurretPanel17,
+        TurretPanel18,
+        TurretPanel19,
+        TurretPanel20,
+        TurretPanel21,
+        TurretPanel22   //~22
     }
 
 
@@ -105,41 +131,56 @@ public class UI_TurretMngPanel : UI_Controller
 
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+        Bind<GameObject>(typeof(GameObjects));
+
+        //인덱스 선언
+        int idx = 0;
+        bool endTurret = false;
+        //탐색할 리스트 정렬
+        SystemManager.Instance.ResourceManager.selectedTurretPreset.Sort();
 
         //터렛 선택 버튼 이벤트 추가
-        for (int i = 0; i < MAXTURRET; i++)
+        for (int i = 0; i < MAXTURRET; i++) 
         {
-            AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
+            //선택된 터렛인경우 버튼 활성화
+            if (!endTurret)
+            {
+                if (SystemManager.Instance.ResourceManager.selectedTurretPreset[idx] == i)
+                {
+                    AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
+
+                    //터렛 패널 정보 초기화
+                    ResetTurretInfo(idx);
+
+                    idx++;
+
+                    if (idx >= SystemManager.Instance.ResourceManager.selectedTurretPreset.Count)
+                        endTurret = true;
+                }
+            }
+            //선택된 터렛이 아닐경우 버튼 비활성화
+            else
+            {
+                if (GetGameobject((int)GameObjects.TurretPanel0 + i).activeSelf)
+                    GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
+            }
         }
-
-        //패널 닫기 이벤트 추가
-        //AddUIEvent(GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject, ClosePanel, Define.UIEvent.Click);
-        //Debug.Log("UI_TurretMngPanel.go =" + GetButton((int)Buttons.CloseTurretMngPanelButton).gameObject);
-
-        // 스크롤 바 드래그 시, 화면 스크롤 막기
-
-        //초기화
-        ResetTurretInfo();
     }
 
     /// <summary>
     /// 터렛매니저 UI의 터렛정보 리셋 : 김현진
     /// </summary>
-    private void ResetTurretInfo()
+    private void ResetTurretInfo(int idx)
     {
         //예외처리
         if (SystemManager.Instance.TurretManager.turretCostArr.Length < MAXTURRET)
             SystemManager.Instance.TurretManager.InitializeTurretArrData();
 
-        for (int i = 0; i < MAXTURRET; i++)
-        {
-            //터렛 코스트 정보 초기화
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretManager.turretCostArr[i].ToString();
+        // 터렛 코스트 정보 초기화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + idx).text = SystemManager.Instance.TurretManager.turretCostArr[idx].ToString();
 
-            //터렛 건설 시간 정보 초기화
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.ConstructionText0+i).text = "공사시간: " + SystemManager.Instance.TurretManager.turretConstructionTimeArr[i].ToString() + "초";
-
-        }
+        //터렛 건설 시간 정보 초기화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.ConstructionText0 + idx).text = "공사시간: " + SystemManager.Instance.TurretManager.turretConstructionTimeArr[idx].ToString() + "초";
     }
 
     /// <summary>
@@ -222,30 +263,16 @@ public class UI_TurretMngPanel : UI_Controller
             //터렛 공사시작
             constructTurret.startConstruction = true;   //공사시작
 
-            //UI_TurretMngPanel 패널이 존재할 경우
-            if (SystemManager.Instance.PanelManager.turretMngPanel)
+            //UI_TurretInfoPanel 패널이 존재할 경우 공사중 정보 갱신
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
             {
-                //패널 비활성화
-                SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
+                //패널 갱신
+                SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
             }
 
             //비용지불
             SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
 
-        }
-    }
-
-    /// <summary>
-    /// 패널을 닫는다 : 김현진
-    /// </summary>
-    /// <param name="data">이벤트 정보</param>
-    void ClosePanel(PointerEventData data)
-    {
-        //UI_TurretMngPanel 패널이 존재할 경우
-        if (SystemManager.Instance.PanelManager.turretMngPanel)
-        {
-            //패널 비활성화
-            SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
         }
     }
 

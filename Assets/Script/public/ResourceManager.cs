@@ -19,11 +19,17 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     int woodResourceIncreaseValue = 10;
 
-    //강화 나무 자원
-    public int[] colorWoodResource; //0 - red, 1- yellow, 2 - green, 3 - white, 4 - blue, 5 - black
 
     //시간 측정용 변수
     float timer;
+
+    //User Info
+    [Header("UserInfo")]
+    //강화 나무 자원
+    public int[] colorWoodResource; //0 - red, 1- yellow, 2 - green, 3 - white, 4 - blue, 5 - black
+
+    //선택한 터렛 리스트
+    public List<int> selectedTurretPreset;    //로비에서 넘겨온 터렛 프리셋
 
     private void Start()
     {
