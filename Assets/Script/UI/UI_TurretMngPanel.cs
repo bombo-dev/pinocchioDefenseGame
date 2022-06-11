@@ -128,11 +128,6 @@ public class UI_TurretMngPanel : UI_Controller
         BaseHP
     }
 
-    private void Update()
-    {
-        UpdateSlideBar();
-    }
-
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
     /// </summary>

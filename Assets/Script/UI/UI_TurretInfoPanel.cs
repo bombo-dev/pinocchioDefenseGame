@@ -84,6 +84,9 @@ public class UI_TurretInfoPanel : UI_Controller
         {
             AddUIEvent(GetButton(i).gameObject, i, AddBuffTurret, Define.UIEvent.Click);
         }
+
+        //터렛 파괴 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.DestroyTurretButton).gameObject, OnClickDestroyTurretButton, Define.UIEvent.Click);
     }
 
     /// <summary>
@@ -286,5 +289,21 @@ public class UI_TurretInfoPanel : UI_Controller
             return null;
 
         return nest.turret.GetComponent<Turret>();
+    }
+
+    void OnClickDestroyTurretButton(PointerEventData data)
+    {
+        Turret turret = getTurret();
+
+        //예외처리
+        if (!turret)
+            return;
+
+        //타워가 Dead상태면 취소
+        if (turret.currentHP <= 0)
+            return;
+
+        //터렛 파괴
+        turret.DecreaseHP(turret.maxHP);
     }
 }

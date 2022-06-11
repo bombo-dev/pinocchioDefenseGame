@@ -197,7 +197,14 @@ public class Turret : Actor
     {
         base.DecreaseHP(damage);
 
+        //베이스 터렛일경우 베이스터렛 HP Panel갱신
+        if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
+        {
+            if (SystemManager.Instance.PanelManager.turretMngPanel)
+                SystemManager.Instance.PanelManager.turretMngPanel.UpdateSlideBar();
+        }
 
+        //StatusMngPanel 갱신
         if (statusMngPanel)
         {
             statusMngPanel.SetHPBar(currentHP, maxHP);
@@ -294,7 +301,6 @@ public class Turret : Actor
                 }
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
-
 
                 _nest.haveTurret = false;
                 _nest.turret = null;

@@ -7,7 +7,7 @@ public class TurretManager : MonoBehaviour
     const int MAXTURRET = 23;   //최대 터렛 수
 
     //특수터렛 인덱스
-    int BASETURRET_INDEX = 23;
+    public int BASETURRET_INDEX = 23;
     public int CONSTRUCTIONTURRET_INDEX = 24;
 
 
