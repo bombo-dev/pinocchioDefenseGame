@@ -117,7 +117,11 @@ public class ResourceManager : MonoBehaviour
         GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(8);
 
         if (!go)
+        {
+            Debug.Log("CreateGoodsPanel Error!");
             return;
+        }
+
         go.GetComponent<GoodsMngPanel>().ShowGold(value, identity);
 
     }
