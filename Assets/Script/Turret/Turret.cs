@@ -289,8 +289,8 @@ public class Turret : Actor
                 //UI_TurretInfoPanel 패널이 존재할 경우
                 if (SystemManager.Instance.PanelManager.turretInfoPanel && System.Object.ReferenceEquals(SystemManager.Instance.InputManager.currenstSelectNest, _nest.gameObject))
                 {
-                    //패널 비활성화
-                    SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
+                    //패널 정보 갱신
+                    SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
                 }
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel

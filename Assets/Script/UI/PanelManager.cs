@@ -68,6 +68,13 @@ public class PanelManager : MonoBehaviour
     /// </summary>
     void EnableFixedPanel()
     {
+        //TurretMngPanel
+        EnablePanel<UI_TurretMngPanel>(0);
+
+        //TurretInfoPanel
+        EnablePanel<UI_TurretInfoPanel>(1);
+        turretInfoPanel.Reset();
+
         //ResourceManaerPanel
         EnablePanel<UI_ResourcePanel>(4);
 

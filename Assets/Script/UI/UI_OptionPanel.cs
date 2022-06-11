@@ -1,30 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_OptionPanel : UI_Controller
 {
-    [SerializeField]
-    Sprite timeScaleImage_1;
-    [SerializeField]
-    Sprite timeScaleImage_1_2;
-    [SerializeField]
-    Sprite timeScaleImage_1_5;
-    [SerializeField]
-    Sprite timeScaleImage_2;
-    [SerializeField]
-    Sprite stopImage;
-    [SerializeField]
-    Sprite playImage;
-
     float currentTimeScale;
 
     enum Buttons
     {
         DoubleSpeedOptionButton, //배속 옵션,
         PlayOptionButton    //재생 옵션
+    }
+
+    enum TextMeshProUGUIs
+    {
+        DoubleSpeedOptionText,  //배속 옵션
+        PlayOptionText, //재생 옵션
+        StopOptionText  //정지 옵션
     }
 
     /// <summary>
@@ -35,10 +30,13 @@ public class UI_OptionPanel : UI_Controller
         base.BindingUI();
 
         Bind<Button>(typeof(Buttons));
+        Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
 
         //타임스케일 초기화
-        GetButton((int)Buttons.DoubleSpeedOptionButton).image.sprite = timeScaleImage_1;    //이미지 교체
-        GetButton((int)Buttons.PlayOptionButton).image.sprite = stopImage;    //이미지 교체
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.DoubleSpeedOptionText).text = "X1.0";    //텍스트 교체
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(true);    //텍스트 활성화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(false);    //텍스트 비활성화
+
         Time.timeScale = 1.0f;  //타임스케일 변경
         currentTimeScale = 1.0f;
 
@@ -58,8 +56,8 @@ public class UI_OptionPanel : UI_Controller
 
         if (Time.timeScale == 1.0f)
         {
-            //이미지 교체
-            GetButton((int)Buttons.DoubleSpeedOptionButton).image.sprite = timeScaleImage_1_2;
+            //텍스트 교체
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.DoubleSpeedOptionText).text = "X1.2";   
 
             //1.2배속으로 변경
             Time.timeScale = 1.2f;
@@ -67,8 +65,8 @@ public class UI_OptionPanel : UI_Controller
         }
         else if (Time.timeScale == 1.2f)
         {
-            //이미지 교체
-            GetButton((int)Buttons.DoubleSpeedOptionButton).image.sprite = timeScaleImage_1_5;
+            //텍스트 교체
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.DoubleSpeedOptionText).text = "X1.5";    //텍스트 교체
 
             //1.5배속으로 변경
             Time.timeScale = 1.5f;
@@ -76,8 +74,8 @@ public class UI_OptionPanel : UI_Controller
         }
         else if (Time.timeScale == 1.5f)
         {
-            //이미지 교체
-            GetButton((int)Buttons.DoubleSpeedOptionButton).image.sprite = timeScaleImage_2;
+            //텍스트 교체
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.DoubleSpeedOptionText).text = "X2.0";
 
             //1.5배속으로 변경
             Time.timeScale = 2.0f;
@@ -85,8 +83,8 @@ public class UI_OptionPanel : UI_Controller
         }
         else
         {
-            //이미지 교체
-            GetButton((int)Buttons.DoubleSpeedOptionButton).image.sprite = timeScaleImage_1;
+            //텍스트 교체
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.DoubleSpeedOptionText).text = "X1.0";
 
             //1.5배속으로 변경
             Time.timeScale = 1.0f;
@@ -98,7 +96,7 @@ public class UI_OptionPanel : UI_Controller
     }
 
     /// <summary>
-    /// 정지 상태일땐 다시 재생하고, 재생 상태일땐 다시 정지한다
+    /// 정지 상태일땐 다시 재생하고, 재생 상태일땐 다시 정지 : 김현진
     /// </summary>
     /// <param name="data"></param>
     public void OnClickPlayOptionButton(PointerEventData data)
@@ -106,8 +104,8 @@ public class UI_OptionPanel : UI_Controller
         //정지 상태일 경우
         if (Time.timeScale == 0f)
         {
-            //이미지 교체
-            GetButton((int)Buttons.PlayOptionButton).image.sprite = stopImage;
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(true);    //텍스트 활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(false);    //텍스트 비활성화
 
             //재생
             Time.timeScale = currentTimeScale;
@@ -115,8 +113,8 @@ public class UI_OptionPanel : UI_Controller
         //실행 상태일 경우
         else
         {
-            //이미지 교체
-            GetButton((int)Buttons.PlayOptionButton).image.sprite = playImage;
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(false);    //텍스트 활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(true);    //텍스트 비활성화
 
             //정지
             Time.timeScale = 0;

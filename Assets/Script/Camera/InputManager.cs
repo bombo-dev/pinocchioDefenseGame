@@ -81,33 +81,7 @@ public class InputManager : MonoBehaviour
 
         if (nest != null)
         {
-            //터렛이 설치된 Nest의경우
-            if (nest.haveTurret || nest.construction)
-            {
-                //UI_TurretMngPanel 패널이 존재할 경우
-                if (SystemManager.Instance.PanelManager.turretMngPanel)
-                {
-                    //패널 비활성화
-                    SystemManager.Instance.PanelManager.DisablePanel<UI_TurretMngPanel>(SystemManager.Instance.PanelManager.turretMngPanel.gameObject);
-                }
-
-                if (!SystemManager.Instance.PanelManager.turretInfoPanel)
-                    SystemManager.Instance.PanelManager.EnablePanel<UI_TurretInfoPanel>(1); //1: UI_TurretInfoPanel
- 
-                 SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
-            }
-            else
-            {
-                //UI_TurretInfoPanel 패널이 존재할 경우
-                if (SystemManager.Instance.PanelManager.turretInfoPanel)
-                {
-                    //패널 비활성화
-                    SystemManager.Instance.PanelManager.DisablePanel<UI_TurretInfoPanel>(SystemManager.Instance.PanelManager.turretInfoPanel.gameObject);
-                }
-
-                if (!SystemManager.Instance.PanelManager.turretInfoPanel)
-                    SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
-            }
+            SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
         }    
 
         //선택한 오브젝트 하이라이트 효과
