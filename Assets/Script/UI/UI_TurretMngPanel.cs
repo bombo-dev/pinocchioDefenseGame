@@ -17,6 +17,8 @@ public class UI_TurretMngPanel : UI_Controller
     
     Actor actor; // HPBar 위치 업데이트를 위함
 
+    Turret baseTurret;  //베이스 터렛
+
     enum TextMeshProUGUIs
     {
         TurretText0, //0~
@@ -121,6 +123,15 @@ public class UI_TurretMngPanel : UI_Controller
         TurretPanel22   //~22
     }
 
+    public enum Sliders
+    {
+        BaseHP
+    }
+
+    private void Update()
+    {
+        UpdateSlideBar();
+    }
 
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
@@ -132,6 +143,7 @@ public class UI_TurretMngPanel : UI_Controller
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<GameObject>(typeof(GameObjects));
+        Bind<Slider>(typeof(Sliders));
 
         //인덱스 선언
         int idx = 0;
@@ -274,6 +286,15 @@ public class UI_TurretMngPanel : UI_Controller
             SystemManager.Instance.ResourceManager.DecreaseWoodResource(cost);
 
         }
+    }
+
+    /// <summary>
+    /// 슬라이드바의 값을 실시간으로 갱신 해준다 : 김현진
+    /// </summary>
+    public void UpdateSlideBar()
+    {
+        if (SystemManager.Instance.TurretManager.baseTurret)
+            GetSlider((int)Sliders.BaseHP).value =  (float)SystemManager.Instance.TurretManager.baseTurret.currentHP / (float)SystemManager.Instance.TurretManager.baseTurret.maxHP;
     }
 
 }

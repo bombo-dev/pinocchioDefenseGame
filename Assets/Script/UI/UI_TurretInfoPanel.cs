@@ -58,7 +58,7 @@ public class UI_TurretInfoPanel : UI_Controller
 
     enum Gameobjects
     {
-        ColorWoodPanal,
+        ColorWoodEmpty,
         TurretStatePanel,
         IsConstructionPanel
     }
@@ -116,8 +116,8 @@ public class UI_TurretInfoPanel : UI_Controller
                 //이미지 정보 갱신
                 GetImage((int)Images.TurretInfoImage).sprite = turretSprite[constructionTurret.currentSelectedTurretIdx];
 
-                if (GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-                    GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(false);
+                if (GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(false);
                 if (GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
                     GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(false);
                 if (!GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
@@ -132,8 +132,8 @@ public class UI_TurretInfoPanel : UI_Controller
             //공사 완료된 상태일 경우
             else
             {
-                if (!GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-                    GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(true);
+                if (!GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(true);
                 if (!GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
                     GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(true);
                 if (GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
@@ -227,8 +227,8 @@ public class UI_TurretInfoPanel : UI_Controller
         //이미지 정보 갱신
         GetImage((int)Images.TurretInfoImage).sprite = emptySprite;
 
-        if (GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-            GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(false);
+        if (GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+            GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(false);
         if (GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
             GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(false);
         if (GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
