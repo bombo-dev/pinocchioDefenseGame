@@ -321,10 +321,16 @@ public class UI_TurretInfoPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickDestroyTurretButton(PointerEventData data)
     {
+        //터렛정보
         Turret turret = getTurret();
 
+        //둥지 정보
+        Nest nest = null;
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+
         //예외처리
-        if (!turret)
+        if (!turret || !nest)
             return;
 
         //타워가 Dead상태면 취소
@@ -336,7 +342,6 @@ public class UI_TurretInfoPanel : UI_Controller
 
         //터렛 파괴
         turret.DecreaseHP(99999);
-
     }
 
     /// <summary>
