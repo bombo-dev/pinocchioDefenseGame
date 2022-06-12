@@ -13,25 +13,25 @@ public class LoadJson : MonoBehaviour
     private void Start()
     {
         
-        // *************** ¾ÏÈ£È­ µÇ¾îÀÖ´Â JSON ¸Þ¼Òµå ½ÇÇà *****************************
-        //Save(PathInit()); // ¾ÏÈ£È­ µÈ Json ºÒ·¯¿À°í ÀúÀå
-        //PrepareGameFlowJsonData(); // ¾ÏÈ£È­ µÈ Json µ¥ÀÌÅÍ ºÒ·¯¿Í ½ÇÇà
+        // *************** ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ JSON ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ *****************************
+        //Save(PathInit()); // ï¿½ï¿½È£È­ ï¿½ï¿½ Json ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //PrepareGameFlowJsonData(); // ï¿½ï¿½È£È­ ï¿½ï¿½ Json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         // ********************************************************************************
 
 
-        // **************** ¾ÏÈ£È­ µÇ¾îÀÖÁö ¾ÊÀº Json ¸Þ¼Òµå ½ÇÇà ************************
+        // **************** ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Json ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½ ************************
         // PrepareGameFlowDecryptJsonData();
         // ********************************************************************************
     }
 
     /// <summary>
-    /// Json ÆÄÀÏ·ÎºÎÅÍ ¾ÏÈ£È­ µÇ¾îÀÖ´Â Json µ¥ÀÌÅÍ °¡Á®¿À±â 
+    /// Json ï¿½ï¿½ï¿½Ï·Îºï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ Json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     /// </summary>
     public DefenseFlowDataList PrepareGameFlowJsonData()
     {
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
-        //Json ºÒ·¯¿À±â
+        //Json ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
         string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
 
         return LoadJsonFile<DefenseFlowDataList>(filePath);
@@ -39,21 +39,21 @@ public class LoadJson : MonoBehaviour
 
 
     /// <summary>
-	/// Json ÆÄÀÏ·ÎºÎÅÍ º¹È£È­ µÇ¾îÀÖ´Â Json µ¥ÀÌÅÍ °¡Á®¿À±â 
+	/// Json ï¿½ï¿½ï¿½Ï·Îºï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ Json ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	/// </summary>
 	
     public DefenseFlowDataList PrepareGameFlowDecryptJsonData()
     {
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
-        //Json ºÒ·¯¿À±â
+        //Json ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
         string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
 
         return DecryptLoadJsonFile<DefenseFlowDataList>(filePath);
 
     }
 
-    //Json filePath °æ·Î ÃÊ±âÈ­
+    //Json filePath ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     public string PathInit()
     {
             string filePath;
@@ -61,41 +61,58 @@ public class LoadJson : MonoBehaviour
             return filePath;
     }
 
-    // JsonDataÀÇ °´Ã¼È­ ¸Þ¼Òµå
+    // JsonDataï¿½ï¿½ ï¿½ï¿½Ã¼È­ ï¿½Þ¼Òµï¿½
     public DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
     {
         return JsonUtility.FromJson<DefenseFlowDataList>(jsonString);
     }
 
-    // JsonData ºÒ·¯¿À´Â ¸Þ¼Òµå
+    // JsonData ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     public DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
-        // À©µµ¿ì À¯´ÏÆ¼ ¿¡µðÅÍ °æ·Î
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("À¯´ÏÆ¼ ¿¡µðÅÍ¿¡¼­ ½ÇÇà");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             //string jsonString = File.ReadAllText(filePath);
 
-            // ¾ÏÈ£È­ µÇ¾î ÀÖ´Â JsonData º¹È£È­ÇØ¼­ ÀúÀå
+            // ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ JsonData ï¿½ï¿½È£È­ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
-        // Windows PC¿¡¼­ °ÔÀÓ ½ÇÇà
+        // Windows PCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            Debug.Log("PC¿¡¼­ ½ÇÇà");
+            Debug.Log("PCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
 
             // string jsonString = File.ReadAllText(filePath);
-            // ¾ÏÈ£È­ µÇ¾î ÀÖ´Â JsonData º¹È£È­ÇØ¼­ ÀúÀå
+            // ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ JsonData ï¿½ï¿½È£È­ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
 
-        // ¸ð¹ÙÀÏ °æ·Î Ã¼Å©
+        // MAC OS Editor
+        else if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            Debug.Log("OS Editor Execute");
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+        }
+
+        // MAC OS Player
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+        }
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¼Å©
         else
         {
             string originPath = filePath;
@@ -108,45 +125,54 @@ public class LoadJson : MonoBehaviour
 
 
             string jsonString = File.ReadAllText(realPath);
-            //¾ÏÈ£È­ µÇ¾î ÀÖ´Â JsonData º¹È£È­ÇØ¼­ ÀúÀå
+            //ï¿½ï¿½È£È­ ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ JsonData ï¿½ï¿½È£È­ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             //string load = Load(realPath);
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
     }
 
-    // ¾ÏÈ£È­ µÇÁö ¾ÊÀº JsonData ºÒ·¯¿À´Â ¸Þ¼Òµå
+    // ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ JsonData ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     public DefenseFlowDataList DecryptLoadJsonFile<DefenseFlowDataList>(string filePath)
     {
 
-        // À©µµ¿ì À¯´ÏÆ¼ ¿¡µðÅÍ °æ·Î Ã¼Å©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¼Å©
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("À¯´ÏÆ¼ ¿¡µðÅÍ¿¡¼­ ½ÇÇà");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             string jsonString = File.ReadAllText(filePath);
 
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
-        // PC¿¡¼­ °ÔÀÓ ½ÇÇà
+        // PCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            Debug.Log("PC¿¡¼­ ½ÇÇà");
+            Debug.Log("PCï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             string jsonString = File.ReadAllText(filePath);
             
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
-        // MAC OS Editor¿¡¼­ ½ÇÇà
+        // MAC OS Editorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         else if (Application.platform == RuntimePlatform.OSXEditor)
         {
-            Debug.Log("¸Æ OS Editor¿¡¼­ ½ÇÇà");
+            Debug.Log("ï¿½ï¿½ OS Editorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             string jsonString = File.ReadAllText(filePath);
 
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
-        // ¸ð¹ÙÀÏ °æ·Î Ã¼Å©
+        // MAC OS Player
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            Debug.Log("OS Player Execute");
+            string load = Load(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(load);
+        }
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¼Å©
         else
         {
             string originPath = filePath;
@@ -164,7 +190,7 @@ public class LoadJson : MonoBehaviour
         }
     }
     
-    // JsonData¸¸ ÀÐ¾î¿À´Â ¸Þ¼Òµå
+    // JsonDataï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     public string ReadJsonFileToString(string filePath)
     {
         string jsonString;
@@ -200,11 +226,11 @@ public class LoadJson : MonoBehaviour
 
     public void Save(string filePath)
     {
-        // ¾ÏÈ£È­ µÈ Json ÆÄÀÏ º¹È£È­
+        // ï¿½ï¿½È£È­ ï¿½ï¿½ Json ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­
         JsonToDecrypt(filePath);
         string save = ReadJsonFileToString(filePath);
         save = Encrypt(save, "key");
-        // Json ÆÄÀÏ ¾ÏÈ£È­ ÇÏ¿© Àç ÀúÀå
+        // Json ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         File.WriteAllText(filePath, save);
     }
 
@@ -225,12 +251,12 @@ public class LoadJson : MonoBehaviour
 
 
     /// <summary>
-    /// ¾ÏÈ£È­, º¹È£È­ °ü·Ã ¸Þ¼Òµå ¸ðÀ½
+    /// ï¿½ï¿½È£È­, ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <returns></returns>
 
 
-    // º¹È£È­ ¸Þ¼Òµå
+    // ï¿½ï¿½È£È­ ï¿½Þ¼Òµï¿½
     public static string Decrypt(string textToDecrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
@@ -267,7 +293,7 @@ public class LoadJson : MonoBehaviour
         return Encoding.UTF8.GetString(plainText);
     }
 
-    // ¾ÏÈ£È­ ¸Þ¼Òµå
+    // ï¿½ï¿½È£È­ ï¿½Þ¼Òµï¿½
     public static string Encrypt(string textToEncrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
