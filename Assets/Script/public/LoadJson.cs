@@ -138,7 +138,7 @@ public class LoadJson : MonoBehaviour
         }
 
         // MAC OS Editor에서 실행
-        else if (Applicaiton.platform == RuntimePlatform.OSXEditor)
+        else if (Application.platform == RuntimePlatform.OSXEditor)
         {
             Debug.Log("맥 OS Editor에서 실행");
             string jsonString = File.ReadAllText(filePath);
