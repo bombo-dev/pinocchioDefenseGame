@@ -91,7 +91,7 @@ public class ConstructionTurret : MonoBehaviour
             //변수 초기화
             Reset();
 
-            //TurretIngoPanel 있는경우 초기화
+            //TurretInfoPanel 있는경우 초기화
             if (SystemManager.Instance.PanelManager.turretInfoPanel)
                 SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
 
@@ -106,6 +106,37 @@ public class ConstructionTurret : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 공사를 취소하고 터렛 삭제 : 김현진
+    /// </summary>
+    public void CancelConstruction()
+    {
+        //공사취소
+        startConstruction = false;
+
+        //둥지정보 갱신
+        Nest nest = nestGo.GetComponent<Nest>();
+        if (nest)
+        {
+            nest.construction = false;  //공사종료
+        }
+
+        //공사 게이지 패널 제거
+        SystemManager.Instance.PanelManager.DisablePanel<UI_ConstructionGauge>(constructionGaugePanel);
+
+        //TurretInfoPanel 있는경우 초기화
+        if (SystemManager.Instance.PanelManager.turretInfoPanel)
+            SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
+
+        //코스트 되돌려받기
+        SystemManager.Instance.ResourceManager.IncreaseWoodResource(SystemManager.Instance.TurretManager.turretCostArr[currentSelectedTurretIdx]);
+        
+        //변수 초기화
+        Reset();
+
+        //공사용 터렛 제거
+        SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+    }
 
     /// <summary>
     /// 공사용 터렛 변수 초기화 : 김현진

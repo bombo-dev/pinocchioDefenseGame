@@ -10,9 +10,11 @@ public class UI_TurretInfoPanel : UI_Controller
 {
     public string filePath;
 
+    const int TURRETSMOKEEFFECT = 3;
+
     const int MAXCOLORWOOD = 6;   //최대 나무 수
 
-    const float BuffDurationTime = 10f;   //버프 지속시간
+    const float BUFFDURATIONTIME = 10f;   //버프 지속시간
 
     bool isBind = false;
 
@@ -87,6 +89,8 @@ public class UI_TurretInfoPanel : UI_Controller
 
         //터렛 파괴 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.DestroyTurretButton).gameObject, OnClickDestroyTurretButton, Define.UIEvent.Click);
+        //공사중 파괴 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.CacelTurretButton).gameObject, OnClickCancelButton, Define.UIEvent.Click);
     }
 
     /// <summary>
@@ -266,7 +270,7 @@ public class UI_TurretInfoPanel : UI_Controller
         //강화 자원 소비
         SystemManager.Instance.ResourceManager.colorWoodResource[idx] -= turret.turretNum + 1;
 
-        turret.AddBebuff(idx + 1, BuffDurationTime);
+        turret.AddBebuff(idx + 1, BUFFDURATIONTIME);
 
         Reset();
     }
@@ -288,9 +292,33 @@ public class UI_TurretInfoPanel : UI_Controller
         if (!nest.turret)
             return null;
 
-        return nest.turret.GetComponent<Turret>();
+         return nest.turret.GetComponent<Turret>();
     }
 
+    /// <summary>
+    /// 클릭된 둥지로 부터 둥지 위에 소환 되어있는 터렛의 정보를 받아온다 : 김현진
+    /// </summary>
+    /// <returns></returns>
+    ConstructionTurret getConstructionTurret()
+    {
+        Nest nest = null;
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+
+        //예외처리
+        if (!nest)
+            return null;
+
+        if (!nest.turret)
+            return null;
+
+        return nest.turret.GetComponent<ConstructionTurret>();
+    }
+
+    /// <summary>
+    /// 이미 공사가 완료된 터렛을 파괴 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
     void OnClickDestroyTurretButton(PointerEventData data)
     {
         Turret turret = getTurret();
@@ -303,7 +331,26 @@ public class UI_TurretInfoPanel : UI_Controller
         if (turret.currentHP <= 0)
             return;
 
+        //파괴 이펙트 출력
+        SystemManager.Instance.EffectManager.EnableEffect(TURRETSMOKEEFFECT, turret.hitPos.transform.position);
+
         //터렛 파괴
-        turret.DecreaseHP(turret.maxHP);
+        turret.DecreaseHP(99999);
+
+    }
+
+    /// <summary>
+    /// 공사중인 터렛을 파괴 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickCancelButton(PointerEventData data)
+    {
+        ConstructionTurret turret = getConstructionTurret();
+
+        //파괴 이펙트 출력
+        SystemManager.Instance.EffectManager.EnableEffect(TURRETSMOKEEFFECT, turret.transform.position);
+
+        //터렛 파괴
+        turret.CancelConstruction();
     }
 }
