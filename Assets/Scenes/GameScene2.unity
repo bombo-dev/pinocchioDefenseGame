@@ -6256,7 +6256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPBar: {fileID: 0}
   gameState: 1
-  stage: 5
+  stage: 9
   block: 0
 --- !u!4 &1390774209
 Transform:
@@ -6286,11 +6286,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   woodResource: 0
-  startWoodResource: 500
+  startWoodResource: 100
   woodResourceIncreaseCycle: 1
-  woodResourceIncreaseValue: 10
+  woodResourceIncreaseValue: 5
   colorWoodResource: 0a0000000a0000000a0000000a0000000a0000000a000000
-  selectedTurretPreset: 0000000001000000020000000300000004000000
+  selectedTurretPreset: 00000000010000000200000003000000040000000500000006000000
 --- !u!114 &1390774211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10218,6 +10218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854350c098330bf4ea84196060759493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BASETURRET_INDEX: 23
   CONSTRUCTIONTURRET_INDEX: 24
   turrets: []
   turretParents: {fileID: 157117917}
@@ -10322,49 +10323,49 @@ MonoBehaviour:
   enemyParents: {fileID: 439415610}
   prefabCacheDatas:
   - filePath: Bullet/BasicBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/BombBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/MissileBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/SnowBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/LightningBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/ArrowBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/EmptyBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/EnforceBasicBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/LightBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/HealBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/PowerHealBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/ThornBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/AppleBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/NoteBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/DarkAppleBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/BlackArrowBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/DarkBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/BWBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/BWMissileBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/SnowBullet2
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/BWLightBullet
-    cacheCount: 100
+    cacheCount: 500
   - filePath: Bullet/LightBullet2
-    cacheCount: 100
+    cacheCount: 500
 --- !u!4 &2120986986
 Transform:
   m_ObjectHideFlags: 0

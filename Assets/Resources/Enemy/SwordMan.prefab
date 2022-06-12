@@ -473,53 +473,8 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
-  turretDatas:
-    turretNum: 0
-    maxHP: 0
-    power: 0
-    defense: 0
-    attackSpeed: 0
-    range: 0
-    regeneration: 0
-    attackRangeType: 0
-    isRecoveryTower: 0
-    attackTargetNum: 0
-    debuffType: 0
-    debuffDuration: 0
-    multiAttackRange: 0
-    bullet_index: 0
-    damageEffectIndex: 0
-    deadEffectIndex: 0
-    fireEffectIndex: 0
-    healEffectIndex: 0
-    debuffEffectIndex: 0
-    turretAppearPosY: 0
-    filepath: 
-  monsterDatas:
-    enemyIndex: 0
-    maxHP: 0
-    power: 0
-    defense: 0
-    speed: 0
-    attackSpeed: 0
-    range: 0
-    regeneration: 0
-    attackRangeType: 0
-    isRecoveryTower: 0
-    attackTargetNum: 0
-    debuffType: 0
-    debuffDuration: 0
-    multiAttackRange: 0
-    bullet_index: 0
-    damageEffectIndex: 0
-    deadEffectIndex: 0
-    fireEffectIndex: 0
-    healEffectIndex: 0
-    debuffEffectIndex: 0
-    appearPos: 0
-    filepath: 
   enemyState: 0
-  speed: 15
+  speed: 20
   currentSpeed: 0
   enemyNum: 0
   enemyIndex: 0
@@ -531,8 +486,10 @@ MonoBehaviour:
   targetPoint: []
   targetPointIndex: 0
   currentTarget: {fileID: 0}
-  rewardWoodResource: 50
+  rewardWoodResource: 35
   statusMngPanel: {fileID: 0}
+  damageMngPanel: {fileID: 0}
+  enemyDatas: []
 --- !u!1 &1165551029233534182
 GameObject:
   m_ObjectHideFlags: 0

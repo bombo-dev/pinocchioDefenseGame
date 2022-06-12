@@ -71,7 +71,7 @@ public class Enemy : Actor
     protected override void Initialize()
     {
         base.Initialize();
-        EnemyInitializing();
+       // EnemyInitializing();
         Reset();
     }
 

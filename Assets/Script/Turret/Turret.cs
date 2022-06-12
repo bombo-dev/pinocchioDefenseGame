@@ -43,8 +43,10 @@ public class Turret : Actor
 
     //터렛 건설 코스트
     //건설비용
+    [SerializeField]
     int turretCost;
     //터렛 건설에 걸리는 시간
+    [SerializeField]
     int turretConstructionTime;
 
     public StatusMngPanel statusMngPanel;
@@ -92,7 +94,7 @@ public class Turret : Actor
     protected override void Initialize()
     {
         base.Initialize();
-        TurretInitializing();
+       // TurretInitializing();
         Reset();
 
     }

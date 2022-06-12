@@ -49,8 +49,7 @@ public class GameFlowManager : MonoBehaviour
     float[] flowTimer = new float[GATENUM];
 
     //게임 스테이지 인덱스
-    [SerializeField]
-    int stage;
+    public int stage;
 
     //게임 맵 블록 인덱스
     public int block;
