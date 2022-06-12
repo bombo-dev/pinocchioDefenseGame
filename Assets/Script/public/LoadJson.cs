@@ -137,6 +137,15 @@ public class LoadJson : MonoBehaviour
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
+        // MAC OS Editor에서 실행
+        else if (Applicaiton.platform == RuntimePlatform.OSXEditor)
+        {
+            Debug.Log("맥 OS Editor에서 실행");
+            string jsonString = File.ReadAllText(filePath);
+
+            return JsonToObject<DefenseFlowDataList>(jsonString);
+        }
+
         // 모바일 경로 체크
         else
         {
