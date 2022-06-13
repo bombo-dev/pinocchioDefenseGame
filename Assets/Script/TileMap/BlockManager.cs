@@ -20,6 +20,9 @@ public class BlockManager : MonoBehaviour
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
 
+    [SerializeField]
+    GameObject testGo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +40,13 @@ public class BlockManager : MonoBehaviour
         }
 
         //스테이지에 맞는 맵 생성
-        EnableBlock(SystemManager.Instance.GameFlowManager.block);
+        //EnableBlock(SystemManager.Instance.GameFlowManager.block);
+
+        //targetArr초기화
+        for (int i = 0; i < testGo.transform.GetChild(0).childCount; i++)
+        {
+            targetList.Add(testGo.transform.GetChild(0).GetChild(i).gameObject);
+        }
     }
 
     /// <summary>

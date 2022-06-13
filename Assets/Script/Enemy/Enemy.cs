@@ -234,7 +234,7 @@ public class Enemy : Actor
                 baseTurret.DecreaseHP(power);
 
                 // 데미지 UI 생성
-                if (power > 0)
+                if (power > 0 && baseTurret.currentHP > 0)
                 {
                     GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, SystemManager.Instance.TurretManager.turrets[0]);
 
