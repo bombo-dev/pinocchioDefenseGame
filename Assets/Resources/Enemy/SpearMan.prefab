@@ -2974,22 +2974,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 50
+  maxHP: 100
   currentHP: 0
-  power: 10
+  power: 30
   currentPower: 0
-  defense: 10
+  defense: 15
   currentDefense: 0
-  attackSpeed: 2
+  attackSpeed: 1.5
   currentAttackSpeed: 0
-  range: 1225
+  range: 3000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 0
   isRecoveryTower: 0
   attackTargetNum: 1
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 0
+  currentMultiAttackRange: 0
   bulletIndex: 0
   firePos: {fileID: 0}
   hitPos: {fileID: 1886471770611330842}
@@ -3031,8 +3034,9 @@ MonoBehaviour:
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
   enemyState: 0
-  speed: 10
+  speed: 18
   currentSpeed: 0
+  enemyNum: 0
   enemyIndex: 0
   gateNum: 0
   appearPos:
@@ -3040,6 +3044,12 @@ MonoBehaviour:
   - {x: 0, y: -150, z: 300}
   - {x: 85, y: -150, z: 257.5}
   targetPoint: []
+  targetPointIndex: 0
+  currentTarget: {fileID: 0}
+  rewardWoodResource: 150
+  statusMngPanel: {fileID: 0}
+  damageMngPanel: {fileID: 0}
+  enemyDatas: []
 --- !u!1 &7766552837929865366
 GameObject:
   m_ObjectHideFlags: 0

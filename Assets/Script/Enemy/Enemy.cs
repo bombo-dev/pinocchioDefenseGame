@@ -71,7 +71,7 @@ public class Enemy : Actor
     protected override void Initialize()
     {
         base.Initialize();
-        EnemyInitializing();
+       // EnemyInitializing();
         Reset();
     }
 
@@ -220,8 +220,36 @@ public class Enemy : Actor
                 //Dead처리 하기
                 DecreaseHP(0);
 
+                //예외처리
+                if (!SystemManager.Instance.TurretManager.turrets[0])
+                    return;
+
+                Turret baseTurret = SystemManager.Instance.TurretManager.turrets[0].GetComponent<Turret>();
+
+                //예외처리
+                if (!baseTurret)
+                    return;
+
                 //Base터렛 타격
-                SystemManager.Instance.TurretManager.turrets[0].GetComponent<Turret>().DecreaseHP(power);
+                baseTurret.DecreaseHP(power);
+
+                // 데미지 UI 생성
+                if (power > 0)
+                {
+                    GameObject damageMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<DamageMngPanel>(6, SystemManager.Instance.TurretManager.turrets[0]);
+
+                    if (!damageMngPanelGo)
+                        return;
+
+                    DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                    // 데미지 UI 화면에 띄우기
+                    damageMngPanel.ShowDamage(power, 0);
+
+                    baseTurret.damageMngPanel = damageMngPanel;
+                    damageMngPanel.damageOwner = baseTurret.gameObject;
+
+                }
             }
             return;
         }
@@ -367,11 +395,6 @@ public class Enemy : Actor
         }
         else
             Debug.Log("statusMngPanel is null");
-
- 
-
-
-
 
         //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
         //hitPos = go.GetComponent<Enemy>().hitPos;

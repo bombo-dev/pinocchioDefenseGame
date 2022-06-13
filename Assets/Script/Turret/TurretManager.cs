@@ -7,7 +7,7 @@ public class TurretManager : MonoBehaviour
     const int MAXTURRET = 23;   //최대 터렛 수
 
     //특수터렛 인덱스
-    int BASETURRET_INDEX = 23;
+    public int BASETURRET_INDEX = 23;
     public int CONSTRUCTIONTURRET_INDEX = 24;
 
 
@@ -29,6 +29,9 @@ public class TurretManager : MonoBehaviour
     public float[] turretConstructionTimeArr;
     //TurretNum으로 액세스 할 수 있는 터렛 건설 코스트 배열
     public int[] turretCostArr;
+
+    //베이스 터렛 정보
+    public Turret baseTurret;
 
     // Start is called before the first frame update
     void Start()
@@ -85,13 +88,14 @@ public class TurretManager : MonoBehaviour
         //위치 초기화
         go.transform.localPosition = new Vector3(0f, 0f, -178f);
 
-        Turret baseTurret = go.GetComponent<Turret>();
+        baseTurret = go.GetComponent<Turret>();
         // 터렛 상태 관리 패널 생성
         GameObject statusMngPanelGo = SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go);
 
         if (!SystemManager.Instance.PanelManager.statusMngPanel)
             return;
 
+        //상태패널 정보 가져오기
         StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
         baseTurret.statusMngPanel = statusMngPanel;
 

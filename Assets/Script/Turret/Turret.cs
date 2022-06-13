@@ -43,8 +43,10 @@ public class Turret : Actor
 
     //터렛 건설 코스트
     //건설비용
+    [SerializeField]
     int turretCost;
     //터렛 건설에 걸리는 시간
+    [SerializeField]
     int turretConstructionTime;
 
     public StatusMngPanel statusMngPanel;
@@ -92,7 +94,7 @@ public class Turret : Actor
     protected override void Initialize()
     {
         base.Initialize();
-        TurretInitializing();
+       // TurretInitializing();
         Reset();
 
     }
@@ -197,7 +199,14 @@ public class Turret : Actor
     {
         base.DecreaseHP(damage);
 
+        //베이스 터렛일경우 베이스터렛 HP Panel갱신
+        if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
+        {
+            if (SystemManager.Instance.PanelManager.turretMngPanel)
+                SystemManager.Instance.PanelManager.turretMngPanel.UpdateSlideBar();
+        }
 
+        //StatusMngPanel 갱신
         if (statusMngPanel)
         {
             statusMngPanel.SetHPBar(currentHP, maxHP);
@@ -294,7 +303,6 @@ public class Turret : Actor
                 }
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
-
 
                 _nest.haveTurret = false;
                 _nest.turret = null;

@@ -10,9 +10,11 @@ public class UI_TurretInfoPanel : UI_Controller
 {
     public string filePath;
 
+    const int TURRETSMOKEEFFECT = 3;
+
     const int MAXCOLORWOOD = 6;   //최대 나무 수
 
-    const float BuffDurationTime = 10f;   //버프 지속시간
+    const float BUFFDURATIONTIME = 10f;   //버프 지속시간
 
     bool isBind = false;
 
@@ -58,7 +60,7 @@ public class UI_TurretInfoPanel : UI_Controller
 
     enum Gameobjects
     {
-        ColorWoodPanal,
+        ColorWoodEmpty,
         TurretStatePanel,
         IsConstructionPanel
     }
@@ -84,6 +86,11 @@ public class UI_TurretInfoPanel : UI_Controller
         {
             AddUIEvent(GetButton(i).gameObject, i, AddBuffTurret, Define.UIEvent.Click);
         }
+
+        //터렛 파괴 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.DestroyTurretButton).gameObject, OnClickDestroyTurretButton, Define.UIEvent.Click);
+        //공사중 파괴 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.CacelTurretButton).gameObject, OnClickCancelButton, Define.UIEvent.Click);
     }
 
     /// <summary>
@@ -116,8 +123,8 @@ public class UI_TurretInfoPanel : UI_Controller
                 //이미지 정보 갱신
                 GetImage((int)Images.TurretInfoImage).sprite = turretSprite[constructionTurret.currentSelectedTurretIdx];
 
-                if (GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-                    GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(false);
+                if (GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(false);
                 if (GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
                     GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(false);
                 if (!GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
@@ -132,8 +139,8 @@ public class UI_TurretInfoPanel : UI_Controller
             //공사 완료된 상태일 경우
             else
             {
-                if (!GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-                    GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(true);
+                if (!GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+                    GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(true);
                 if (!GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
                     GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(true);
                 if (GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
@@ -227,8 +234,8 @@ public class UI_TurretInfoPanel : UI_Controller
         //이미지 정보 갱신
         GetImage((int)Images.TurretInfoImage).sprite = emptySprite;
 
-        if (GetGameobject((int)Gameobjects.ColorWoodPanal).activeSelf)
-            GetGameobject((int)Gameobjects.ColorWoodPanal).SetActive(false);
+        if (GetGameobject((int)Gameobjects.ColorWoodEmpty).activeSelf)
+            GetGameobject((int)Gameobjects.ColorWoodEmpty).SetActive(false);
         if (GetGameobject((int)Gameobjects.TurretStatePanel).activeSelf)
             GetGameobject((int)Gameobjects.TurretStatePanel).SetActive(false);
         if (GetGameobject((int)Gameobjects.IsConstructionPanel).activeSelf)
@@ -263,7 +270,7 @@ public class UI_TurretInfoPanel : UI_Controller
         //강화 자원 소비
         SystemManager.Instance.ResourceManager.colorWoodResource[idx] -= turret.turretNum + 1;
 
-        turret.AddBebuff(idx + 1, BuffDurationTime);
+        turret.AddBebuff(idx + 1, BUFFDURATIONTIME);
 
         Reset();
     }
@@ -285,6 +292,70 @@ public class UI_TurretInfoPanel : UI_Controller
         if (!nest.turret)
             return null;
 
-        return nest.turret.GetComponent<Turret>();
+         return nest.turret.GetComponent<Turret>();
+    }
+
+    /// <summary>
+    /// 클릭된 둥지로 부터 둥지 위에 소환 되어있는 터렛의 정보를 받아온다 : 김현진
+    /// </summary>
+    /// <returns></returns>
+    ConstructionTurret getConstructionTurret()
+    {
+        Nest nest = null;
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+
+        //예외처리
+        if (!nest)
+            return null;
+
+        if (!nest.turret)
+            return null;
+
+        return nest.turret.GetComponent<ConstructionTurret>();
+    }
+
+    /// <summary>
+    /// 이미 공사가 완료된 터렛을 파괴 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickDestroyTurretButton(PointerEventData data)
+    {
+        //터렛정보
+        Turret turret = getTurret();
+
+        //둥지 정보
+        Nest nest = null;
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            nest = SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>();
+
+        //예외처리
+        if (!turret || !nest)
+            return;
+
+        //타워가 Dead상태면 취소
+        if (turret.currentHP <= 0)
+            return;
+
+        //파괴 이펙트 출력
+        SystemManager.Instance.EffectManager.EnableEffect(TURRETSMOKEEFFECT, turret.hitPos.transform.position);
+
+        //터렛 파괴
+        turret.DecreaseHP(99999);
+    }
+
+    /// <summary>
+    /// 공사중인 터렛을 파괴 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickCancelButton(PointerEventData data)
+    {
+        ConstructionTurret turret = getConstructionTurret();
+
+        //파괴 이펙트 출력
+        SystemManager.Instance.EffectManager.EnableEffect(TURRETSMOKEEFFECT, turret.transform.position);
+
+        //터렛 파괴
+        turret.CancelConstruction();
     }
 }
