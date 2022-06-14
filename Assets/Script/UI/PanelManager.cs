@@ -73,7 +73,8 @@ public class PanelManager : MonoBehaviour
 
         //TurretInfoPanel
         EnablePanel<UI_TurretInfoPanel>(1);
-        turretInfoPanel.Reset();
+        if(turretInfoPanel)
+            turretInfoPanel.Reset();
 
         //ResourceManaerPanel
         EnablePanel<UI_ResourcePanel>(4);

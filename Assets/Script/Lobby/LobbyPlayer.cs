@@ -5,6 +5,6 @@ using UnityEngine;
 public class LobbyPlayer : MonoBehaviour
 {
     public Animator animator;
-    
+    public Animator camAnimator;
 
 }

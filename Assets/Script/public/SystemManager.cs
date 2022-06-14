@@ -15,6 +15,9 @@ public class SystemManager : MonoBehaviour
             return instance;
         }
     }
+
+    //GameScene
+
     [SerializeField]
     PrefabCacheSystem prefabCacheSystem;
     public PrefabCacheSystem PrefabCacheSystem
@@ -156,6 +159,8 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    //LobbyScene
+
     private void Awake()
     {
         //유일한 instance
@@ -170,12 +175,28 @@ public class SystemManager : MonoBehaviour
         //Scene이동간에 사라지지 않도록 처리
         DontDestroyOnLoad(gameObject);
 
+        //싱글톤 클래스 초기화 - GameScene
+        /*
         prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
+        enemyManager = GameObject.FindObjectOfType<EnemyManager>();
+        turretManager = GameObject.FindObjectOfType<TurretManager>();
+        bulletManager = GameObject.FindObjectOfType<BulletManager>();
+        blockManager = GameObject.FindObjectOfType<BlockManager>();
+        inputManager = GameObject.FindObjectOfType<InputManager>();
+        gameFlowManager = GameObject.FindObjectOfType<GameFlowManager>();
+        resourceManager = GameObject.FindObjectOfType<ResourceManager>();
+        panelManager = GameObject.FindObjectOfType<PanelManager>();
+        effectManager = GameObject.FindObjectOfType<EffectManager>();
+        loadJson = GameObject.FindObjectOfType<LoadJson>();
+        shaderController = GameObject.FindObjectOfType<ShaderController>();
+        enemyJson = GameObject.FindObjectOfType<EnemyJson>();
+        turretJson = GameObject.FindObjectOfType<TurretJson>();
+        */
+
+        //싱글톤 클래스 초기화 - LobbyScene
+        prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
+        panelManager = GameObject.FindObjectOfType<PanelManager>();
     }
 
-    private void Start()
-    {
-      //  prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
-    }
 
 }
