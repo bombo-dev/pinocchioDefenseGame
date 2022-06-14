@@ -169,7 +169,13 @@ public class SystemManager : MonoBehaviour
 
         //Scene이동간에 사라지지 않도록 처리
         DontDestroyOnLoad(gameObject);
+
+        prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
     }
 
+    private void Start()
+    {
+      //  prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
+    }
 
 }

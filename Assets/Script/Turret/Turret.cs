@@ -294,6 +294,9 @@ public class Turret : Actor
             Nest _nest = nest.GetComponent<Nest>();
             if (_nest)
             {
+                _nest.haveTurret = false;
+                _nest.turret = null;
+
                 //현재 선택하고 있는 둥지위에있는 터렛이 Dead상태로 변하고 Turret정보 UI가 켜져있을 경우 UI off
                 //UI_TurretInfoPanel 패널이 존재할 경우
                 if (SystemManager.Instance.PanelManager.turretInfoPanel && System.Object.ReferenceEquals(SystemManager.Instance.InputManager.currenstSelectNest, _nest.gameObject))
@@ -304,8 +307,6 @@ public class Turret : Actor
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
 
-                _nest.haveTurret = false;
-                _nest.turret = null;
             }
             nest = null;
 
