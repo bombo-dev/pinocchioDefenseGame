@@ -65,14 +65,66 @@ public class TurretJson : MonoBehaviour
 		// Debug.Log(" 1번 터렛 : " + turretdata[1].turretNum);
 	}
 
+    // TurretData, Turret 스크립트로 객체 보내기
 	public TurretDatas[] GetTurretData()
     {
-        string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
-        string jsonString = File.ReadAllText(filepath);
+        // 윈도우 유니티 에디터
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+            string jsonString = File.ReadAllText(filepath);
 
-        TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+            TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
-        return turretdata;
+            return turretdata;
+        }
+        // 윈도우 유니티 플레이어
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+
+            return turretdata;
+        }
+        // 맥 유니티 에디터
+        else if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+
+            return turretdata;
+        }
+        // 맥 유니티 플레이어
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+
+            return turretdata;
+        }
+        // 안드로이드 모바일
+        else
+        {
+            string originPath = Path.Combine(Application.streamingAssetsPath, "turret.json"); ;
+            #pragma warning disable 612, 618
+            WWW reader = new WWW(originPath);
+            while (!reader.isDone) { }
+
+            string realPath = Application.persistentDataPath + ".Json";
+            File.WriteAllBytes(realPath, reader.bytes);
+
+            string jsonString = File.ReadAllText(realPath);
+
+            TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
+
+            return turretdata;
+        }
     }
 
 }
