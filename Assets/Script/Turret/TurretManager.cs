@@ -86,7 +86,7 @@ public class TurretManager : MonoBehaviour
             return;
 
         //위치 초기화
-        go.transform.localPosition = new Vector3(0f, 0f, -178f);
+        go.transform.localPosition = new Vector3(0f, 0f, -155f);
 
         baseTurret = go.GetComponent<Turret>();
         // 터렛 상태 관리 패널 생성

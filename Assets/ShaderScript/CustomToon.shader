@@ -1,3 +1,6 @@
+// Upgrade NOTE: commented out 'sampler2D unity_Lightmap', a built-in variable
+// Upgrade NOTE: replaced tex2D unity_Lightmap with UNITY_SAMPLE_TEX2D
+
 Shader "Custom/CustomToon"
 {
     Properties
@@ -56,6 +59,7 @@ Shader "Custom/CustomToon"
         //OutLine
         float _OutLinePower;
         float4 _OutLineColor;
+        
 
         struct Input
         {
