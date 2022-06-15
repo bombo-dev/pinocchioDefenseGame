@@ -159,6 +159,16 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    UserInfo userInfo;
+    public UserInfo UserInfo
+    {
+        get
+        {
+            return userInfo;
+        }
+    }
+
     //LobbyScene
 
     private void Awake()
@@ -196,6 +206,8 @@ public class SystemManager : MonoBehaviour
         //ΩÃ±€≈Ê ≈¨∑°Ω∫ √ ±‚»≠ - LobbyScene
         prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
         panelManager = GameObject.FindObjectOfType<PanelManager>();
+        userInfo = GameObject.FindObjectOfType<UserInfo>();
+        turretJson = GameObject.FindObjectOfType<TurretJson>();
     }
 
 
