@@ -185,29 +185,38 @@ public class SystemManager : MonoBehaviour
         //Scene이동간에 사라지지 않도록 처리
         DontDestroyOnLoad(gameObject);
 
-        //싱글톤 클래스 초기화 - GameScene
-        /*
-        prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
-        enemyManager = GameObject.FindObjectOfType<EnemyManager>();
-        turretManager = GameObject.FindObjectOfType<TurretManager>();
-        bulletManager = GameObject.FindObjectOfType<BulletManager>();
-        blockManager = GameObject.FindObjectOfType<BlockManager>();
-        inputManager = GameObject.FindObjectOfType<InputManager>();
-        gameFlowManager = GameObject.FindObjectOfType<GameFlowManager>();
-        resourceManager = GameObject.FindObjectOfType<ResourceManager>();
-        panelManager = GameObject.FindObjectOfType<PanelManager>();
-        effectManager = GameObject.FindObjectOfType<EffectManager>();
-        loadJson = GameObject.FindObjectOfType<LoadJson>();
-        shaderController = GameObject.FindObjectOfType<ShaderController>();
-        enemyJson = GameObject.FindObjectOfType<EnemyJson>();
-        turretJson = GameObject.FindObjectOfType<TurretJson>();
-        */
+        //싱글톤 클래스 초기화
+        if (GameObject.FindObjectOfType<PrefabCacheSystem>())
+            prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
+        if (GameObject.FindObjectOfType<EnemyManager>())
+            enemyManager = GameObject.FindObjectOfType<EnemyManager>();
+        if (GameObject.FindObjectOfType<TurretManager>())
+            turretManager = GameObject.FindObjectOfType<TurretManager>();
+        if (GameObject.FindObjectOfType<BulletManager>())
+            bulletManager = GameObject.FindObjectOfType<BulletManager>();
+        if (GameObject.FindObjectOfType<BlockManager>())
+            blockManager = GameObject.FindObjectOfType<BlockManager>();
+        if (GameObject.FindObjectOfType<InputManager>())
+            inputManager = GameObject.FindObjectOfType<InputManager>();
+        if (GameObject.FindObjectOfType<GameFlowManager>())
+            gameFlowManager = GameObject.FindObjectOfType<GameFlowManager>();
+        if (GameObject.FindObjectOfType<ResourceManager>())
+            resourceManager = GameObject.FindObjectOfType<ResourceManager>();
+        if (GameObject.FindObjectOfType<PanelManager>())
+            panelManager = GameObject.FindObjectOfType<PanelManager>();
+        if (GameObject.FindObjectOfType<EffectManager>())
+            effectManager = GameObject.FindObjectOfType<EffectManager>();
+        if (GameObject.FindObjectOfType<LoadJson>())
+            loadJson = GameObject.FindObjectOfType<LoadJson>();
+        if (GameObject.FindObjectOfType<ShaderController>())
+            shaderController = GameObject.FindObjectOfType<ShaderController>();
+        if (GameObject.FindObjectOfType<EnemyJson>())
+            enemyJson = GameObject.FindObjectOfType<EnemyJson>();
+        if (GameObject.FindObjectOfType<TurretJson>())
+            turretJson = GameObject.FindObjectOfType<TurretJson>();
+        if (GameObject.FindObjectOfType<UserInfo>())
+            userInfo = GameObject.FindObjectOfType<UserInfo>();
 
-        //싱글톤 클래스 초기화 - LobbyScene
-        prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
-        panelManager = GameObject.FindObjectOfType<PanelManager>();
-        userInfo = GameObject.FindObjectOfType<UserInfo>();
-        turretJson = GameObject.FindObjectOfType<TurretJson>();
     }
 
 
