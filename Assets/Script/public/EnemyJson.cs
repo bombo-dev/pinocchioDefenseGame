@@ -73,12 +73,60 @@ public class EnemyJson : MonoBehaviour
     // enemyData 객체를 받아 Enemy로 보내기
     public EnemyData[] GetEnemyData()
     {
-        string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
-        string jsonString = File.ReadAllText(filepath);
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
 
-        EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
 
-        return enemyData;
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        else if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+
+        else
+        {
+            string originPath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            #pragma warning disable 612, 618
+            WWW reader = new WWW(originPath);
+            while (!reader.isDone) { }
+
+            string realPath = Application.persistentDataPath + ".Json";
+            File.WriteAllBytes(realPath, reader.bytes);
+
+            string jsonString = File.ReadAllText(realPath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
     }
 
 }
