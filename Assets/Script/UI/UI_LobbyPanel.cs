@@ -9,6 +9,7 @@ public class UI_LobbyPanel : UI_Controller
 {
     const int MAXTURRETNUM = 23;
     const int MAXTURRETPRESETNUM = 8;
+    const int MAXTCOLORWOOD = 6;
 
     //로비씬의 플레이어 스크립트
     LobbyPlayer lobbyPlayer;
@@ -107,7 +108,13 @@ public class UI_LobbyPanel : UI_Controller
         TurretPresetText5,
         TurretPresetText6,
         TurretPresetText7,   //~7
-        TurretPresetCountText   //터렛 프리셋의 최대 제한수와 현재 터렛수 텍스트
+        TurretPresetCountText,   //터렛 프리셋의 최대 제한수와 현재 터렛수 텍스트
+        ColorWoodText0,
+        ColorWoodText1,
+        ColorWoodText2,
+        ColorWoodText3,
+        ColorWoodText4,
+        ColorWoodText5
     }
 
     enum Images
@@ -157,8 +164,14 @@ public class UI_LobbyPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.StageSelectLeftArrowButton).gameObject, OnClickStageSelectLeftArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageSelectRightArrowButton).gameObject, OnClickStageSelectRightArrow, Define.UIEvent.Click);
 
+        for (int i = 0; i < MAXTCOLORWOOD; i++)
+        {
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.ColorWoodText0 + i).text = SystemManager.Instance.UserInfo.colorWoodResource[i].ToString();
+        }
+
         for (int i = 0; i < MAXTURRETPRESETNUM; i++)
         {
+            //터렛 선택 해제 이벤트 초기화
             AddUIEvent(GetButton((int)Buttons.TurretRemoveButton0 + i).gameObject, i, OnClickTurretRemoveButton, Define.UIEvent.Click);
         }
 
@@ -367,4 +380,6 @@ public class UI_LobbyPanel : UI_Controller
             GetDropDown((int)TMP_DropDowns.StageDropDown).value --;
     }
     #endregion
+
+    
 }
