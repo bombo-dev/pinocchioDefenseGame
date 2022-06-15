@@ -54,7 +54,9 @@ public class UI_LobbyPanel : UI_Controller
         TurretRemoveButton5,
         TurretRemoveButton6,
         TurretRemoveButton7, // ~7
-        TurretPresetClearButton //터렛 프리셋 비우기 버튼
+        TurretPresetClearButton, //터렛 프리셋 비우기 버튼
+        StageSelectLeftArrowButton,   //스테이지 선택 스크롤 <버튼
+        StageSelectRightArrowButton    //스테이지 선택 스크롤 >버튼
     }
 
     enum GameObjects
@@ -120,6 +122,12 @@ public class UI_LobbyPanel : UI_Controller
         TurretImage7,   //~7
     }
 
+
+    enum TMP_DropDowns
+    {
+        StageDropDown   //스테이지 선택 드롭다운
+    }
+
     private void Update()
     {
         //UI 업데이트
@@ -136,28 +144,39 @@ public class UI_LobbyPanel : UI_Controller
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
+        Bind<TMP_Dropdown>(typeof(TMP_DropDowns));
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
 
         //터렛 선택패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.BackLobbyMenuButton).gameObject, OnClickBackLobbyMenu, Define.UIEvent.Click);
-        AddUIEvent(GetButton((int)Buttons.TurretSelectRightArrowButton).gameObject, OnClickRightArrow, Define.UIEvent.Click);
-        AddUIEvent(GetButton((int)Buttons.TurretSelectLeftArrowButton).gameObject, OnClickLeftArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.TurretSelectLeftArrowButton).gameObject, OnClickTurretSelectLeftArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.TurretSelectRightArrowButton).gameObject, OnClickTurretSelectRightArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.TurretPresetClearButton).gameObject, OnClickTurretPresetClearButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageSelectLeftArrowButton).gameObject, OnClickStageSelectLeftArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageSelectRightArrowButton).gameObject, OnClickStageSelectRightArrow, Define.UIEvent.Click);
 
         for (int i = 0; i < MAXTURRETPRESETNUM; i++)
         {
             AddUIEvent(GetButton((int)Buttons.TurretRemoveButton0 + i).gameObject, i, OnClickTurretRemoveButton, Define.UIEvent.Click);
         }
 
-        for (int i = 0; i< MAXTURRETNUM; i++)
+        for (int i = 0; i < MAXTURRETNUM; i++)
         {
             //터렛 선택 이벤트 초기화
             AddUIEvent(GetButton((int)Buttons.TurretButton0 + i).gameObject, i, OnClickAddSelectTurret, Define.UIEvent.Click);
 
             //터렛 선택 Cost 정보 텍스트 초기화
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretJson.GetTurretData()[i].turretCost.ToString();
+        }
+
+        //스테이지 드롭다운 초기화
+        for (int i = 1; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
+        {
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
+            option.text = "Stage" + i;
+            GetDropDown((int)TMP_DropDowns.StageDropDown).options.Add(option);
         }
 
         //로비씬에서 hotelPino 게임오브젝트 찾아서 객체의 LobbyPlayer스크립트 가져오기
@@ -216,7 +235,7 @@ public class UI_LobbyPanel : UI_Controller
             GetGameobject((int)GameObjects.GameSettingPanel).SetActive(true);
 
             //한번만 실행되게
-            lobbyPlayer.camAnimator.SetBool("finCameraWalk",false);
+            lobbyPlayer.camAnimator.SetBool("finCameraWalk", false);
         }
 
         //카메라 연출이 종료 되었을 경우 LoobyMenu UI생성 - GameSetting -> LoobyMenu
@@ -229,12 +248,12 @@ public class UI_LobbyPanel : UI_Controller
             lobbyPlayer.camAnimator.SetBool("finCameraBack", false);
         }
     }
-
+    #region 터렛 선택
     /// <summary>
     /// 터렛 선택 스크롤 오른쪽 끝으로 이동 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
-    void OnClickRightArrow(PointerEventData data)
+    void OnClickTurretSelectRightArrow(PointerEventData data)
     {
         GetGameobject((int)GameObjects.TurretSelectScrollView).GetComponent<ScrollRect>().normalizedPosition = new Vector2(1, 0);
     }
@@ -242,7 +261,8 @@ public class UI_LobbyPanel : UI_Controller
     /// <summary>
     /// 터렛 선택 스크롤 왼쪽 끝으로 이동 : 김현진
     /// </summary>
-    void OnClickLeftArrow(PointerEventData data)
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTurretSelectLeftArrow(PointerEventData data)
     {
         GetGameobject((int)GameObjects.TurretSelectScrollView).GetComponent<ScrollRect>().normalizedPosition = new Vector2(0, 0);
     }
@@ -276,7 +296,7 @@ public class UI_LobbyPanel : UI_Controller
             GetImage((int)Images.TurretImage0 + i).sprite = turretSprite[SystemManager.Instance.UserInfo.turretPreset[i]];
 
             //텍스트갱신
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text = 
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text =
                 SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost.ToString();
         }
     }
@@ -291,7 +311,7 @@ public class UI_LobbyPanel : UI_Controller
         if (SystemManager.Instance.UserInfo.turretPreset.Count >= 8)
             return;
 
-        if (!SystemManager.Instance.UserInfo.turretPreset.Contains(idx) && idx >= 0) 
+        if (!SystemManager.Instance.UserInfo.turretPreset.Contains(idx) && idx >= 0)
             SystemManager.Instance.UserInfo.turretPreset.Add(idx);
 
         //터렛 프리셋 갱신
@@ -306,7 +326,7 @@ public class UI_LobbyPanel : UI_Controller
     void OnClickTurretRemoveButton(PointerEventData data, int idx)
     {
         //해당 인덱스 터렛 삭제
-        if(idx >= 0)
+        if (idx >= 0)
             SystemManager.Instance.UserInfo.turretPreset.RemoveAt(idx);
 
         //터렛 프리셋 갱신
@@ -324,4 +344,27 @@ public class UI_LobbyPanel : UI_Controller
         //터렛 프리셋 갱신
         ResetTurretPreset();
     }
+    #endregion
+
+    #region 스테이지 선택
+    /// <summary>
+    /// 스테이지 1증가 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageSelectRightArrow(PointerEventData data)
+    {
+        if(GetDropDown((int)TMP_DropDowns.StageDropDown).value < SystemManager.Instance.UserInfo.maxStageNum)
+            GetDropDown((int)TMP_DropDowns.StageDropDown).value ++;
+    }
+
+    /// <summary>
+    /// 스테이지 1감소 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageSelectLeftArrow(PointerEventData data)
+    {
+        if (GetDropDown((int)TMP_DropDowns.StageDropDown).value > 0)
+            GetDropDown((int)TMP_DropDowns.StageDropDown).value --;
+    }
+    #endregion
 }
