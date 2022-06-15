@@ -13,83 +13,83 @@ public class LoadJson : MonoBehaviour
     private void Start()
     {
         
-        // *************** ��ȣȭ �Ǿ��ִ� JSON �޼ҵ� ���� *****************************
-        //Save(PathInit()); // ��ȣȭ �� Json �ҷ����� ����
-        //PrepareGameFlowJsonData(); // ��ȣȭ �� Json ������ �ҷ��� ����
+        // *************** 암호화된 Json 파일 실행하는 부분 *****************************
+        //Save(PathInit()); // Test.json 복호화 후 저장
+        //PrepareGameFlowJsonData(); // 게이트 json 동기화
         // ********************************************************************************
 
 
-        // **************** ��ȣȭ �Ǿ����� ���� Json �޼ҵ� ���� ************************
+        // **************** 암호화 되어 있지 않은 Json 파일 실행하는 부분 ************************
         // PrepareGameFlowDecryptJsonData();
         // ********************************************************************************
     }
 
     /// <summary>
-    /// Json ���Ϸκ��� ��ȣȭ �Ǿ��ִ� Json ������ �������� 
+    /// Json 파일을 동기화 하는 메서드
     /// </summary>
     public DefenseFlowDataList PrepareGameFlowJsonData()
     {
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
-        //Json �ҷ�����
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+        //Json 경로 초기화
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Spawn.Json");
 
         return LoadJsonFile<DefenseFlowDataList>(filePath);
     }
 
 
     /// <summary>
-	/// Json ���Ϸκ��� ��ȣȭ �Ǿ��ִ� Json ������ �������� 
+	/// 암호화 되어 있지 않은 Json파일 동기화하는 메서드
 	/// </summary>
 	
     public DefenseFlowDataList PrepareGameFlowDecryptJsonData()
     {
         DefenseFlowData[] defenseFlowDatas = new DefenseFlowData[3];
 
-        //Json �ҷ�����
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+        //Json 경로 초기화
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Spawn.Json");
 
         return DecryptLoadJsonFile<DefenseFlowDataList>(filePath);
 
     }
 
-    //Json filePath ��� �ʱ�ȭ
+    //Json filePath 초기화
     public string PathInit()
     {
             string filePath;
-            filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+            filePath = Path.Combine(Application.streamingAssetsPath, "Spawn.Json");
             return filePath;
     }
 
-    // JsonData�� ��üȭ �޼ҵ�
+    // JsonData를 객체화
     public DefenseFlowDataList JsonToObject<DefenseFlowDataList>(string jsonString) 
     {
         return JsonUtility.FromJson<DefenseFlowDataList>(jsonString);
     }
 
-    // JsonData �ҷ����� �޼ҵ�
+    // JsonData streamingAssets폴더에 저장되어 있는 json 파일 가져오기
     public DefenseFlowDataList LoadJsonFile<DefenseFlowDataList>(string filePath) {
 
-        // ������ ����Ƽ ������ ���
+        // 윈도우 유니티 편집기에서 실행
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("����Ƽ �����Ϳ��� ����");
+            Debug.Log("윈도우 유니티 편집기에서 실행");
 
             //string jsonString = File.ReadAllText(filePath);
 
-            // ��ȣȭ �Ǿ� �ִ� JsonData ��ȣȭ�ؼ� ����
+            // 암호화되어있는 json파일 가져오기
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
-        // Windows PC���� ���� ����
+        // Windows PC 플레이어 에서 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            Debug.Log("PC���� ����");
+            Debug.Log("PC 플레이어에서 실행");
 
 
             // string jsonString = File.ReadAllText(filePath);
-            // ��ȣȭ �Ǿ� �ִ� JsonData ��ȣȭ�ؼ� ����
+            // 암호화되어있는 json파일 불러오기
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
@@ -107,12 +107,13 @@ public class LoadJson : MonoBehaviour
         // MAC OS Player
         else if (Application.platform == RuntimePlatform.OSXPlayer)
         {
+            Debug.Log("OS Player에서 실행");
             string load = Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
 
-        // ����� ��� üũ
+        // 안드로이드 모바일 에서 실행
         else
         {
             string originPath = filePath;
@@ -124,40 +125,40 @@ public class LoadJson : MonoBehaviour
             File.WriteAllBytes(realPath, reader.bytes);
 
 
-            string jsonString = File.ReadAllText(realPath);
-            //��ȣȭ �Ǿ� �ִ� JsonData ��ȣȭ�ؼ� ����
-            //string load = Load(realPath);
-            return JsonToObject<DefenseFlowDataList>(jsonString);
+            //string jsonString = File.ReadAllText(realPath);
+            //암호화 되어 있는 json파일 가져오기
+            string load = Load(realPath);
+            return JsonToObject<DefenseFlowDataList>(load);
         }
     }
 
-    // ��ȣȭ ���� ���� JsonData �ҷ����� �޼ҵ�
+    // 암호화 되어 있지 않은 Test.json 가져오는 메서드
     public DefenseFlowDataList DecryptLoadJsonFile<DefenseFlowDataList>(string filePath)
     {
 
-        // ������ ����Ƽ ������ ��� üũ
+        // 윈도우 유니티 편집기에서 실행
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("����Ƽ �����Ϳ��� ����");
+            Debug.Log("윈도우 유니티 편집기에서 실행");
 
             string jsonString = File.ReadAllText(filePath);
 
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
-        // PC���� ���� ����
+        // Windows PC 플레이어 에서 실행
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            Debug.Log("PC���� ����");
+            Debug.Log("PC 플레이어에서 실행");
 
             string jsonString = File.ReadAllText(filePath);
             
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
 
-        // MAC OS Editor���� ����
+        // MAC OS Editor 에서 실행
         else if (Application.platform == RuntimePlatform.OSXEditor)
         {
-            Debug.Log("�� OS Editor���� ����");
+            Debug.Log("Mac OS Editor에서 실행");
             string jsonString = File.ReadAllText(filePath);
 
             return JsonToObject<DefenseFlowDataList>(jsonString);
@@ -172,7 +173,7 @@ public class LoadJson : MonoBehaviour
             return JsonToObject<DefenseFlowDataList>(load);
         }
 
-        // ����� ��� üũ
+        // // 안드로이드 모바일 에서 실행
         else
         {
             string originPath = filePath;
@@ -190,7 +191,7 @@ public class LoadJson : MonoBehaviour
         }
     }
     
-    // JsonData�� �о���� �޼ҵ�
+    // JsonData를 읽기만 하는 메서드
     public string ReadJsonFileToString(string filePath)
     {
         string jsonString;
@@ -226,7 +227,7 @@ public class LoadJson : MonoBehaviour
 
     public void Save(string filePath)
     {
-        // ��ȣȭ �� Json ���� ��ȣȭ
+        // Json 복호화
         JsonToDecrypt(filePath);
         string save = ReadJsonFileToString(filePath);
         save = Encrypt(save, "key");
@@ -251,12 +252,12 @@ public class LoadJson : MonoBehaviour
 
 
     /// <summary>
-    /// ��ȣȭ, ��ȣȭ ���� �޼ҵ� ����
+    /// 암호화 복호화 관련 메서드
     /// </summary>
     /// <returns></returns>
 
 
-    // ��ȣȭ �޼ҵ�
+    // 복호화
     public static string Decrypt(string textToDecrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
@@ -293,7 +294,7 @@ public class LoadJson : MonoBehaviour
         return Encoding.UTF8.GetString(plainText);
     }
 
-    // ��ȣȭ �޼ҵ�
+    // 암호화
     public static string Encrypt(string textToEncrypt, string key)
     {
         RijndaelManaged rijndaelCipher = new RijndaelManaged();
