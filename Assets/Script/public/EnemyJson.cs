@@ -46,7 +46,7 @@ public class EnemyJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Load();
+        
     }
 
     // Update is called once per frame
@@ -56,9 +56,9 @@ public class EnemyJson : MonoBehaviour
     }
 
     /// <summary>
-    /// Monster Json 불러오기
+    /// Monster Json 테스트 
     /// </summary>
-    void Load()
+    void Test()
     {
         string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
         string jsonString = File.ReadAllText(filepath);
@@ -70,6 +70,7 @@ public class EnemyJson : MonoBehaviour
         // Debug.Log(enemyData[0].appearPos[2].X + " , " + enemyData[0].appearPos[2].Y + " , " + enemyData[0].appearPos[2].Z);
     }
 
+    // enemyData 객체를 받아 Enemy로 보내기
     public EnemyData[] GetEnemyData()
     {
         string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
