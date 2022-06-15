@@ -41,7 +41,8 @@ public class PanelManager : MonoBehaviour
     //filePath, cacheCount 저장
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
-   
+ 
+
 
     // Start is called before the first frame update
     void Start()
@@ -183,7 +184,10 @@ public class PanelManager : MonoBehaviour
                 if (_gameobject.GetType().Name == "Enemy")
                 {
                     enemy = _gameobject.GetComponent<Enemy>();
-                    panelPos = enemy.hpPos.transform.position;
+
+                    System.Random randNum = new System.Random();
+                    Debug.Log("난수 생성="+randNum.Next(0, 10));
+                    panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y+ randNum.Next(0, 10), enemy.hpPos.transform.position.z );
                 }
                 else if (_gameobject.GetType().Name == "Turret")
                 {
@@ -227,6 +231,18 @@ public class PanelManager : MonoBehaviour
             screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
         }
+        if (typeof(T) == typeof(KillRewardMngPanel))
+        {
+            Debug.Log("********reward*******");
+            Vector3 panelPos;
+
+            enemy = _gameobject.GetComponent<Enemy>();
+            panelPos = enemy.hitPos.transform.position;
+
+            screenPos = Camera.main.WorldToScreenPoint(panelPos);
+            go.transform.position = screenPos;
+        }
+
 
         return go;
     }

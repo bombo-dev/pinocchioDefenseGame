@@ -396,32 +396,6 @@ public class Enemy : Actor
         else
             Debug.Log("statusMngPanel is null");
 
-        //GameObject go = SystemManager.Instance.EnemyManager.enemies[enemyIndex].gameObject;
-        //hitPos = go.GetComponent<Enemy>().hitPos;
-        //Debug.Log("hitted enemy=" + hitPos.GetComponent<GameObject>().name);
-
-        /*
-        if (isEndShow == false)
-        {
-            StartCoroutine(showDmgCoroutine());
-            Debug.Log("2. isEndShow=" + isEndShow);
-        }
-        else
-        {
-            StopCoroutine(showDmgCoroutine());
-            Debug.Log("3. isEndShow=" + isEndShow);
-            if (SystemManager.Instance.PanelManager.damageMngPanel == null)
-                Debug.Log("Disable Panel Successed");
-            else
-                Debug.Log("Disable Pabel UnSuccessed");
-            SystemManager.Instance.PanelManager.DisablePanel<DamageMngPanel>(SystemManager.Instance.PanelManager.damageMngPanel.gameObject);
-            
-            if (SystemManager.Instance.PanelManager.damageMngPanel == null)
-                Debug.Log("Disable Panel Successed");
-            else
-                Debug.Log("Disable Pabel UnSuccessed");
-        }
-        */
 
         //HP°¡ 0¹ØÀ¸·Î ¶³¾îÁö°Å³ª ÀÚÆø»óÅÂ°¡ µÉ °æ¿ì
         if (currentHP <= 0 || selfDestruct)
@@ -447,6 +421,18 @@ public class Enemy : Actor
                     return;
                 go.GetComponent<GoodsMngPanel>().ShowGold(rewardWoodResource, 1);
                 Debug.Log("Àû Ã³Ä¡! " + rewardWoodResource + "°ñµå È¹µæ");
+
+
+                GameObject RewardGo = SystemManager.Instance.PanelManager.EnablePanel<KillRewardMngPanel>(9, gameObject);
+
+                if (!RewardGo)
+                {
+                    Debug.Log("KillRewardMngPanel Error! ");
+                    return;
+                }
+                KillRewardMngPanel killRewardMngPanel = RewardGo.GetComponent<KillRewardMngPanel>();
+                killRewardMngPanel.ShowReward(rewardWoodResource);
+                killRewardMngPanel.rewardOwner = gameObject;
             }
             //ÀÚÆø
             else
@@ -465,13 +451,6 @@ public class Enemy : Actor
                 return;
             }
         }
-    }
-
-    IEnumerator showDmgCoroutine()
-    {
-        yield return new WaitForSeconds(1);
-        isEndShow = true;
-        Debug.Log("1. idEndShow=" + isEndShow);
     }
 
     /// <summary>

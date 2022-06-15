@@ -18,6 +18,8 @@ public class StatusMngPanel : UI_Controller
 
     public GameObject hpBarOwner;
 
+    public Sprite greenBar; 
+
     [SerializeField]
     GameObject[] Debuffs;
 
@@ -63,6 +65,7 @@ public class StatusMngPanel : UI_Controller
     {
         //Fill.color = Color.blue; //ÆÄ¶û
         //Fill.color = new Color(255 / 255f, 121 / 255f, 0 / 255f); //ÁÖÈ²
+        Fill.sprite = greenBar;
         Fill.color = Color.green;
     }
 

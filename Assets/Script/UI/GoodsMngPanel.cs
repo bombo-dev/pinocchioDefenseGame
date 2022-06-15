@@ -104,9 +104,10 @@ public class GoodsMngPanel : UI_Controller
     /// </summary>
     void UpdatePanelPos()
     {
-        //Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x+addPos, transform.position.y, transform.position.z));
-        transform.position = new Vector3(transform.position.x, transform.position.y +addPos, transform.position.z);
-        addPos += 0.01f;
+        Vector3 movePos = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
+        transform.position = Vector3.Lerp(initialPos, movePos, Time.deltaTime * 20f);
+        //transform.position = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
+        addPos += 0.5f;
     }
     
 }
