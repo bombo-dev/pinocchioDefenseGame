@@ -17,6 +17,8 @@ public class DamageMngPanel : UI_Controller
 
     float addPos = 0.1f;
 
+    Vector3 startPos, endPos; // 패널 위치 업데이트를 위한 포스값
+
     enum Texts
     {
         Damage
@@ -93,17 +95,17 @@ public class DamageMngPanel : UI_Controller
         if (damageOwner.tag == "Turret")
         {
             Turret turret = damageOwner.GetComponent<Turret>();
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x, turret.hitPos.transform.position.y+addPos, turret.hitPos.transform.position.z));
-            transform.position = screenPos;
-
+            startPos = Camera.main.WorldToScreenPoint(turret.hitPos.transform.position);
+            endPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x, turret.hitPos.transform.position.y+addPos, turret.hitPos.transform.position.z));         
         }
         else if(damageOwner.tag == "Enemy")
         { 
             Enemy enemy = damageOwner.GetComponent<Enemy>();
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));
-            transform.position = screenPos;
+            startPos = Camera.main.WorldToScreenPoint(enemy.hitPos.transform.position);
+            endPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));                                                         
         }
-        addPos += 0.1f;
+        transform.position = Vector3.Lerp(startPos, endPos, Time.deltaTime * 5f);
+        addPos += 0.5f;
     }
 
 }
