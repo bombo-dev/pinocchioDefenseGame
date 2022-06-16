@@ -120,12 +120,12 @@ public class SystemManager : MonoBehaviour
 
 
     [SerializeField]
-    LoadJson loadJson;
-    public LoadJson LoadJson
+    GateJson gateJson;
+    public GateJson GateJson
     {
         get
         {
-            return loadJson;
+            return gateJson;
         }
     }
 
@@ -206,8 +206,8 @@ public class SystemManager : MonoBehaviour
             panelManager = GameObject.FindObjectOfType<PanelManager>();
         if (GameObject.FindObjectOfType<EffectManager>())
             effectManager = GameObject.FindObjectOfType<EffectManager>();
-        if (GameObject.FindObjectOfType<LoadJson>())
-            loadJson = GameObject.FindObjectOfType<LoadJson>();
+        if (GameObject.FindObjectOfType<GateJson>())
+            gateJson = GameObject.FindObjectOfType<GateJson>();
         if (GameObject.FindObjectOfType<ShaderController>())
             shaderController = GameObject.FindObjectOfType<ShaderController>();
         if (GameObject.FindObjectOfType<EnemyJson>())
