@@ -60,7 +60,8 @@ public class GameFlowManager : MonoBehaviour
     public float stageTime;
     
     //전투분석 딕셔너리
-    public Dictionary<int,int> turretBattleAnalysisDic = new Dictionary<int,int>();
+    public Dictionary<int,int> turretBattleAnalysisDic = new Dictionary<int,int>(); //터렛번호 / 데미지
+    public Dictionary<int, int> turretSummonAnalysisDic = new Dictionary<int, int>(); //터렛번호 / 소환개수
 
     // Start is called before the first frame update
     void Start()
@@ -169,6 +170,19 @@ public class GameFlowManager : MonoBehaviour
             turretBattleAnalysisDic[turretNum] += damage;
         else
             turretBattleAnalysisDic.Add(turretNum, damage);
+    }
+
+    /// <summary>
+    /// 터렛 건설 정보 기록 : 김현진
+    /// </summary>
+    /// <param name="turretNum">터렛 번호</param>
+    public void AnalyzeTurretSummon(int turretNum)
+    {
+        //데미지-터렛 전투분석 딕셔너리에 데이터 갱신
+        if (turretSummonAnalysisDic.ContainsKey(turretNum))
+            turretSummonAnalysisDic[turretNum] += 1;
+        else
+            turretSummonAnalysisDic.Add(turretNum, 1);
     }
 
     /// <summary>

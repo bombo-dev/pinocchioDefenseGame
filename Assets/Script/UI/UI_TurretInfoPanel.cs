@@ -20,6 +20,7 @@ public class UI_TurretInfoPanel : UI_Controller
 
     [SerializeField]
     Sprite[] turretSprite;  //터렛 이미지 모음
+
     [SerializeField]
     Sprite emptySprite;   //빈 이미지
 

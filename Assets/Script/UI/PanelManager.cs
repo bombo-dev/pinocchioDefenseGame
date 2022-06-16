@@ -34,6 +34,8 @@ public class PanelManager : MonoBehaviour
     public UI_ResourcePanel resoursePanel;
     public UI_OptionPanel optionPanel;
     public GoodsMngPanel goodsMngPanel;
+    public UI_StageEndPanel stageEndPanel;
+
 
     [SerializeField]
     Transform canvas;
@@ -187,8 +189,8 @@ public class PanelManager : MonoBehaviour
                     enemy = _gameobject.GetComponent<Enemy>();
 
                     System.Random randNum = new System.Random();
-                    Debug.Log("抄荐 积己="+randNum.Next(0, 10));
-                    panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y+ randNum.Next(0, 10), enemy.hpPos.transform.position.z );
+                    Debug.Log("抄荐 积己=" + randNum.Next(0, 10));
+                    panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + randNum.Next(0, 10), enemy.hpPos.transform.position.z);
                 }
                 else if (_gameobject.GetType().Name == "Turret")
                 {
@@ -209,6 +211,11 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(GoodsMngPanel))
         {
             goodsMngPanel = (compoenent as GoodsMngPanel);
+        }
+        else if (typeof(T) == typeof(UI_StageEndPanel))
+        {
+            stageEndPanel = (compoenent as UI_StageEndPanel);
+
         }
 
 
