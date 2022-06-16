@@ -13,6 +13,9 @@ public class UI_StageEndPanel : UI_Controller
     [SerializeField]
     Sprite[] turretSprite;  //터렛 이미지 모음
 
+    [SerializeField]
+    Sprite[] woodSprite;    //나무 이미지 모음
+
     enum TextMeshProUGUIs
     {
         StageText,  //현재 스테이지 정보
@@ -41,6 +44,12 @@ public class UI_StageEndPanel : UI_Controller
         TurretNumText5,
         TurretNumText6,
         TurretNumText7, //~7
+        RewardNumText0, //보상 나무 개수 0~
+        RewardNumText1,
+        RewardNumText2,
+        RewardNumText3,
+        RewardNumText4,
+        RewardNumText5  //~5
     }
 
     enum GameObjects
@@ -53,6 +62,15 @@ public class UI_StageEndPanel : UI_Controller
         BattleAnalysisItem5,
         BattleAnalysisItem6,
         BattleAnalysisItem7,    //~7
+        RewardPanel, //보상패널
+        RewardItem0,    //보상 아이템 0~
+        RewardItem1,
+        RewardItem2,
+        RewardItem3,
+        RewardItem4,    
+        RewardItem5,    //~5
+        StageFailText,   //스테이지 실패
+        StageClearText   //스테이지 클리어
     }
 
     enum Sliders
@@ -85,6 +103,12 @@ public class UI_StageEndPanel : UI_Controller
         TurretImage5,
         TurretImage6,
         TurretImage7,   //~7
+        RewardImage0,   //보상 나무 이미지 0~
+        RewardImage1,
+        RewardImage2,
+        RewardImage3,
+        RewardImage4,
+        RewardImage5,   //~5
     }
 
     /// <summary>
@@ -98,6 +122,17 @@ public class UI_StageEndPanel : UI_Controller
         Bind<Image>(typeof(Images));
         Bind<GameObject>(typeof(GameObjects));
         Bind<Slider>(typeof(Sliders));
+
+        //게임오버
+        if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.StageFail)
+        {
+            GetGameobject((int)GameObjects.StageClearText).SetActive(false);
+        }
+        else
+        {
+            GetGameobject((int)GameObjects.StageFailText).SetActive(false);
+
+        }
 
         //패널 정보 리셋
         ResetStageEndPanel();
@@ -120,6 +155,14 @@ public class UI_StageEndPanel : UI_Controller
             //패널 비활성화
             GetGameobject((int)GameObjects.BattleAnalysisItem0 + i).SetActive(false);
         }
+
+        //보상패널 비활성화
+        for (int i = 0; i < MAXREWARDNUM; i++)
+        {
+            GetGameobject((int)GameObjects.RewardItem0 + i).SetActive(false);
+        }
+        GetGameobject((int)GameObjects.RewardPanel).SetActive(false);
+
     }
 
     /// <summary>
@@ -131,6 +174,7 @@ public class UI_StageEndPanel : UI_Controller
         GameFlowManager gfm = SystemManager.Instance.GameFlowManager;
         ResourceManager rm = SystemManager.Instance.ResourceManager;
         TurretManager tm = SystemManager.Instance.TurretManager;
+        RewardManager rwm = SystemManager.Instance.RewardManager;
 
         //예외처리
         if (!gfm || !rm || !tm)
@@ -205,8 +249,30 @@ public class UI_StageEndPanel : UI_Controller
 
             }
 
+        }
+
+        //----------보상정보 업데이트----------
+        //클리어 상태일 경우
+        if (gfm.gameState == GameFlowManager.GameState.StageClear)
+        {
+            //보상패널 활성화
+            GetGameobject((int)GameObjects.RewardPanel).SetActive(true);
+
+            for (int i = 0; i < MAXREWARDNUM; i++)
+            {
+                //보상 존재할때 패널 활성화
+                if (rwm.colorWoodReward[i] > 0)
+                    GetGameobject((int)GameObjects.RewardItem0 + i).SetActive(true);
+
+                //보상 이미지
+                GetImage((int)Images.RewardImage0 + i).sprite = woodSprite[i];
+                //보상 개수
+                GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText0 + i).text =
+                    "X" + rwm.colorWoodReward[i];
+            }
 
         }
 
-    }
+    }//end of UpdateStageEndPanel
+
 }

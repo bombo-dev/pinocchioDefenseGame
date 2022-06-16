@@ -32,5 +32,6 @@ public class UI_ResourcePanel : UI_Controller
     {
         //현재 나무 자원을 받아와 텍스트값을 변경
         GetTextMeshProUGUI((int)TextMeshProUGUIs.woodResourceText).text = SystemManager.Instance.ResourceManager.woodResource.ToString();
+        SystemManager.Instance.PanelManager.turretMngPanel.UpdateWoodResource();
     }
 }

@@ -110,8 +110,10 @@ public class GameFlowManager : MonoBehaviour
                 break;
             case GameState.Defense:
                 stageTime += Time.deltaTime;
-                if(!finWave)
-                    UpdateDefense();                                    
+                if (!finWave)
+                    UpdateDefense();
+                else
+                    ChkClear();
                 //UpdateTimer();
                 break;
             case GameState.StageClear:
@@ -194,11 +196,25 @@ public class GameFlowManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 스테이지 클리어 처리 : 김현진
+    /// 모든 적을 섬멸했을 경우 스테이지 클리어 처리 : 김현진
     /// </summary>
-    void UpdateStageClear()
+    void ChkClear()
     {
-        
+        if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
+        {
+            //싱글톤 캐싱
+            PanelManager pm = SystemManager.Instance.PanelManager;
+
+            //클리어 상태로 변경
+            gameState = GameState.StageClear;
+
+            //게임결과 패널 생성
+            pm.EnablePanel<UI_StageEndPanel>(10);
+
+            //패널 비활성화
+            pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+            pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+        }
     }
 
     

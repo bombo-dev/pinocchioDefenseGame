@@ -229,11 +229,19 @@ public class Turret : Actor
             //BaseTurret
             if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
             {
+                //싱글톤 캐싱
+                PanelManager pm = SystemManager.Instance.PanelManager;
+
                 //게임오버 상태
                 SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.StageFail;
 
                 //게임결과 패널 생성
-                SystemManager.Instance.PanelManager.EnablePanel<UI_StageEndPanel>(10);
+                pm.EnablePanel<UI_StageEndPanel>(10);
+
+                //패널 비활성화
+                pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+                pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+
                 return;
             }
 

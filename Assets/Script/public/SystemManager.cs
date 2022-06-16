@@ -160,6 +160,16 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    RewardManager rewardManager;
+    public RewardManager RewardManager
+    {
+        get
+        {
+            return rewardManager;
+        }
+    }
+
+    [SerializeField]
     UserInfo userInfo;
     public UserInfo UserInfo
     {
@@ -214,9 +224,10 @@ public class SystemManager : MonoBehaviour
             enemyJson = GameObject.FindObjectOfType<EnemyJson>();
         if (GameObject.FindObjectOfType<TurretJson>())
             turretJson = GameObject.FindObjectOfType<TurretJson>();
+        if (GameObject.FindObjectOfType<RewardManager>())
+            rewardManager = GameObject.FindObjectOfType<RewardManager>();
         if (GameObject.FindObjectOfType<UserInfo>())
             userInfo = GameObject.FindObjectOfType<UserInfo>();
-
     }
 
 
