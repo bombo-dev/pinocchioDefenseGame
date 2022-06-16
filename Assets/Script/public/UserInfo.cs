@@ -12,6 +12,7 @@ public class UserInfo : MonoBehaviour
     public int selectedStageNum;   //선택한 스테이지
 
     [Header("TurretInfo")]
+    public int maxTurretNum;    //최대 터렛 숫자
     public List<int> turretPreset; //선택된 터렛 리스트
 
     private void Awake()
