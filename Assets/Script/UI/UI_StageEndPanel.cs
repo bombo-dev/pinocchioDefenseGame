@@ -16,7 +16,7 @@ public class UI_StageEndPanel : UI_Controller
     enum TextMeshProUGUIs
     {
         StageText,  //현재 스테이지 정보
-        ResultTime,  //걸린 시간
+        ResultTimeText,  //걸린 시간
         TurretDamageText0,  //터렛 데미지 정보 0~
         TurretDamageText1,
         TurretDamageText2,
@@ -65,6 +65,14 @@ public class UI_StageEndPanel : UI_Controller
         DamageSlider5,
         DamageSlider6,
         DamageSlider7,  //~7
+        CostSlider0,    //코스트 슬라이더 0~
+        CostSlider1,
+        CostSlider2,
+        CostSlider3,
+        CostSlider4,
+        CostSlider5,
+        CostSlider6,
+        CostSlider7,    //~7
     }
 
     enum Images
@@ -128,16 +136,33 @@ public class UI_StageEndPanel : UI_Controller
         if (!gfm || !rm || !tm)
             return;
 
+        //스테이지 텍스트
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StageText).text = "Stage " + gfm.stage.ToString();
+        //타임 텍스트
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.ResultTimeText).text = 
+            ((int)(gfm.stageTime / 60)).ToString() + " 분 " + ((int)(gfm.stageTime % 60)).ToString() + " 초 ";
+
+
         int maxDamage = 0;  //터렛이 준 데미지중 가장 큰 값
+        int maxCost = 0;    //터렛 코스트 중 가장 큰 값
+
         for (int i = 0; i < rm.selectedTurretPreset.Count; i++)
         {
             //터렛 번호
             int turretNum = rm.selectedTurretPreset[i];
 
+            //maxDamage구하기
             if (gfm.turretBattleAnalysisDic.ContainsKey(turretNum))
             {
                 if (maxDamage < gfm.turretBattleAnalysisDic[turretNum])
                     maxDamage = gfm.turretBattleAnalysisDic[turretNum];
+            }
+
+            //maxCost구하기
+            if (gfm.turretSummonAnalysisDic.ContainsKey(turretNum))
+            {
+                if (maxCost < (gfm.turretSummonAnalysisDic[turretNum] * tm.turretCostArr[turretNum]))
+                    maxCost = (gfm.turretSummonAnalysisDic[turretNum] * tm.turretCostArr[turretNum]);
             }
         }
 
@@ -171,9 +196,13 @@ public class UI_StageEndPanel : UI_Controller
 
                 //터렛 가격 정보
                 GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretCostText0 + i).text =
-                    "총 건설비용: " + SystemManager.Instance.TurretManager.turretCostArr[turretNum] + " X " +
-                    gfm.turretSummonAnalysisDic[turretNum] + "기 = " +
-                    (SystemManager.Instance.TurretManager.turretCostArr[turretNum] * gfm.turretSummonAnalysisDic[turretNum]);
+                    SystemManager.Instance.TurretManager.turretCostArr[turretNum] + " X " +
+                    gfm.turretSummonAnalysisDic[turretNum] + " = " +
+                    (tm.turretCostArr[turretNum] * gfm.turretSummonAnalysisDic[turretNum]);
+
+                //터렛 가격 슬라이더 정보
+                GetSlider((int)Sliders.CostSlider0 + i).value = (tm.turretCostArr[turretNum] * gfm.turretSummonAnalysisDic[turretNum]) / (float)maxCost;
+
             }
 
 

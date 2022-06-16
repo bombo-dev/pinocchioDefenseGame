@@ -58,6 +58,9 @@ public class GameFlowManager : MonoBehaviour
 
     //시간 측정용 변수
     public float stageTime;
+
+    //웨이브 종료 여부 
+    bool finWave = false;
     
     //전투분석 딕셔너리
     public Dictionary<int,int> turretBattleAnalysisDic = new Dictionary<int,int>(); //터렛번호 / 데미지
@@ -82,8 +85,12 @@ public class GameFlowManager : MonoBehaviour
 
         //시간 초기화
         stageTime = 0;
+
         //전투분석 초기화
         turretBattleAnalysisDic.Clear();
+
+        //웨이브 초기화
+        finWave = false;
     }
 
     // Update is called once per frame
@@ -103,7 +110,8 @@ public class GameFlowManager : MonoBehaviour
                 break;
             case GameState.Defense:
                 stageTime += Time.deltaTime;
-                UpdateDefense();                                    
+                if(!finWave)
+                    UpdateDefense();                                    
                 //UpdateTimer();
                 break;
             case GameState.StageClear:
@@ -142,7 +150,7 @@ public class GameFlowManager : MonoBehaviour
                 //마지막 인덱스
                 if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)
                 {
-                    return;
+                    finWave = true;
                 }
                 else
                 {

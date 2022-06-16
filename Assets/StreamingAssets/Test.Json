@@ -1,6 +1,30 @@
 {
 	"datas": [
 		{
+			"stageNum": 0,
+			"defenseFlowDataArr": [
+				{
+					"gateNum": "0",
+					"targetPointIndexArr": [],
+					"timeFlowIndexArr": [],
+					"enemyFlowIndexArr": []
+				},
+
+				{
+					"gateNum": "1",
+					"targetPointIndexArr": [ 1, 6 ],
+					"timeFlowIndexArr": [ 4, 5, 5, 4, 3, 4, 3, 4, 5, 3, 5, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 3, 3, 2, 3 ],
+					"enemyFlowIndexArr": [ 6, 4, 5, 6, 6, 2, 6, 3, 6, 3, 2, 6, 7, 4, 2, 6, 2, 5, 5, 4, 2, 6, 5, 3, 4, 2, 7, 5 ]
+				},
+
+				{
+					"targetPointIndexArr": [],
+					"timeFlowIndexArr": [],
+					"enemyFlowIndexArr": []
+				}
+			]
+		},
+		{
 			"stageNum": 1,
 			"defenseFlowDataArr": [
 				{
@@ -63,7 +87,7 @@
 				{
 					"gateNum": "1",
 					"targetPointIndexArr": [ 1, 6 ],
-				"timeFlowIndexArr": [ 3, 4, 3, 4, 3, 3, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 2, 2, 3, 3, 2, 2 ],
+					"timeFlowIndexArr": [ 3, 4, 3, 4, 3, 3, 4, 2, 4, 3, 4, 3, 4, 3, 4, 3, 2, 2, 3, 3, 2, 2 ],
 					"enemyFlowIndexArr": [ 0, 0, 1, 2, 0, 0, 1, 0, 1, 1, 2, 0, 1, 2, 0, 1, 1, 2, 2, 0, 0, 1 ]
 				},
 
@@ -113,7 +137,7 @@
 				{
 					"gateNum": "1",
 					"targetPointIndexArr": [ 1, 6 ],
-					"timeFlowIndexArr": [ 3, 3, 3, 3, 4, 3, 4, 3, 4, 2, 2, 2, 2, 3, 2, 3, 3, 2, 3, 3, 2, 6, 6, 1, 1, 1, 1 ,1 ],
+					"timeFlowIndexArr": [ 3, 3, 3, 3, 4, 3, 4, 3, 4, 2, 2, 2, 2, 3, 2, 3, 3, 2, 3, 3, 2, 6, 6, 1, 1, 1, 1, 1 ],
 					"enemyFlowIndexArr": [ 0, 2, 1, 0, 0, 4, 3, 1, 3, 1, 2, 1, 1, 2, 3, 4, 2, 2, 1, 2, 1, 2, 4, 1, 1, 1, 1, 1 ]
 				},
 
@@ -138,7 +162,7 @@
 				{
 					"gateNum": "1",
 					"targetPointIndexArr": [ 1, 6 ],
-					"timeFlowIndexArr": [ 3, 3, 3, 5, 4, 3, 4, 3, 4, 2, 2, 2, 2, 3, 2, 3, 3, 2, 3, 3, 2, 6, 6, 3, 4, 3, 2 ,3 ],
+					"timeFlowIndexArr": [ 3, 3, 3, 5, 4, 3, 4, 3, 4, 2, 2, 2, 2, 3, 2, 3, 3, 2, 3, 3, 2, 6, 6, 3, 4, 3, 2, 3 ],
 					"enemyFlowIndexArr": [ 0, 1, 1, 4, 1, 1, 5, 1, 3, 0, 2, 4, 1, 2, 3, 4, 2, 0, 1, 2, 1, 1, 4, 1, 2, 2, 5, 1 ]
 				},
 
