@@ -230,22 +230,22 @@ public class LoadJson : MonoBehaviour
         // Json 복호화
         JsonToDecrypt(filePath);
         string save = ReadJsonFileToString(filePath);
-        save = Encrypt(save, "key");
-        // Json ���� ��ȣȭ �Ͽ� �� ����
+        save = EncryptDecrypt.Encrypt(save, "key");
+        // 암호화된 Json 저장
         File.WriteAllText(filePath, save);
     }
 
     public string Load(string filePath)
     {
         string load = File.ReadAllText(filePath);
-        load = Decrypt(load, "key");
+        load = EncryptDecrypt.Decrypt(load, "key");
         return load;
     }
 
     public void JsonToDecrypt(string filePath)
     {
         string load = File.ReadAllText(filePath);
-        load = Decrypt(load, "key");
+        load = EncryptDecrypt.Decrypt(load, "key");
         File.WriteAllText(filePath, load);
     }
 
