@@ -228,6 +228,8 @@ public class SystemManager : MonoBehaviour
             rewardManager = GameObject.FindObjectOfType<RewardManager>();
         if (GameObject.FindObjectOfType<UserInfo>())
             userInfo = GameObject.FindObjectOfType<UserInfo>();
+        if (GameObject.FindObjectOfType<GateJson>())
+            gateJson = GameObject.FindObjectOfType<GateJson>();
     }
 
 
