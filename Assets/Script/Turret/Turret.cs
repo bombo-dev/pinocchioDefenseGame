@@ -227,9 +227,11 @@ public class Turret : Actor
         if (currentHP == 0)
         {
             //BaseTurret
-            if (turretNum == 23)
+            if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
             {
-                //게임오버
+                //게임오버 상태
+                SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.StageFail;  
+
                 return;
             }
 

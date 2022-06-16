@@ -163,7 +163,8 @@ public class Bullet : MonoBehaviour
                         recoveryTarget.damageMngPanel = damageMngPanel;
                         damageMngPanel.damageOwner = recoveryTarget.gameObject;
 
-                        Debug.Log(attacker.currentPower + "만큼 회복");
+                        //전투분석
+                        SystemManager.Instance.GameFlowManager.AnalyzeTurretBattle(damage, attacker.turretNum);
                     }
 
                     //피 공격자 회복
@@ -213,6 +214,9 @@ public class Bullet : MonoBehaviour
                 }
                 //피 공격자에게 데미지 이펙트 출력
                 enemy.EnableDamageEffect(attacker);
+
+                //전투분석
+                SystemManager.Instance.GameFlowManager.AnalyzeTurretBattle(damage, attacker.turretNum);
             }
             //공격 타워
             else if(target.tag == "Turret")
