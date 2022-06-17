@@ -19,6 +19,8 @@ public class DamageMngPanel : UI_Controller
 
     Vector3 screenPos; // 패널 위치 업데이트를 위한 포스값
 
+    DamageMngPanel damageMngPanel;
+
     enum Texts
     {
         Damage
@@ -29,6 +31,20 @@ public class DamageMngPanel : UI_Controller
         if(gameObject.activeSelf == true)
             UpdatePanelPos();    
             
+        if(Time.timeScale == 0)
+        {
+            int panelNum = SystemManager.Instance.PanelManager.damagePanels.Count;
+            Debug.Log("panelNum=" + panelNum);
+            int i = 0;
+
+            while (i < panelNum)
+            {
+                damageMngPanel = SystemManager.Instance.PanelManager.damagePanels[0].GetComponent<DamageMngPanel>();
+                //damageMngPanel.gameObject.SetActive(false);
+                damageMngPanel.DisableDmgPanel(null, 0);
+                i++;
+            }
+        }
     }
     protected override void BindingUI()
     {
