@@ -78,7 +78,7 @@ public class GateJson : MonoBehaviour
             //string jsonString = File.ReadAllText(filePath);
 
             // 암호화되어있는 json파일 가져오기
-            string load = Load(filePath);
+            string load = SaveLoad.Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -90,7 +90,7 @@ public class GateJson : MonoBehaviour
 
             // string jsonString = File.ReadAllText(filePath);
             // 암호화되어있는 json파일 불러오기
-            string load = Load(filePath);
+            string load = SaveLoad.Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -99,7 +99,7 @@ public class GateJson : MonoBehaviour
         else if (Application.platform == RuntimePlatform.OSXEditor)
         {
             Debug.Log("OS Editor Execute");
-            string load = Load(filePath);
+            string load = SaveLoad.Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -108,7 +108,7 @@ public class GateJson : MonoBehaviour
         else if (Application.platform == RuntimePlatform.OSXPlayer)
         {
             Debug.Log("OS Player에서 실행");
-            string load = Load(filePath);
+            string load = SaveLoad.Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -127,7 +127,7 @@ public class GateJson : MonoBehaviour
 
             //string jsonString = File.ReadAllText(realPath);
             //암호화 되어 있는 json파일 가져오기
-            string load = Load(realPath);
+            string load = SaveLoad.Load(realPath);
             return JsonToObject<DefenseFlowDataList>(load);
         }
     }
@@ -168,7 +168,7 @@ public class GateJson : MonoBehaviour
         else if (Application.platform == RuntimePlatform.OSXPlayer)
         {
             Debug.Log("OS Player Execute");
-            string load = Load(filePath);
+            string load = SaveLoad.Load(filePath);
 
             return JsonToObject<DefenseFlowDataList>(load);
         }
@@ -189,57 +189,6 @@ public class GateJson : MonoBehaviour
             
             return JsonToObject<DefenseFlowDataList>(jsonString);
         }
-    }
-    
-    // JsonData를 읽기만 하는 메서드
-    public string ReadJsonFileToString(string filePath)
-    {
-        string jsonString;
-
-        if (Application.platform == RuntimePlatform.WindowsEditor)
-        {
-            jsonString = File.ReadAllText(filePath);
-
-            return jsonString;
-        }
-
-        else if (Application.platform == RuntimePlatform.WindowsPlayer)
-        {
-            jsonString = File.ReadAllText(filePath);
-
-            return jsonString;
-        }
-
-        else
-        {
-            string originPath = filePath;
-            #pragma warning disable 612, 618
-            WWW reader = new WWW(originPath);
-            while (!reader.isDone) { }
-
-            string realPath = Application.persistentDataPath + ".Json";
-            File.WriteAllBytes(realPath, reader.bytes);
-
-            jsonString = File.ReadAllText(realPath);
-            return jsonString;
-        }
-    }
-
-    public void Save(string filePath)
-    {
-        // Json 복호화
-        JsonToDecrypt(filePath);
-        string save = ReadJsonFileToString(filePath);
-        save = EncryptDecrypt.Encrypt(save, "key");
-        // 암호화된 Json 저장
-        File.WriteAllText(filePath, save);
-    }
-
-    public string Load(string filePath)
-    {
-        string load = File.ReadAllText(filePath);
-        load = EncryptDecrypt.Decrypt(load, "key");
-        return load;
     }
 
     public void JsonToDecrypt(string filePath)
