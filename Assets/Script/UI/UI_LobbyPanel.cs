@@ -153,7 +153,6 @@ public class UI_LobbyPanel : UI_Controller
         TurretImage7,   //~7
     }
 
-
     enum TMP_DropDowns
     {
         StageDropDown   //스테이지 선택 드롭다운
@@ -214,13 +213,16 @@ public class UI_LobbyPanel : UI_Controller
 
         }
 
-        //스테이지 드롭다운 초기화
         for (int i = 1; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
             option.text = "Stage" + i;
             GetDropDown((int)TMP_DropDowns.StageDropDown).options.Add(option);
         }
+
+        //스테이지 드롭다운 초기화
+        if (SystemManager.Instance.UserInfo.selectedStageNum > 0)
+            GetDropDown((int)TMP_DropDowns.StageDropDown).value = SystemManager.Instance.UserInfo.selectedStageNum - 1;
 
         //로비씬에서 hotelPino 게임오브젝트 찾아서 객체의 LobbyPlayer스크립트 가져오기
         lobbyPlayer = GameObject.FindObjectOfType<LobbyPlayer>();
@@ -272,6 +274,15 @@ public class UI_LobbyPanel : UI_Controller
     void OnClickStageStartButton(PointerEventData data)
     {
         SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
+    }
+
+    /// <summary>
+    /// 스테이지 슬라이드의 값이 바뀌었을 경우
+    /// </summary>
+    public void ChangeValueStageSlide()
+    {
+        if(GetDropDown((int)TMP_DropDowns.StageDropDown))
+            SystemManager.Instance.UserInfo.selectedStageNum = GetDropDown((int)TMP_DropDowns.StageDropDown).value + 1;
     }
 
     /// <summary>
