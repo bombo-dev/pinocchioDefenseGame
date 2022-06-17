@@ -30,14 +30,16 @@ public class GameFlowManager : MonoBehaviour
 
     public GameObject HPBar;
 
-    enum GameState
+    public enum GameState
     {
         Start,   //게임시작
         Defense, //
-        End    //이동X, 비활성화 처리
+        StageClear,    //스테이지 클리어
+        StageFail,   //스테이지 실패
+        StageEnd    //스테이지 종료
     }
     [SerializeField]
-    GameState gameState = GameState.Start;
+    public GameState gameState = GameState.Start;
 
     //디펜스 페이지 흐름 관련 Data 배열 리스트
     DefenseFlowDataList defenseFlowDataList;
@@ -54,6 +56,15 @@ public class GameFlowManager : MonoBehaviour
     //게임 맵 블록 인덱스
     public int block;
 
+    //시간 측정용 변수
+    public float stageTime;
+
+    //웨이브 종료 여부 
+    bool finWave = false;
+    
+    //전투분석 딕셔너리
+    public Dictionary<int,int> turretBattleAnalysisDic = new Dictionary<int,int>(); //터렛번호 / 데미지
+    public Dictionary<int, int> turretSummonAnalysisDic = new Dictionary<int, int>(); //터렛번호 / 소환개수
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +74,7 @@ public class GameFlowManager : MonoBehaviour
         // ***************************************************************************
 
         //************** 암호화 되어 있지 않은 Json데이터 불러와 자료구조와 사상 **************
-        defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowDecryptJsonData();
+        defenseFlowDataList = SystemManager.Instance.GateJson.PrepareGameFlowDecryptJsonData();
         //***************************************************************************************
         //배열 포인터 초기화
         for (int i = 0; i < GATENUM; i++)
@@ -72,9 +83,14 @@ public class GameFlowManager : MonoBehaviour
             flowTimer[i] = Time.time;
         }
 
-        //스테이지 제한시간 초기화
-        //timer = limitTime;
+        //시간 초기화
+        stageTime = 0;
 
+        //전투분석 초기화
+        turretBattleAnalysisDic.Clear();
+
+        //웨이브 초기화
+        finWave = false;
     }
 
     // Update is called once per frame
@@ -93,10 +109,18 @@ public class GameFlowManager : MonoBehaviour
             case GameState.Start:
                 break;
             case GameState.Defense:
-                UpdateDefense();                                    
+                stageTime += Time.deltaTime;
+                if (!finWave)
+                    UpdateDefense();
+                else
+                    ChkClear();
                 //UpdateTimer();
                 break;
-            case GameState.End:
+            case GameState.StageClear:
+                break;
+            case GameState.StageFail:
+                break;
+            case GameState.StageEnd:
                 break;
         }
     }
@@ -128,7 +152,7 @@ public class GameFlowManager : MonoBehaviour
                 //마지막 인덱스
                 if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)
                 {
-                    gameState = GameState.End;
+                    finWave = true;
                 }
                 else
                 {
@@ -142,6 +166,55 @@ public class GameFlowManager : MonoBehaviour
 
         }//end of for   
 
+    }
+
+    /// <summary>
+    /// 터렛 공격으로 데미지 발생시 정보 기록 : 김현진
+    /// </summary>
+    /// <param name="damage">터렛이 준 데미지</param>
+    /// <param name="turretNum">터렛 번호</param>
+    public void AnalyzeTurretBattle(int damage, int turretNum)
+    {
+        //데미지-터렛 전투분석 딕셔너리에 데이터 갱신
+        if (turretBattleAnalysisDic.ContainsKey(turretNum))
+            turretBattleAnalysisDic[turretNum] += damage;
+        else
+            turretBattleAnalysisDic.Add(turretNum, damage);
+    }
+
+    /// <summary>
+    /// 터렛 건설 정보 기록 : 김현진
+    /// </summary>
+    /// <param name="turretNum">터렛 번호</param>
+    public void AnalyzeTurretSummon(int turretNum)
+    {
+        //데미지-터렛 전투분석 딕셔너리에 데이터 갱신
+        if (turretSummonAnalysisDic.ContainsKey(turretNum))
+            turretSummonAnalysisDic[turretNum] += 1;
+        else
+            turretSummonAnalysisDic.Add(turretNum, 1);
+    }
+
+    /// <summary>
+    /// 모든 적을 섬멸했을 경우 스테이지 클리어 처리 : 김현진
+    /// </summary>
+    void ChkClear()
+    {
+        if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
+        {
+            //싱글톤 캐싱
+            PanelManager pm = SystemManager.Instance.PanelManager;
+
+            //클리어 상태로 변경
+            gameState = GameState.StageClear;
+
+            //게임결과 패널 생성
+            pm.EnablePanel<UI_StageEndPanel>(10);
+
+            //패널 비활성화
+            pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+            pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+        }
     }
 
     

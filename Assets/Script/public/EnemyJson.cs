@@ -46,7 +46,7 @@ public class EnemyJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Load();
+        
     }
 
     // Update is called once per frame
@@ -56,9 +56,9 @@ public class EnemyJson : MonoBehaviour
     }
 
     /// <summary>
-    /// Monster Json 불러오기
+    /// Monster Json 테스트 
     /// </summary>
-    void Load()
+    void Test()
     {
         string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
         string jsonString = File.ReadAllText(filepath);
@@ -70,14 +70,69 @@ public class EnemyJson : MonoBehaviour
         // Debug.Log(enemyData[0].appearPos[2].X + " , " + enemyData[0].appearPos[2].Y + " , " + enemyData[0].appearPos[2].Z);
     }
 
+    // enemyData 객체를 받아 Enemy 스크립트로 보내기
     public EnemyData[] GetEnemyData()
     {
-        string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
-        string jsonString = File.ReadAllText(filepath);
 
-        EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+        //윈도우 유니티 에디터
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
 
-        return enemyData;
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        // 윈도우 플레이어 유니티 에디터
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        // 맥 OS 유니티 에디터
+        else if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+
+        //맥 OS 유니티 플레이어
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            string filepath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            string jsonString = File.ReadAllText(filepath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
+        // 안드로이드
+        else
+        {
+            string originPath = Path.Combine(Application.streamingAssetsPath, "Enemy.json");
+            #pragma warning disable 612, 618
+            WWW reader = new WWW(originPath);
+            while (!reader.isDone) { }
+
+            string realPath = Application.persistentDataPath + ".Json";
+            File.WriteAllBytes(realPath, reader.bytes);
+
+            string jsonString = File.ReadAllText(realPath);
+
+            EnemyData[] enemyData = JsonMonsterHelper.FromJson<EnemyData>(jsonString);
+
+            return enemyData;
+        }
     }
 
 }

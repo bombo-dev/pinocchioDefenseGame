@@ -66,7 +66,8 @@ public class UI_TurretMngPanel : UI_Controller
         ConstructionText19,
         ConstructionText20,
         ConstructionText21,
-        ConstructionText22
+        ConstructionText22,
+        WoodResourceText   //현재 보유하고있는 자원 표시
     }
 
     enum Buttons
@@ -290,6 +291,15 @@ public class UI_TurretMngPanel : UI_Controller
     {
         if (SystemManager.Instance.TurretManager.baseTurret)
             GetSlider((int)Sliders.BaseHP).value =  (float)SystemManager.Instance.TurretManager.baseTurret.currentHP / (float)SystemManager.Instance.TurretManager.baseTurret.maxHP;
+    }
+
+    /// <summary>
+    /// 현재 나무 자원값을 받아와 나무 자원을 표시해주는 UI를 갱신
+    /// </summary>
+    public void UpdateWoodResource()
+    {
+        //현재 나무 자원을 받아와 텍스트값을 변경
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText).text = SystemManager.Instance.ResourceManager.woodResource.ToString();
     }
 
 }

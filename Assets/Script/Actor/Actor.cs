@@ -428,6 +428,10 @@ public class Actor : MonoBehaviour
                     enemy.damageMngPanel = damageMngPanel;
                     damageMngPanel.damageOwner = enemy.gameObject;
 
+
+                    //전투분석
+                    SystemManager.Instance.GameFlowManager.AnalyzeTurretBattle(damage, attacker.turretNum);
+
                 }
                 //피 공격자 디버프 걸기
                 if (debuffType > 0)
@@ -467,7 +471,6 @@ public class Actor : MonoBehaviour
 
                     turret.damageMngPanel = damageMngPanel;
                     damageMngPanel.damageOwner = turret.gameObject;
-
                 }
 
                 //피 공격자 디버프 걸기

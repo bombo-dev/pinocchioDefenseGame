@@ -19,8 +19,6 @@ public class ResourceManager : MonoBehaviour
     [SerializeField]
     int woodResourceIncreaseValue = 10;
 
-
-    //시간 측정용 변수
     float timer;
 
     //User Info
@@ -42,8 +40,11 @@ public class ResourceManager : MonoBehaviour
 
     private void Update()
     {
-        //일정 시간 마다 자동으로 쌓이는 나무자원
-        IncreaseWoodResoruce_Auto();
+        if ((int)SystemManager.Instance.GameFlowManager.gameState <= (int)GameFlowManager.GameState.Defense)
+        {
+            //일정 시간 마다 자동으로 쌓이는 나무자원, 
+            IncreaseWoodResoruce_Auto();
+        }
     }
 
     /// <summary>

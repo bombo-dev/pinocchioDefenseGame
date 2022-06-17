@@ -150,6 +150,10 @@ public class TurretManager : MonoBehaviour
         Turret turret = go.GetComponent<Turret>();
         turrets.Add(go);
 
+        //터렛 소환 정보
+        if(turret.turretNum != BASETURRET_INDEX)
+            SystemManager.Instance.GameFlowManager.AnalyzeTurretSummon(turret.turretNum);
+
         //터렛 위치 초기화
         go.transform.position = turretPos;
 
