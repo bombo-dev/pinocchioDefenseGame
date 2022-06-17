@@ -397,7 +397,7 @@ public class Turret : Actor
         }
 
 
-        statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
+        statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
     }
     #endregion
 
@@ -630,7 +630,7 @@ public class Turret : Actor
             //Debug.Log("Enemy.screenPos=" + screenPos);
             statusMngPanel.gameObject.transform.position = screenPos;
         }
-        
+                
 
     }
 

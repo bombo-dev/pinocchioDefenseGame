@@ -16,7 +16,7 @@ public class StatusMngPanel : UI_Controller
 
     public Vector3 panelPos;
 
-    public GameObject hpBarOwner;
+    public GameObject hpBarOwner;   // hpBar를 갖고있는 유닛
 
     public Sprite greenBar; 
 
@@ -25,6 +25,14 @@ public class StatusMngPanel : UI_Controller
 
     [SerializeField]
     Image Fill;
+
+    float debuffFlowTime = 0.0f;
+
+    float debuffLeftTime;
+
+    public int randPos;    // 랜덤으로 더해질 y축 값
+
+    public float hp;
 
     enum Images
     {
@@ -59,8 +67,8 @@ public class StatusMngPanel : UI_Controller
         Bind<Slider>(typeof(Sliders));
 
 
-    }
-    
+    }   
+
     public void SetHPBarColor()
     {
         //Fill.color = Color.blue; //파랑
@@ -81,32 +89,86 @@ public class StatusMngPanel : UI_Controller
 
         GetSlider((int)Sliders.HPBar).value = currentHP;
 
+        hp = currentHP;
     }
 
 
     public void SetDebuff(int debuffIdx, Dictionary<Actor.debuff, Debuff> debuffs , float time)
     {
-        if (debuffIdx <= 0)
+        if (debuffIdx <= 0 || hp <= 0)
             return;
 
-        Debug.Log("debuffIdx="+debuffIdx);
+        if (gameObject.activeSelf == false)
+            return;
 
-        GameObject go = Debuffs[debuffIdx-1];
-        go.SetActive(true);
-        
+        GameObject go = Debuffs[debuffIdx - 1];
+
+        if (!go)
+            return;
+
         TextMeshProUGUI debuffText = go.GetComponentInChildren<TextMeshProUGUI>();
 
         int stack = debuffs[(Actor.debuff)debuffIdx].stack;
+        
+
+        Transform GoTransform = go.transform.GetChild(0).transform.GetChild(0);
+        Image ImgFillAmount = GoTransform.GetComponent<Image>();
+
+        debuffFlowTime = 0.0f;
 
         if (stack >= 2)
-            debuffText.text = "X"+ stack.ToString();
-      
-    }
+        {
+            StopCoroutine(DebuffCoroutine(ImgFillAmount, time, debuffIdx));
+            debuffText.text = "X" + stack.ToString();
+            Debug.Log("잔여 시간=" + debuffLeftTime);
+            time += debuffLeftTime;
+            Debug.Log("합산 시간=" + time);
+        }
+        else
+        {
+            debuffText.text = " ";
+            debuffLeftTime = 0.0f;
+        }
 
-    public void RemoveDebuff(int debuffIndex, Dictionary<Actor.debuff, Debuff> debuffs)
+
+
+        go.SetActive(true);
+
+        StartCoroutine(DebuffCoroutine(ImgFillAmount, time, debuffIdx));
+
+    }
+    
+    IEnumerator DebuffCoroutine(Image image, float time, int debuffIdx)
     {
+        while (true)
+        {
+
+            if (debuffFlowTime >= time || gameObject.activeSelf == false)
+            {
+                StopCoroutine(DebuffCoroutine(image, time, debuffIdx));
+                Debug.Log("Dead---------");
+                RemoveDebuff(image, time, debuffIdx);
+                //debuffFlowTime = 0.0f;
+
+            }
+            Debug.Log("time=" + time);
+            debuffFlowTime += Time.deltaTime;
+            image.fillAmount = (debuffFlowTime/time);
+            debuffLeftTime = time - debuffFlowTime;
+            Debug.Log("flowTime=" + debuffFlowTime);
+            //Debug.Log("leftTime=" + debuffFlowTime);
+            yield return new WaitForSeconds(Time.deltaTime);
+                 
+        }
+    }
+    
+    public void RemoveDebuff(Image image, float time, int debuffIndex)
+    {
+        
         GameObject go = Debuffs[debuffIndex-1];
         go.SetActive(false);
+        debuffLeftTime = 0.0f;
+        
     }
 
     public void StatusReset()
@@ -123,4 +185,5 @@ public class StatusMngPanel : UI_Controller
         }
 
     }
+
 }

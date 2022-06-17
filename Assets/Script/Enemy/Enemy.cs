@@ -572,8 +572,9 @@ public class Enemy : Actor
                 break;
         }
 
-        
-        statusMngPanel.RemoveDebuff(debuffIndex, debuffs);
+
+        //statusMngPanel.RemoveDebuff(debuffIndex);
+        statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
     }
     #endregion
 
@@ -583,10 +584,10 @@ public class Enemy : Actor
 
         if (statusMngPanel)
         {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(hpPos.transform.position);
+            int randPos = statusMngPanel.randPos;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(new Vector3(hpPos.transform.position.x, hpPos.transform.position.y + randPos, hpPos.transform.position.z));
             statusMngPanel.transform.position = screenPos;
         }
-
     }
 
 

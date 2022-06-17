@@ -11,13 +11,13 @@ public class DamageMngPanel : UI_Controller
 
     public string filePath;
 
-    float alpaValue;
+    public float alpaValue;
 
     public GameObject damageOwner = null;
 
     float addPos = 0.1f;
 
-    Vector3 startPos, endPos; // 패널 위치 업데이트를 위한 포스값
+    Vector3 screenPos; // 패널 위치 업데이트를 위한 포스값
 
     enum Texts
     {
@@ -27,7 +27,8 @@ public class DamageMngPanel : UI_Controller
     private void Update()
     {
         if(gameObject.activeSelf == true)
-            UpdatePanelPos();
+            UpdatePanelPos();    
+            
     }
     protected override void BindingUI()
     {
@@ -71,12 +72,20 @@ public class DamageMngPanel : UI_Controller
             // 알파값이 특정값 이하로 내려가면 비활성화
             if (alpaValue < 0.1)
             {
+                DisableDmgPanel(damage, identity);
+                /*
                 DamageText.SetActive(false);
                 SystemManager.Instance.PanelManager.DisablePanel<DamageMngPanel>(gameObject);
+                
+                // 활성화된 데미지 패널을 저장한 리스트에서 해당 패널 제거
+                SystemManager.Instance.PanelManager.damagePanels.Remove(gameObject);
+                
+
                 addPos = 0.1f;  // 위치 업데이트를 위한 변수 초기화
 
                 // 코루틴 종료
                 StopCoroutine(ShowDmgCoroutine(damage, identity));
+                */
             }
             alpaValue -= 0.01f;
 
@@ -84,28 +93,43 @@ public class DamageMngPanel : UI_Controller
             
             yield return new WaitForSeconds(0.01f);            
         }
-                
+    }
 
-        
+    public void DisableDmgPanel(TextMeshProUGUI damage, int identity)
+    {
+        DamageText.SetActive(false);
+        SystemManager.Instance.PanelManager.DisablePanel<DamageMngPanel>(gameObject);
 
+        // 활성화된 데미지 패널을 저장한 리스트에서 해당 패널 제거
+        //SystemManager.Instance.PanelManager.damagePanels.Remove(gameObject);
+
+        addPos = 0.1f;  // 위치 업데이트를 위한 변수 초기화
+
+        // 코루틴 종료
+        StopCoroutine(ShowDmgCoroutine(damage, identity));
     }
 
     void UpdatePanelPos()
     {
+        
         if (damageOwner.tag == "Turret")
         {
             Turret turret = damageOwner.GetComponent<Turret>();
-            startPos = Camera.main.WorldToScreenPoint(turret.hitPos.transform.position);
-            endPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x, turret.hitPos.transform.position.y+addPos, turret.hitPos.transform.position.z));         
+            screenPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x, turret.hitPos.transform.position.y + addPos, turret.hitPos.transform.position.z));            
+            //screenPos = turret.hitPos.transform.position;
         }
-        else if(damageOwner.tag == "Enemy")
-        { 
+        else if (damageOwner.tag == "Enemy")
+        {
             Enemy enemy = damageOwner.GetComponent<Enemy>();
-            startPos = Camera.main.WorldToScreenPoint(enemy.hitPos.transform.position);
-            endPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));                                                         
+            screenPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));            
+            //screenPos = enemy.hitPos.transform.position;
         }
-        transform.position = Vector3.Lerp(startPos, endPos, Time.deltaTime * 5f);
-        addPos += 0.5f;
+        else
+            return;
+
+        transform.position = screenPos;
+        //transform.Translate(Vector3.up * 10f * Time.deltaTime);        
+        addPos += 0.02f;
     }
 
 }
