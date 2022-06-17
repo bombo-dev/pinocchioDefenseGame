@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class StageStar
+{
+    public int stageNum;    //스테이지
+    public int starNum;  //클리어 별
+}
 public class UserInfo : MonoBehaviour
 {
     [Header("WoodIResourceInfo")]    //강화 나무 자원
@@ -10,6 +16,8 @@ public class UserInfo : MonoBehaviour
     [Header("StageInfo")]   //스테이지 정보
     public int maxStageNum; //최대 클리어한 스테이지
     public int selectedStageNum;   //선택한 스테이지
+
+    public StageStar[] stageStarArr;    //스테이지 클리어 별 정보
 
     [Header("TurretInfo")]
     public int maxTurretNum;    //최대 터렛 숫자

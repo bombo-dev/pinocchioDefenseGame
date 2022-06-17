@@ -18,6 +18,10 @@ public class UI_LobbyPanel : UI_Controller
     [SerializeField]
     Sprite[] turretSprite;
 
+    //별 이미지
+    [SerializeField]
+    Sprite[] starSprite;
+
     enum Buttons
     {
         GameStartButton,    //게임시작버튼
@@ -138,7 +142,10 @@ public class UI_LobbyPanel : UI_Controller
         ColorWoodText2,
         ColorWoodText3,
         ColorWoodText4,
-        ColorWoodText5
+        ColorWoodText5,
+        StarNumText,    //총 별 개수
+        StarNumText_Menu,   //메뉴패널 총 별 개수
+        StageNumText,    //최대 클리어한 스테이지
     }
 
     enum Images
@@ -151,6 +158,7 @@ public class UI_LobbyPanel : UI_Controller
         TurretImage5,
         TurretImage6,
         TurretImage7,   //~7
+        StageImage, //스테이지별 등급 휘장
     }
 
     enum TMP_DropDowns
@@ -188,6 +196,25 @@ public class UI_LobbyPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.StageSelectRightArrowButton).gameObject, OnClickStageSelectRightArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageStartButton).gameObject, OnClickStageStartButton, Define.UIEvent.Click);
 
+
+        //로비패널 초기화
+        
+        //총합 별 개수 
+        int totStarNum = 0;
+        for (int i = 0; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
+        {
+            //총합 별 개수 구하기
+            totStarNum += SystemManager.Instance.UserInfo.stageStarArr[i].starNum;
+        }
+
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
+        //메뉴패널 총 별 개수
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText_Menu).text = "X" + totStarNum.ToString();
+
+        //최대 클리어한 스테이지
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = 
+            "Stage " + SystemManager.Instance.UserInfo.maxStageNum.ToString();
+
         for (int i = 0; i < MAXTCOLORWOOD; i++)
         {
             GetTextMeshProUGUI((int)TextMeshProUGUIs.ColorWoodText0 + i).text = SystemManager.Instance.UserInfo.colorWoodResource[i].ToString();
@@ -212,11 +239,13 @@ public class UI_LobbyPanel : UI_Controller
                 GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
 
         }
-
+        
+        //스테이지 패널
         for (int i = 1; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
             option.text = "Stage" + i;
+            option.image = starSprite[SystemManager.Instance.UserInfo.stageStarArr[i].starNum];
             GetDropDown((int)TMP_DropDowns.StageDropDown).options.Add(option);
         }
 

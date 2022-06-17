@@ -49,7 +49,7 @@ public class UI_StageEndPanel : UI_Controller
         RewardNumText2,
         RewardNumText3,
         RewardNumText4,
-        RewardNumText5  //~5
+        RewardNumText5,  //~5
     }
 
     enum GameObjects
@@ -70,7 +70,8 @@ public class UI_StageEndPanel : UI_Controller
         RewardItem4,    
         RewardItem5,    //~5
         StageFailText,   //스테이지 실패
-        StageClearText   //스테이지 클리어
+        StageClearText,   //스테이지 클리어
+        StageResultPanel    //패널 UI전체
     }
 
     enum Sliders
@@ -134,11 +135,11 @@ public class UI_StageEndPanel : UI_Controller
 
         }
 
-        //패널 정보 리셋
-        ResetStageEndPanel();
+        //패널 비활성화
+        GetGameobject((int)GameObjects.StageResultPanel).SetActive(false);
 
-        //패널 정보 업데이트
-        UpdateStageEndPanel();
+        //패널 활성화 코루틴 호출
+        StartCoroutine("OnResultPanel");
     }
 
     /// <summary>
@@ -274,5 +275,22 @@ public class UI_StageEndPanel : UI_Controller
         }
 
     }//end of UpdateStageEndPanel
+
+    /// <summary>
+    /// 일정시간 뒤 ResultPanel 활성화 후 정보 초기화 : 김현진
+    /// </summary>
+    IEnumerator OnResultPanel()
+    {
+        yield return new WaitForSeconds(1.0f);
+        //패널 활성화
+        GetGameobject((int)GameObjects.StageResultPanel).SetActive(true);
+
+        //패널 정보 리셋
+        ResetStageEndPanel();
+
+        //패널 정보 업데이트
+        UpdateStageEndPanel();
+
+    }
 
 }

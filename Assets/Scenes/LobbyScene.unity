@@ -98,8 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 82e8d39282bc69f4eae334381507e47a,
-    type: 2}
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1262,8 +1261,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorWoodResource: 0a000000140000000f000000110000000700000023000000
-  maxStageNum: 30
-  selectedStageNum: 25
+  maxStageNum: 10
+  selectedStageNum: 10
+  stageStarArr:
+  - stageNum: 0
+    starNum: 0
+  - stageNum: 1
+    starNum: 3
+  - stageNum: 2
+    starNum: 2
+  - stageNum: 3
+    starNum: 3
+  - stageNum: 4
+    starNum: 3
+  - stageNum: 5
+    starNum: 1
+  - stageNum: 6
+    starNum: 1
+  - stageNum: 7
+    starNum: 1
+  - stageNum: 8
+    starNum: 1
+  - stageNum: 9
+    starNum: 1
+  - stageNum: 10
+    starNum: 0
   maxTurretNum: 5
   turretPreset: 02000000030000000000000004000000
 --- !u!4 &1269074515
