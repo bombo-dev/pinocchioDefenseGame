@@ -197,12 +197,16 @@ public class Bullet : MonoBehaviour
                         return;
 
                     DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+                    
+                    // 활성화된 데미지 패널을 리스트에 저장
+                    //SystemManager.Instance.PanelManager.damagePanels.Add(damageMngPanelGo);
 
                     // 데미지 UI 화면에 띄우기
                     damageMngPanel.ShowDamage(damage, 0);
 
                     enemy.damageMngPanel = damageMngPanel;
                     damageMngPanel.damageOwner = enemy.gameObject;
+                   
                 }
                 //피 공격자 디버프 걸기
                 if (attacker.debuffType > 0)
@@ -237,8 +241,11 @@ public class Bullet : MonoBehaviour
 
                     if (!damageMngPanelGo)
                         return;
-
+                                        
                     DamageMngPanel damageMngPanel = damageMngPanelGo.GetComponent<DamageMngPanel>();
+
+                    // 활성화된 데미지 패널을 리스트에 저장
+                    //SystemManager.Instance.PanelManager.damagePanels.Add(damageMngPanelGo);
 
                     // 데미지 UI 화면에 띄우기
                     damageMngPanel.ShowDamage(damage, 0);

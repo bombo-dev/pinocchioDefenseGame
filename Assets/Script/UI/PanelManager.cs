@@ -13,11 +13,8 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    // 활성화된 turret의 HPBar 패널을 저장할 리스트
-    //public List<GameObject> turretHPBars;
-
-    // 활성화된 enemy의 HPBar 패널을 저장할 리스트
-    //public List<GameObject> enemyHPBars;
+    // 활성화된 damage 패널을 저장할 리스트
+    public List<GameObject> damagePanels;
 
 
 
@@ -149,15 +146,28 @@ public class PanelManager : MonoBehaviour
             stageMngPanel = (compoenent as StageMngPanel);
 
         }
-        else if (typeof(T) == typeof(StatusMngPanel))
-        {
-            statusMngPanel = (compoenent as StatusMngPanel);
-            // hpBar 패널 위치 초기화   
-        }
         else if (typeof(T) == typeof(DamageMngPanel))
         {
             damageMngPanel = (compoenent as DamageMngPanel);
             // hpBar 패널 위치 초기화   
+            damagePanels.Add(go);
+
+            Vector3 panelPos;
+            if (_gameobject.tag == "Enemy")
+            {
+                enemy = _gameobject.GetComponent<Enemy>();
+                panelPos = enemy.hitPos.transform.position;
+            }
+            else if (_gameobject.tag == "Turret")
+            {
+                turret = _gameobject.GetComponent<Turret>();
+                panelPos = turret.hitPos.transform.position;
+            }
+            else
+                return null;
+
+            screenPos = Camera.main.WorldToScreenPoint(panelPos);
+            go.transform.position = screenPos;
         }
 
         else if (typeof(T) == typeof(UI_ResourcePanel))
@@ -181,28 +191,32 @@ public class PanelManager : MonoBehaviour
                 screenPos = Camera.main.WorldToScreenPoint(constructionGaguePanel.constructionTurret.gauegePos.transform.position);
                 go.transform.position = screenPos;
             }
-            else if (typeof(T) == typeof(StatusMngPanel))
+        }
+        else if (typeof(T) == typeof(StatusMngPanel))
+        {
+            statusMngPanel = (compoenent as StatusMngPanel);
+            
+            Vector3 panelPos;
+            if (_gameobject.tag == "Enemy")
             {
-                Vector3 panelPos;
-                if (_gameobject.GetType().Name == "Enemy")
-                {
-                    enemy = _gameobject.GetComponent<Enemy>();
+                enemy = _gameobject.GetComponent<Enemy>();
 
-                    System.Random randNum = new System.Random();
-                    Debug.Log("난수 생성=" + randNum.Next(0, 10));
-                    panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + randNum.Next(0, 10), enemy.hpPos.transform.position.z);
-                }
-                else if (_gameobject.GetType().Name == "Turret")
-                {
-                    turret = _gameobject.GetComponent<Turret>();
-                    panelPos = turret.hpPos.transform.position;
-                }
-                else
-                    return null;
-                screenPos = Camera.main.WorldToScreenPoint(panelPos);
-                go.transform.position = screenPos;
+
+                // hpBar가 겹쳐서 안보이는 문제를 해결하기 위해 y축 위치에 랜덤 난수 더해주기
+                System.Random randNum = new System.Random();
+                Debug.Log("난수 생성=" + randNum.Next(0, 10));
+                panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + randNum.Next(0, 10), enemy.hpPos.transform.position.z);           
+
             }
-
+            else if (_gameobject.tag == "Turret")
+            {
+                turret = _gameobject.GetComponent<Turret>();
+                panelPos = turret.hpPos.transform.position;
+            }
+            else
+                return null;
+            screenPos = Camera.main.WorldToScreenPoint(panelPos);
+            go.transform.position = screenPos;
         }
         else if (typeof(T) == typeof(UI_OptionPanel))
         {
@@ -212,6 +226,8 @@ public class PanelManager : MonoBehaviour
         {
             goodsMngPanel = (compoenent as GoodsMngPanel);
         }
+
+
         else if (typeof(T) == typeof(UI_StageEndPanel))
         {
             stageEndPanel = (compoenent as UI_StageEndPanel);
@@ -239,9 +255,9 @@ public class PanelManager : MonoBehaviour
             screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
         }
+
         if (typeof(T) == typeof(KillRewardMngPanel))
-        {
-            Debug.Log("********reward*******");
+        {            
             Vector3 panelPos;
 
             enemy = _gameobject.GetComponent<Enemy>();
@@ -294,6 +310,7 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(DamageMngPanel))
         {
             filePath = (compoenent as DamageMngPanel).filePath;
+            damagePanels.Remove(go);
             damageMngPanel = null;
         }
         else if (typeof(T) == typeof(UI_ResourcePanel))

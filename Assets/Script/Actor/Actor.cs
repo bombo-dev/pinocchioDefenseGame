@@ -707,7 +707,9 @@ public class Actor : MonoBehaviour
 
                     //지속시간 경과시 디버프 제거
                     if (debuffs[_debuffIndex].durationTime < 0)
-                        RemoveDebuff(i);
+                    {
+                        RemoveDebuff(i);                        
+                    }
 
                 }
             }
