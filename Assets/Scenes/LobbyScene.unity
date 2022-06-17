@@ -382,6 +382,7 @@ MonoBehaviour:
   resoursePanel: {fileID: 0}
   optionPanel: {fileID: 0}
   goodsMngPanel: {fileID: 0}
+  stageEndPanel: {fileID: 0}
   canvas: {fileID: 1254084310}
   prefabCacheDatas:
   - filePath: Panel/LobbyPanel
@@ -1263,7 +1264,8 @@ MonoBehaviour:
   colorWoodResource: 0a000000140000000f000000110000000700000023000000
   maxStageNum: 30
   selectedStageNum: 0
-  turretPreset: 
+  maxTurretNum: 5
+  turretPreset: 02000000030000000000000004000000
 --- !u!4 &1269074515
 Transform:
   m_ObjectHideFlags: 0
@@ -1706,10 +1708,11 @@ MonoBehaviour:
   resourceManager: {fileID: 0}
   panelManager: {fileID: 0}
   effectManager: {fileID: 0}
-  loadJson: {fileID: 0}
+  gateJson: {fileID: 0}
   shaderController: {fileID: 0}
   enemyJson: {fileID: 0}
   turretJson: {fileID: 0}
+  rewardManager: {fileID: 0}
   userInfo: {fileID: 0}
 --- !u!4 &1567078146
 Transform:

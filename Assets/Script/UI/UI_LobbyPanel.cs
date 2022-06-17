@@ -72,7 +72,30 @@ public class UI_LobbyPanel : UI_Controller
         TurretPresetPanel4,
         TurretPresetPanel5,
         TurretPresetPanel6,
-        TurretPresetPanel7   //~7
+        TurretPresetPanel7,   //~7
+        TurretPanel0,
+        TurretPanel1,
+        TurretPanel2,
+        TurretPanel3,
+        TurretPanel4,
+        TurretPanel5,
+        TurretPanel6,
+        TurretPanel7,
+        TurretPanel8,
+        TurretPanel9,
+        TurretPanel10,
+        TurretPanel11,
+        TurretPanel12,
+        TurretPanel13,
+        TurretPanel14,
+        TurretPanel15,
+        TurretPanel16,
+        TurretPanel17,
+        TurretPanel18,
+        TurretPanel19,
+        TurretPanel20,
+        TurretPanel21,
+        TurretPanel22,
     }
 
     enum TextMeshProUGUIs
@@ -182,6 +205,11 @@ public class UI_LobbyPanel : UI_Controller
 
             //터렛 선택 Cost 정보 텍스트 초기화
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretJson.GetTurretData()[i].turretCost.ToString();
+
+            //터렛 리스트 초기화
+            if (i >= SystemManager.Instance.UserInfo.maxTurretNum)
+                GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
+
         }
 
         //스테이지 드롭다운 초기화
