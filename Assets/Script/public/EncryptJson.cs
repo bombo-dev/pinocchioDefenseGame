@@ -50,7 +50,7 @@ public class EncryptJson : MonoBehaviour
     }
 
     // 암호화 할 JSON 파일 불러오기
-    public static string ReadJson(string filePath)
+    public string ReadJson(string filePath)
     {
         string jsonString;
 
@@ -62,6 +62,19 @@ public class EncryptJson : MonoBehaviour
         }
 
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            jsonString = File.ReadAllText(filePath);
+
+            return jsonString;
+        }
+
+        else if (Application.platform == RuntimePlatform.OSXEditor)
+        {
+            jsonString = File.ReadAllText(filePath);
+
+            return jsonString;
+        }
+        else if (Application.platform == RuntimePlatform.OSXPlayer)
         {
             jsonString = File.ReadAllText(filePath);
 
@@ -85,52 +98,14 @@ public class EncryptJson : MonoBehaviour
     }
 
     //Json 암호화 하기
-    public static void JsonEncrypt(string filePath)
+    public  void JsonEncrypt(string filePath)
     {
         //JSON 데이터를 먼저 읽어와서 문자열로 저장
         string encrypt = ReadJson(filePath);
 
         //JSON을 암호화 할때 암호키는 개발자들끼리 알 수 있도록 지정
-        encrypt = Encrypt(encrypt, "key");
+        encrypt = EncryptDecrypt.Encrypt(encrypt, "key");
 
         File.WriteAllText(filePath, encrypt);
-    }
-
-    // 암호화를 위한 메서드
-    public static string Encrypt(string textToEncrypt, string key)
-    {
-        RijndaelManaged rijndaelCipher = new RijndaelManaged();
-
-        rijndaelCipher.Mode = CipherMode.CBC;
-
-        rijndaelCipher.Padding = PaddingMode.PKCS7;
-
-        rijndaelCipher.KeySize = 128;
-
-        rijndaelCipher.BlockSize = 128;
-
-        byte[] pwdBytes = Encoding.UTF8.GetBytes(key);
-
-        byte[] keyBytes = new byte[16];
-
-        int len = pwdBytes.Length;
-
-        if (len > keyBytes.Length)
-
-        {
-            len = keyBytes.Length;
-        }
-
-        Array.Copy(pwdBytes, keyBytes, len);
-
-        rijndaelCipher.Key = keyBytes;
-
-        rijndaelCipher.IV = keyBytes;
-
-        ICryptoTransform transform = rijndaelCipher.CreateEncryptor();
-
-        byte[] plainText = Encoding.UTF8.GetBytes(textToEncrypt);
-
-        return Convert.ToBase64String(transform.TransformFinalBlock(plainText, 0, plainText.Length));
     }
 }
