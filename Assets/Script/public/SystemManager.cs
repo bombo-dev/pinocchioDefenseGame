@@ -179,6 +179,17 @@ public class SystemManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    LoadingSceneManager loadingSceneManager;
+    public LoadingSceneManager LoadingSceneManager
+    {
+        get
+        {
+            return loadingSceneManager;
+        }
+    }
+
+
     //LobbyScene
 
     private void Awake()
@@ -196,6 +207,11 @@ public class SystemManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //ΩÃ±€≈Ê ≈¨∑°Ω∫ √ ±‚»≠
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         if (GameObject.FindObjectOfType<PrefabCacheSystem>())
             prefabCacheSystem = GameObject.FindObjectOfType<PrefabCacheSystem>();
         if (GameObject.FindObjectOfType<EnemyManager>())
@@ -230,7 +246,7 @@ public class SystemManager : MonoBehaviour
             userInfo = GameObject.FindObjectOfType<UserInfo>();
         if (GameObject.FindObjectOfType<GateJson>())
             gateJson = GameObject.FindObjectOfType<GateJson>();
+        if (GameObject.FindObjectOfType<LoadingSceneManager>())
+            loadingSceneManager = GameObject.FindObjectOfType<LoadingSceneManager>();
     }
-
-
 }

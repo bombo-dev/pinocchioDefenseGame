@@ -57,7 +57,8 @@ public class UI_LobbyPanel : UI_Controller
         TurretRemoveButton7, // ~7
         TurretPresetClearButton, //터렛 프리셋 비우기 버튼
         StageSelectLeftArrowButton,   //스테이지 선택 스크롤 <버튼
-        StageSelectRightArrowButton    //스테이지 선택 스크롤 >버튼
+        StageSelectRightArrowButton,    //스테이지 선택 스크롤 >버튼
+        StageStartButton    //게임신 시작 버튼
     }
 
     enum GameObjects
@@ -186,6 +187,7 @@ public class UI_LobbyPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.TurretPresetClearButton).gameObject, OnClickTurretPresetClearButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageSelectLeftArrowButton).gameObject, OnClickStageSelectLeftArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageSelectRightArrowButton).gameObject, OnClickStageSelectRightArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageStartButton).gameObject, OnClickStageStartButton, Define.UIEvent.Click);
 
         for (int i = 0; i < MAXTCOLORWOOD; i++)
         {
@@ -261,6 +263,15 @@ public class UI_LobbyPanel : UI_Controller
 
         //카메라 연출 애니메이션
         lobbyPlayer.camAnimator.Play("CamBackAnim");
+    }
+
+    /// <summary>
+    /// 게임씬으로 이동 :김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param> 
+    void OnClickStageStartButton(PointerEventData data)
+    {
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
     /// <summary>

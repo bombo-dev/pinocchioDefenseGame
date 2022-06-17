@@ -10,12 +10,26 @@ public class LoadingSceneManager : MonoBehaviour
     [SerializeField]
     Image progressBar;
 
-    private void Start()
+    public void UpdateProgressBar(float progress, float timer)
     {
-        StartCoroutine(LoadScene());
+        progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, progress, timer);
+        if (progressBar.fillAmount >= progress)
+        { 
+            timer = 0f; 
+        }
     }
 
-    public static void LoadScene(string sceneName)
+    public bool FinProgressBar(float timer)
+    {
+        progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
+        if (progressBar.fillAmount == 1.0f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /*public static void LoadScene(string sceneName)
     {
         nextScene = sceneName;
         SceneManager.LoadScene("LoadingScene");
@@ -48,5 +62,5 @@ public class LoadingSceneManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }

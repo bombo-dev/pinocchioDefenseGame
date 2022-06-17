@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    //씬이름
+    public string gameSceneName = "GameScene";  //게임 씬
+    public string lobbySceneName = "LobbyScene";    //로비 씬
+    public string storySceneName = "StoryScene";    //스토리 씬
+
     private static SceneController instance = null;
 
     public static SceneController Instance
@@ -61,24 +66,41 @@ public class SceneController : MonoBehaviour
     /// <param name="sceneName"> 로딩할 scene 이름 </param>
     public void LoadScene(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(sceneName, LoadSceneMode.Single));
+        StartCoroutine(LoadSceneAsync(sceneName)); 
+        //로딩씬 호출
+        SceneManager.LoadScene("LoadingScene");
+
     }
 
-    /// <summary>
-    /// 이전 Scene의 Unload 없이 로딩
-    /// </summary>
-    /// <param name="sceneName">로딩할 Scene이름</param>
-    public void LoadSceneAdditive(string sceneName)
+    IEnumerator LoadSceneAsync(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(sceneName, LoadSceneMode.Additive));
-    }
+        yield return null;
 
-    IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode)
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
 
-        while (!asyncOperation.isDone)
+        //로딩 완료시 자동로드 X
+        op.allowSceneActivation = false;
+        float timer = 0.0f;
+
+        while (!op.isDone)
+        {
             yield return null;
+
+            timer += Time.deltaTime;
+            if (op.progress < 0.9f)
+            {
+                Debug.Log(op.progress);
+                SystemManager.Instance.LoadingSceneManager.UpdateProgressBar(op.progress, timer);
+            }
+            else
+            {
+                if (SystemManager.Instance.LoadingSceneManager.FinProgressBar(timer))
+                {
+                    op.allowSceneActivation = true; 
+                    yield break;
+                }
+            }
+        }
 
         Debug.Log("LoadSceneAsync is complete");
     }
@@ -87,17 +109,27 @@ public class SceneController : MonoBehaviour
     /// 씬이 교체되었을때 : 김현진
     /// </summary>
     /// <param name="scene0"></param>
-    /// <param name="scene1"></param>
+    /// <param name="scene1">교체된 씬</param>
     public void OnActiveSceneChanged(Scene scene0, Scene scene1)
     {
         Debug.Log("OnActiveSceneChanged is called! scene0 = " + scene0.name + ", scene1 = " + scene1.name);
     }
 
+    /// <summary>
+    /// 로드된 씬: 김현진
+    /// </summary>
+    /// <param name="scene">교체된 씬</param>
+    /// <param name="loadSceneMode">씬로드 방식</param>
     public void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         Debug.Log("OnSceneLoaded is called! scene = " + scene.name + ", loadSceneMode = " + loadSceneMode.ToString());
+        SystemManager.Instance.Initialize();
     }
 
+    /// <summary>
+    /// 씬이 종료되었을때 : 김현진
+    /// </summary>
+    /// <param name="scene">종료된 씬</param>
     public void OnSceneUnloaded(Scene scene)
     {
         Debug.Log("OnSceneUnloaded is called! scene = " + scene.name);
