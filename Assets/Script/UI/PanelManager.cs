@@ -16,7 +16,7 @@ public class PanelManager : MonoBehaviour
     // 활성화된 damage 패널을 저장할 리스트
     public List<GameObject> damagePanels;
 
-
+    public List<GameObject> rewardPanels;
 
     [Header("PanelCachesInfo")]
     //Load한 Panel 프리팹 정보
@@ -226,38 +226,15 @@ public class PanelManager : MonoBehaviour
         {
             rewardsMngPanel = (compoenent as RewardsMngPanel);
         }
-
-
         else if (typeof(T) == typeof(UI_StageEndPanel))
         {
             stageEndPanel = (compoenent as UI_StageEndPanel);
 
         }
-
-
-        if (typeof(T) == typeof(DamageMngPanel))
+        else if (typeof(T) == typeof(KillRewardMngPanel))
         {
-            Debug.Log("********damage*******");
-            Vector3 panelPos;
-            if (_gameobject.tag == "Enemy")
-            {
-                enemy = _gameobject.GetComponent<Enemy>();
-                panelPos = enemy.hitPos.transform.position;
-            }
-            else if (_gameobject.tag == "Turret")
-            {
-                turret = _gameobject.GetComponent<Turret>();
-                panelPos = turret.hitPos.transform.position;
-            }
-            else
-                return null;
-
-            screenPos = Camera.main.WorldToScreenPoint(panelPos);
-            go.transform.position = screenPos;
-        }
-
-        if (typeof(T) == typeof(KillRewardMngPanel))
-        {            
+            // 활성화된 패널을 리스트에 저장
+            rewardPanels.Add(go);
             Vector3 panelPos;
 
             enemy = _gameobject.GetComponent<Enemy>();
@@ -265,6 +242,8 @@ public class PanelManager : MonoBehaviour
 
             screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
+
+            
         }
 
 
@@ -326,6 +305,11 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as RewardsMngPanel).filePath;
             rewardsMngPanel = null;
+        }
+        else if (typeof(T) == typeof(KillRewardMngPanel))
+        {
+            rewardPanels.Remove(go);
+            filePath = (compoenent as KillRewardMngPanel).filePath;
         }
 
         else

@@ -31,6 +31,12 @@ public class RewardsMngPanel : UI_Controller
     {
         if (gameObject.activeSelf == true)
             UpdatePanelPos();
+
+        if (Time.timeScale == 0)
+        {
+            SystemManager.Instance.PanelManager.DisablePanel<RewardsMngPanel>(gameObject);
+        }
+
     }
     protected override void BindingUI()
     {
