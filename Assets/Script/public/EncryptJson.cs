@@ -20,12 +20,14 @@ public class EncryptJson : MonoBehaviour
         // JsonEncrypt(MonsterPath());
         // 3. 타워들의 상태치 데이터가 담긴 JSON을 암호화 할 때 사용
         // JsonEncrypt(TurretPath());
+        // 4. 모든 Json 데이터 암호화
+        // AllEncryptJson();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // 몬스터 게이트 데이터가 담긴 JSON의 경로
@@ -84,7 +86,7 @@ public class EncryptJson : MonoBehaviour
         else
         {
             string originPath = filePath;
-            #pragma warning disable 612, 618
+#pragma warning disable 612, 618
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 
@@ -98,7 +100,7 @@ public class EncryptJson : MonoBehaviour
     }
 
     //Json 암호화 하기
-    public  void JsonEncrypt(string filePath)
+    public void JsonEncrypt(string filePath)
     {
         //JSON 데이터를 먼저 읽어와서 문자열로 저장
         string encrypt = ReadJson(filePath);
@@ -107,5 +109,13 @@ public class EncryptJson : MonoBehaviour
         encrypt = EncryptDecrypt.Encrypt(encrypt, "key");
 
         File.WriteAllText(filePath, encrypt);
+    }
+
+    //Json 전체 파일 암호화
+    public void AllEncryptJson()
+    {
+        JsonEncrypt(TestPath());
+        JsonEncrypt(MonsterPath());
+        JsonEncrypt(TurretPath());
     }
 }
