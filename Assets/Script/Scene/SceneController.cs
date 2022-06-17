@@ -63,6 +63,16 @@ public class SceneController : MonoBehaviour
     {
         StartCoroutine(LoadSceneAsync(sceneName, LoadSceneMode.Single));
     }
+
+    /// <summary>
+    /// 이전 Scene의 Unload 없이 로딩
+    /// </summary>
+    /// <param name="sceneName">로딩할 Scene이름</param>
+    public void LoadSceneAdditive(string sceneName)
+    {
+        StartCoroutine(LoadSceneAsync(sceneName, LoadSceneMode.Additive));
+    }
+
     IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode)
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
@@ -73,6 +83,11 @@ public class SceneController : MonoBehaviour
         Debug.Log("LoadSceneAsync is complete");
     }
 
+    /// <summary>
+    /// 씬이 교체되었을때 : 김현진
+    /// </summary>
+    /// <param name="scene0"></param>
+    /// <param name="scene1"></param>
     public void OnActiveSceneChanged(Scene scene0, Scene scene1)
     {
         Debug.Log("OnActiveSceneChanged is called! scene0 = " + scene0.name + ", scene1 = " + scene1.name);
