@@ -137,6 +137,5 @@ public class UI_OptionPanel : UI_Controller
 
         //FixedDeltaTimeº¯°æ
         Time.fixedDeltaTime = 0.02F * Time.timeScale;
-
     }
 }
