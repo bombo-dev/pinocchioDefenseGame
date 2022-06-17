@@ -30,7 +30,7 @@ public class PanelManager : MonoBehaviour
     public DamageMngPanel damageMngPanel;
     public UI_ResourcePanel resoursePanel;
     public UI_OptionPanel optionPanel;
-    public GoodsMngPanel goodsMngPanel;
+    public RewardsMngPanel rewardsMngPanel;
     public UI_StageEndPanel stageEndPanel;
 
 
@@ -222,9 +222,9 @@ public class PanelManager : MonoBehaviour
         {
             optionPanel = (compoenent as UI_OptionPanel);
         }
-        else if (typeof(T) == typeof(GoodsMngPanel))
+        else if (typeof(T) == typeof(RewardsMngPanel))
         {
-            goodsMngPanel = (compoenent as GoodsMngPanel);
+            rewardsMngPanel = (compoenent as RewardsMngPanel);
         }
 
 
@@ -322,10 +322,10 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as UI_ConstructionGauge).filePath;
         }
-        else if (typeof(T) == typeof(GoodsMngPanel))
+        else if (typeof(T) == typeof(RewardsMngPanel))
         {
-            filePath = (compoenent as GoodsMngPanel).filePath;
-            goodsMngPanel = null;
+            filePath = (compoenent as RewardsMngPanel).filePath;
+            rewardsMngPanel = null;
         }
 
         else
