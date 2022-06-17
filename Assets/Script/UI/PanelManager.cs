@@ -40,7 +40,6 @@ public class PanelManager : MonoBehaviour
     //filePath, cacheCount 저장
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
- 
 
 
     // Start is called before the first frame update
@@ -201,11 +200,12 @@ public class PanelManager : MonoBehaviour
             {
                 enemy = _gameobject.GetComponent<Enemy>();
 
-
                 // hpBar가 겹쳐서 안보이는 문제를 해결하기 위해 y축 위치에 랜덤 난수 더해주기
                 System.Random randNum = new System.Random();
-                Debug.Log("난수 생성=" + randNum.Next(0, 10));
-                panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + randNum.Next(0, 10), enemy.hpPos.transform.position.z);           
+
+                statusMngPanel.randPos = randNum.Next(0, 10);
+                Debug.Log("난수 생성=" + statusMngPanel.randPos);
+                panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + statusMngPanel.randPos, enemy.hpPos.transform.position.z);           
 
             }
             else if (_gameobject.tag == "Turret")
