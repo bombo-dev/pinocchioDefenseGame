@@ -116,6 +116,7 @@ public class UI_StageEndPanel : UI_Controller
     enum Buttons
     {
         ReStartButton,  //다시시작 버튼
+        ExitButton  //나가기 버튼
     }
 
     /// <summary>
@@ -133,6 +134,7 @@ public class UI_StageEndPanel : UI_Controller
 
         //이벤트 추가
         AddUIEvent(GetButton((int)Buttons.ReStartButton).gameObject, OnClickRestartButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.ExitButton).gameObject, OnClickExitButton, Define.UIEvent.Click);
 
         //게임오버
         if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.StageFail)
@@ -300,7 +302,7 @@ public class UI_StageEndPanel : UI_Controller
     /// <param name="data"></param>
     void OnClickExitButton(PointerEventData data)
     {
-        
+        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
     }
 
     /// <summary>
