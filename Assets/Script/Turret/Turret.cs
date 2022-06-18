@@ -235,12 +235,8 @@ public class Turret : Actor
                 //게임오버 상태
                 SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.StageFail;
 
-                //게임결과 패널 생성
-                pm.EnablePanel<UI_StageEndPanel>(10);
-
-                //패널 비활성화
-                pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
-                pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+                //스테이지 비활성화
+                SystemManager.Instance.GameFlowManager.DisableStage();
 
                 return;
             }

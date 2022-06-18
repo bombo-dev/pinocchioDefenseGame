@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> enemies;
 
     [SerializeField]
-    Transform enemyParents;
+    public Transform enemyParents;
 
     //filePath, cacheCount ÀúÀå
     [SerializeField]

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UI_StageEndPanel : UI_Controller
 {
@@ -112,6 +113,11 @@ public class UI_StageEndPanel : UI_Controller
         RewardImage5,   //~5
     }
 
+    enum Buttons
+    {
+        ReStartButton,  //다시시작 버튼
+    }
+
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
     /// </summary>
@@ -123,6 +129,10 @@ public class UI_StageEndPanel : UI_Controller
         Bind<Image>(typeof(Images));
         Bind<GameObject>(typeof(GameObjects));
         Bind<Slider>(typeof(Sliders));
+        Bind<Button>(typeof(Buttons));
+
+        //이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.ReStartButton).gameObject, OnClickRestartButton, Define.UIEvent.Click);
 
         //게임오버
         if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.StageFail)
@@ -277,11 +287,28 @@ public class UI_StageEndPanel : UI_Controller
     }//end of UpdateStageEndPanel
 
     /// <summary>
+    /// 씬 재로드하여 다시 시작 : 김현진
+    /// </summary>
+    void OnClickRestartButton(PointerEventData data)
+    {
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
+    }
+
+    /// <summary>
+    /// 로비씬으로 돌아가기 : 김현진
+    /// </summary>
+    /// <param name="data"></param>
+    void OnClickExitButton(PointerEventData data)
+    {
+        
+    }
+
+    /// <summary>
     /// 일정시간 뒤 ResultPanel 활성화 후 정보 초기화 : 김현진
     /// </summary>
     IEnumerator OnResultPanel()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.5f);
         //패널 활성화
         GetGameobject((int)GameObjects.StageResultPanel).SetActive(true);
 
@@ -290,7 +317,6 @@ public class UI_StageEndPanel : UI_Controller
 
         //패널 정보 업데이트
         UpdateStageEndPanel();
-
     }
 
 }

@@ -8,7 +8,7 @@ public class BulletManager : MonoBehaviour
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();
 
     [SerializeField]
-    Transform enemyParents;
+    public Transform enemyParents;
 
     //filePath, cacheCount ¿˙¿Â
     [SerializeField]

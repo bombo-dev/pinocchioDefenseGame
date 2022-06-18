@@ -149,7 +149,7 @@ public class Actor : MonoBehaviour
 
     [Header("data")]    //기타 데이터
     [SerializeField]
-    protected string filePath; //프리팹 저장 파일 경로
+    public string filePath; //프리팹 저장 파일 경로
 
     [SerializeField]
     protected Animator animator; //애니메이터

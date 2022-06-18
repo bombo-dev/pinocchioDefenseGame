@@ -202,21 +202,42 @@ public class GameFlowManager : MonoBehaviour
     {
         if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
         {
-            //싱글톤 캐싱
-            PanelManager pm = SystemManager.Instance.PanelManager;
-
             //클리어 상태로 변경
             gameState = GameState.StageClear;
 
-            //게임결과 패널 생성
-            pm.EnablePanel<UI_StageEndPanel>(10);
-
-            //패널 비활성화
-            pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
-            pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+            //스테이지 비활성화
+            DisableStage();
         }
     }
 
+    //스테이지 종료 관련 오브젝트,패널 비활성화 : 김현진
+    public void DisableStage()
+    {
+        //싱글톤 캐싱
+        PanelManager pm = SystemManager.Instance.PanelManager;
+
+        //게임결과 패널 생성
+        pm.EnablePanel<UI_StageEndPanel>(10);
+
+        //터치 막아놓기
+        SystemManager.Instance.InputManager.enabled = false;
+
+        //패널 비활성화
+        pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+        pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+        pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
+
+        //모든 Enemy제거
+        for (int i = 0; i < SystemManager.Instance.EnemyManager.enemies.Count; i++)
+        {
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(
+                SystemManager.Instance.EnemyManager.enemies[i].GetComponent<Enemy>().filePath,
+                SystemManager.Instance.EnemyManager.enemies[i]);
+        }
+
+        //모든 Bullet제거
+        SystemManager.Instance.BulletManager.enemyParents.gameObject.SetActive(false);
+    }
     
     /*
     float timer;
