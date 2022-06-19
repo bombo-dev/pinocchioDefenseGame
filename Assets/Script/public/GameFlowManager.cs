@@ -202,6 +202,9 @@ public class GameFlowManager : MonoBehaviour
     {
         if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
         {
+            //별 보상 설정
+            SystemManager.Instance.RewardManager.SetStarReward();
+
             //클리어 상태로 변경
             gameState = GameState.StageClear;
 
@@ -219,6 +222,12 @@ public class GameFlowManager : MonoBehaviour
         //게임결과 패널 생성
         pm.EnablePanel<UI_StageEndPanel>(10);
 
+        //타임스케일 초기화
+        Time.timeScale = 1.0f;  //타임스케일 변경
+
+        //FixedDeltaTime변경
+        Time.fixedDeltaTime = 0.02F * Time.timeScale;
+
         //터치 막아놓기
         SystemManager.Instance.InputManager.enabled = false;
 
@@ -226,6 +235,7 @@ public class GameFlowManager : MonoBehaviour
         pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
         pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
         pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
+        pm.optionPanel.DisablePanelFinStage();
 
         //모든 Enemy제거
         for (int i = 0; i < SystemManager.Instance.EnemyManager.enemies.Count; i++)

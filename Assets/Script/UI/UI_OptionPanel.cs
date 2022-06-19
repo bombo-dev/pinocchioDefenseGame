@@ -109,21 +109,40 @@ public class UI_OptionPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(true);    //텍스트 활성화
             GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(false);    //텍스트 비활성화
 
+            //InputEvent 활성화
+            SystemManager.Instance.InputManager.enabled = true;
+            //UI활성화
+            SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(true);
+            SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(true);
+            //버튼활성화
+            GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(true);
+
             //재생
             Time.timeScale = currentTimeScale;
         }
         //실행 상태일 경우
         else
         {
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(false);    //텍스트 활성화
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(true);    //텍스트 비활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.StopOptionText).gameObject.SetActive(false);    //텍스트 비활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.PlayOptionText).gameObject.SetActive(true);    //텍스트 활성화
+
+            //InputEvent 비활성화
+            SystemManager.Instance.InputManager.enabled = false;
+            
+            //UI비활성화
+            SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(false);
+            SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(false);
+
+            //버튼비활성화
+            GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(false);
 
             //정지
             Time.timeScale = 0;
 
+            //데미지 패널 제거
             int panelNum = SystemManager.Instance.PanelManager.damagePanels.Count;
             Debug.Log("panelNum=" + panelNum);
-            int i = 0;           
+            int i = 0;
 
             while (i < panelNum)
             {
@@ -131,11 +150,19 @@ public class UI_OptionPanel : UI_Controller
                 //damageMngPanel.gameObject.SetActive(false);
                 damageMngPanel.DisableDmgPanel(null, 0);
                 i++;
-            }            
-
+            }
         }
 
         //FixedDeltaTime변경
         Time.fixedDeltaTime = 0.02F * Time.timeScale;
+    }
+
+    /// <summary>
+    /// 스테이지 종료시 비활성화 해야하는 패널 비활성화 : 김현진
+    /// </summary>
+    public void DisablePanelFinStage()
+    {
+        GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(false);
+        GetButton((int)Buttons.PlayOptionButton).gameObject.SetActive(false);
     }
 }

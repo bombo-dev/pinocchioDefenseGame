@@ -17,6 +17,9 @@ public class UI_StageEndPanel : UI_Controller
     [SerializeField]
     Sprite[] woodSprite;    //나무 이미지 모음
 
+    [SerializeField]
+    Sprite[] starSprite;    //별 이미지 모음
+
     enum TextMeshProUGUIs
     {
         StageText,  //현재 스테이지 정보
@@ -111,6 +114,7 @@ public class UI_StageEndPanel : UI_Controller
         RewardImage3,
         RewardImage4,
         RewardImage5,   //~5
+        StarRewardImage //별 보상 이미지
     }
 
     enum Buttons
@@ -197,7 +201,7 @@ public class UI_StageEndPanel : UI_Controller
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageText).text = "Stage " + gfm.stage.ToString();
         //타임 텍스트
         GetTextMeshProUGUI((int)TextMeshProUGUIs.ResultTimeText).text = 
-            ((int)(gfm.stageTime / 60)).ToString() + " 분 " + ((int)(gfm.stageTime % 60)).ToString() + " 초 ";
+            "Time: " + ((int)(gfm.stageTime / 60)).ToString() + " 분 " + ((int)(gfm.stageTime % 60)).ToString() + " 초 ";
 
 
         int maxDamage = 0;  //터렛이 준 데미지중 가장 큰 값
@@ -270,6 +274,9 @@ public class UI_StageEndPanel : UI_Controller
         {
             //보상패널 활성화
             GetGameobject((int)GameObjects.RewardPanel).SetActive(true);
+
+            //별 보상 이미지 교체
+            GetImage((int)Images.StarRewardImage).sprite = starSprite[SystemManager.Instance.RewardManager.starRewardNum];
 
             for (int i = 0; i < MAXREWARDNUM; i++)
             {

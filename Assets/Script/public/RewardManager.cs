@@ -11,6 +11,9 @@ public class RewardManager : MonoBehaviour
     [SerializeField]
     Dictionary<int, int> turretReward = new Dictionary<int, int>();  //스테이지, 터렛 종류
 
+    //별 보상
+    public int starRewardNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,4 +75,22 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(5, 5);//펠리컨
     }
 
+    /// <summary>
+    /// 스테이지별 별 보상 정보 : 김현진
+    /// </summary>
+    /// <returns>별 갯수</returns>
+    public void SetStarReward()
+    {
+        Turret turret = SystemManager.Instance.TurretManager.baseTurret;
+
+        //베이스터렛 남은 HP비율 계싼
+        int baseHP = (int)(((float)turret.currentHP / (float)turret.maxHP) * 100);
+
+        if (baseHP < 40)
+            starRewardNum = 1;
+        else if (baseHP < 100)
+            starRewardNum = 2;
+        else
+            starRewardNum = 3;
+    }
 }
