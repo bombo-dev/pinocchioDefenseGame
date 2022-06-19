@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f266d1b6c8a0cd8468fdecb4bb3a05ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePanels: []
   turretMngPanel: {fileID: 0}
   turretInfoPanel: {fileID: 0}
   stageMngPanel: {fileID: 0}
@@ -380,11 +381,13 @@ MonoBehaviour:
   damageMngPanel: {fileID: 0}
   resoursePanel: {fileID: 0}
   optionPanel: {fileID: 0}
-  goodsMngPanel: {fileID: 0}
+  rewardsMngPanel: {fileID: 0}
   stageEndPanel: {fileID: 0}
   canvas: {fileID: 1254084310}
   prefabCacheDatas:
   - filePath: Panel/LobbyPanel
+    cacheCount: 1
+  - filePath: Panel/OptionPopUpPanel
     cacheCount: 1
 --- !u!4 &337762748
 Transform:

@@ -22,6 +22,12 @@ public class UI_LobbyPanel : UI_Controller
     [SerializeField]
     Sprite[] starSprite;
 
+    //사운드 이미지
+    [SerializeField]
+    Sprite soundOnSprite;
+    [SerializeField]
+    Sprite soundOffSprite;
+
     enum Buttons
     {
         GameStartButton,    //게임시작버튼
@@ -62,7 +68,7 @@ public class UI_LobbyPanel : UI_Controller
         TurretPresetClearButton, //터렛 프리셋 비우기 버튼
         StageSelectLeftArrowButton,   //스테이지 선택 스크롤 <버튼
         StageSelectRightArrowButton,    //스테이지 선택 스크롤 >버튼
-        StageStartButton    //게임신 시작 버튼
+        StageStartButton,    //게임신 시작 버튼
     }
 
     enum GameObjects
@@ -460,5 +466,4 @@ public class UI_LobbyPanel : UI_Controller
     }
     #endregion
 
-    
 }

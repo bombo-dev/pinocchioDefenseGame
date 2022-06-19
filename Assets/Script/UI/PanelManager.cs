@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class PanelManager : MonoBehaviour
 {
     public static PanelManager instance = null;
@@ -47,8 +49,8 @@ public class PanelManager : MonoBehaviour
     {
         PrepareData();
 
-        //바로 생성해야할 패널 생성
-        EnableFixedPanel();
+        //게임씬 - 바로 생성해야할 패널 생성
+        EnableFixedPanel(SceneManager.GetActiveScene().buildIndex);
     }
 
     /// <summary>
@@ -65,21 +67,41 @@ public class PanelManager : MonoBehaviour
     /// <summary>
     /// 게임 시작 부터 바로 나타나 있는 고정된 패널 생성 : 김현진
     /// </summary>
-    void EnableFixedPanel()
+    void EnableFixedPanel(int sceneIndex)
     {
-        //TurretMngPanel
-        EnablePanel<UI_TurretMngPanel>(0);
+        switch (sceneIndex)
+        {
+            //로비씬
+            case 0:
+                //TurretMngPanel
+                EnablePanel<UI_LobbyPanel>(0);
 
-        //TurretInfoPanel
-        EnablePanel<UI_TurretInfoPanel>(1);
-        if(turretInfoPanel)
-            turretInfoPanel.Reset();
+                //TurretInfoPanel
+                EnablePanel<UI_OptionPopUpPanel>(1);
 
-        //ResourceManaerPanel
-        EnablePanel<UI_ResourcePanel>(4);
+                break;
+            //로딩씬
+            case 1:
+                break;
+            //게임씬
+            case 2:
+                //TurretMngPanel
+                EnablePanel<UI_TurretMngPanel>(0);
 
-        //OptionPanel
-        EnablePanel<UI_OptionPanel>(7);
+                //TurretInfoPanel
+                EnablePanel<UI_TurretInfoPanel>(1);
+                if (turretInfoPanel)
+                    turretInfoPanel.Reset();
+
+                //ResourceManaerPanel
+                EnablePanel<UI_ResourcePanel>(4);
+
+                //OptionPanel
+                EnablePanel<UI_OptionPanel>(7);
+
+                break;
+        }
+        
     }
 
     /// <summary>
