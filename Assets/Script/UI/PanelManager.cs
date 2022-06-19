@@ -73,10 +73,10 @@ public class PanelManager : MonoBehaviour
         {
             //로비씬
             case 0:
-                //TurretMngPanel
+                //로비패널
                 EnablePanel<UI_LobbyPanel>(0);
 
-                //TurretInfoPanel
+                //옵션 팝업 패널
                 EnablePanel<UI_OptionPopUpPanel>(1);
 
                 break;
@@ -85,19 +85,22 @@ public class PanelManager : MonoBehaviour
                 break;
             //게임씬
             case 2:
-                //TurretMngPanel
+                //터렛 소환 패널
                 EnablePanel<UI_TurretMngPanel>(0);
 
-                //TurretInfoPanel
+                //소환되어있는 터렛 정보 패널
                 EnablePanel<UI_TurretInfoPanel>(1);
                 if (turretInfoPanel)
                     turretInfoPanel.Reset();
 
-                //ResourceManaerPanel
+                //자원표시 패널
                 EnablePanel<UI_ResourcePanel>(4);
 
-                //OptionPanel
+                //게임옵션 패널
                 EnablePanel<UI_OptionPanel>(7);
+
+                //옵션 팝업 패널
+                EnablePanel<UI_OptionPopUpPanel>(11);
 
                 break;
         }
