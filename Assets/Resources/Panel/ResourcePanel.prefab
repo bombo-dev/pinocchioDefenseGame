@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 107.4, y: 20.5}
-  m_SizeDelta: {x: 295, y: 271.5}
+  m_AnchoredPosition: {x: 82.7, y: 15.1}
+  m_SizeDelta: {x: 224.02, y: 249.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1439973003071023176
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ada63edf00ca1e49a19c9a7b5a5a048, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 188f90ecdd5f0fb4fafc6e8f3b009648, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 1439973004049184025}
   - component: {fileID: 1439973004049184027}
   - component: {fileID: 1439973004049184026}
+  - component: {fileID: 7184019882277785555}
   m_Layer: 5
   m_Name: WoodResourcePanel
   m_TagString: Untagged
@@ -397,6 +398,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7184019882277785555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439973004049184024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8861209421726587368
 GameObject:
   m_ObjectHideFlags: 0
