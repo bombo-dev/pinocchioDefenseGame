@@ -22,10 +22,9 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Aura_BottomMarker3Arrows
   m_Shader: {fileID: 4800000, guid: 07513da48c7a0174f989813b951c454d, type: 3}
-  m_ShaderKeywords: _ALPHALAYER_GREEN _BLENDMODE_ADD _DISABLE_SSR _ENABLE_FOG_ON_TRANSPARENT
-    _MAINTEXTURELAYER_GREEN _NORMALMAP_TANGENT_SPACE _SURFACE_TYPE_TRANSPARENT
+  m_ShaderKeywords: _ALPHALAYER_GREEN _MAINTEXTURELAYER_GREEN _MASKTEXTURELAYER_ALPHA
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -140,6 +139,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AORemapMax: 1
     - _AORemapMin: 0
@@ -267,6 +267,7 @@ Material:
     - _ZTestModeDistortion: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
+    - __dirty: 1
     m_Colors:
     - _AlbedoPanning: {r: 0, g: 0, b: 0, a: 0}
     - _AlphaPanning: {r: 0, g: 0, b: 0, a: 0}
@@ -290,3 +291,4 @@ Material:
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
