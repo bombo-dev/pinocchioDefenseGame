@@ -165,6 +165,11 @@ public class UI_TurretMngPanel : UI_Controller
                     if (idx >= SystemManager.Instance.ResourceManager.selectedTurretPreset.Count)
                         endTurret = true;
                 }
+                else
+                {
+                    if (GetGameobject((int)GameObjects.TurretPanel0 + i).activeSelf)
+                        GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
+                }
             }
             //선택된 터렛이 아닐경우 버튼 비활성화
             else
