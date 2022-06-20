@@ -21,6 +21,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         ExitOptionButton,   //게임종료
         BgSoundOptionPanel,  //배경음 버튼
         EfSoundOptionPanel,  //효과음 버튼
+        ReStartOptionButton,  //다시시작 버튼
+        LobbyOptionButton   //로비로 돌아가기 버튼
     }
 
     enum GameObjects
@@ -61,6 +63,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.EfSoundOptionPanel).gameObject, OnClickEfSoundButton, Define.UIEvent.Click);    //효과음 
         AddUIEvent(GetButton((int)Buttons.ExitOptionButton).gameObject, OnClickExitButton, Define.UIEvent.Click);    //앱종료 
 
+        //씬 별로 버튼 활성화
+        OnButton();
 
         //옵션패널 팝업 닫기
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(false);
@@ -151,5 +155,39 @@ public class UI_OptionPopUpPanel : UI_Controller
             GetImage((int)Images.EfSoundOptionImage).sprite = soundOnSprite;
         }
     }
+
+    /// <summary>
+    /// 게임씬을 다시 로드 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickReStartButton(PointerEventData data)
+    {
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
+    }
+
+    /// <summary>
+    /// 로비로 돌아가기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickLobbyOptionButton(PointerEventData data)
+    {
+        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
+    }
     #endregion
+
+    /// <summary>
+    /// 게임씬일 경우 다시시작 버튼 활성화
+    /// </summary>
+    public void OnButton()
+    {
+        //게임씬일 경우 다시하기 옵션 활성화
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            //이벤트추가 - 다시시작
+            AddUIEvent(GetButton((int)Buttons.ReStartOptionButton).gameObject, OnClickReStartButton, Define.UIEvent.Click);
+
+            //이벤트추가 - 로비로
+            AddUIEvent(GetButton((int)Buttons.LobbyOptionButton).gameObject, OnClickLobbyOptionButton, Define.UIEvent.Click);
+        }
+    }
 }

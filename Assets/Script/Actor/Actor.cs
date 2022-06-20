@@ -21,7 +21,7 @@ public class Actor : MonoBehaviour
         Slow,   //이동속도 감소 2
         DecreaseDefense,    //방어력 감소 3
         DecreasePower,  //공격력 감소 4
-        ElectricShock,  //감전 - 공격속도,이동속도 대폭감소 5 
+        ElectricShock,  //감전 - 이동속도 대폭감소 5 
         Burn    //화상 - 방어력 대폭감소 6
     }
 

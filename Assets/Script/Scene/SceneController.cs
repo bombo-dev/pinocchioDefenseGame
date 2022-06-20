@@ -123,6 +123,8 @@ public class SceneController : MonoBehaviour
     public void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         Debug.Log("OnSceneLoaded is called! scene = " + scene.name + ", loadSceneMode = " + loadSceneMode.ToString());
+
+        //æ¿ ∑ŒµÂΩ√ ΩÃ≈¨≈Ê ≈¨∑°Ω∫ √ ±‚»≠
         SystemManager.Instance.Initialize();
     }
 

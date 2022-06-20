@@ -34,6 +34,7 @@ public class PanelManager : MonoBehaviour
     public UI_OptionPanel optionPanel;
     public RewardsMngPanel rewardsMngPanel;
     public UI_StageEndPanel stageEndPanel;
+    public UI_OptionPopUpPanel optionPopUpPanel;
 
 
     [SerializeField]
@@ -78,7 +79,6 @@ public class PanelManager : MonoBehaviour
 
                 //¿É¼Ç ÆË¾÷ ÆÐ³Î
                 EnablePanel<UI_OptionPopUpPanel>(1);
-
                 break;
             //·Îµù¾À
             case 1:
@@ -104,7 +104,6 @@ public class PanelManager : MonoBehaviour
 
                 break;
         }
-        
     }
 
     /// <summary>
@@ -251,11 +250,14 @@ public class PanelManager : MonoBehaviour
         {
             rewardsMngPanel = (compoenent as RewardsMngPanel);
         }
-
-
         else if (typeof(T) == typeof(UI_StageEndPanel))
         {
             stageEndPanel = (compoenent as UI_StageEndPanel);
+
+        }
+        else if (typeof(T) == typeof(UI_OptionPopUpPanel))
+        {
+            optionPopUpPanel = (compoenent as UI_OptionPopUpPanel);
 
         }
 
