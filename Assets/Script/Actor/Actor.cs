@@ -641,9 +641,11 @@ public class Actor : MonoBehaviour
     /// <param name="attacker">공격자</param>
     public virtual void EnableDebuffEffect(Actor attacker)
     {
+        //이펙트 출력위치
+        Vector3 effectPos = new Vector3(hpPos.transform.position.x, hpPos.transform.position.y + 15.0f, hpPos.transform.position.z);
         //이펙트 출력 
         if (hpPos || debuffEffectIndex != -1)
-            currentDebuffEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.debuffEffectIndex, hpPos.transform.position);   //디버프 이펙트 출력
+            currentDebuffEffect = SystemManager.Instance.EffectManager.EnableEffect(attacker.debuffEffectIndex, effectPos);   //디버프 이펙트 출력
     }
 
 

@@ -65,9 +65,6 @@ public class Turret : Actor
     {
         base.UpdateActor();
 
-        //버프 동작 
-        UpdateBuff();
-
         switch (turretState)
         {
             case TurretState.Idle:
@@ -411,6 +408,7 @@ public class Turret : Actor
 
     #region 버프
 
+    /*
     /// <summary>
     /// 실시간 버프 동작 처리 : 김현진
     /// </summary>
@@ -438,6 +436,7 @@ public class Turret : Actor
         }
 
     }
+    */
 
     /// <summary>
     /// 버프 추가 : 김현진
@@ -456,6 +455,16 @@ public class Turret : Actor
         //이미 존재하는 버프가 아닌 경우
         if (!buffs.ContainsKey(_buffIndex))
         {
+            //기존에 있던 버프 삭제
+            for (int i = 0; i < Enum.GetValues(typeof(buff)).Length; i++)
+            {
+                //버프 삭제
+                if (buffs.ContainsKey((buff)i))
+                    RemoveBuff(i);
+            }
+
+            //버프추가
+
             buffs.Add(_buffIndex, time);   //딕셔너리 자료구조에 추가
 
             //버프 효과
@@ -501,8 +510,8 @@ public class Turret : Actor
     /// <summary>
     /// 버프 제거 : 김현진
     /// </summary>
-    /// <param name="debuffIndex">제거할 버프</param>
-    protected void RemoveBuff(int buffIndex)
+    /// <param name="debuffIndex">제거할 버프거</param>
+    protected void RemoveBuff(int buffIndex = 0)
     {
         //인덱스를 debuff로 형변환
         buff _buffIndex = (buff)buffIndex;
