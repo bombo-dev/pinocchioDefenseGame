@@ -15,8 +15,7 @@ public class SoundManager : MonoBehaviour
     }
 
     //오디오 소스
-    [SerializeField]
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     [Header("BG_Sound")]
     //사운드 클립

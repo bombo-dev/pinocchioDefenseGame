@@ -14,25 +14,12 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
-    //Fire 오디오 소스
-    public AudioSource[] fireAudioSource;
-    //Fire 오디오 소스 인덱스
-    int fireAudioSource_idx = 0;
-
-    //Upgrade 오디오 소스
-    public AudioSource[] upgradeAudioSource;
-    //Upgrade 오디오 소스 인덱스
-    int upgradeAudioSource_idx = 0;
-
-    //Damage 오디오 소스
-    public AudioSource[] damageAudioSource;
-    //Damage 오디오 소스 인덱스
-    int damageAudioSource_idx = 0;
-
-    //Death 오디오 소스
-    public AudioSource[] deathAudioSource;
-    //Death 오디오 소스 인덱스
-    int deathAudioSource_idx = 0;
+    //오디오 소스
+    public List<AudioSource> effectAudioSource;
+    //오디오 소스 인덱스
+    int effectAudioSource_idx = 0;
+    [SerializeField]
+    Transform effectAudioTransform;
 
     void Awake()
     {
@@ -53,72 +40,46 @@ public class SoundEffectManager : MonoBehaviour
     /// FireAudio클립을 교체하고 재생 : 김현진
     /// </summary>
     /// <param name="audioClip">교체할 클립</param>
-    public void ChangefireAudioClip(AudioClip audioClip)
+    public void ChangeEffectAudioClip(AudioClip audioClip)
     {
         //최대 인덱스면 초기화
-        if (fireAudioSource.Length <= fireAudioSource_idx)
-            fireAudioSource_idx = 0;
+        if (effectAudioSource.Count <= effectAudioSource_idx)
+        {
+            //인덱스 초기화
+            effectAudioSource_idx = 0;
+
+            //플레이중이면 오디오소스 생성 후 리스트에 추가
+            if (effectAudioSource[effectAudioSource_idx].isPlaying)
+            {
+                //오브젝트 생성
+                GameObject go = new GameObject("fireAudioSource");
+                go.transform.parent = effectAudioTransform;
+
+                //컴포넌트 추가
+                AudioSource goAs = go.AddComponent<AudioSource>();
+
+                //오디오 소스 정보 동기화
+                goAs.volume = SystemManager.Instance.UserInfo.efSoundVolume;
+
+                if (SystemManager.Instance.UserInfo.isEfSound)
+                    goAs.mute = false;
+                else
+                    goAs.mute = true;
+
+                //리스트에 추가
+                effectAudioSource.Add(goAs);
+
+                //인덱스 맨 끝으로
+                effectAudioSource_idx = effectAudioSource.Count - 1;
+            }
+        }
 
         //오디오 클립 교체 후 재생
-        fireAudioSource[fireAudioSource_idx].clip = audioClip;
-        fireAudioSource[fireAudioSource_idx].Play();
+        effectAudioSource[effectAudioSource_idx].clip = audioClip;
+        effectAudioSource[effectAudioSource_idx].Play();
 
         //인덱스 증가
-        fireAudioSource_idx++;
-    }
-
-    /// <summary>
-    /// UpgradeAudio클립을 교체하고 재생 : 김현진
-    /// </summary>
-    /// <param name="audioClip">교체할 클립</param>
-    public void ChangeUpgradeAudioClip(AudioClip audioClip)
-    {
-        //최대 인덱스면 초기화
-        if (upgradeAudioSource.Length <= upgradeAudioSource_idx)
-            upgradeAudioSource_idx = 0;
-
-        //오디오 클립 교체 후 재생
-        upgradeAudioSource[upgradeAudioSource_idx].clip = audioClip;
-        upgradeAudioSource[upgradeAudioSource_idx].Play();
-
-        //인덱스 증가
-        upgradeAudioSource_idx++;
-    }
-
-    /// <summary>
-    /// DamageAudio클립을 교체하고 재생 : 김현진
-    /// </summary>
-    /// <param name="audioClip">교체할 클립</param>
-    public void ChangeDamageAudioClip(AudioClip audioClip)
-    {
-        //최대 인덱스면 초기화
-        if (damageAudioSource.Length <= damageAudioSource_idx)
-            damageAudioSource_idx = 0;
-
-        //오디오 클립 교체 후 재생
-        damageAudioSource[damageAudioSource_idx].clip = audioClip;
-        damageAudioSource[damageAudioSource_idx].Play();
-
-        //인덱스 증가
-        damageAudioSource_idx++;
-    }
-
-    /// <summary>
-    /// DeathAudio클립을 교체하고 재생 : 김현진
-    /// </summary>
-    /// <param name="audioClip">교체할 클립</param>
-    public void ChangeDeathAudioClip(AudioClip audioClip)
-    {
-        //최대 인덱스면 초기화
-        if (deathAudioSource.Length <= deathAudioSource_idx)
-            deathAudioSource_idx = 0;
-
-        //오디오 클립 교체 후 재생
-        deathAudioSource[deathAudioSource_idx].clip = audioClip;
-        deathAudioSource[deathAudioSource_idx].Play();
-
-        //인덱스 증가
-        deathAudioSource_idx++;
+        effectAudioSource_idx++;
     }
 
 }

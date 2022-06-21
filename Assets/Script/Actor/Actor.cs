@@ -410,7 +410,7 @@ public class Actor : MonoBehaviour
 
             //Fire사운드 출력
             if(fireSoundClip)
-                SoundEffectManager.Instance.ChangefireAudioClip(fireSoundClip);
+                SoundEffectManager.Instance.ChangeEffectAudioClip(fireSoundClip);
         }
         //근거리 유닛 전용 데미지 처리
         else if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
@@ -592,7 +592,7 @@ public class Actor : MonoBehaviour
 
         //damage 사운드 출력
         if (damageSoundClip)
-            SoundEffectManager.Instance.ChangeDamageAudioClip(damageSoundClip);
+            SoundEffectManager.Instance.ChangeEffectAudioClip(damageSoundClip);
     }
 
     protected virtual void OnDead()

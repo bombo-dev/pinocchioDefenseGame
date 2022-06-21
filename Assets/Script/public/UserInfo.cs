@@ -23,6 +23,12 @@ public class UserInfo : MonoBehaviour
     public int maxTurretNum;    //최대 터렛 숫자
     public List<int> turretPreset; //선택된 터렛 리스트
 
+    [Header("Option")]
+    public float bgSoundVolume;
+    public bool isBgSound;
+    public float efSoundVolume;
+    public bool isEfSound;
+
     private void Awake()
     {
         //씬 이동시 파괴 방지, 중복 오브젝트 없이 유일하게 존재 하도록 처리

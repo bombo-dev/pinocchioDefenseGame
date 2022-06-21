@@ -506,7 +506,7 @@ public class Turret : Actor
 
             //Upgrade 사운드 출력
             if (upgradeSoundClip)
-                SoundEffectManager.Instance.ChangeUpgradeAudioClip(upgradeSoundClip);
+                SoundEffectManager.Instance.ChangeEffectAudioClip(upgradeSoundClip);
         }
 
         buffs[_buffIndex] = time;   //지속시간 초기화

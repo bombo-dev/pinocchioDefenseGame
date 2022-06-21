@@ -43,6 +43,11 @@ public class UI_OptionPopUpPanel : UI_Controller
         EfSoundOptionImage,  //효과음 이미지
     }
 
+    enum Scrollbars
+    {
+        BgSoundScrollbar,   //배경사운드 음량 조절
+        EfSoundScrollbar,   //효과사운드 음량 조절
+    }
 
     /// <summary>
     /// enum에 열거된 이름으로 UI정보를 바인딩 : 김현진
@@ -55,6 +60,7 @@ public class UI_OptionPopUpPanel : UI_Controller
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
+        Bind<Scrollbar>(typeof(Scrollbars));
 
         //이벤트 추가
         AddUIEvent(GetButton((int)Buttons.OptionButton).gameObject, OnClickOptionPopUpButton, Define.UIEvent.Click);    //옵션패널 활성화
@@ -65,6 +71,9 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //씬 별로 버튼 활성화
         OnButton();
+
+        //사운드정보 초기화
+        InitializeSoundInfo();
 
         //옵션패널 팝업 닫기
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(false);
@@ -116,21 +125,36 @@ public class UI_OptionPopUpPanel : UI_Controller
 
     }
 
+    #region 사운드
     /// <summary>
     /// 배경음 켜기/끄기 버튼 동작 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
     void OnClickBgSoundButton(PointerEventData data)
     {
+        AudioSource audioSource = SoundManager.Instance.audioSource;
+
         if (GetTextMeshProUGUI((int)TextMeshProUGUIs.BgSoundOptionText).text.Equals("켜기"))
         {
             //소리켜기
+            audioSource.mute = false;
+
+            //유저정보 업데이트
+            SystemManager.Instance.UserInfo.isBgSound = true;
+
+            //UI업데이트
             GetTextMeshProUGUI((int)TextMeshProUGUIs.BgSoundOptionText).text = "끄기";
             GetImage((int)Images.BgSoundOptionImage).sprite = soundOffSprite;
         }
         else
         {
             //소리끄기
+            audioSource.mute = true;
+
+            //유저정보 업데이트
+            SystemManager.Instance.UserInfo.isBgSound = false;
+
+            //UI업데이트
             GetTextMeshProUGUI((int)TextMeshProUGUIs.BgSoundOptionText).text = "켜기";
             GetImage((int)Images.BgSoundOptionImage).sprite = soundOnSprite;
         }
@@ -142,19 +166,128 @@ public class UI_OptionPopUpPanel : UI_Controller
     /// <param name="data">이벤트 정보</param> 
     void OnClickEfSoundButton(PointerEventData data)
     {
+        List<AudioSource> audioSource = SoundEffectManager.Instance.effectAudioSource;
+
         if (GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text.Equals("켜기"))
         {
             //소리켜기
+            for (int i = 0; i < audioSource.Count; i++)
+            {
+                audioSource[i].mute = false;     
+            }
+
+            //유저정보 업데이트
+            SystemManager.Instance.UserInfo.isEfSound = true;
+
+            //UI업데이트
             GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text = "끄기";
             GetImage((int)Images.EfSoundOptionImage).sprite = soundOffSprite;
         }
         else
         {
             //소리끄기
+            for (int i = 0; i < audioSource.Count; i++)
+            {
+                audioSource[i].mute = true;
+            }
+
+            //유저정보 업데이트
+            SystemManager.Instance.UserInfo.isEfSound = false;
+
+            //UI업데이트
             GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text = "켜기";
             GetImage((int)Images.EfSoundOptionImage).sprite = soundOnSprite;
         }
     }
+
+    /// <summary>
+    /// 배경사운드 음량 조절 : 김현진
+    /// </summary>
+    public void OnValueChagneBgSoundSlider()
+    {
+        float value = GetScrollBar((int)Scrollbars.BgSoundScrollbar).value;
+        //음량정보 적용
+        SoundManager.Instance.audioSource.volume = value;
+
+        //음량정보 갱신
+        SystemManager.Instance.UserInfo.bgSoundVolume = value;
+    }
+
+    /// <summary>
+    /// 효과사운드 음량 조절 : 김현진
+    /// </summary>
+    public void OnValueChagneEfSoundSlider()
+    {
+        float value = GetScrollBar((int)Scrollbars.EfSoundScrollbar).value;
+        List<AudioSource> audioSource = SoundEffectManager.Instance.effectAudioSource;
+
+        //음량정보 적용
+        for (int i = 0; i < audioSource.Count; i++)
+        {
+            SoundEffectManager.Instance.effectAudioSource[i].volume = value;    
+        }
+
+        //음량정보 갱신
+        SystemManager.Instance.UserInfo.efSoundVolume = value;
+    }
+
+    /// <summary>
+    /// 사운드 관련 정보 초기화 : 김현진
+    /// </summary>
+    void InitializeSoundInfo()
+    {
+        AudioSource bgAudioSource = SoundManager.Instance.audioSource;
+        List<AudioSource> efAudioSource = SoundEffectManager.Instance.effectAudioSource;
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        //배경음
+        bgAudioSource.volume = userInfo.bgSoundVolume;
+        GetScrollBar((int)Scrollbars.BgSoundScrollbar).value = userInfo.bgSoundVolume;
+
+        if (userInfo.isBgSound)
+        {
+            bgAudioSource.mute = false;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.BgSoundOptionText).text = "끄기";
+            GetImage((int)Images.BgSoundOptionImage).sprite = soundOffSprite;
+        }
+        else
+        {
+            bgAudioSource.mute = true;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.BgSoundOptionText).text = "켜기";
+            GetImage((int)Images.BgSoundOptionImage).sprite = soundOnSprite;
+        }
+        //효과음
+        GetScrollBar((int)Scrollbars.EfSoundScrollbar).value = userInfo.efSoundVolume;
+
+        for (int i = 0; i < efAudioSource.Count; i++)
+        {
+            efAudioSource[i].volume = userInfo.efSoundVolume;
+
+            if (userInfo.isEfSound)
+            {
+                efAudioSource[i].mute = false;
+
+                if (i == 0)
+                {
+                    GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text = "끄기";
+                    GetImage((int)Images.EfSoundOptionImage).sprite = soundOffSprite;
+                }
+            }
+            else
+            {
+                efAudioSource[i].mute = true;
+
+                if (i == 0)
+                {
+                    GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text = "켜기";
+                    GetImage((int)Images.EfSoundOptionImage).sprite = soundOnSprite;
+                }
+            }
+        }
+    }
+    #endregion
 
     /// <summary>
     /// 게임씬을 다시 로드 : 김현진
