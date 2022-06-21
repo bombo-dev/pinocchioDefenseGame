@@ -17,13 +17,13 @@ public class RewardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetResward();
+        SetReward();
     }
 
     /// <summary>
     /// 해당 스테이지 보상 설정 : 김현진
     /// </summary>
-    void SetResward()
+    void SetReward()
     {
         //게임플로우 매니저
         GameFlowManager gfm = SystemManager.Instance.GameFlowManager;
