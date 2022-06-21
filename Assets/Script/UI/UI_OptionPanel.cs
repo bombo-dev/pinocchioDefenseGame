@@ -139,18 +139,6 @@ public class UI_OptionPanel : UI_Controller
             //정지
             Time.timeScale = 0;
 
-            //데미지 패널 제거
-            int panelNum = SystemManager.Instance.PanelManager.damagePanels.Count;
-            Debug.Log("panelNum=" + panelNum);
-            int i = 0;
-
-            while (i < panelNum)
-            {
-                damageMngPanel = SystemManager.Instance.PanelManager.damagePanels[0].GetComponent<DamageMngPanel>();
-                //damageMngPanel.gameObject.SetActive(false);
-                damageMngPanel.DisableDmgPanel(null, 0);
-                i++;
-            }
         }
 
         //FixedDeltaTime변경

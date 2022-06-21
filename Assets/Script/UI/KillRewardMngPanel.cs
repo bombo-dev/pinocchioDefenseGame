@@ -14,14 +14,26 @@ public class KillRewardMngPanel : MonoBehaviour
 
     float addPos = 0.1f;
 
-    Vector3 startPos, endPos;
-
     public GameObject rewardOwner = null;
+
+    KillRewardMngPanel killRewardMngPanel;
 
     private void Update()
     {
         if(gameObject.activeSelf == true)
             UpdatePanelPos();
+
+        if(Time.timeScale == 0)
+        {
+            int panelNum = SystemManager.Instance.PanelManager.rewardPanels.Count;
+            int i = 0;
+
+            while(i < panelNum)
+            {                                
+                SystemManager.Instance.PanelManager.DisablePanel<KillRewardMngPanel>(SystemManager.Instance.PanelManager.rewardPanels[0]);
+                i++;
+            }            
+        }
     }
     public void ShowReward(int value)
     {
@@ -57,10 +69,6 @@ public class KillRewardMngPanel : MonoBehaviour
     void UpdatePanelPos()
     {
         Enemy enemy = rewardOwner.GetComponent<Enemy>();
-        //startPos = Camera.main.WorldToScreenPoint(enemy.hitPos.transform.position);
-        //endPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));
-
-        //transform.position = Vector3.Lerp(startPos, endPos, Time.deltaTime * 5f);
         transform.position = Camera.main.WorldToScreenPoint(new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y+addPos, enemy.hpPos.transform.position.z));
         addPos += 0.1f;
     }
