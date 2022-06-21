@@ -179,6 +179,11 @@ public class Actor : MonoBehaviour
 
     public bool showWhiteFlash_coroutine_is_running = false;//코루틴 실행중 여부 플래그
 
+
+    [Header("Sound")]  //Sound
+    [SerializeField]
+    AudioClip fireSoundClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -396,6 +401,10 @@ public class Actor : MonoBehaviour
         {
             InitializeBullet();
             animator.SetBool("rangedAttack", false);
+
+            //Fire사운드 출력
+            if(fireSoundClip)
+                SoundEffectManager.Instance.ChangefireAudioClip(fireSoundClip);
         }
         //근거리 유닛 전용 데미지 처리
         else if (attackRangeType == 0 && animator.GetBool("meleeAttack"))
