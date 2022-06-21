@@ -210,7 +210,7 @@ public class UI_LobbyPanel : UI_Controller
         for (int i = 0; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
         {
             //총합 별 개수 구하기
-            totStarNum += SystemManager.Instance.UserInfo.stageStarArr[i].starNum;
+            totStarNum += SystemManager.Instance.UserInfo.stageStarList[i].starNum;
         }
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
@@ -251,7 +251,7 @@ public class UI_LobbyPanel : UI_Controller
         {
             TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
             option.text = "Stage" + i;
-            option.image = starSprite[SystemManager.Instance.UserInfo.stageStarArr[i].starNum];
+            option.image = starSprite[SystemManager.Instance.UserInfo.stageStarList[i].starNum];
             GetDropDown((int)TMP_DropDowns.StageDropDown).options.Add(option);
         }
 
