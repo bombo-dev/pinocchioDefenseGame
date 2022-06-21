@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
 {
     //인덱스
-    [SerializeField]
     public int idx = 0;
 
     //이벤트 핸들러
@@ -23,7 +22,6 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
             OnClickHandler.Invoke(eventData);
         if (OnClickHandler_int != null)
             OnClickHandler_int.Invoke(eventData, idx);
-
     }
 
     //드래그 이벤트 발생시 호출
