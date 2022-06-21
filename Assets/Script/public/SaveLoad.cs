@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public class SaveData
+{
+    public UserInfo userinfo = new UserInfo();
+}
 public class SaveLoad : MonoBehaviour
 {
+    private SaveData saveData = new SaveData();
     // Start is called before the first frame update
     void Start()
     {
-        
+        SaveData();
     }
 
     // Update is called once per frame
@@ -17,53 +22,15 @@ public class SaveLoad : MonoBehaviour
         
     }
 
-    // JsonData를 읽기만 하는 메서드
-    public string ReadJsonFileToString(string filePath)
+    public void SaveData()
     {
-        string jsonString;
+        string json = JsonUtility.ToJson(saveData.userinfo);
+        File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
 
-        if (Application.platform == RuntimePlatform.WindowsEditor)
-        {
-            jsonString = File.ReadAllText(filePath);
+        Debug.Log("저장 완료");
+        Debug.Log(json);
 
-            return jsonString;
-        }
-
-        else if (Application.platform == RuntimePlatform.WindowsPlayer)
-        {
-            jsonString = File.ReadAllText(filePath);
-
-            return jsonString;
-        }
-
-        else if (Application.platform == RuntimePlatform.OSXEditor)
-        {
-            jsonString = File.ReadAllText(filePath);
-
-            return jsonString;
-        }
-        else if (Application.platform == RuntimePlatform.OSXPlayer)
-        {
-            jsonString = File.ReadAllText(filePath);
-
-            return jsonString;
-        }
-
-        else
-        {
-            string originPath = filePath;
-#pragma warning disable 612, 618
-            WWW reader = new WWW(originPath);
-            while (!reader.isDone) { }
-
-            string realPath = Application.persistentDataPath + ".Json";
-            File.WriteAllBytes(realPath, reader.bytes);
-
-            jsonString = File.ReadAllText(realPath);
-            return jsonString;
-        }
     }
-
     public static void Save(string filePath)
     {
         // Json 복호화
