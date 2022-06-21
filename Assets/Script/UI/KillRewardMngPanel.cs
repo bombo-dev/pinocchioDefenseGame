@@ -57,10 +57,11 @@ public class KillRewardMngPanel : MonoBehaviour
     void UpdatePanelPos()
     {
         Enemy enemy = rewardOwner.GetComponent<Enemy>();
-        startPos = Camera.main.WorldToScreenPoint(enemy.hitPos.transform.position);
-        endPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));
+        //startPos = Camera.main.WorldToScreenPoint(enemy.hitPos.transform.position);
+        //endPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));
 
-        transform.position = Vector3.Lerp(startPos, endPos, Time.deltaTime * 5f);
-        addPos += 0.5f;
+        //transform.position = Vector3.Lerp(startPos, endPos, Time.deltaTime * 5f);
+        transform.position = Camera.main.WorldToScreenPoint(new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y+addPos, enemy.hpPos.transform.position.z));
+        addPos += 0.1f;
     }
 }

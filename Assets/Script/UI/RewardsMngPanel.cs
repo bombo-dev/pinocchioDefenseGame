@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GoodsMngPanel : UI_Controller
+public class RewardsMngPanel : UI_Controller
 {
     [SerializeField]
     GameObject goldText;
@@ -81,7 +81,7 @@ public class GoodsMngPanel : UI_Controller
             if(alpaValue < 0.1f)
             {
                 goldText.SetActive(false);
-                SystemManager.Instance.PanelManager.DisablePanel<GoodsMngPanel>(gameObject);
+                SystemManager.Instance.PanelManager.DisablePanel<RewardsMngPanel>(gameObject);
                 addPos = 0.1f;  // 위치 업데이트를 위한 변수 초기화
                 transform.position = initialPos;
                 // 코루틴 종료
@@ -104,10 +104,10 @@ public class GoodsMngPanel : UI_Controller
     /// </summary>
     void UpdatePanelPos()
     {
-        Vector3 movePos = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
-        transform.position = Vector3.Lerp(initialPos, movePos, Time.deltaTime * 20f);
-        //transform.position = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
-        addPos += 0.5f;
+        //Vector3 movePos = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
+        //transform.position = Vector3.Lerp(initialPos, movePos, Time.deltaTime * 20f);
+        transform.position = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
+        addPos += 0.1f;
     }
     
 }

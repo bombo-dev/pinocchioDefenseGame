@@ -416,10 +416,10 @@ public class Enemy : Actor
             {
                 //잡았을때 보상 지급
                 SystemManager.Instance.ResourceManager.IncreaseWoodResource(rewardWoodResource);
-                GameObject go = SystemManager.Instance.PanelManager.EnablePanel<GoodsMngPanel>(8);
+                GameObject go = SystemManager.Instance.PanelManager.EnablePanel<RewardsMngPanel>(8);
                 if (!go)
                     return;
-                go.GetComponent<GoodsMngPanel>().ShowGold(rewardWoodResource, 1);
+                go.GetComponent<RewardsMngPanel>().ShowGold(rewardWoodResource, 1);
                 Debug.Log("적 처치! " + rewardWoodResource + "골드 획득");
 
 
