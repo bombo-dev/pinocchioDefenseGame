@@ -134,21 +134,11 @@ public class StatusMngPanel : UI_Controller
 
             // 중첩 정보를 화면에 표시
             debuffText.text = "X" + stack.ToString();
-
-            Debug.Log("잔여 시간=" + debuffLeftTime);
-
-            // 디버프 지속시간에 디버프 잔여시간을 합해주기
-            time += debuffLeftTime;
-
-            Debug.Log("합산 시간=" + time);
         }
         else
         {
             // 디버프 중첩 텍스트를 공백으로 표시
             debuffText.text = " ";
-
-            // 디버프 잔여 시간 초기화
-            debuffLeftTime = 0.0f;
         }
 
         // 디버프 UI 활성화
@@ -173,14 +163,10 @@ public class StatusMngPanel : UI_Controller
             if (debuffFlowTime >= time || gameObject.activeSelf == false)
             {
                 // 코루틴 종료
-                StopCoroutine(DebuffCoroutine(image, time, debuffIdx));
-                
-                Debug.Log("Dead---------");
+                StopCoroutine(DebuffCoroutine(image, time, debuffIdx));               
 
                 // 디버프 패널 비활성화
                 RemoveDebuff(image, time, debuffIdx);
-                
-                //debuffFlowTime = 0.0f;
 
             }
             Debug.Log("time=" + time);
@@ -190,13 +176,6 @@ public class StatusMngPanel : UI_Controller
 
             // 디버프 경과시간을 게이지 UI로 표시
             image.fillAmount = (debuffFlowTime/time);
-
-            // 디버프 잔여시간 구하기
-            debuffLeftTime = time - debuffFlowTime;
-
-            Debug.Log("flowTime=" + debuffFlowTime);
-
-            //Debug.Log("leftTime=" + debuffFlowTime);
 
             yield return new WaitForSeconds(Time.deltaTime);
                  

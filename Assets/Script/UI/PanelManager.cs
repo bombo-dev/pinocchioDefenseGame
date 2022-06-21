@@ -18,7 +18,7 @@ public class PanelManager : MonoBehaviour
     // 활성화된 damage 패널을 저장할 리스트
     public List<GameObject> damagePanels;
 
-
+    public List<GameObject> rewardPanels;
 
     [Header("PanelCachesInfo")]
     //Load한 Panel 프리팹 정보
@@ -260,11 +260,12 @@ public class PanelManager : MonoBehaviour
             optionPopUpPanel = (compoenent as UI_OptionPopUpPanel);
 
         }
-
-
-        if (typeof(T) == typeof(DamageMngPanel))
+        else if (typeof(T) == typeof(DamageMngPanel))
         {
-            Debug.Log("********damage*******");
+            damageMngPanel = (compoenent as DamageMngPanel);
+            // hpBar 패널 위치 초기화
+            damagePanels.Add(go);
+
             Vector3 panelPos;
             if (_gameobject.tag == "Enemy")
             {
@@ -283,8 +284,10 @@ public class PanelManager : MonoBehaviour
             go.transform.position = screenPos;
         }
 
-        if (typeof(T) == typeof(KillRewardMngPanel))
-        {            
+        else if (typeof(T) == typeof(KillRewardMngPanel))
+        {
+            // 활성화된 패널을 리스트에 저장
+            rewardPanels.Add(go);
             Vector3 panelPos;
 
             enemy = _gameobject.GetComponent<Enemy>();
@@ -292,6 +295,8 @@ public class PanelManager : MonoBehaviour
 
             screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
+
+            
         }
 
 
@@ -353,6 +358,11 @@ public class PanelManager : MonoBehaviour
         {
             filePath = (compoenent as RewardsMngPanel).filePath;
             rewardsMngPanel = null;
+        }
+        else if (typeof(T) == typeof(KillRewardMngPanel))
+        {
+            rewardPanels.Remove(go);
+            filePath = (compoenent as KillRewardMngPanel).filePath;
         }
 
         else
