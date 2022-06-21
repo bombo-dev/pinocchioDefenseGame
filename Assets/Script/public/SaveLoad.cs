@@ -24,11 +24,20 @@ public class SaveLoad : MonoBehaviour
 
     public void SaveData()
     {
-        string json = JsonUtility.ToJson(saveData.userinfo);
-        File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
+        if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
+        {
+            string json = JsonUtility.ToJson(saveData.userinfo);
+            File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
+        }
+        else
+        {
 
-        Debug.Log("저장 완료");
-        Debug.Log(json);
+        }
+
+
+
+            
+         
 
     }
     public static void Save(string filePath)
@@ -46,5 +55,13 @@ public class SaveLoad : MonoBehaviour
         string load = File.ReadAllText(filePath);
         load = EncryptDecrypt.Decrypt(load, "key");
         return load;
+    }
+
+    public void LoadUserInfo()
+    {
+        if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"))){
+            SaveData();
+        }
+            
     }
 }
