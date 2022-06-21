@@ -503,6 +503,10 @@ public class Turret : Actor
 
             //이펙트 생성
             EnableBuffEffect(buffIndex - 1);
+
+            //Upgrade 사운드 출력
+            if (upgradeSoundClip)
+                SoundEffectManager.Instance.ChangeUpgradeAudioClip(upgradeSoundClip);
         }
 
         buffs[_buffIndex] = time;   //지속시간 초기화

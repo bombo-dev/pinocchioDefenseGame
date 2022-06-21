@@ -182,7 +182,13 @@ public class Actor : MonoBehaviour
 
     [Header("Sound")]  //Sound
     [SerializeField]
-    AudioClip fireSoundClip;
+    protected AudioClip fireSoundClip;
+    [SerializeField]
+    protected AudioClip upgradeSoundClip;
+    [SerializeField]
+    protected AudioClip damageSoundClip;
+    [SerializeField]
+    protected AudioClip deathSoundClip;
 
     // Start is called before the first frame update
     void Start()
@@ -583,6 +589,10 @@ public class Actor : MonoBehaviour
         }        
 
         callFlashCoroutine(ShaderController.WHITE);
+
+        //damage 사운드 출력
+        if (damageSoundClip)
+            SoundEffectManager.Instance.ChangeDamageAudioClip(damageSoundClip);
     }
 
     protected virtual void OnDead()
