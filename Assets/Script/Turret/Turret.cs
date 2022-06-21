@@ -474,17 +474,25 @@ public class Turret : Actor
                     currentPower += (currentPower / 3);
                     break;
                 case 2: //공격속도 증가
-                    currentAttackSpeed *= 0.7f;
+                    currentAttackSpeed *= 0.8f;
                     break;
                 case 3: //회복력 증가 + 즉시 회복
                     currentRegeneration += (currentRegeneration / 3);
                     break;
                 case 4: //방어력 증가
-                    currentDefense += (currentDefense / 3);
+                    currentDefense += (currentDefense / 2);
                     break;
                 case 5: //사거리 증가
-                    currentRange += (currentRange / 3);
-                    currentMultiAttackRange += (currentMultiAttackRange / 3);
+                    if (currentRange < 9000)
+                    {
+                        currentRange += (currentRange / 3);
+                        currentMultiAttackRange += (currentMultiAttackRange / 3);
+                    }
+                    else //일정사거리 이상 유닛은 고정값 증가
+                    {
+                        currentRange += 2500;
+                        currentMultiAttackRange += 2500;
+                    }
                     break;
                 case 6: //올스텟 증가
                     currentPower += (currentPower / 3);

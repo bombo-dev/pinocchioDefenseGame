@@ -69,7 +69,6 @@ public class SceneController : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName)); 
         //로딩씬 호출
         SceneManager.LoadScene("LoadingScene");
-
     }
 
     IEnumerator LoadSceneAsync(string sceneName)
@@ -113,6 +112,9 @@ public class SceneController : MonoBehaviour
     public void OnActiveSceneChanged(Scene scene0, Scene scene1)
     {
         Debug.Log("OnActiveSceneChanged is called! scene0 = " + scene0.name + ", scene1 = " + scene1.name);
+
+        //BGM변경
+        SoundManager.Instance.ChangeBGAudioClip(scene1.buildIndex);
     }
 
     /// <summary>
