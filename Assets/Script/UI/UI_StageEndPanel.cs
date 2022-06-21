@@ -20,6 +20,11 @@ public class UI_StageEndPanel : UI_Controller
     [SerializeField]
     Sprite[] starSprite;    //별 이미지 모음
 
+    [SerializeField]
+    Sprite panelSpriteLight;
+    [SerializeField]
+    Sprite panelSpriteDark;
+
     enum TextMeshProUGUIs
     {
         StageText,  //현재 스테이지 정보
@@ -75,7 +80,7 @@ public class UI_StageEndPanel : UI_Controller
         RewardItem5,    //~5
         StageFailText,   //스테이지 실패
         StageClearText,   //스테이지 클리어
-        StageResultPanel    //패널 UI전체
+        StageResultPanel,    //패널 UI전체
     }
 
     enum Sliders
@@ -114,7 +119,9 @@ public class UI_StageEndPanel : UI_Controller
         RewardImage3,
         RewardImage4,
         RewardImage5,   //~5
-        StarRewardImage //별 보상 이미지
+        StarRewardImage, //별 보상 이미지
+        StageResultPanel,    //패널 UI전체
+        StageResultBackGround   //StageResultPanel 앞 패널
     }
 
     enum Buttons
@@ -291,6 +298,16 @@ public class UI_StageEndPanel : UI_Controller
                     "X" + rwm.colorWoodReward[i];
             }
 
+            //패널이미지 교체
+            GetImage((int)Images.StageResultPanel).sprite = panelSpriteLight;
+            GetImage((int)Images.StageResultBackGround).sprite = panelSpriteLight;
+        }
+        //게임오버 상태일 경우
+        else
+        {
+            //패널이미지 교체
+            GetImage((int)Images.StageResultPanel).sprite = panelSpriteDark;
+            GetImage((int)Images.StageResultBackGround).sprite = panelSpriteDark;
         }
 
     }//end of UpdateStageEndPanel
