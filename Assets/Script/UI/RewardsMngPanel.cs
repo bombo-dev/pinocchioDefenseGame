@@ -12,7 +12,7 @@ public class RewardsMngPanel : UI_Controller
     float alpaValue;
 
     // 패널을 이동시킬 이동량
-    float addPos = 0.1f;
+    float addPos = 0.05f;
 
     // 패널의 초기 위치
     Vector3 initialPos;
@@ -113,7 +113,7 @@ public class RewardsMngPanel : UI_Controller
         //Vector3 movePos = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
         //transform.position = Vector3.Lerp(initialPos, movePos, Time.deltaTime * 20f);
         transform.position = new Vector3(transform.position.x, transform.position.y + addPos, transform.position.z);
-        addPos += 0.1f;
+        addPos += 0.05f;
     }
     
 }
