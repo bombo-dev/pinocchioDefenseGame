@@ -21,6 +21,8 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField]
     Transform effectAudioTransform;
 
+    public AudioClip buttonClickAudioClip;
+
     void Awake()
     {
         //¿Ø¿œ«— instance
