@@ -306,7 +306,7 @@ public class UI_StageEndPanel : UI_Controller
 
 
             //추가 터렛 보상 (마지막 인덱스에 터렛 보상 추가)
-            if (rwm.turretReward[gfm.stage] != 0) //터렛 보상 존재할경우
+            if (rwm.turretReward.ContainsKey(gfm.stage)) //터렛 보상 존재할경우
             {
                 //이미 가지고 있는 터렛이 아닌경우
                 if (ui.maxTurretNum < rwm.turretReward[gfm.stage])

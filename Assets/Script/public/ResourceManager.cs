@@ -47,6 +47,7 @@ public class ResourceManager : MonoBehaviour
             colorWoodResource[i] = userInfo.colorWoodResource[i];
 
         //터렛 프리셋 정보
+        selectedTurretPreset.Clear();
         for (int i = 0; i < userInfo.turretPreset.Count; i++)
         {
             selectedTurretPreset.Add(userInfo.turretPreset[i]);

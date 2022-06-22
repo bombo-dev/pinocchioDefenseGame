@@ -68,9 +68,9 @@ public class RewardManager : MonoBehaviour
     /// </summary>
     void SetTurretRewardInfo()
     {
-        turretReward.Add(2, 2);//딱다구리
-        turretReward.Add(3, 3);//베이비버드
-        turretReward.Add(4, 4);//강화비둘기
+        turretReward.Add(1, 2);//딱다구리
+        turretReward.Add(2, 3);//베이비버드
+        turretReward.Add(3, 4);//강화비둘기
         turretReward.Add(5, 5);//펠리컨
     }
 
