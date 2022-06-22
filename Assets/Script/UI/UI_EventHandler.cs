@@ -22,6 +22,10 @@ public class UI_EventHandler : MonoBehaviour, IDragHandler, IPointerClickHandler
             OnClickHandler.Invoke(eventData);
         if (OnClickHandler_int != null)
             OnClickHandler_int.Invoke(eventData, idx);
+
+        //클릭 사운드 재생
+        if (SoundEffectManager.Instance.buttonClickAudioClip)
+            SoundEffectManager.Instance.ChangeEffectAudioClip(SoundEffectManager.Instance.buttonClickAudioClip);
     }
 
     //드래그 이벤트 발생시 호출

@@ -69,6 +69,12 @@ public class GameFlowManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //유저정보 불러오기
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        //스테이지 설정
+        stage = userInfo.selectedStageNum;
+
         //************** 암호화된 Json데이터 불러와 자료구조와 사상 ****************
         // defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
         // ***************************************************************************
@@ -207,6 +213,10 @@ public class GameFlowManager : MonoBehaviour
 
             //클리어 상태로 변경
             gameState = GameState.StageClear;
+
+            // UserInfo Save
+            SaveLoad save = new SaveLoad();
+            save.SaveUserInfo();
 
             //스테이지 비활성화
             DisableStage();

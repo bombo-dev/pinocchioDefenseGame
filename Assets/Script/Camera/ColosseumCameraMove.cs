@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ColosseumCameraMove : MonoBehaviour
 {    
@@ -36,7 +37,9 @@ public class ColosseumCameraMove : MonoBehaviour
 
     bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
 
-
+    //디버그 테스트
+    [SerializeField]
+    Text test;
 
     // Start is called before the first frame update
     void Start()
@@ -128,9 +131,9 @@ public class ColosseumCameraMove : MonoBehaviour
     void MoveAndCam()
     {
         // 터치 상태 저장
-        Touch touch = Input.GetTouch(0);    
+        Touch touch = Input.GetTouch(0);
 
-       
+        test.text = touch.phase.ToString();
         // 화면을 터치하는 순간 해당 위치 값 저장
         if (touch.phase == TouchPhase.Began)
         {    
@@ -140,7 +143,7 @@ public class ColosseumCameraMove : MonoBehaviour
         else if (touch.phase == TouchPhase.Moved)   
         {
             curPos = touch.position-touch.deltaPosition;
-            // 이동할 방향 벡터를 구함
+            // 이동할 방향 벡터를 구함 
             Vector2 dir = (prePos - curPos);            
             movePos = dir * Time.deltaTime * touchSpeed;
 
@@ -156,8 +159,6 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void ZoomAndCam()
     {
-   
-
         Touch fstTouch = Input.GetTouch(0); // 첫 번째 터치 정보
         Touch scdTouch = Input.GetTouch(1); // 두 번째 터치 정보
         

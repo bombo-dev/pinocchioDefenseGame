@@ -365,7 +365,11 @@ public class Actor : MonoBehaviour
         animator.SetBool("attack", true);
 
         //공격시간 측정 변수 초기화
-        attackTimer = Time.time;      
+        attackTimer = Time.time;
+
+        //근거리유닛 Fire사운드 출력
+        if (fireSoundClip && attackTargetNum == 1 && attackRangeType == 0) 
+            SoundEffectManager.Instance.ChangeEffectAudioClip(fireSoundClip);
     }
 
 
@@ -418,7 +422,6 @@ public class Actor : MonoBehaviour
             if (attackTargets[0].tag == "Enemy")
             {
                 Enemy enemy = attackTargets[0].GetComponent<Enemy>();
-
                 Turret attacker = gameObject.GetComponent<Turret>();
 
                 // 방어력 디버프를 적용한 데미지 계산
@@ -585,6 +588,10 @@ public class Actor : MonoBehaviour
             animator.Play("Dead");
 
             OnDead();
+
+            //death 사운드 출력
+            if (deathSoundClip)
+                SoundEffectManager.Instance.ChangeEffectAudioClip(deathSoundClip);
             return;
         }        
 
@@ -731,7 +738,6 @@ public class Actor : MonoBehaviour
                     {
                         RemoveDebuff(i);
                     }
-
                 }
             }
         }
@@ -762,12 +768,12 @@ public class Actor : MonoBehaviour
         else 
         {
             Debuff debuff = new Debuff(); //객체 생성
-
             debuff.stack = 1;   //중첩 스택 초기화
             debuffs.Add(_debuffIndex, debuff);   //자료구조에 추가
         }
         Debug.Log("debuffs stack= " + debuffs[(debuff)debuffIndex].stack);
         debuffs[_debuffIndex].durationTime = time;   //지속시간 초기화
+
     }
 
     /// <summary>

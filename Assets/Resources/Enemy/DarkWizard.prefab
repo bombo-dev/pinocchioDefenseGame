@@ -10851,13 +10851,16 @@ MonoBehaviour:
   attackSpeed: 3
   currentAttackSpeed: 0
   range: 4000
+  currentRange: 0
   regeneration: 0
+  currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
   attackTargetNum: 10
   debuffType: 0
   debuffDuration: 0
   multiAttackRange: 15000
+  currentMultiAttackRange: 0
   bulletIndex: 16
   firePos: {fileID: 0}
   hitPos: {fileID: 1808378651122107469}
@@ -10905,9 +10908,14 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
+  fireSoundClip: {fileID: 8300000, guid: 967ac19d0bc5cb3479ba56df525dde93, type: 3}
+  upgradeSoundClip: {fileID: 0}
+  damageSoundClip: {fileID: 8300000, guid: e2d6d4751a628354e92775b671d8dca6, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: b24236920f0105f4badaed3ecd504f7a, type: 3}
   enemyState: 0
   speed: 18
   currentSpeed: 0
+  enemyNum: 0
   enemyIndex: 0
   gateNum: 0
   appearPos:
@@ -10915,6 +10923,12 @@ MonoBehaviour:
   - {x: 0, y: -150, z: 300}
   - {x: 85, y: -150, z: 257.5}
   targetPoint: []
+  targetPointIndex: 0
+  currentTarget: {fileID: 0}
+  rewardWoodResource: 0
+  statusMngPanel: {fileID: 0}
+  damageMngPanel: {fileID: 0}
+  enemyDatas: []
 --- !u!1 &1595145746575625116
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,12 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class UI_LobbyPanel : UI_Controller
 {
     const int MAXTURRETNUM = 23;
     const int MAXTURRETPRESETNUM = 8;
     const int MAXTCOLORWOOD = 6;
+    const int MAXSTAGENUM = 23;
 
     //로비씬의 플레이어 스크립트
     LobbyPlayer lobbyPlayer;
@@ -69,6 +71,10 @@ public class UI_LobbyPanel : UI_Controller
         StageSelectLeftArrowButton,   //스테이지 선택 스크롤 <버튼
         StageSelectRightArrowButton,    //스테이지 선택 스크롤 >버튼
         StageStartButton,    //게임신 시작 버튼
+        StageMapCloseButton,    //스테이지 선택 지도 끄기 버튼
+        StageSelectButton,   //스테이지 선택 지도 켜기 버튼
+        StageLeftArrowButton,   //스테이지 선택 지도 왼쪽 스크롤 끝으로
+        StageRightArrowButton,   //스테이지 선택 지도 오른쪽 스크롤 끝으로
     }
 
     enum GameObjects
@@ -107,6 +113,32 @@ public class UI_LobbyPanel : UI_Controller
         TurretPanel20,
         TurretPanel21,
         TurretPanel22,
+        StageItem0, //스테이지 선택 패널 
+        StageItem1,
+        StageItem2,
+        StageItem3,
+        StageItem4,
+        StageItem5,
+        StageItem6,
+        StageItem7,
+        StageItem8,
+        StageItem9,
+        StageItem10,
+        StageItem11,
+        StageItem12,
+        StageItem13,
+        StageItem14,
+        StageItem15,
+        StageItem16,
+        StageItem17,
+        StageItem18,
+        StageItem19,
+        StageItem20,
+        StageItem21,
+        StageItem22,
+        StageItem23,
+        StageSelectPanel,    //스테이지 선택 패널
+        StageContent    //스테이지 선택 토글 상위 오브젝트
     }
 
     enum TextMeshProUGUIs
@@ -152,6 +184,7 @@ public class UI_LobbyPanel : UI_Controller
         StarNumText,    //총 별 개수
         StarNumText_Menu,   //메뉴패널 총 별 개수
         StageNumText,    //최대 클리어한 스테이지
+        SelectedStageText   //선택한 스테이지
     }
 
     enum Images
@@ -165,14 +198,45 @@ public class UI_LobbyPanel : UI_Controller
         TurretImage6,
         TurretImage7,   //~7
         StageImage, //스테이지별 등급 휘장
+        StageStarImage0,
+        StageStarImage1,
+        StageStarImage2,
+        StageStarImage3,
+        StageStarImage4,
+        StageStarImage5,
+        StageStarImage6,
+        StageStarImage7,
+        StageStarImage8,
+        StageStarImage9,
+        StageStarImage10,
+        StageStarImage11,
+        StageStarImage12,
+        StageStarImage13,
+        StageStarImage14,
+        StageStarImage15,
+        StageStarImage16,
+        StageStarImage17,
+        StageStarImage18,
+        StageStarImage19,
+        StageStarImage20,
+        StageStarImage21,
+        StageStarImage22,
+        StageStarImage23,
+        SelectedStageStarImage, //선택한 스테이지 별 정보
+        SelectedStage   //선택한 스테이지 등급 이미지
     }
 
-    enum TMP_DropDowns
+    enum ToggleGroups
     {
-        StageDropDown   //스테이지 선택 드롭다운
+        StageSelectPanel    //스테이지 선택
     }
 
-    private void Update()
+    enum Scrollbars
+    {
+        MapScrollbar    //스테이지 선택 스크롤 바
+    }
+
+	private void Update()
     {
         //UI 업데이트
         UpdateUI();
@@ -188,7 +252,12 @@ public class UI_LobbyPanel : UI_Controller
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
-        Bind<TMP_Dropdown>(typeof(TMP_DropDowns));
+        Bind<ToggleGroup>(typeof(ToggleGroups));
+        Bind<Scrollbar>(typeof(Scrollbars));
+
+        // UserInfo Load
+        SaveLoad load = new SaveLoad();
+        load.LoadUserInfo();
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
@@ -198,19 +267,25 @@ public class UI_LobbyPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.TurretSelectLeftArrowButton).gameObject, OnClickTurretSelectLeftArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.TurretSelectRightArrowButton).gameObject, OnClickTurretSelectRightArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.TurretPresetClearButton).gameObject, OnClickTurretPresetClearButton, Define.UIEvent.Click);
-        AddUIEvent(GetButton((int)Buttons.StageSelectLeftArrowButton).gameObject, OnClickStageSelectLeftArrow, Define.UIEvent.Click);
-        AddUIEvent(GetButton((int)Buttons.StageSelectRightArrowButton).gameObject, OnClickStageSelectRightArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageStartButton).gameObject, OnClickStageStartButton, Define.UIEvent.Click);
 
+        //스테이지 선택패널 UI 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.StageMapCloseButton).gameObject, OnClickStageMapCloseButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageSelectButton).gameObject, OnClickStageMapOpenButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageRightArrowButton).gameObject, OnClickStageRightArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageLeftArrowButton).gameObject, OnClickStageLeftArrow, Define.UIEvent.Click);
+
+        //유저정보 캐싱
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
 
         //로비패널 초기화
         
         //총합 별 개수 
         int totStarNum = 0;
-        for (int i = 0; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
+        for (int i = 0; i <= userInfo.maxStageNum; i++)
         {
             //총합 별 개수 구하기
-            totStarNum += SystemManager.Instance.UserInfo.stageStarList[i].starNum;
+            totStarNum += userInfo.stageStarList[i].starNum;
         }
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
@@ -219,11 +294,11 @@ public class UI_LobbyPanel : UI_Controller
 
         //최대 클리어한 스테이지
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = 
-            "Stage " + SystemManager.Instance.UserInfo.maxStageNum.ToString();
+            "Stage " + userInfo.maxStageNum.ToString();
 
         for (int i = 0; i < MAXTCOLORWOOD; i++)
         {
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.ColorWoodText0 + i).text = SystemManager.Instance.UserInfo.colorWoodResource[i].ToString();
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.ColorWoodText0 + i).text = userInfo.colorWoodResource[i].ToString();
         }
 
         for (int i = 0; i < MAXTURRETPRESETNUM; i++)
@@ -241,29 +316,31 @@ public class UI_LobbyPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretJson.GetTurretData()[i].turretCost.ToString();
 
             //터렛 리스트 초기화
-            if (i >= SystemManager.Instance.UserInfo.maxTurretNum)
+            if (i >= userInfo.maxTurretNum)
                 GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
 
         }
         
         //스테이지 패널
-        for (int i = 1; i <= SystemManager.Instance.UserInfo.maxStageNum; i++)
+        for (int i = 0; i <= MAXSTAGENUM; i++)
         {
-            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
-            option.text = "Stage" + i;
-            option.image = starSprite[SystemManager.Instance.UserInfo.stageStarList[i].starNum];
-            GetDropDown((int)TMP_DropDowns.StageDropDown).options.Add(option);
+            if (i <= userInfo.maxStageNum)
+            {
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(true);
+                GetImage((int)Images.StageStarImage0 + i).sprite = starSprite[userInfo.stageStarList[i].starNum];
+            }
+            else
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(false);
         }
-
-        //스테이지 드롭다운 초기화
-        if (SystemManager.Instance.UserInfo.selectedStageNum > 0)
-            GetDropDown((int)TMP_DropDowns.StageDropDown).value = SystemManager.Instance.UserInfo.selectedStageNum - 1;
 
         //로비씬에서 hotelPino 게임오브젝트 찾아서 객체의 LobbyPlayer스크립트 가져오기
         lobbyPlayer = GameObject.FindObjectOfType<LobbyPlayer>();
 
         //터렛 프리셋 초기화
         ResetTurretPreset();
+
+        //선택 스테이지 정보 업데이트
+        UpdateSelectedStageInfo();
 
         //GameSetting UI 비활성화
         GetGameobject((int)GameObjects.GameSettingPanel).SetActive(false);
@@ -309,15 +386,6 @@ public class UI_LobbyPanel : UI_Controller
     void OnClickStageStartButton(PointerEventData data)
     {
         SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
-    }
-
-    /// <summary>
-    /// 스테이지 슬라이드의 값이 바뀌었을 경우
-    /// </summary>
-    public void ChangeValueStageSlide()
-    {
-        if(GetDropDown((int)TMP_DropDowns.StageDropDown))
-            SystemManager.Instance.UserInfo.selectedStageNum = GetDropDown((int)TMP_DropDowns.StageDropDown).value + 1;
     }
 
     /// <summary>
@@ -397,6 +465,10 @@ public class UI_LobbyPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text =
                 SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost.ToString();
         }
+
+        // userinfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
@@ -446,23 +518,74 @@ public class UI_LobbyPanel : UI_Controller
 
     #region 스테이지 선택
     /// <summary>
-    /// 스테이지 1증가 : 김현진
+    /// 스테이지 지도 끄기 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
-    void OnClickStageSelectRightArrow(PointerEventData data)
+    void OnClickStageMapCloseButton(PointerEventData data = null)
     {
-        if(GetDropDown((int)TMP_DropDowns.StageDropDown).value < SystemManager.Instance.UserInfo.maxStageNum)
-            GetDropDown((int)TMP_DropDowns.StageDropDown).value ++;
+        //선택한 스테이지 정보 캐싱
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+        GameObject SelectedToggle = GetToggleGroup((int)ToggleGroups.StageSelectPanel).GetFirstActiveToggle().gameObject;
+        Sprite SelectedToggleImage = SelectedToggle.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite;
+        Sprite SelectedStarImage = SelectedToggle.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite;
+        string SelectedStageNum = SelectedToggle.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text;
+
+        //선택한 스테이지 정보 유저 정보에 갱신
+        userInfo.selectedStageNum = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
+
+        //패널에 선택한 스테이지 정보 갱신
+        GetImage((int)Images.SelectedStage).sprite = SelectedToggleImage;
+        GetImage((int)Images.SelectedStageStarImage).sprite = SelectedStarImage;
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.SelectedStageText).text = SelectedStageNum;
+
+        if (GetGameobject((int)GameObjects.StageSelectPanel))
+            GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+
+
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
-    /// 스테이지 1감소 : 김현진
+    /// 스테이지 지도 켜기 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
-    void OnClickStageSelectLeftArrow(PointerEventData data)
+    void OnClickStageMapOpenButton(PointerEventData data)
     {
-        if (GetDropDown((int)TMP_DropDowns.StageDropDown).value > 0)
-            GetDropDown((int)TMP_DropDowns.StageDropDown).value --;
+        if (GetGameobject((int)GameObjects.StageSelectPanel))
+            GetGameobject((int)GameObjects.StageSelectPanel).SetActive(true);
+    }
+
+    /// <summary>
+    /// 선택된 스테이지 정보 적용 : 김현진
+    /// </summary>
+    void UpdateSelectedStageInfo()
+    {
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        Toggle toggle = GetGameobject((int)GameObjects.StageContent).transform.GetChild(userInfo.selectedStageNum).GetComponent<Toggle>();
+        toggle.isOn = true;
+
+        //닫고 패널에 정보 업데이트
+        OnClickStageMapCloseButton();
+    }
+
+    /// <summary>
+    /// 스테이지 선택 스크롤 오른쪽 끝으로 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageRightArrow(PointerEventData data)
+    {
+        GetScrollBar((int)Scrollbars.MapScrollbar).value = 1;
+    }
+
+    /// <summary>
+    /// 스테이지 선택 스크롤 왼쪽 끝으로 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageLeftArrow(PointerEventData data)
+    {
+        GetScrollBar((int)Scrollbars.MapScrollbar).value = 0;
     }
     #endregion
 

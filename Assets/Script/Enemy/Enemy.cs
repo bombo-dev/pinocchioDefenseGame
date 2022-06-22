@@ -506,8 +506,6 @@ public class Enemy : Actor
     {
         base.AddDebuff(debuffIndex, time);
 
-        Debug.Log("debuffs stack= "+ debuffs[(debuff)debuffIndex].stack);
-
         statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
 
         //풀스택일경우 예외처리

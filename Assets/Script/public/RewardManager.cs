@@ -8,8 +8,7 @@ public class RewardManager : MonoBehaviour
     public int[] colorWoodReward = new int[6];
 
     //스테이지별 터렛 보상 종류
-    [SerializeField]
-    Dictionary<int, int> turretReward = new Dictionary<int, int>();  //스테이지, 터렛 종류
+    public Dictionary<int, int> turretReward = new Dictionary<int, int>();  //스테이지, 터렛 종류
 
     //별 보상
     public int starRewardNum;
@@ -17,13 +16,13 @@ public class RewardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetResward();
+        SetReward();
     }
 
     /// <summary>
     /// 해당 스테이지 보상 설정 : 김현진
     /// </summary>
-    void SetResward()
+    void SetReward()
     {
         //게임플로우 매니저
         GameFlowManager gfm = SystemManager.Instance.GameFlowManager;
@@ -69,9 +68,9 @@ public class RewardManager : MonoBehaviour
     /// </summary>
     void SetTurretRewardInfo()
     {
-        turretReward.Add(2, 2);//딱다구리
-        turretReward.Add(3, 3);//베이비버드
-        turretReward.Add(4, 4);//강화비둘기
+        turretReward.Add(1, 2);//딱다구리
+        turretReward.Add(2, 3);//베이비버드
+        turretReward.Add(3, 4);//강화비둘기
         turretReward.Add(5, 5);//펠리컨
     }
 
@@ -83,7 +82,7 @@ public class RewardManager : MonoBehaviour
     {
         Turret turret = SystemManager.Instance.TurretManager.baseTurret;
 
-        //베이스터렛 남은 HP비율 계싼
+        //베이스터렛 남은 HP비율 계산
         int baseHP = (int)(((float)turret.currentHP / (float)turret.maxHP) * 100);
 
         if (baseHP < 40)

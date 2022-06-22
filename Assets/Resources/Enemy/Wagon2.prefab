@@ -306,51 +306,10 @@ MonoBehaviour:
   rendererCaches: []
   emissionCaches: []
   showWhiteFlash_coroutine_is_running: 0
-  turretDatas:
-    turretNum: 0
-    maxHP: 0
-    power: 0
-    defense: 0
-    attackSpeed: 0
-    range: 0
-    regeneration: 0
-    attackRangeType: 0
-    isRecoveryTower: 0
-    attackTargetNum: 0
-    debuffType: 0
-    debuffDuration: 0
-    multiAttackRange: 0
-    bullet_index: 0
-    damageEffectIndex: 0
-    deadEffectIndex: 0
-    fireEffectIndex: 0
-    healEffectIndex: 0
-    debuffEffectIndex: 0
-    turretAppearPosY: 0
-    filepath: 
-  monsterDatas:
-    enemyIndex: 0
-    maxHP: 0
-    power: 0
-    defense: 0
-    speed: 0
-    attackSpeed: 0
-    range: 0
-    regeneration: 0
-    attackRangeType: 0
-    isRecoveryTower: 0
-    attackTargetNum: 0
-    debuffType: 0
-    debuffDuration: 0
-    multiAttackRange: 0
-    bullet_index: 0
-    damageEffectIndex: 0
-    deadEffectIndex: 0
-    fireEffectIndex: 0
-    healEffectIndex: 0
-    debuffEffectIndex: 0
-    appearPos: 0
-    filepath: 
+  fireSoundClip: {fileID: 8300000, guid: 78419f98379502c4dbfb2774bc94e7c1, type: 3}
+  upgradeSoundClip: {fileID: 0}
+  damageSoundClip: {fileID: 8300000, guid: e2d6d4751a628354e92775b671d8dca6, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: b24236920f0105f4badaed3ecd504f7a, type: 3}
   enemyState: 0
   speed: 18
   currentSpeed: 0
@@ -365,6 +324,9 @@ MonoBehaviour:
   targetPointIndex: 0
   currentTarget: {fileID: 0}
   rewardWoodResource: 0
+  statusMngPanel: {fileID: 0}
+  damageMngPanel: {fileID: 0}
+  enemyDatas: []
 --- !u!1 &1211066450166151006
 GameObject:
   m_ObjectHideFlags: 0
