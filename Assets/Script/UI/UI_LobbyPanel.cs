@@ -450,6 +450,10 @@ public class UI_LobbyPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text =
                 SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost.ToString();
         }
+
+        // userinfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
