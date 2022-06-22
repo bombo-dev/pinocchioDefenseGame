@@ -274,6 +274,9 @@ public class UI_TurretInfoPanel : UI_Controller
         turret.AddBebuff(idx + 1, BUFFDURATIONTIME);
 
         Reset();
+
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
