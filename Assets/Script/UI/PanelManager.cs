@@ -169,29 +169,6 @@ public class PanelManager : MonoBehaviour
             stageMngPanel = (compoenent as StageMngPanel);
 
         }
-        else if (typeof(T) == typeof(DamageMngPanel))
-        {
-            damageMngPanel = (compoenent as DamageMngPanel);
-            // hpBar 패널 위치 초기화   
-            damagePanels.Add(go);
-
-            Vector3 panelPos;
-            if (_gameobject.tag == "Enemy")
-            {
-                enemy = _gameobject.GetComponent<Enemy>();
-                panelPos = enemy.hitPos.transform.position;
-            }
-            else if (_gameobject.tag == "Turret")
-            {
-                turret = _gameobject.GetComponent<Turret>();
-                panelPos = turret.hitPos.transform.position;
-            }
-            else
-                return null;
-
-            screenPos = Camera.main.WorldToScreenPoint(panelPos);
-            go.transform.position = screenPos;
-        }
 
         else if (typeof(T) == typeof(UI_ResourcePanel))
         {
@@ -266,11 +243,20 @@ public class PanelManager : MonoBehaviour
             // hpBar 패널 위치 초기화
             damagePanels.Add(go);
 
+            System.Random random = new System.Random();
+            damageMngPanel.randPosX = random.Next(0, 10);
+            damageMngPanel.randPosY = random.Next(0, 15);
+
+            Debug.Log("randPosX=" + damageMngPanel.randPosX);
+            Debug.Log("randPosY=" + damageMngPanel.randPosY);
+
             Vector3 panelPos;
             if (_gameobject.tag == "Enemy")
             {
                 enemy = _gameobject.GetComponent<Enemy>();
-                panelPos = enemy.hitPos.transform.position;
+                panelPos = new Vector3(enemy.hitPos.transform.position.x + damageMngPanel.randPosX,
+                                                      enemy.hitPos.transform.position.y + damageMngPanel.randPosY,
+                                                      enemy.hitPos.transform.position.z);                                                      ;
             }
             else if (_gameobject.tag == "Turret")
             {
