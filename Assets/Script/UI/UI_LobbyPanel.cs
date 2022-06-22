@@ -228,7 +228,8 @@ public class UI_LobbyPanel : UI_Controller
     {
         StageSelectPanel    //스테이지 선택
     }
-    private void Update()
+
+	private void Update()
     {
         //UI 업데이트
         UpdateUI();
@@ -245,6 +246,10 @@ public class UI_LobbyPanel : UI_Controller
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
         Bind<ToggleGroup>(typeof(ToggleGroups));
+
+        // UserInfo Load
+        SaveLoad load = new SaveLoad();
+        load.LoadUserInfo();
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
