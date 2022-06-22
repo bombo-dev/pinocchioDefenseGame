@@ -14,6 +14,7 @@ public class StageStar
         starNum = 0;
     }
 }
+[System.Serializable]
 public class UserInfo : MonoBehaviour
 {
     [Header("WoodIResourceInfo")]    //강화 나무 자원
@@ -37,24 +38,27 @@ public class UserInfo : MonoBehaviour
 
     public UserInfo()
     {
-        colorWoodResource[0] = 5;
-        colorWoodResource[1] = 7;
-        colorWoodResource[2] = 10;
-        colorWoodResource[3] = 9;
-        colorWoodResource[4] = 3;
-        colorWoodResource[5] = 2;
+        colorWoodResource[0] = 0;
+        colorWoodResource[1] = 0;
+        colorWoodResource[2] = 0;
+        colorWoodResource[3] = 0;
+        colorWoodResource[4] = 0;
+        colorWoodResource[5] = 0;
 
-        maxStageNum = 3;
-        selectedStageNum = 7;
+        maxStageNum = 0;
+        selectedStageNum = 0;
 
         stageStarList = new List<StageStar>();
         stageStarList.Add(new StageStar());
 
-        maxTurretNum = 4;
+        maxTurretNum = 0;
 
         turretPreset = new List<int>();
-        turretPreset.Add(3);
-        turretPreset.Add(2);
+
+        bgSoundVolume = 50;
+        isBgSound = true;
+        efSoundVolume = 50;
+        isEfSound = true;
     }
 
     private void Awake()
