@@ -72,7 +72,9 @@ public class UI_LobbyPanel : UI_Controller
         StageSelectRightArrowButton,    //스테이지 선택 스크롤 >버튼
         StageStartButton,    //게임신 시작 버튼
         StageMapCloseButton,    //스테이지 선택 지도 끄기 버튼
-        StageSelectButton   //스테이지 선택 지도 켜기 버튼
+        StageSelectButton,   //스테이지 선택 지도 켜기 버튼
+        StageLeftArrowButton,   //스테이지 선택 지도 왼쪽 스크롤 끝으로
+        StageRightArrowButton,   //스테이지 선택 지도 오른쪽 스크롤 끝으로
     }
 
     enum GameObjects
@@ -228,6 +230,11 @@ public class UI_LobbyPanel : UI_Controller
     {
         StageSelectPanel    //스테이지 선택
     }
+
+    enum Scrollbars
+    {
+        MapScrollbar    //스테이지 선택 스크롤 바
+    }
     private void Update()
     {
         //UI 업데이트
@@ -245,6 +252,7 @@ public class UI_LobbyPanel : UI_Controller
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
         Bind<ToggleGroup>(typeof(ToggleGroups));
+        Bind<Scrollbar>(typeof(Scrollbars));
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
@@ -259,6 +267,8 @@ public class UI_LobbyPanel : UI_Controller
         //스테이지 선택패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.StageMapCloseButton).gameObject, OnClickStageMapCloseButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageSelectButton).gameObject, OnClickStageMapOpenButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageRightArrowButton).gameObject, OnClickStageRightArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageLeftArrowButton).gameObject, OnClickStageLeftArrow, Define.UIEvent.Click);
 
         //유저정보 캐싱
         UserInfo userInfo = SystemManager.Instance.UserInfo;
@@ -534,7 +544,7 @@ public class UI_LobbyPanel : UI_Controller
     }
 
     /// <summary>
-    /// 선택된 스테이지 정보 적용
+    /// 선택된 스테이지 정보 적용 : 김현진
     /// </summary>
     void UpdateSelectedStageInfo()
     {
@@ -545,6 +555,24 @@ public class UI_LobbyPanel : UI_Controller
 
         //닫고 패널에 정보 업데이트
         OnClickStageMapCloseButton();
+    }
+
+    /// <summary>
+    /// 스테이지 선택 스크롤 오른쪽 끝으로 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageRightArrow(PointerEventData data)
+    {
+        GetScrollBar((int)Scrollbars.MapScrollbar).value = 1;
+    }
+
+    /// <summary>
+    /// 스테이지 선택 스크롤 왼쪽 끝으로 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageLeftArrow(PointerEventData data)
+    {
+        GetScrollBar((int)Scrollbars.MapScrollbar).value = 0;
     }
     #endregion
 

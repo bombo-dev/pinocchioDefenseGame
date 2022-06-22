@@ -768,6 +768,7 @@ public class Actor : MonoBehaviour
         }
 
         debuffs[_debuffIndex].durationTime = time;   //지속시간 초기화
+
     }
 
     /// <summary>
