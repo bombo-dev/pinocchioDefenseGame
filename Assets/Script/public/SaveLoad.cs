@@ -46,6 +46,7 @@ public class SaveLoad
         // PC이고 Windows유니티 Editor에서 실행하는 경우에 세이브 
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
+            Debug.Log("유니티 에디터에서 저장 메소드가 실행되었습니다.");
             PCSave();
         }
         // PC이고 Windows에서 실행하는 경우에 세이브
@@ -94,6 +95,7 @@ public class SaveLoad
         // PC이고 Windows 유니티 Editor에서 실행하는 경우에 Load
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
+            Debug.Log("유니티 에디터에서 로드 메소드가 호출되었습니다.");
             PCLoad();
         }
         // PC이고 Windows에서 실행하는 경우 Load
@@ -112,6 +114,7 @@ public class SaveLoad
         }
         else
         {
+            MobileLoad();
         }
         
             
@@ -201,14 +204,17 @@ public class SaveLoad
         SystemManager.Instance.UserInfo.isEfSound = data.isEfSound;
     }
 
+    // PC에서 Save 하는 경우
     public void PCSave()
     {
+        // StreamingAssets에 파일 있는지 확인
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
             string json = JsonUtility.ToJson(saveData);
             File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
         }
+        // 없으면 streamingAssets에 파일 생성
         else
         {
             saveData = SaveUserInfoInitial(saveData);
@@ -216,9 +222,10 @@ public class SaveLoad
             File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.json"), json);
         }
     }
-
+    // Mobile에서 Save 하는 경우
     public void MobileSave()
     {
+        // streamingAsset에 파일 있는지 확인 
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
@@ -255,6 +262,7 @@ public class SaveLoad
         }
     }
 
+    // PC에서 Load 하는 경우
     public void PCLoad()
     {
         Debug.Log("Userinfo를 로드했습니다.");
@@ -278,6 +286,7 @@ public class SaveLoad
         }
     }
 
+    // Mobile에서 Load하는 경우
     public void MobileLoad()
     {
         Debug.Log("Userinfo를 로드했습니다.");
