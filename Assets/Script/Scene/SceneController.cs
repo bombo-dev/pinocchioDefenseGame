@@ -128,6 +128,10 @@ public class SceneController : MonoBehaviour
 
         //æ¿ ∑ŒµÂΩ√ ΩÃ≈¨≈Ê ≈¨∑°Ω∫ √ ±‚»≠
         SystemManager.Instance.Initialize();
+
+        // Load √ﬂ∞°
+        SaveLoad Load = new SaveLoad();
+        Load.LoadUserInfo();
     }
 
     /// <summary>
