@@ -80,14 +80,20 @@ public class SaveLoad
 
     public void LoadUserInfo()
     {
+        Debug.Log("Userinfo를 로드했습니다.");
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"))) {
             SaveData();
-            Debug.Log("Load, saveData : isBgSound" + saveData.isBgSound);
+            Debug.Log("파일이 없어, Userinfo를 생성하고 초기화합니다.");
+            Debug.Log("UserInfo: isBgSound" + saveData.isBgSound);
         } else {
             string data = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
             saveData = JsonUtility.FromJson<SaveData>(data);
 
-            Debug.Log("saveData : isBgSound" + saveData.isBgSound);
+            Debug.Log("데이터가 존재했고, 이전 데이터로 초기화하여 불러옵니다.");
+
+            LoadUserInfoInitial(saveData);
+            
+            Debug.Log("UserInfo : isBgSound" + SystemManager.Instance.UserInfo.isBgSound);
         }
             
     }
