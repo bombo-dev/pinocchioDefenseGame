@@ -235,7 +235,8 @@ public class UI_LobbyPanel : UI_Controller
     {
         MapScrollbar    //스테이지 선택 스크롤 바
     }
-    private void Update()
+
+	private void Update()
     {
         //UI 업데이트
         UpdateUI();
@@ -253,6 +254,10 @@ public class UI_LobbyPanel : UI_Controller
         Bind<Image>(typeof(Images));
         Bind<ToggleGroup>(typeof(ToggleGroups));
         Bind<Scrollbar>(typeof(Scrollbars));
+
+        // UserInfo Load
+        SaveLoad load = new SaveLoad();
+        load.LoadUserInfo();
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
@@ -460,6 +465,10 @@ public class UI_LobbyPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text =
                 SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost.ToString();
         }
+
+        // userinfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
@@ -531,6 +540,10 @@ public class UI_LobbyPanel : UI_Controller
 
         if (GetGameobject((int)GameObjects.StageSelectPanel))
             GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+
+
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>

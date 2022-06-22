@@ -208,6 +208,10 @@ public class GameFlowManager : MonoBehaviour
             //클리어 상태로 변경
             gameState = GameState.StageClear;
 
+            // UserInfo Save
+            SaveLoad save = new SaveLoad();
+            save.SaveUserInfo();
+
             //스테이지 비활성화
             DisableStage();
         }
