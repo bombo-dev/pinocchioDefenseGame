@@ -21,6 +21,9 @@ public class DamageMngPanel : UI_Controller
 
     DamageMngPanel damageMngPanel;
 
+    public int randPosX; // 랜덤으로 더해질 x축 값
+    public int randPosY; // 랜덤으로 더해질 y축 값
+
     enum Texts
     {
         Damage
@@ -127,17 +130,23 @@ public class DamageMngPanel : UI_Controller
 
     void UpdatePanelPos()
     {
-        
+        Debug.Log("RandPosX=" + randPosX);
+        Debug.Log("RandPosY=" + randPosY);
+
         if (damageOwner.tag == "Turret")
         {
             Turret turret = damageOwner.GetComponent<Turret>();
-            screenPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x, turret.hitPos.transform.position.y + addPos, turret.hitPos.transform.position.z));            
+            screenPos = Camera.main.WorldToScreenPoint(new Vector3(turret.hitPos.transform.position.x + randPosX, 
+                                                                                                          turret.hitPos.transform.position.y+ randPosY + addPos, 
+                                                                                                          turret.hitPos.transform.position.z));            
             //screenPos = turret.hitPos.transform.position;
         }
         else if (damageOwner.tag == "Enemy")
         {
             Enemy enemy = damageOwner.GetComponent<Enemy>();
-            screenPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x, enemy.hitPos.transform.position.y + addPos, enemy.hitPos.transform.position.z));            
+            screenPos = Camera.main.WorldToScreenPoint(new Vector3(enemy.hitPos.transform.position.x + randPosX, 
+                                                                                                          enemy.hitPos.transform.position.y + randPosY + addPos, 
+                                                                                                          enemy.hitPos.transform.position.z));            
             //screenPos = enemy.hitPos.transform.position;
         }
         else
