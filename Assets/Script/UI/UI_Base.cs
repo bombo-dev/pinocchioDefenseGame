@@ -59,6 +59,7 @@ public class UI_Base : MonoBehaviour
     protected Image GetImage(int idx) { return Get<Image>(idx); }
     protected Slider GetSlider(int idx) { return Get<Slider>(idx); }
     protected Scrollbar GetScrollBar(int idx) { return Get<Scrollbar>(idx); }
+    protected ToggleGroup GetToggleGroup(int idx) { return Get<ToggleGroup>(idx); }
 
     protected GameObject GetGameobject(int idx) { return Get<GameObject>(idx); }
     protected TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }

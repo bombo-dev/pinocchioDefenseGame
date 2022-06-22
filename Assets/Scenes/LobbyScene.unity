@@ -747,6 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePanels: []
+  rewardPanels: []
   turretMngPanel: {fileID: 0}
   turretInfoPanel: {fileID: 0}
   stageMngPanel: {fileID: 0}
@@ -1768,33 +1769,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorWoodResource: 0a000000140000000f000000110000000700000023000000
-  maxStageNum: 10
-  selectedStageNum: 10
+  maxStageNum: 15
+  selectedStageNum: 11
   stageStarList:
   - stageNum: 0
+    starNum: 3
+  - stageNum: 1
+    starNum: 3
+  - stageNum: 2
+    starNum: 2
+  - stageNum: 3
+    starNum: 1
+  - stageNum: 4
+    starNum: 3
+  - stageNum: 5
+    starNum: 2
+  - stageNum: 6
+    starNum: 2
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
+  - stageNum: 7
     starNum: 0
-  - stageNum: 0
-    starNum: 0
-  - stageNum: 0
-    starNum: 0
-  maxTurretNum: 5
-  turretPreset: 02000000030000000000000004000000
+  maxTurretNum: 4
+  turretPreset: 00000000010000000200000003000000
   bgSoundVolume: 0.15
   isBgSound: 0
   efSoundVolume: 0.15

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class UI_StageEndPanel : UI_Controller
 {
     const int MAXTURRETPRESETNUM = 8;
-    const int MAXREWARDNUM = 6;
+    const int MAXREWARDNUM = 7;
 
     [SerializeField]
     Sprite[] turretSprite;  //터렛 이미지 모음
@@ -58,7 +58,8 @@ public class UI_StageEndPanel : UI_Controller
         RewardNumText2,
         RewardNumText3,
         RewardNumText4,
-        RewardNumText5,  //~5
+        RewardNumText5,
+        RewardNumText6,//~6
     }
 
     enum GameObjects
@@ -77,7 +78,8 @@ public class UI_StageEndPanel : UI_Controller
         RewardItem2,
         RewardItem3,
         RewardItem4,    
-        RewardItem5,    //~5
+        RewardItem5,
+        RewardItem6,//~6
         StageFailText,   //스테이지 실패
         StageClearText,   //스테이지 클리어
         StageResultPanel,    //패널 UI전체
@@ -118,7 +120,8 @@ public class UI_StageEndPanel : UI_Controller
         RewardImage2,
         RewardImage3,
         RewardImage4,
-        RewardImage5,   //~5
+        RewardImage5,
+        RewardImage6,//~6
         StarRewardImage, //별 보상 이미지
         StageResultPanel,    //패널 UI전체
         StageResultBackGround   //StageResultPanel 앞 패널
@@ -199,6 +202,7 @@ public class UI_StageEndPanel : UI_Controller
         ResourceManager rm = SystemManager.Instance.ResourceManager;
         TurretManager tm = SystemManager.Instance.TurretManager;
         RewardManager rwm = SystemManager.Instance.RewardManager;
+        UserInfo ui = SystemManager.Instance.UserInfo;
 
         //예외처리
         if (!gfm || !rm || !tm)
@@ -285,17 +289,41 @@ public class UI_StageEndPanel : UI_Controller
             //별 보상 이미지 교체
             GetImage((int)Images.StarRewardImage).sprite = starSprite[SystemManager.Instance.RewardManager.starRewardNum];
 
-            for (int i = 0; i < MAXREWARDNUM; i++)
+            for (int i = 0; i < MAXREWARDNUM - 1; i++)
             {
                 //보상 존재할때 패널 활성화
                 if (rwm.colorWoodReward[i] > 0)
                     GetGameobject((int)GameObjects.RewardItem0 + i).SetActive(true);
+                else
+                    continue;
 
                 //보상 이미지
                 GetImage((int)Images.RewardImage0 + i).sprite = woodSprite[i];
                 //보상 개수
                 GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText0 + i).text =
                     "X" + rwm.colorWoodReward[i];
+            }
+
+
+            //추가 터렛 보상 (마지막 인덱스에 터렛 보상 추가)
+            if (rwm.turretReward[gfm.stage] != 0) //터렛 보상 존재할경우
+            {
+                //이미 가지고 있는 터렛이 아닌경우
+                if (ui.maxTurretNum < rwm.turretReward[gfm.stage])
+                {
+                    //터렛정보 업데이트
+                    ui.maxTurretNum = rwm.turretReward[gfm.stage];
+
+                    //패널갱신
+
+                    //패널 활성화
+                    GetGameobject((int)GameObjects.RewardItem6).SetActive(true);
+                    //보상 이미지
+                    GetImage((int)Images.RewardImage6).sprite = turretSprite[rwm.turretReward[gfm.stage] - 1];
+                    //보상 개수
+                    GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText6).text =
+                        "X1";
+                }
             }
 
             //패널이미지 교체
