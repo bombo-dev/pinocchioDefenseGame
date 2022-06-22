@@ -245,7 +245,7 @@ public class PanelManager : MonoBehaviour
 
             System.Random random = new System.Random();
             damageMngPanel.randPosX = random.Next(0, 10);
-            damageMngPanel.randPosY = random.Next(0, 15);
+            damageMngPanel.randPosY = random.Next(0, 7);
 
             Debug.Log("randPosX=" + damageMngPanel.randPosX);
             Debug.Log("randPosY=" + damageMngPanel.randPosY);
