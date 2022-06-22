@@ -37,6 +37,20 @@ public class ResourceManager : MonoBehaviour
 
         //시간 측정용 변수 초기화
         timer = Time.time;
+
+
+        //-------------------유저 자원 정보 불러오기-------------------
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+        //강화 나무자원
+        colorWoodResource = new int[6];
+        for (int i = 0; i < colorWoodResource.Length; i++)
+            colorWoodResource[i] = userInfo.colorWoodResource[i];
+
+        //터렛 프리셋 정보
+        for (int i = 0; i < userInfo.turretPreset.Count; i++)
+        {
+            selectedTurretPreset.Add(userInfo.turretPreset[i]);
+        }
     }
 
     private void Update()

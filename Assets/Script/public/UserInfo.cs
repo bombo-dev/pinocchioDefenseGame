@@ -38,20 +38,20 @@ public class UserInfo : MonoBehaviour
 
     public UserInfo()
     {
-        colorWoodResource[0] = 0;
-        colorWoodResource[1] = 0;
-        colorWoodResource[2] = 0;
-        colorWoodResource[3] = 0;
-        colorWoodResource[4] = 0;
-        colorWoodResource[5] = 0;
+        colorWoodResource[0] = 10;
+        colorWoodResource[1] = 10;
+        colorWoodResource[2] = 10;
+        colorWoodResource[3] = 10;
+        colorWoodResource[4] = 10;
+        colorWoodResource[5] = 10;
 
-        maxStageNum = 0;
-        selectedStageNum = 0;
+        maxStageNum = 10;
+        selectedStageNum = 9;
 
         stageStarList = new List<StageStar>();
         stageStarList.Add(new StageStar());
 
-        maxTurretNum = 0;
+        maxTurretNum = 5;
 
         turretPreset = new List<int>();
 
