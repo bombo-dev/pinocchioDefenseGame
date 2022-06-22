@@ -755,7 +755,7 @@ public class Actor : MonoBehaviour
         //이미 존재하는 디버프인경우
         if (debuffs.ContainsKey(_debuffIndex))
         {
-            if (debuffs[_debuffIndex].stack < 6)//최대 5스택 -> 효과적용을 위해 6까지
+            if (debuffs[_debuffIndex].stack < 5)//최대 5스택 -> 효과적용을 위해 6까지
                 debuffs[_debuffIndex].stack++;   //중첩 스택 추가
         }
         //새로 추가될 디버프인경우
@@ -778,8 +778,6 @@ public class Actor : MonoBehaviour
     {
         //인덱스를 debuff로 형변환
         debuff _debuffIndex = (debuff)debuffIndex;
-
-        debuffs[_debuffIndex].stack = 1;   //중첩 스택 초기화
 
         //키 값 참조하여 해당 요소 제거
         if (debuffs.ContainsKey(_debuffIndex))
