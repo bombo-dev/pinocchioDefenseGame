@@ -506,12 +506,12 @@ public class Enemy : Actor
     {
         base.AddDebuff(debuffIndex, time);
 
+        statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
+        
         //풀스택일경우 예외처리
         if (debuffs[(debuff)debuffIndex].stack > 5)
             return;
         
-        statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
-
 
         //디버프 효과
         switch (debuffIndex)

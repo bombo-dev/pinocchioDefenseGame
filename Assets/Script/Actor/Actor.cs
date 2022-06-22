@@ -731,7 +731,6 @@ public class Actor : MonoBehaviour
                     {
                         RemoveDebuff(i);                        
                     }
-
                 }
             }
         }
@@ -762,7 +761,6 @@ public class Actor : MonoBehaviour
         else 
         {
             Debuff debuff = new Debuff(); //객체 생성
-
             debuff.stack = 1;   //중첩 스택 초기화
             debuffs.Add(_debuffIndex, debuff);   //자료구조에 추가
         }
