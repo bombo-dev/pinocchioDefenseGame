@@ -525,6 +525,10 @@ public class UI_LobbyPanel : UI_Controller
 
         if (GetGameobject((int)GameObjects.StageSelectPanel))
             GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+
+
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
@@ -535,9 +539,6 @@ public class UI_LobbyPanel : UI_Controller
     {
         if (GetGameobject((int)GameObjects.StageSelectPanel))
             GetGameobject((int)GameObjects.StageSelectPanel).SetActive(true);
-
-        SaveLoad save = new SaveLoad();
-        save.SaveUserInfo();
     }
 
     /// <summary>
