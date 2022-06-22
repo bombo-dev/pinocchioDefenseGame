@@ -95,8 +95,12 @@ public class SceneController : MonoBehaviour
             {
                 if (SystemManager.Instance.LoadingSceneManager.FinProgressBar(timer))
                 {
-                    op.allowSceneActivation = true; 
-                    yield break;
+                    //페이드아웃 완료시 다음씬 로드
+                    if (ImageFade.finFade)
+                    {
+                        op.allowSceneActivation = true;
+                        yield break;
+                    } 
                 }
             }
         }
@@ -115,6 +119,7 @@ public class SceneController : MonoBehaviour
 
         //BGM변경
         SoundManager.Instance.ChangeBGAudioClip(scene1.buildIndex);
+
     }
 
     /// <summary>
@@ -137,5 +142,17 @@ public class SceneController : MonoBehaviour
     public void OnSceneUnloaded(Scene scene)
     {
         Debug.Log("OnSceneUnloaded is called! scene = " + scene.name);
+
+        if (scene.buildIndex == 2)//게임씬 -> 페이드 인
+        {
+            ImageFade.alpha = 0;
+            ImageFade.fadeType = 1;
+
+        }
+        else //페이드 아웃
+        {
+            ImageFade.alpha = 1;
+            ImageFade.fadeType = 0;
+        }
     }
 }
