@@ -346,6 +346,8 @@ public class UI_StageEndPanel : UI_Controller
     void OnClickRestartButton(PointerEventData data)
     {
         SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
@@ -355,6 +357,8 @@ public class UI_StageEndPanel : UI_Controller
     void OnClickExitButton(PointerEventData data)
     {
         SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
     }
 
     /// <summary>
