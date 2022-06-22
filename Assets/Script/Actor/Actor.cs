@@ -729,7 +729,7 @@ public class Actor : MonoBehaviour
                     //지속시간 경과시 디버프 제거
                     if (debuffs[_debuffIndex].durationTime < 0)
                     {
-                        RemoveDebuff(i);                        
+                        RemoveDebuff(i);
                     }
 
                 }
@@ -766,7 +766,7 @@ public class Actor : MonoBehaviour
             debuff.stack = 1;   //중첩 스택 초기화
             debuffs.Add(_debuffIndex, debuff);   //자료구조에 추가
         }
-
+        Debug.Log("debuffs stack= " + debuffs[(debuff)debuffIndex].stack);
         debuffs[_debuffIndex].durationTime = time;   //지속시간 초기화
     }
 
@@ -779,9 +779,13 @@ public class Actor : MonoBehaviour
         //인덱스를 debuff로 형변환
         debuff _debuffIndex = (debuff)debuffIndex;
 
+        debuffs[_debuffIndex].stack = 1;   //중첩 스택 초기화
+
         //키 값 참조하여 해당 요소 제거
-        if(debuffs.ContainsKey(_debuffIndex))
+        if (debuffs.ContainsKey(_debuffIndex))
             debuffs.Remove(_debuffIndex);
+
+        
     }
 
     /// <summary>

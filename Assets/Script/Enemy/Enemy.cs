@@ -506,11 +506,14 @@ public class Enemy : Actor
     {
         base.AddDebuff(debuffIndex, time);
 
+        Debug.Log("debuffs stack= "+ debuffs[(debuff)debuffIndex].stack);
+
         //풀스택일경우 예외처리
         if (debuffs[(debuff)debuffIndex].stack > 5)
             return;
+
         
-        statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
+            statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
 
 
         //디버프 효과
@@ -573,8 +576,8 @@ public class Enemy : Actor
         }
 
 
-        //statusMngPanel.RemoveDebuff(debuffIndex);
-        statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
+      
+        //statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
     }
     #endregion
 

@@ -28,11 +28,13 @@ public class StatusMngPanel : UI_Controller
 
     float debuffFlowTime = 0.0f;
 
-    float debuffLeftTime;
-
     public int randPos;    // 랜덤으로 더해질 y축 값
 
     public float hp;
+
+    Coroutine runningCoroutine = null;
+
+    int i = 1;
 
     enum Images
     {
@@ -99,7 +101,8 @@ public class StatusMngPanel : UI_Controller
     /// <param name="debuffs"></param>
     /// <param name="time"></param>
     public void SetDebuff(int debuffIdx, Dictionary<Actor.debuff, Debuff> debuffs , float time)
-    {
+    {        
+        Debug.Log("-----------------------------------------SetDebuff "+i++);        
         // 예외처리
         if (debuffIdx <= 0 || hp <= 0)
             return;
@@ -114,10 +117,7 @@ public class StatusMngPanel : UI_Controller
             return;
 
         // 디버프 텍스트 가져오기
-        TextMeshProUGUI debuffText = go.GetComponentInChildren<TextMeshProUGUI>();
-
-        // 스택 정보 받아오기
-        int stack = debuffs[(Actor.debuff)debuffIdx].stack;        
+        TextMeshProUGUI debuffText = go.GetComponentInChildren<TextMeshProUGUI>();     
 
         // 디버프 게이지 오브젝트 가져오기
         Transform GoTransform = go.transform.GetChild(0).transform.GetChild(0);
@@ -126,11 +126,16 @@ public class StatusMngPanel : UI_Controller
         // 디버프의 경과시간을 카운트 할 변수 초기화
         debuffFlowTime = 0.0f;
 
+        int stack = debuffs[(Actor.debuff)debuffIdx].stack;
+
         // 디버프 중첩시
         if (stack >= 2)
         {
+            Debug.Log(stack + "중첩");
+
             // 이전에 실행되던 코루틴 종료
-            StopCoroutine(DebuffCoroutine(ImgFillAmount, time, debuffIdx));
+            if(runningCoroutine != null)
+                StopCoroutine(runningCoroutine);
 
             // 중첩 정보를 화면에 표시
             debuffText.text = "X" + stack.ToString();
@@ -145,7 +150,7 @@ public class StatusMngPanel : UI_Controller
         go.SetActive(true);
 
         // 코루틴 시작
-        StartCoroutine(DebuffCoroutine(ImgFillAmount, time, debuffIdx));
+        runningCoroutine = StartCoroutine(DebuffCoroutine(ImgFillAmount, time, debuffIdx));
     }
     
     /// <summary>
@@ -161,18 +166,17 @@ public class StatusMngPanel : UI_Controller
         {
             // 지속시간이 다됐을 때 or 패널이 비활성화 상태일 때
             if (debuffFlowTime >= time || gameObject.activeSelf == false)
-            {
+            {                   
                 // 코루틴 종료
-                StopCoroutine(DebuffCoroutine(image, time, debuffIdx));               
+                StopCoroutine(runningCoroutine);               
 
                 // 디버프 패널 비활성화
-                RemoveDebuff(image, time, debuffIdx);
+                RemoveDebuff(debuffIdx);
 
             }
-            Debug.Log("time=" + time);
-
             // 디버프 경과시간 카운트
             debuffFlowTime += Time.deltaTime;
+            Debug.Log("debuffFlowTime=" + debuffFlowTime);
 
             // 디버프 경과시간을 게이지 UI로 표시
             image.fillAmount = (debuffFlowTime/time);
@@ -182,12 +186,11 @@ public class StatusMngPanel : UI_Controller
         }
     }
     
-    public void RemoveDebuff(Image image, float time, int debuffIndex)
+    public void RemoveDebuff(int debuffIndex)
     {
         
         GameObject go = Debuffs[debuffIndex-1];
         go.SetActive(false);
-        debuffLeftTime = 0.0f;
         
     }
 
@@ -198,11 +201,13 @@ public class StatusMngPanel : UI_Controller
         Fill.color = Color.red;
 
         //디버프 정보 Reset
+        
         for(int i=0; i<Debuffs.Length; i++)
         {
             Debuffs[i].SetActive(false);
             Debuffs[i].GetComponentInChildren<TextMeshProUGUI>().text = null;
         }
+        
 
     }
 

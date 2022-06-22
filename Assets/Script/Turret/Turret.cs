@@ -355,7 +355,7 @@ public class Turret : Actor
     public override void AddDebuff(int debuffIndex, float time)
     {
         base.AddDebuff(debuffIndex, time);
-        
+
         if (statusMngPanel)
         {            
             statusMngPanel.SetDebuff(debuffIndex, debuffs, time);
@@ -402,7 +402,7 @@ public class Turret : Actor
         }
 
 
-        statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
+        //statusMngPanel.RemoveDebuff(null, 0, debuffIndex);
     }
     #endregion
 
