@@ -25,6 +25,9 @@ public class DefenseFlowDataList
 
 public class GameFlowManager : MonoBehaviour
 {
+    //최대 스테이지
+    public int MAXSTAGE;
+
     //게이트 숫자
     const int GATENUM = 3;
 
@@ -234,29 +237,33 @@ public class GameFlowManager : MonoBehaviour
                 userInfo.colorWoodResource[i] += rewardManager.colorWoodReward[i];
             }
 
-            //스테이지 클리어 정보
-            if (userInfo.maxStageNum <= stage)
-                userInfo.maxStageNum = stage + 1;
-
-            //다음 스테이지 별 보상 추가
-            if (userInfo.stageStarList.Count <= stage + 1)
-            {
-                StageStar stageStar = new StageStar();
-                stageStar.stageNum = stage+1;
-                stageStar.starNum = 0;
-
-                userInfo.stageStarList.Add(stageStar);
-            }
-
             //별 보상 추가
             if (userInfo.stageStarList[stage].starNum < rewardManager.starRewardNum)
             {
                 userInfo.stageStarList[stage].starNum = rewardManager.starRewardNum;
             }
 
-            //스테이지 선택 정보
-            if (userInfo.maxStageNum <= stage + 1)
-                userInfo.selectedStageNum = stage + 1;
+            //최대 스테이지에 도달하지 못했을 때
+            if (stage < MAXSTAGE)
+            {
+                //스테이지 선택 정보
+                if (userInfo.maxStageNum <= stage + 1)
+                    userInfo.selectedStageNum = stage + 1;
+
+                //스테이지 클리어 정보
+                if (userInfo.maxStageNum <= stage)
+                    userInfo.maxStageNum = stage + 1;
+
+                //다음 스테이지 별 보상 추가
+                if (userInfo.stageStarList.Count <= stage + 1)
+                {
+                    StageStar stageStar = new StageStar();
+                    stageStar.stageNum = stage + 1;
+                    stageStar.starNum = 0;
+
+                    userInfo.stageStarList.Add(stageStar);
+                }
+            }
 
             // UserInfo Save
             SaveLoad save = new SaveLoad();
