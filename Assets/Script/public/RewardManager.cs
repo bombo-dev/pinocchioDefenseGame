@@ -13,6 +13,9 @@ public class RewardManager : MonoBehaviour
     //별 보상
     public int starRewardNum;
 
+    //중복되지 않은 터렛보상을 얻었을때 true
+    public bool getNewTurret = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,7 +74,9 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(1, 2);//딱다구리
         turretReward.Add(2, 3);//베이비버드
         turretReward.Add(3, 4);//강화비둘기
-        turretReward.Add(5, 5);//펠리컨
+        turretReward.Add(4, 5);//펠리컨
+        turretReward.Add(5, 6);//시계
+        turretReward.Add(7, 7);//펭귄
     }
 
     /// <summary>

@@ -264,12 +264,18 @@ public class UI_TurretInfoPanel : UI_Controller
         if (turret.currentHP <= 0)
             return;
 
+        //이미 같은 강화효과 적용중이면 취소
+        if (turret.buffs.ContainsKey((Actor.buff)idx + 1))
+            return;
+
         //강화할 자원이 존재하는지 판단
         if (SystemManager.Instance.ResourceManager.colorWoodResource[idx] < (turret.turretNum + 1))
             return;
 
         //강화 자원 소비
         SystemManager.Instance.ResourceManager.colorWoodResource[idx] -= turret.turretNum + 1;
+        //유저정보 갱신
+        SystemManager.Instance.UserInfo.colorWoodResource[idx] = SystemManager.Instance.ResourceManager.colorWoodResource[idx];
 
         turret.AddBebuff(idx + 1, BUFFDURATIONTIME);
 

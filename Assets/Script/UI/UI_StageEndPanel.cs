@@ -130,7 +130,8 @@ public class UI_StageEndPanel : UI_Controller
     enum Buttons
     {
         ReStartButton,  //다시시작 버튼
-        ExitButton  //나가기 버튼
+        ExitButton,  //나가기 버튼
+        NextStageButton  //다음 스테이지 버튼
     }
 
     /// <summary>
@@ -149,11 +150,13 @@ public class UI_StageEndPanel : UI_Controller
         //이벤트 추가
         AddUIEvent(GetButton((int)Buttons.ReStartButton).gameObject, OnClickRestartButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.ExitButton).gameObject, OnClickExitButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.NextStageButton).gameObject, OnClickNextStageButton, Define.UIEvent.Click);
 
         //게임오버
         if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.StageFail)
         {
             GetGameobject((int)GameObjects.StageClearText).SetActive(false);
+            GetButton((int)Buttons.NextStageButton).gameObject.SetActive(false);
         }
         else
         {
@@ -309,13 +312,12 @@ public class UI_StageEndPanel : UI_Controller
             if (rwm.turretReward.ContainsKey(gfm.stage)) //터렛 보상 존재할경우
             {
                 //이미 가지고 있는 터렛이 아닌경우
-                if (ui.maxTurretNum < rwm.turretReward[gfm.stage])
+                if (rwm.getNewTurret)
                 {
                     //터렛정보 업데이트
                     ui.maxTurretNum = rwm.turretReward[gfm.stage];
 
                     //패널갱신
-
                     //패널 활성화
                     GetGameobject((int)GameObjects.RewardItem6).SetActive(true);
                     //보상 이미지
@@ -323,6 +325,8 @@ public class UI_StageEndPanel : UI_Controller
                     //보상 개수
                     GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText6).text =
                         "X1";
+
+                    rwm.getNewTurret = false;
                 }
             }
 
@@ -343,22 +347,47 @@ public class UI_StageEndPanel : UI_Controller
     /// <summary>
     /// 씬 재로드하여 다시 시작 : 김현진
     /// </summary>
+    /// <param name="data">이벤트 정보</param>
     void OnClickRestartButton(PointerEventData data)
     {
-        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
+
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
     /// <summary>
     /// 로비씬으로 돌아가기 : 김현진
     /// </summary>
-    /// <param name="data"></param>
+    /// <param name="data">이벤트 정보</param>
     void OnClickExitButton(PointerEventData data)
     {
-        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
+
+        //씬 이동
+        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
+    }
+
+    /// <summary>
+    /// 다음 스테이지로 이동 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickNextStageButton(PointerEventData data)
+    {
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
+
+        //예외처리
+        if (SystemManager.Instance.UserInfo.maxStageNum < SystemManager.Instance.GameFlowManager.stage + 1)
+            return;
+
+        //유저정보 갱신
+        SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage + 1;
+        save.SaveUserInfo();
+
+        //씬 이동
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
     /// <summary>

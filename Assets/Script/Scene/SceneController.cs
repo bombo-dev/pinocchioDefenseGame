@@ -66,6 +66,11 @@ public class SceneController : MonoBehaviour
     /// <param name="sceneName"> 로딩할 scene 이름 </param>
     public void LoadScene(string sceneName)
     {
+        //타임스케일 초기화
+        Time.timeScale = 1.0f;
+        //FixedDeltaTime변경
+        Time.fixedDeltaTime = 0.02F * Time.timeScale;
+
         StartCoroutine(LoadSceneAsync(sceneName)); 
         //로딩씬 호출
         SceneManager.LoadScene("LoadingScene");

@@ -208,11 +208,55 @@ public class GameFlowManager : MonoBehaviour
     {
         if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
         {
+            //캐싱
+            UserInfo userInfo = SystemManager.Instance.UserInfo;
+            RewardManager rewardManager = SystemManager.Instance.RewardManager;
+
             //별 보상 설정
-            SystemManager.Instance.RewardManager.SetStarReward();
+            rewardManager.SetStarReward();
 
             //클리어 상태로 변경
             gameState = GameState.StageClear;
+
+            //-------UserInfo에 보상정보 넘기기
+
+            //터렛 보상 정보 존재하면 추가
+            if (rewardManager.turretReward.ContainsKey(stage) &&
+                userInfo.maxTurretNum < rewardManager.turretReward[stage])
+            {
+                userInfo.maxTurretNum = rewardManager.turretReward[stage];
+                rewardManager.getNewTurret = true;
+            }
+
+            //강화 나무 보상 추가
+            for (int i = 0; i < userInfo.colorWoodResource.Length; i++)
+            {
+                userInfo.colorWoodResource[i] += rewardManager.colorWoodReward[i];
+            }
+
+            //스테이지 클리어 정보
+            if (userInfo.maxStageNum <= stage)
+                userInfo.maxStageNum = stage + 1;
+
+            //다음 스테이지 별 보상 추가
+            if (userInfo.stageStarList.Count <= stage + 1)
+            {
+                StageStar stageStar = new StageStar();
+                stageStar.stageNum = stage+1;
+                stageStar.starNum = 0;
+
+                userInfo.stageStarList.Add(stageStar);
+            }
+
+            //별 보상 추가
+            if (userInfo.stageStarList[stage].starNum < rewardManager.starRewardNum)
+            {
+                userInfo.stageStarList[stage].starNum = rewardManager.starRewardNum;
+            }
+
+            //스테이지 선택 정보
+            if (userInfo.maxStageNum <= stage + 1)
+                userInfo.selectedStageNum = stage + 1;
 
             // UserInfo Save
             SaveLoad save = new SaveLoad();

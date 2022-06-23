@@ -495,6 +495,10 @@ public class UI_LobbyPanel : UI_Controller
     /// <param name="idx">삭제할 터렛 인덱스</param>
     void OnClickTurretRemoveButton(PointerEventData data, int idx)
     {
+        //1개만 남았을때 삭제 불가
+        if (SystemManager.Instance.UserInfo.turretPreset.Count <= 1)
+            return;
+
         //해당 인덱스 터렛 삭제
         if (idx >= 0)
             SystemManager.Instance.UserInfo.turretPreset.RemoveAt(idx);
