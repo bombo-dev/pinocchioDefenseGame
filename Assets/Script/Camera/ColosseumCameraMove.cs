@@ -37,10 +37,6 @@ public class ColosseumCameraMove : MonoBehaviour
 
     bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
 
-    //디버그 테스트
-    [SerializeField]
-    Text test;
-
     // Start is called before the first frame update
     void Start()
     {        
@@ -89,9 +85,7 @@ public class ColosseumCameraMove : MonoBehaviour
     /// 안드로이드에서 카메라 움직임 업데이트 : 하은비
     /// </summary>
     void UpdateInputAtAnd()
-    {
-  
-        
+    {   
         // 화면에 접촉된 손가락의 개수가 1개이면
         if (Input.touchCount == 1 )
         {
@@ -133,7 +127,6 @@ public class ColosseumCameraMove : MonoBehaviour
         // 터치 상태 저장
         Touch touch = Input.GetTouch(0);
 
-        test.text = touch.phase.ToString();
         // 화면을 터치하는 순간 해당 위치 값 저장
         if (touch.phase == TouchPhase.Began)
         {    
