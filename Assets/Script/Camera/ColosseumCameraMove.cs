@@ -22,7 +22,7 @@ public class ColosseumCameraMove : MonoBehaviour
     [Header ("android")]
 
     [SerializeField]
-    float touchSpeed = 0.01f;
+    float touchSpeed = 5f;
 
     Vector2 curPos, prePos;
     Vector3 movePos;
@@ -33,9 +33,13 @@ public class ColosseumCameraMove : MonoBehaviour
 
     float preDistance, curDistance, moveDistance;   // 화면 줌을 위한 변수
 
-    bool isMouseButtonOver;     // 마우스(터치)가 UI 위에 있는 경우 
+    public bool isMouseButtonOver;     // 마우스(터치)가 UI 위에 있는 경우 
 
-    bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
+    public bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
+
+    //디버그 테스트
+    [SerializeField]
+    Text test;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +57,7 @@ public class ColosseumCameraMove : MonoBehaviour
                 Application.Quit();
 
             UpdateInputAtAnd();
-            //UpdateAndFlag();
+            UpdateAndFlag();
         }
         else
         {
@@ -85,12 +89,14 @@ public class ColosseumCameraMove : MonoBehaviour
     /// 안드로이드에서 카메라 움직임 업데이트 : 하은비
     /// </summary>
     void UpdateInputAtAnd()
-    {   
+    {
+  
+        
         // 화면에 접촉된 손가락의 개수가 1개이면
         if (Input.touchCount == 1 )
         {
-            MoveAndCam();
-            /*
+            // MoveAndCam();
+            
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMouseButtonOver)
             {
                 isMapClick = true;
@@ -107,7 +113,7 @@ public class ColosseumCameraMove : MonoBehaviour
             }
             else
                 return;
-            */
+            
         }
         else if (Input.touchCount == 2)
         {            
@@ -127,6 +133,8 @@ public class ColosseumCameraMove : MonoBehaviour
         // 터치 상태 저장
         Touch touch = Input.GetTouch(0);
 
+        // test.text = touch.phase.ToString();
+
         // 화면을 터치하는 순간 해당 위치 값 저장
         if (touch.phase == TouchPhase.Began)
         {    
@@ -136,12 +144,13 @@ public class ColosseumCameraMove : MonoBehaviour
         else if (touch.phase == TouchPhase.Moved)   
         {
             curPos = touch.position-touch.deltaPosition;
+
             // 이동할 방향 벡터를 구함 
             Vector2 dir = (prePos - curPos);            
-            movePos = dir * Time.deltaTime * touchSpeed;
+            movePos = dir * Time.deltaTime * 5f;
 
-            // 카메라 이동
-            Camera.main.transform.Translate(movePos);
+            // 카메라 이동            
+            cameraMove.Translate(movePos.x, 0, movePos.y);
             prePos = touch.position - touch.deltaPosition;
         }
 
