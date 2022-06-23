@@ -158,7 +158,7 @@ public class UI_TurretMngPanel : UI_Controller
                     AddUIEvent(GetButton(i).gameObject, i, OnClickTurretButton, Define.UIEvent.Click);
 
                     //터렛 패널 정보 초기화
-                    ResetTurretInfo(idx);
+                    ResetTurretInfo(i);
 
                     idx++;
 
@@ -187,7 +187,9 @@ public class UI_TurretMngPanel : UI_Controller
     {
         //예외처리
         if (SystemManager.Instance.TurretManager.turretCostArr.Length < MAXTURRET)
+        {
             SystemManager.Instance.TurretManager.InitializeTurretArrData();
+        }
 
         // 터렛 코스트 정보 초기화
         GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + idx).text = SystemManager.Instance.TurretManager.turretCostArr[idx].ToString();

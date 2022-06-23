@@ -10,6 +10,7 @@ public class UI_StageEndPanel : UI_Controller
 {
     const int MAXTURRETPRESETNUM = 8;
     const int MAXREWARDNUM = 7;
+    const int MAXTURRETNUM = 23;
 
     [SerializeField]
     Sprite[] turretSprite;  //터렛 이미지 모음
@@ -60,6 +61,38 @@ public class UI_StageEndPanel : UI_Controller
         RewardNumText4,
         RewardNumText5,
         RewardNumText6,//~6
+        TurretPresetText0,    //터렛 프리셋 텍스트 0~
+        TurretPresetText1,
+        TurretPresetText2,
+        TurretPresetText3,
+        TurretPresetText4,
+        TurretPresetText5,
+        TurretPresetText6,
+        TurretPresetText7,   //~7
+        TurretPresetCountText,   //터렛 프리셋의 최대 제한수와 현재 터렛수 텍스트
+        TurretText0,    //터렛 선택패널 텍스트 0~
+        TurretText1,
+        TurretText2,
+        TurretText3,
+        TurretText4,
+        TurretText5,
+        TurretText6,
+        TurretText7,
+        TurretText8,
+        TurretText9,
+        TurretText10,
+        TurretText11,
+        TurretText12,
+        TurretText13,
+        TurretText14,
+        TurretText15,
+        TurretText16,
+        TurretText17,
+        TurretText18,
+        TurretText19,
+        TurretText20,
+        TurretText21,
+        TurretText22,
     }
 
     enum GameObjects
@@ -83,6 +116,38 @@ public class UI_StageEndPanel : UI_Controller
         StageFailText,   //스테이지 실패
         StageClearText,   //스테이지 클리어
         StageResultPanel,    //패널 UI전체
+        TurretPresetPanel0,   //0~
+        TurretPresetPanel1,
+        TurretPresetPanel2,
+        TurretPresetPanel3,
+        TurretPresetPanel4,
+        TurretPresetPanel5,
+        TurretPresetPanel6,
+        TurretPresetPanel7,   //~7
+        TurretSelectScrollView, //터렛 선택용 터렛 리스트 스크롤
+        TurretPanel0,
+        TurretPanel1,
+        TurretPanel2,
+        TurretPanel3,
+        TurretPanel4,
+        TurretPanel5,
+        TurretPanel6,
+        TurretPanel7,
+        TurretPanel8,
+        TurretPanel9,
+        TurretPanel10,
+        TurretPanel11,
+        TurretPanel12,
+        TurretPanel13,
+        TurretPanel14,
+        TurretPanel15,
+        TurretPanel16,
+        TurretPanel17,
+        TurretPanel18,
+        TurretPanel19,
+        TurretPanel20,
+        TurretPanel21,
+        TurretPanel22,
     }
 
     enum Sliders
@@ -124,13 +189,56 @@ public class UI_StageEndPanel : UI_Controller
         RewardImage6,//~6
         StarRewardImage, //별 보상 이미지
         StageResultPanel,    //패널 UI전체
-        StageResultBackGround   //StageResultPanel 앞 패널
+        StageResultBackGround,   //StageResultPanel 앞 패널
+        TurretPresetImage0,   //터렛 프리셋 이미지 0~
+        TurretPresetImage1,
+        TurretPresetImage2,
+        TurretPresetImage3,
+        TurretPresetImage4,
+        TurretPresetImage5,
+        TurretPresetImage6,
+        TurretPresetImage7,   //~7
     }
 
     enum Buttons
     {
         ReStartButton,  //다시시작 버튼
-        ExitButton  //나가기 버튼
+        ExitButton,  //나가기 버튼
+        NextStageButton,  //다음 스테이지 버튼
+        TurretSelectLeftArrowButton,    //터렛 선택 스크롤 <버튼
+        TurretSelectRightArrowButton,    //터렛 선택 스크롤 >버튼
+        TurretPresetClearButton, //터렛 프리셋 비우기 버튼
+        TurretButton0,  //터렛리스트 0~
+        TurretButton1,
+        TurretButton2,
+        TurretButton3,
+        TurretButton4,
+        TurretButton5,
+        TurretButton6,
+        TurretButton7,
+        TurretButton8,
+        TurretButton9,
+        TurretButton10,
+        TurretButton11,
+        TurretButton12,
+        TurretButton13,
+        TurretButton14,
+        TurretButton15,
+        TurretButton16,
+        TurretButton17,
+        TurretButton18,
+        TurretButton19,
+        TurretButton20,
+        TurretButton21,
+        TurretButton22, // ~22
+        TurretRemoveButton0, //프리셋에 있는 터렛 삭제 버튼 0~
+        TurretRemoveButton1,
+        TurretRemoveButton2,
+        TurretRemoveButton3,
+        TurretRemoveButton4,
+        TurretRemoveButton5,
+        TurretRemoveButton6,
+        TurretRemoveButton7, // ~7
     }
 
     /// <summary>
@@ -149,17 +257,48 @@ public class UI_StageEndPanel : UI_Controller
         //이벤트 추가
         AddUIEvent(GetButton((int)Buttons.ReStartButton).gameObject, OnClickRestartButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.ExitButton).gameObject, OnClickExitButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.NextStageButton).gameObject, OnClickNextStageButton, Define.UIEvent.Click);
+
+        //터렛 선택패널 UI 이벤트 추가
+        AddUIEvent(GetButton((int)Buttons.TurretSelectLeftArrowButton).gameObject, OnClickTurretSelectLeftArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.TurretSelectRightArrowButton).gameObject, OnClickTurretSelectRightArrow, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.TurretPresetClearButton).gameObject, OnClickTurretPresetClearButton, Define.UIEvent.Click);
+
+        for (int i = 0; i < MAXTURRETPRESETNUM; i++)
+        {
+            //터렛 선택 해제 이벤트 초기화
+            AddUIEvent(GetButton((int)Buttons.TurretRemoveButton0 + i).gameObject, i, OnClickTurretRemoveButton, Define.UIEvent.Click);
+        }
+
+        for (int i = 0; i < MAXTURRETNUM; i++)
+        {
+            //터렛 선택 이벤트 초기화
+            AddUIEvent(GetButton((int)Buttons.TurretButton0 + i).gameObject, i, OnClickAddSelectTurret, Define.UIEvent.Click);
+
+            //터렛 선택 Cost 정보 텍스트 초기화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + i).text = SystemManager.Instance.TurretJson.GetTurretData()[i].turretCost.ToString();
+
+            //터렛 리스트 초기화
+            if (i >= SystemManager.Instance.UserInfo.maxTurretNum)
+                GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
+
+        }
+
 
         //게임오버
         if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.StageFail)
         {
             GetGameobject((int)GameObjects.StageClearText).SetActive(false);
+            GetButton((int)Buttons.NextStageButton).gameObject.SetActive(false);
         }
         else
         {
             GetGameobject((int)GameObjects.StageFailText).SetActive(false);
 
         }
+
+        //터렛 프리셋 초기화
+        ResetTurretPreset();
 
         //패널 비활성화
         GetGameobject((int)GameObjects.StageResultPanel).SetActive(false);
@@ -309,13 +448,12 @@ public class UI_StageEndPanel : UI_Controller
             if (rwm.turretReward.ContainsKey(gfm.stage)) //터렛 보상 존재할경우
             {
                 //이미 가지고 있는 터렛이 아닌경우
-                if (ui.maxTurretNum < rwm.turretReward[gfm.stage])
+                if (rwm.getNewTurret)
                 {
                     //터렛정보 업데이트
                     ui.maxTurretNum = rwm.turretReward[gfm.stage];
 
                     //패널갱신
-
                     //패널 활성화
                     GetGameobject((int)GameObjects.RewardItem6).SetActive(true);
                     //보상 이미지
@@ -323,6 +461,8 @@ public class UI_StageEndPanel : UI_Controller
                     //보상 개수
                     GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText6).text =
                         "X1";
+
+                    rwm.getNewTurret = false;
                 }
             }
 
@@ -343,22 +483,47 @@ public class UI_StageEndPanel : UI_Controller
     /// <summary>
     /// 씬 재로드하여 다시 시작 : 김현진
     /// </summary>
+    /// <param name="data">이벤트 정보</param>
     void OnClickRestartButton(PointerEventData data)
     {
-        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
+
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
     /// <summary>
     /// 로비씬으로 돌아가기 : 김현진
     /// </summary>
-    /// <param name="data"></param>
+    /// <param name="data">이벤트 정보</param>
     void OnClickExitButton(PointerEventData data)
     {
-        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
+
+        //씬 이동
+        SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
+    }
+
+    /// <summary>
+    /// 다음 스테이지로 이동 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickNextStageButton(PointerEventData data)
+    {
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
+
+        //예외처리
+        if (SystemManager.Instance.UserInfo.maxStageNum < SystemManager.Instance.GameFlowManager.stage + 1)
+            return;
+
+        //유저정보 갱신
+        SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage + 1;
+        save.SaveUserInfo();
+
+        //씬 이동
+        SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
     /// <summary>
@@ -376,5 +541,115 @@ public class UI_StageEndPanel : UI_Controller
         //패널 정보 업데이트
         UpdateStageEndPanel();
     }
+
+
+    #region 터렛 선택
+    /// <summary>
+    /// 터렛 선택 스크롤 오른쪽 끝으로 이동 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTurretSelectRightArrow(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.TurretSelectScrollView).GetComponent<ScrollRect>().normalizedPosition = new Vector2(1, 0);
+    }
+
+    /// <summary>
+    /// 터렛 선택 스크롤 왼쪽 끝으로 이동 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTurretSelectLeftArrow(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.TurretSelectScrollView).GetComponent<ScrollRect>().normalizedPosition = new Vector2(0, 0);
+    }
+
+    /// <summary>
+    /// 터렛 프리셋을 초기화 : 김현진
+    /// </summary>
+    void ResetTurretPreset()
+    {
+        //리스트 오름차순 갱신
+        if (SystemManager.Instance.UserInfo.turretPreset.Count > 1)
+            SystemManager.Instance.UserInfo.turretPreset.Sort();
+
+        //텍스트 갱신
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetCountText).text = SystemManager.Instance.UserInfo.turretPreset.Count + "/8";
+
+        //터렛 프리셋 초기화
+        for (int i = 0; i < MAXTURRETPRESETNUM; i++)
+        {
+            //패널 비활성화
+            GetGameobject((int)GameObjects.TurretPresetPanel0 + i).SetActive(false);
+        }
+
+        //터렛 프리셋 갱신
+        for (int i = 0; i < SystemManager.Instance.UserInfo.turretPreset.Count; i++)
+        {
+            //패널 활성화
+            GetGameobject((int)GameObjects.TurretPresetPanel0 + i).SetActive(true);
+
+            //이미지갱신
+            GetImage((int)Images.TurretPresetImage0 + i).sprite = turretSprite[SystemManager.Instance.UserInfo.turretPreset[i]];
+
+            //텍스트갱신
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetText0 + i).text =
+                SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost.ToString();
+        }
+
+        // userinfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
+    }
+
+    /// <summary>
+    /// 터렛 프리셋에 선택한 터렛을 추가 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    /// <param name="idx">추가할 터렛 인덱스</param>
+    void OnClickAddSelectTurret(PointerEventData data, int idx)
+    {
+        if (SystemManager.Instance.UserInfo.turretPreset.Count >= 8)
+            return;
+
+        if (!SystemManager.Instance.UserInfo.turretPreset.Contains(idx) && idx >= 0)
+            SystemManager.Instance.UserInfo.turretPreset.Add(idx);
+
+        //터렛 프리셋 갱신
+        ResetTurretPreset();
+    }
+
+    /// <summary>
+    /// 터렛 프리셋에서 터렛을 삭제 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    /// <param name="idx">삭제할 터렛 인덱스</param>
+    void OnClickTurretRemoveButton(PointerEventData data, int idx)
+    {
+        //1개만 남았을때 삭제 불가
+        if (SystemManager.Instance.UserInfo.turretPreset.Count <= 1)
+            return;
+
+        //해당 인덱스 터렛 삭제
+        if (idx >= 0)
+            SystemManager.Instance.UserInfo.turretPreset.RemoveAt(idx);
+
+        //터렛 프리셋 갱신
+        ResetTurretPreset();
+    }
+
+    /// <summary>
+    /// 터렛 프리셋 목록 모두 삭제 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTurretPresetClearButton(PointerEventData data)
+    {
+        if (SystemManager.Instance.UserInfo.turretPreset.Count > 1)
+        {
+            SystemManager.Instance.UserInfo.turretPreset.RemoveRange(1, SystemManager.Instance.UserInfo.turretPreset.Count - 1);
+        }
+
+        //터렛 프리셋 갱신
+        ResetTurretPreset();
+    }
+    #endregion
 
 }
