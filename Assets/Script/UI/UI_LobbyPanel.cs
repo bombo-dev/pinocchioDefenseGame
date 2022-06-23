@@ -513,7 +513,10 @@ public class UI_LobbyPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickTurretPresetClearButton(PointerEventData data)
     {
-        SystemManager.Instance.UserInfo.turretPreset.Clear();
+        if (SystemManager.Instance.UserInfo.turretPreset.Count > 1)
+        {
+            SystemManager.Instance.UserInfo.turretPreset.RemoveRange(1, SystemManager.Instance.UserInfo.turretPreset.Count - 1);
+        }
 
         //터렛 프리셋 갱신
         ResetTurretPreset();

@@ -9,7 +9,9 @@ public class UI_ResourcePanel : UI_Controller
 
     enum TextMeshProUGUIs
     {
-        woodResourceText
+        woodResourceText,
+        StageNumText,
+        StageStartText
     }
 
     /// <summary>
@@ -20,6 +22,13 @@ public class UI_ResourcePanel : UI_Controller
         base.BindingUI();
 
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+
+        //스테이지 정보 갱신
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = "Stage " +
+            SystemManager.Instance.GameFlowManager.stage.ToString();
+
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.StageStartText).text = "Stage " +
+           SystemManager.Instance.GameFlowManager.stage.ToString();
 
         //나무 자원 UI 초기화
         UpdateWoodResource();
