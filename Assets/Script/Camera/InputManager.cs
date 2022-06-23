@@ -19,7 +19,13 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TouchObject();
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                TouchObject();
+        }
+        else 
+            TouchObject();
     }
 
     /// <summary>
@@ -27,28 +33,25 @@ public class InputManager : MonoBehaviour
     /// </summary>
     void TouchObject()
     {
-        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
+                Debug.Log("터치");
+
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Physics.Raycast(ray, out hit);
+
+                if (hit.collider != null)
                 {
-                    Debug.Log("터치");
-
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    Physics.Raycast(ray, out hit);
-
-                    if (hit.collider != null)
-                    {
-                        //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
-                        SelectNest(hit.transform.gameObject);
-                    }
-
+                    //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
+                    SelectNest(hit.transform.gameObject);
                 }
+
             }
         }
-        
+
         /*
         if (Input.GetMouseButtonUp(0))
         {
