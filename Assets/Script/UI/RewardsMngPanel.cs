@@ -60,13 +60,14 @@ public class RewardsMngPanel : UI_Controller
         // 자원을 증가시킬지 감소시킬지 판별
         if (identity >= 0)
         {
+            Debug.Log("-------------------------------------------------------------");
             gold.text = "+" + value.ToString();
-            gold.color = new Color(1, 0, 0, alpaValue);
+            gold.color = new Color(243 / 255f, 120 / 255f, 120 / 255f, alpaValue);
         }
         else
         {
             gold.text = "-" + value.ToString();
-            gold.color = new Color(0, 1, 0, alpaValue);
+            gold.color = new Color(1, 1, 1, alpaValue);
         }
 
             goldText.SetActive(true);
@@ -97,9 +98,9 @@ public class RewardsMngPanel : UI_Controller
             // 알파값을 줄여 점점 투명하게 설정
             alpaValue -= 0.02f;
             if(identity > 0)
-                gold.color = new Color(0, 1, 0, alpaValue);
+                gold.color = new Color(1, 1, 1, alpaValue);
             else
-                gold.color = new Color(1, 0, 0, alpaValue);
+                gold.color = new Color(243 / 255f, 120 / 255f, 120 / 255f, alpaValue);
 
             yield return new WaitForSeconds(0.01f);
         }
