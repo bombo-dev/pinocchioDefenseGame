@@ -225,40 +225,68 @@ public class SaveLoad
     // Mobile에서 Save 하는 경우
     public void MobileSave()
     {
+        Debug.Log("Mobile에서 UserInfo Save가 작동했습니다.");
         // streamingAsset에 파일 있는지 확인 
-        if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
+        if (!File.Exists(Application.persistentDataPath + "UserInfo.Json"))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
             string json = JsonUtility.ToJson(saveData);
 
-            // 기존 streamingAssets에 저장
-            File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
+            Debug.Log("1번 여기까지는 실행 됐음");
+            Debug.Log("1번 : " + json);
 
+            /*
+             * 이게 안되더라구요? 아예 쓰질못하네? 컴퓨터만 여기다 쓸 수 있나봐요
+            // 기존 streamingAssets에 저장
+            // File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
+            */
+
+            /*
+             * 그럼 이것도 필요가 없음
+            Debug.Log("2번 여기까지 실행 됐음.");
+            Debug.Log("2번 : " + File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")));
             #pragma warning disable 612, 618
             WWW reader = new WWW(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
             while (!reader.isDone) { }
+            
+
+            Debug.Log("3번 여기까지 실행 됐음.");
+            */
 
             // 모바일 저장 공간에 따로 저장
             string realPath = Application.persistentDataPath + "UserInfo.Json";
-            File.WriteAllBytes(realPath, reader.bytes);
+            File.WriteAllText(realPath, json);
 
-            
+            Debug.Log("4번 여기까지 실행 됐음.");
+            Debug.Log(File.Exists(Application.persistentDataPath + "UserInfo.Json"));
+
+            Debug.Log("5번 실행");
+            Debug.Log("5번입니다. " + File.ReadAllText(Application.persistentDataPath + "UserInfo.Json"));
+
         }
         else
         {
+            Debug.Log("PersistentDataPath에 파일이 있었음.");
             saveData = SaveUserInfoInitial(saveData);
             string json = JsonUtility.ToJson(saveData);
 
+            Debug.Log("모바일 saveData를 초기화했음");
+
+            /* 
+             * 무 쓸모
             // 기존 streamingAssets에 저장
             File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.json"), json);
 
             #pragma warning disable 612, 618
             WWW reader = new WWW(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
             while (!reader.isDone) { }
+            */
 
             // 모바일 저장 공간에 따로 저장
             string realPath = Application.persistentDataPath + "UserInfo.Json";
-            File.WriteAllBytes(realPath, reader.bytes);
+            File.WriteAllText(realPath, json);
+
+            Debug.Log("모바일 persistentDataPath에 따로 저장 완료했음");
         }
     }
 
@@ -289,18 +317,24 @@ public class SaveLoad
     // Mobile에서 Load하는 경우
     public void MobileLoad()
     {
-        Debug.Log("Userinfo를 로드했습니다.");
-        if (!File.Exists(Path.Combine(Application.persistentDataPath, "UserInfo.Json")))
+        Debug.Log("모바일에서 Userinfo를 로드했습니다.");
+        Debug.Log(File.Exists(Application.persistentDataPath + "UserInfo.Json"));
+
+        if (!File.Exists(Application.persistentDataPath + "UserInfo.Json"))
         {
+            Debug.Log("1번 IF문 실행");
             SaveUserInfo();
-            Debug.Log("파일이 없어, Userinfo를 생성하고 초기화합니다.");
+            Debug.Log("2번 파일이 없어, Userinfo를 생성하고 초기화합니다.");
             Debug.Log("UserInfo: isBgSound" + saveData.isBgSound);
         }
 
         else
         {
-            string data = File.ReadAllText(Path.Combine(Application.persistentDataPath, "UserInfo.Json"));
+            Debug.Log("2번 IF문 실행");
+            string data = File.ReadAllText(Application.persistentDataPath+ "UserInfo.Json");
             saveData = JsonUtility.FromJson<SaveData>(data);
+
+            Debug.Log("2번 IF문의 -1번까지 성공");
 
             Debug.Log("데이터가 존재했고, 이전 데이터로 초기화하여 불러옵니다.");
 
