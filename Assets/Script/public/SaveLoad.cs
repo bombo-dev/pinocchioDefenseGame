@@ -225,52 +225,35 @@ public class SaveLoad
     // Mobile에서 Save 하는 경우
     public void MobileSave()
     {
-        // streamingAsset에 파일 있는지 확인 
-        if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
+        Debug.Log("모바일에서 Userinfo를 세이브했습니다.");
+
+        if (!File.Exists(Application.persistentDataPath + "UserInfo.Json"))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
             string json = JsonUtility.ToJson(saveData);
 
-            // 기존 streamingAssets에 저장
-            File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
-
-            #pragma warning disable 612, 618
-            WWW reader = new WWW(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
-            while (!reader.isDone) { }
-
-            // 모바일 저장 공간에 따로 저장
             string realPath = Application.persistentDataPath + "UserInfo.Json";
-            File.WriteAllBytes(realPath, reader.bytes);
+            File.WriteAllText(realPath, json);
 
-            
         }
         else
         {
             saveData = SaveUserInfoInitial(saveData);
             string json = JsonUtility.ToJson(saveData);
 
-            // 기존 streamingAssets에 저장
-            File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.json"), json);
-
-            #pragma warning disable 612, 618
-            WWW reader = new WWW(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
-            while (!reader.isDone) { }
-
             // 모바일 저장 공간에 따로 저장
             string realPath = Application.persistentDataPath + "UserInfo.Json";
-            File.WriteAllBytes(realPath, reader.bytes);
+            File.WriteAllText(realPath, json);
         }
     }
 
     // PC에서 Load 하는 경우
     public void PCLoad()
     {
-        Debug.Log("Userinfo를 로드했습니다.");
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
         {
             SaveUserInfo();
-            Debug.Log("파일이 없어, Userinfo를 생성하고 초기화합니다.");
-            Debug.Log("UserInfo: isBgSound" + saveData.isBgSound);
+
         }
 
         else
@@ -278,35 +261,26 @@ public class SaveLoad
             string data = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
             saveData = JsonUtility.FromJson<SaveData>(data);
 
-            Debug.Log("데이터가 존재했고, 이전 데이터로 초기화하여 불러옵니다.");
-
             LoadUserInfoInitial(saveData);
-
-            Debug.Log("UserInfo : isBgSound" + SystemManager.Instance.UserInfo.isBgSound);
         }
     }
 
     // Mobile에서 Load하는 경우
     public void MobileLoad()
     {
-        Debug.Log("Userinfo를 로드했습니다.");
-        if (!File.Exists(Path.Combine(Application.persistentDataPath, "UserInfo.Json")))
+        Debug.Log("모바일에서 Userinfo를 로드했습니다.");
+
+        if (!File.Exists(Application.persistentDataPath + "UserInfo.Json"))
         {
             SaveUserInfo();
-            Debug.Log("파일이 없어, Userinfo를 생성하고 초기화합니다.");
-            Debug.Log("UserInfo: isBgSound" + saveData.isBgSound);
         }
 
         else
         {
-            string data = File.ReadAllText(Path.Combine(Application.persistentDataPath, "UserInfo.Json"));
+            string data = File.ReadAllText(Application.persistentDataPath+ "UserInfo.Json");
             saveData = JsonUtility.FromJson<SaveData>(data);
 
-            Debug.Log("데이터가 존재했고, 이전 데이터로 초기화하여 불러옵니다.");
-
             LoadUserInfoInitial(saveData);
-
-            Debug.Log("UserInfo : isBgSound" + SystemManager.Instance.UserInfo.isBgSound);
         }
     }
 
