@@ -27,9 +27,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     void TouchObject()
     {
-        Debug.Log(!EventSystem.current.IsPointerOverGameObject());
-
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
         {
             if (Input.GetMouseButtonDown(0))
             {
