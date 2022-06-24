@@ -33,6 +33,8 @@ public class ColosseumCameraMove : MonoBehaviour
 
     public bool isMapClick;    // UI가 아닌 맵(게임 화면)을 클릭한 경우
 
+    bool dontMove = false;    // 줌하는동안 한 손가락을 뗀 경우 카메라 이동 방지 플래그
+
     //디버그 테스트
     [SerializeField]
     Text test;
@@ -46,6 +48,10 @@ public class ColosseumCameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 입력이 없을 때
+        if (Input.touchCount == 0)
+            dontMove = false;
+
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -75,9 +81,6 @@ public class ColosseumCameraMove : MonoBehaviour
         else
             zoomValue = 0;
 
-
-        Debug.Log("zoomValue= " + zoomValue);
-
         return zoomValue;
 
     }
@@ -89,10 +92,8 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void UpdateInputAtAnd()
     {
-  
-        
         // 화면에 접촉된 손가락의 개수가 1개이면
-        if (Input.touchCount == 1 )
+        if (Input.touchCount == 1 && dontMove == false)
         {
             // MoveAndCam();
             
@@ -160,9 +161,10 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void ZoomAndCam()
     {
-        Touch fstTouch = Input.GetTouch(0); // 첫 번째 터치 정보
-        Touch scdTouch = Input.GetTouch(1); // 두 번째 터치 정보
 
+        Touch fstTouch = Input.GetTouch(0); // 첫 번째 터치 정보
+        Touch scdTouch = Input.GetTouch(1); // 두 번째 터치 정보                        
+        
         // 현재 화면에 접촉된 두 손가락 사이의 거리
         curDistance = (fstTouch.position - scdTouch.position).magnitude;
 
@@ -172,21 +174,27 @@ public class ColosseumCameraMove : MonoBehaviour
         // 화면을 줌 시킬 크기 구하기
         moveDistance = curDistance - preDistance;
 
-
         //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
         if (Camera.main.fieldOfView - 0.1f * moveDistance < 20 || Camera.main.fieldOfView - 0.1f * moveDistance > 80)
         {
+
+            if (Input.touchCount == 2)
+            {
+                dontMove = true;
+            }
+
             zoomValue = ControllZoom(moveDistance);
             Camera.main.fieldOfView = zoomValue;
         }
         else
-        {// 카메라를 줌인, 줌아웃 
+        { // 카메라를 줌인, 줌아웃 
+            if (Input.touchCount == 2)
+            {
+                dontMove = true;
+            }
             Camera.main.fieldOfView -= 0.1f * moveDistance;
         }
         
-
-
-
 
     }
 
