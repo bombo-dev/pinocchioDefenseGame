@@ -27,10 +27,6 @@ public class ColosseumCameraMove : MonoBehaviour
     Vector2 curPos, prePos;
     Vector3 movePos;
 
-    Vector2?[] touchPrePos = { null, null };
-    Vector2 touchPreVec;
-    float touchPreDist;
-
     float preDistance, curDistance, moveDistance;   // 화면 줌을 위한 변수
 
     public bool isMouseButtonOver;     // 마우스(터치)가 UI 위에 있는 경우 
@@ -50,7 +46,6 @@ public class ColosseumCameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Application.platform == RuntimePlatform.Android)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -70,17 +65,21 @@ public class ColosseumCameraMove : MonoBehaviour
     /// <summary>
     /// 일정한 값 이상으로 줌인, 줌아웃되지 않도록 조절 : 하은비
     /// </summary>
-    bool ControllZoom()
+    float ControllZoom(float moveDist)
     {
-        if (Camera.main.fieldOfView < 20 || Camera.main.fieldOfView > 80)
-        {
-            if (Camera.main.fieldOfView < 20)
-                zoomValue = 20;
-            else
-                zoomValue = 80;
-            return true;
-        }
-        return false;
+
+        if (Camera.main.fieldOfView - moveDist < 20)
+            zoomValue = 20;
+        else if (Camera.main.fieldOfView - moveDist > 80)
+            zoomValue = 80;
+        else
+            zoomValue = 0;
+
+
+        Debug.Log("zoomValue= " + zoomValue);
+
+        return zoomValue;
+
     }
 
     #region Android
@@ -163,23 +162,30 @@ public class ColosseumCameraMove : MonoBehaviour
     {
         Touch fstTouch = Input.GetTouch(0); // 첫 번째 터치 정보
         Touch scdTouch = Input.GetTouch(1); // 두 번째 터치 정보
-        
+
         // 현재 화면에 접촉된 두 손가락 사이의 거리
         curDistance = (fstTouch.position - scdTouch.position).magnitude;
 
         // 화면에 처음 접촉했을 때의 두 손가락 사이의 거리
-        preDistance = ((fstTouch.position - fstTouch.deltaPosition) - (scdTouch.position- scdTouch.deltaPosition)).magnitude;
-        
+        preDistance = ((fstTouch.position - fstTouch.deltaPosition) - (scdTouch.position - scdTouch.deltaPosition)).magnitude;
+
         // 화면을 줌 시킬 크기 구하기
         moveDistance = curDistance - preDistance;
 
+
         //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
-        if (ControllZoom())
+        if (Camera.main.fieldOfView - 0.1f * moveDistance < 20 || Camera.main.fieldOfView - 0.1f * moveDistance > 80)
+        {
+            zoomValue = ControllZoom(moveDistance);
             Camera.main.fieldOfView = zoomValue;
+        }
+        else
+        {// 카메라를 줌인, 줌아웃 
+            Camera.main.fieldOfView -= 0.1f * moveDistance;
+        }
+        
 
-        //  카메라를 줌인, 줌아웃
 
-            Camera.main.fieldOfView -= 0.3f * moveDistance;
 
 
     }
@@ -268,12 +274,17 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void ZoomWinCam()
     {
-        //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
-        if(ControllZoom())
-            Camera.main.fieldOfView = zoomValue;
+        // 줌 시킬 거리 구하기
+        float moveDistance = Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;
 
-        // 카메라 줌인
-        Camera.main.fieldOfView -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;        
+        //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
+        if (Camera.main.fieldOfView - moveDistance < 20 || Camera.main.fieldOfView - moveDistance > 80)
+        {
+            float zoomValue = ControllZoom(moveDistance);
+            Camera.main.fieldOfView = zoomValue;
+        }
+        else // 카메라 줌인
+            Camera.main.fieldOfView -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;
     }
 
 
