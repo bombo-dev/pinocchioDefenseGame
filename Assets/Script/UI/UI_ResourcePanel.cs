@@ -42,8 +42,8 @@ public class UI_ResourcePanel : UI_Controller
 
 
         //스테이지 이미지 변경
-        if((SystemManager.Instance.GameFlowManager.stage / 10 + 1) < stageSprite.Length)
-            GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10 + 1];
+        if((SystemManager.Instance.GameFlowManager.stage / 10) < stageSprite.Length)
+            GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10];
 
         //나무 자원 UI 초기화
         UpdateWoodResource();

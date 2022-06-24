@@ -205,7 +205,7 @@ public class UI_TurretInfoPanel : UI_Controller
         //방어력 텍스트 정보 갱신
         GetTextMeshProUGUI((int)TextMeshProUGUIs.DefensePointText).text = turret.currentDefense.ToString();
         //사거리 텍스트 정보 갱신
-        GetTextMeshProUGUI((int)TextMeshProUGUIs.RangePointText).text = turret.currentRange.ToString();
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.RangePointText).text = (turret.currentRange / 10).ToString();
         //회복력 텍스트 정보 갱신
         GetTextMeshProUGUI((int)TextMeshProUGUIs.RegenerationPointText).text = turret.currentRegeneration.ToString();
         //최대타겟 텍스트 정보 갱신
