@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_ResourcePanel : UI_Controller
 {
     public string filePath;
+
+    [SerializeField]
+    Sprite[] stageSprite;
 
     enum TextMeshProUGUIs
     {
         woodResourceText,
         StageNumText,
         StageStartText
+    }
+
+    enum Images
+    {
+        StageStartImage
     }
 
     /// <summary>
@@ -22,6 +31,7 @@ public class UI_ResourcePanel : UI_Controller
         base.BindingUI();
 
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
+        Bind<Image>(typeof(Images));
 
         //스테이지 정보 갱신
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = "Stage " +
@@ -29,6 +39,11 @@ public class UI_ResourcePanel : UI_Controller
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageStartText).text = "Stage " +
            SystemManager.Instance.GameFlowManager.stage.ToString();
+
+
+        //스테이지 이미지 변경
+        if((SystemManager.Instance.GameFlowManager.stage / 10 + 1) < stageSprite.Length)
+            GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10 + 1];
 
         //나무 자원 UI 초기화
         UpdateWoodResource();
