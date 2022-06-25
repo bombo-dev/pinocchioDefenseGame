@@ -56,7 +56,7 @@ public class ResourceManager : MonoBehaviour
 
     private void Update()
     {
-        if ((int)SystemManager.Instance.GameFlowManager.gameState <= (int)GameFlowManager.GameState.Defense)
+        if ((int)SystemManager.Instance.GameFlowManager.gameState == (int)GameFlowManager.GameState.Defense)
         {
             //일정 시간 마다 자동으로 쌓이는 나무자원, 
             IncreaseWoodResoruce_Auto();

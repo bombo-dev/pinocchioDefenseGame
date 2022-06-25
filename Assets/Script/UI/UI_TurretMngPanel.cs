@@ -306,7 +306,8 @@ public class UI_TurretMngPanel : UI_Controller
     public void UpdateWoodResource()
     {
         //현재 나무 자원을 받아와 텍스트값을 변경
-        GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText).text = SystemManager.Instance.ResourceManager.woodResource.ToString();
+        if(GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText))
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText).text = SystemManager.Instance.ResourceManager.woodResource.ToString();
     }
 
 }

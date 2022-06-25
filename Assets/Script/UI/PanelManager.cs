@@ -69,7 +69,7 @@ public class PanelManager : MonoBehaviour
     /// <summary>
     /// 게임 시작 부터 바로 나타나 있는 고정된 패널 생성 : 김현진
     /// </summary>
-    void EnableFixedPanel(int sceneIndex)
+    public void EnableFixedPanel(int sceneIndex)
     {
         switch (sceneIndex)
         {
@@ -86,26 +86,31 @@ public class PanelManager : MonoBehaviour
                 break;
             //게임씬
             case 2:
-                //터렛 소환 패널
-                EnablePanel<UI_TurretMngPanel>(0);
+                if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.Start)
+                {
+                    //자원표시 패널
+                    EnablePanel<UI_ResourcePanel>(4);
 
-                //소환되어있는 터렛 정보 패널
-                EnablePanel<UI_TurretInfoPanel>(1);
-                if (turretInfoPanel)
-                    turretInfoPanel.Reset();
+                    //게임옵션 패널
+                    EnablePanel<UI_OptionPanel>(7);
 
-                //자원표시 패널
-                EnablePanel<UI_ResourcePanel>(4);
+                    //옵션 팝업 패널
+                    EnablePanel<UI_OptionPopUpPanel>(11);
 
-                //게임옵션 패널
-                EnablePanel<UI_OptionPanel>(7);
+                    //튜토리얼 패널
+                    if (SystemManager.Instance.UserInfo.selectedStageNum == 0)
+                        EnablePanel<UI_TutorialPanel>(13);
+                }
+                else if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.Defense)
+                {
+                    //터렛 소환 패널
+                    EnablePanel<UI_TurretMngPanel>(0);
 
-                //옵션 팝업 패널
-                EnablePanel<UI_OptionPopUpPanel>(11);
-
-                //튜토리얼 패널
-                if (SystemManager.Instance.UserInfo.selectedStageNum == 0)
-                    EnablePanel<UI_TutorialPanel>(13);
+                    //소환되어있는 터렛 정보 패널
+                    EnablePanel<UI_TurretInfoPanel>(1);
+                    if (turretInfoPanel)
+                        turretInfoPanel.Reset();
+                }     
                 break;
         }
     }
