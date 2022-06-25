@@ -47,6 +47,10 @@ public class InputManager : MonoBehaviour
                 {
                     //터렛을 소환하거나 터렛 정보를 확인할 둥지 오브젝트 선택
                     SelectNest(hit.transform.gameObject);
+
+                    //사거리 표시
+                    if (currenstSelectNest)
+                        ShowRange();
                 }
 
             }
@@ -128,5 +132,37 @@ public class InputManager : MonoBehaviour
             SystemManager.Instance.ShaderController.ChangeOutLineOption(rendererList, 0);
         }
        
+    }
+
+    //사거리 보여주기
+    public void ShowRange()
+    {
+        //예외처리
+        if (!SystemManager.Instance.RangeManager.rangeParents)
+        {
+            SystemManager.Instance.RangeManager.DisableRange(0);
+            return;
+        }
+
+        Nest nest = currenstSelectNest.GetComponent<Nest>();
+
+        //예외처리
+        if (!nest || !nest.turret)
+        {
+            SystemManager.Instance.RangeManager.DisableRange(0);
+            return;
+        }
+
+        Turret turret = nest.turret.GetComponent<Turret>();
+
+        //예외처리
+        if (!turret)
+        {
+            SystemManager.Instance.RangeManager.DisableRange(0);
+            return;
+        }
+
+        //사거리 표시
+        SystemManager.Instance.RangeManager.EnableRange(0, turret.currentRange, nest.transform.position);
     }
 }

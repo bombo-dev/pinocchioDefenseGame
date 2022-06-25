@@ -281,6 +281,10 @@ public class UI_TurretInfoPanel : UI_Controller
 
         Reset();
 
+        //사거리 표시정보 업데이트
+        if (SystemManager.Instance.InputManager.currenstSelectNest)
+            SystemManager.Instance.InputManager.ShowRange();
+
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
     }

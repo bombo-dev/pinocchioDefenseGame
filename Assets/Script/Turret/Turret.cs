@@ -94,6 +94,12 @@ public class Turret : Actor
        // TurretInitializing();
         Reset();
 
+        //베이스터렛 HP 초기화 :  100 + (stage * 30)
+        if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
+        {
+            maxHP = maxHP + (SystemManager.Instance.GameFlowManager.stage * 40);
+            currentHP = maxHP;
+        }
     }
 
     /// <summary>
@@ -312,6 +318,8 @@ public class Turret : Actor
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
 
+                //사거리 표시 삭제
+                SystemManager.Instance.RangeManager.DisableRange(0);
             }
             nest = null;
 

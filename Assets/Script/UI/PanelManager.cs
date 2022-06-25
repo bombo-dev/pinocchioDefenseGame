@@ -35,6 +35,7 @@ public class PanelManager : MonoBehaviour
     public RewardsMngPanel rewardsMngPanel;
     public UI_StageEndPanel stageEndPanel;
     public UI_OptionPopUpPanel optionPopUpPanel;
+    public UI_TutorialPanel tutorialPanel;
 
 
     [SerializeField]
@@ -102,6 +103,9 @@ public class PanelManager : MonoBehaviour
                 //옵션 팝업 패널
                 EnablePanel<UI_OptionPopUpPanel>(11);
 
+                //튜토리얼 패널
+                if (SystemManager.Instance.UserInfo.selectedStageNum == 0)
+                    EnablePanel<UI_TutorialPanel>(13);
                 break;
         }
     }
@@ -195,7 +199,7 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(StatusMngPanel))
         {
             statusMngPanel = (compoenent as StatusMngPanel);
-            
+
             Vector3 panelPos;
             if (_gameobject.tag == "Enemy")
             {
@@ -206,7 +210,7 @@ public class PanelManager : MonoBehaviour
 
                 statusMngPanel.randPos = randNum.Next(0, 10);
                 Debug.Log("난수 생성=" + statusMngPanel.randPos);
-                panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + statusMngPanel.randPos, enemy.hpPos.transform.position.z);           
+                panelPos = new Vector3(enemy.hpPos.transform.position.x, enemy.hpPos.transform.position.y + statusMngPanel.randPos, enemy.hpPos.transform.position.z);
 
             }
             else if (_gameobject.tag == "Turret")
@@ -256,7 +260,7 @@ public class PanelManager : MonoBehaviour
                 enemy = _gameobject.GetComponent<Enemy>();
                 panelPos = new Vector3(enemy.hitPos.transform.position.x + damageMngPanel.randPosX,
                                                       enemy.hitPos.transform.position.y + damageMngPanel.randPosY,
-                                                      enemy.hitPos.transform.position.z);                                                      ;
+                                                      enemy.hitPos.transform.position.z); ;
             }
             else if (_gameobject.tag == "Turret")
             {
@@ -282,11 +286,15 @@ public class PanelManager : MonoBehaviour
             screenPos = Camera.main.WorldToScreenPoint(panelPos);
             go.transform.position = screenPos;
 
-            
+
+        }
+        else if (typeof(T) == typeof(UI_TutorialPanel))
+        {
+            tutorialPanel = (compoenent as UI_TutorialPanel);
         }
 
 
-        return go;
+            return go;
     }
 
 

@@ -1769,14 +1769,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorWoodResource: 000000000000000000000000000000000000000000000000
-  maxStageNum: 1
-  selectedStageNum: 1
+  maxStageNum: 10
+  selectedStageNum: 10
   stageStarList:
   - stageNum: 0
     starNum: 3
   - stageNum: 1
     starNum: 0
-  maxTurretNum: 1
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  - stageNum: 1
+    starNum: 0
+  maxTurretNum: 7
   turretPreset: 00000000
   bgSoundVolume: 0.15
   isBgSound: 0
@@ -2323,6 +2341,7 @@ MonoBehaviour:
   enemyJson: {fileID: 0}
   turretJson: {fileID: 0}
   rewardManager: {fileID: 0}
+  rangeManager: {fileID: 0}
   userInfo: {fileID: 0}
   loadingSceneManager: {fileID: 0}
 --- !u!4 &1567078146

@@ -170,6 +170,16 @@ public class SystemManager : MonoBehaviour
     }
 
     [SerializeField]
+    RangeManager rangeManager;
+    public RangeManager RangeManager
+    {
+        get
+        {
+            return rangeManager;
+        }
+    }
+
+    [SerializeField]
     UserInfo userInfo;
     public UserInfo UserInfo
     {
@@ -248,5 +258,7 @@ public class SystemManager : MonoBehaviour
             gateJson = GameObject.FindObjectOfType<GateJson>();
         if (GameObject.FindObjectOfType<LoadingSceneManager>())
             loadingSceneManager = GameObject.FindObjectOfType<LoadingSceneManager>();
+        if (GameObject.FindObjectOfType<RangeManager>())
+            rangeManager = GameObject.FindObjectOfType<RangeManager>();
     }
 }

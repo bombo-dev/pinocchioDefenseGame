@@ -95,6 +95,13 @@ public class ConstructionTurret : MonoBehaviour
             if (SystemManager.Instance.PanelManager.turretInfoPanel)
                 SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
 
+            //사거리표시
+            if (SystemManager.Instance.InputManager.currenstSelectNest.GetComponent<Nest>().gameObject == nest.gameObject)
+            {
+                Debug.Log("유유");
+                SystemManager.Instance.InputManager.ShowRange();
+            }
+
             //공사용 터렛 제거
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }
