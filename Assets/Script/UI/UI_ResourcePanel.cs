@@ -60,8 +60,9 @@ public class UI_ResourcePanel : UI_Controller
                SystemManager.Instance.GameFlowManager.stage.ToString();
 
             //스테이지 이미지 변경
-            if ((SystemManager.Instance.GameFlowManager.stage / 10) < stageSprite.Length)
-                GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10];
+            if(SystemManager.Instance.GameFlowManager.stage > 0)
+                if (((SystemManager.Instance.GameFlowManager.stage - 1) / 10) < stageSprite.Length)
+                    GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10];
 
             //디펜스 시작 코루틴 호출
             StartCoroutine("StartDefense");

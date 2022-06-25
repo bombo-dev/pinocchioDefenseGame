@@ -95,6 +95,9 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //옵션패널 팝업
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(true);
+
+        //UI가장 앞으로
+        this.transform.SetAsLastSibling();
     }
 
     /// <summary>

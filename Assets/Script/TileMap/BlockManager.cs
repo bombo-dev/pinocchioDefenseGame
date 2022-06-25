@@ -23,10 +23,30 @@ public class BlockManager : MonoBehaviour
     [SerializeField]
     GameObject testGo;
 
+    [SerializeField]
+    GameObject[] field;
+
+    public GameObject[] tutorialNest;
+
     // Start is called before the first frame update
     void Start()
     {
         PrepareData();
+
+        EnableField();
+    }
+
+    /// <summary>
+    /// 스테이지에 맞는 맵 활성화 : 김현진
+    /// </summary>
+    void EnableField()
+    {
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        if (userInfo.selectedStageNum == 0)//튜토리얼
+            field[0].SetActive(true);
+        else
+            field[1].SetActive(true);
     }
 
     /// <summary>

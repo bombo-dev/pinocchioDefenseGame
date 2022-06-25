@@ -37,15 +37,29 @@ public class RewardManager : MonoBehaviour
         SetTurretRewardInfo();
 
         //랜덤 WoodReward세팅
-        for (int i = 0; i < gfm.stage; i++)
-        {
-            //0~4번 나무는 스테이지 수만큼 랜덤 보상
-            colorWoodReward[Random.Range(0, 5)]++;
 
-            //10%확률로 추가보상
-            if (Random.Range(0, 10) == 1)
-                colorWoodReward[5]++;
+        //튜토리얼 첫 클리어 보상
+        if (gfm.stage == 0)
+        {
+            colorWoodReward[0] = 1;
+            colorWoodReward[1] = 1;
+            colorWoodReward[2] = 1;
+            colorWoodReward[3] = 1;
+            colorWoodReward[4] = 1;
         }
+        else
+        {
+            for (int i = 0; i < gfm.stage; i++)
+            {
+                //0~4번 나무는 스테이지 수만큼 랜덤 보상
+                colorWoodReward[Random.Range(0, 5)]++;
+
+                //10%확률로 추가보상
+                if (Random.Range(0, 10) == 1)
+                    colorWoodReward[5]++;
+            }
+        }
+        
 
         //이미 클리어한 스테이지일 경우 보상 3/1
         UserInfo userInfo = SystemManager.Instance.UserInfo;
@@ -54,15 +68,27 @@ public class RewardManager : MonoBehaviour
             return;
          
         //이미 클리어한 스테이지일 경우
-        if (gfm.stage > userInfo.maxStageNum)
+        if (gfm.stage < userInfo.maxStageNum)
         {
-            for (int i = 0; i < colorWoodReward.Length; i++)
+            if (gfm.stage == 0) //튜토리얼
             {
-                if (colorWoodReward[i] > 2)
-                    colorWoodReward[i] = colorWoodReward[i] / 3;
-                else if (colorWoodReward[i] == 2)
-                    colorWoodReward[i] = 1;
+                colorWoodReward[0] = 0;
+                colorWoodReward[1] = 0;
+                colorWoodReward[2] = 0;
+                colorWoodReward[3] = 0;
+                colorWoodReward[4] = 0;
             }
+            else
+            {
+                for (int i = 0; i < colorWoodReward.Length; i++)
+                {
+                    if (colorWoodReward[i] > 2)
+                        colorWoodReward[i] = colorWoodReward[i] / 3;
+                    else if (colorWoodReward[i] == 2)
+                        colorWoodReward[i] = 1;
+                }
+            }
+
         }
 
     }

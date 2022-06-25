@@ -46,6 +46,13 @@ public class UI_OptionPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject, OnClickDoubleSpeedButton, Define.UIEvent.Click);
         //실행/정지 이벤트
         AddUIEvent(GetButton((int)Buttons.PlayOptionButton).gameObject, OnClickPlayOptionButton, Define.UIEvent.Click);
+
+        //튜토리얼 버튼 비활성화 표시 (색 변경)
+        if(SystemManager.Instance.GameFlowManager.stage == 0)
+        {
+            GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.GetComponent<Image>().color = Color.gray;
+            GetButton((int)Buttons.PlayOptionButton).gameObject.GetComponent<Image>().color = Color.gray;
+        }
     }
 
     /// <summary>
@@ -54,6 +61,10 @@ public class UI_OptionPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     public void OnClickDoubleSpeedButton(PointerEventData data)
     {
+        //튜토리얼
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
+            return;
+
         //타임스케일 테스트
 
         if (Time.timeScale == 1.0f)
@@ -103,6 +114,10 @@ public class UI_OptionPanel : UI_Controller
     /// <param name="data"></param>
     public void OnClickPlayOptionButton(PointerEventData data)
     {
+        //튜토리얼
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
+            return;
+
         //정지 상태일 경우
         if (Time.timeScale == 0f)
         {

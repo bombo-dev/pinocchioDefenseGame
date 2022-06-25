@@ -92,6 +92,13 @@ public class UI_TurretInfoPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.DestroyTurretButton).gameObject, OnClickDestroyTurretButton, Define.UIEvent.Click);
         //공사중 파괴 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.CacelTurretButton).gameObject, OnClickCancelButton, Define.UIEvent.Click);
+
+        //튜토리얼 버튼 비활성화 표시 (색 변경)
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
+        {
+            GetButton((int)Buttons.DestroyTurretButton).gameObject.GetComponent<Image>().color = Color.gray;
+            GetButton((int)Buttons.CacelTurretButton).gameObject.GetComponent<Image>().color = Color.gray;
+        }
     }
 
     /// <summary>
@@ -214,7 +221,14 @@ public class UI_TurretInfoPanel : UI_Controller
         //Color Wood정보 갱신
         for (int i = 0; i < MAXCOLORWOOD; i++)
         {
-            GetTextMeshProUGUI((int)i).text = (turret.turretNum + 1).ToString() + "/" + SystemManager.Instance.ResourceManager.colorWoodResource[i].ToString();
+            if (SystemManager.Instance.GameFlowManager.stage == 0)//튜토리얼
+            {
+                GetTextMeshProUGUI((int)i).text = "0" + "/" + "0";
+                GetTextMeshProUGUI((int)i).color = Color.white;
+                return;
+            }
+            else
+                GetTextMeshProUGUI((int)i).text = (turret.turretNum + 1).ToString() + "/" + SystemManager.Instance.ResourceManager.colorWoodResource[i].ToString();
 
             if (turret.turretNum + 1 > SystemManager.Instance.ResourceManager.colorWoodResource[i])
                 GetTextMeshProUGUI((int)i).color = Color.red;
@@ -245,6 +259,8 @@ public class UI_TurretInfoPanel : UI_Controller
             GetButton((int)Buttons.CacelTurretButton).gameObject.SetActive(false);
         if (GetButton((int)Buttons.DestroyTurretButton).gameObject.activeSelf)
             GetButton((int)Buttons.DestroyTurretButton).gameObject.SetActive(false);
+
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.ColorWoodNumText).text = "";
     }
 
     /// <summary>
@@ -268,14 +284,18 @@ public class UI_TurretInfoPanel : UI_Controller
         if (turret.buffs.ContainsKey((Actor.buff)idx + 1))
             return;
 
-        //강화할 자원이 존재하는지 판단
-        if (SystemManager.Instance.ResourceManager.colorWoodResource[idx] < (turret.turretNum + 1))
-            return;
+        //튜토리얼이 아닐경우
+        if (SystemManager.Instance.GameFlowManager.stage != 0)
+        {
+            //강화할 자원이 존재하는지 판단
+            if (SystemManager.Instance.ResourceManager.colorWoodResource[idx] < (turret.turretNum + 1))
+                return;
 
-        //강화 자원 소비
-        SystemManager.Instance.ResourceManager.colorWoodResource[idx] -= turret.turretNum + 1;
-        //유저정보 갱신
-        SystemManager.Instance.UserInfo.colorWoodResource[idx] = SystemManager.Instance.ResourceManager.colorWoodResource[idx];
+            //강화 자원 소비
+            SystemManager.Instance.ResourceManager.colorWoodResource[idx] -= turret.turretNum + 1;
+            //유저정보 갱신
+            SystemManager.Instance.UserInfo.colorWoodResource[idx] = SystemManager.Instance.ResourceManager.colorWoodResource[idx];
+        }
 
         turret.AddBebuff(idx + 1, BUFFDURATIONTIME);
 
@@ -335,6 +355,10 @@ public class UI_TurretInfoPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickDestroyTurretButton(PointerEventData data)
     {
+        //튜토리얼 모드
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
+            return;
+        
         //터렛정보
         Turret turret = getTurret();
 
@@ -364,6 +388,10 @@ public class UI_TurretInfoPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickCancelButton(PointerEventData data)
     {
+        //튜토리얼 모드
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
+            return;
+
         ConstructionTurret turret = getConstructionTurret();
 
         //파괴 이펙트 출력

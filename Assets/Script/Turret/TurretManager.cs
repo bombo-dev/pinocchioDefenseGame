@@ -10,6 +10,7 @@ public class TurretManager : MonoBehaviour
     public int BASETURRET_INDEX = 23;
     public int CONSTRUCTIONTURRET_INDEX = 24;
 
+    public Transform tutorialNest;
 
     //Load한 Turret 프리팹 정보
     Dictionary<string, GameObject> prefabCaChes = new Dictionary<string, GameObject>();

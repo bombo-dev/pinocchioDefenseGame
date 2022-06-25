@@ -488,7 +488,7 @@ public class Turret : Actor
                     currentRegeneration += (currentRegeneration / 3);
                     break;
                 case 4: //방어력 증가
-                    currentDefense += (currentDefense / 2);
+                    currentDefense += (currentDefense / 3);
                     break;
                 case 5: //사거리 증가
                     if (currentRange < 9000)
