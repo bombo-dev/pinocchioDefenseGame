@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: asd 1
-  m_Shader: {fileID: 4800000, guid: 792ac55d6b1ce414db9b45ab2dd734aa, type: 3}
+  m_Name: NestWood2
+  m_Shader: {fileID: 4800000, guid: 7e43790c2c916d34189a4bb0a3651fe5, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -20,12 +20,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 3, y: 3}
+        m_Texture: {fileID: 2800000, guid: ac4f1e98aaf3a894c8f5cbea3cc02317, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _BumpTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 3, y: 3}
+        m_Texture: {fileID: 2800000, guid: 56de42f37269a424ca7356a0532d1a80, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 50, y: 50}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1bdf201163eb3da43ae18fa714957968, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Texture: {fileID: 2800000, guid: 8f4fbd3e9cf61624ab87551ad07cfdcc, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -71,10 +71,10 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0.347
     - _Mode: 0
-    - _NormalPower: 0.12
+    - _NormalPower: 0
     - _OcclusionStrength: 1
     - _OutLineOption: 0
-    - _OutLinePower: 0.3
+    - _OutLinePower: 0.64
     - _Outline: 0
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
@@ -82,19 +82,20 @@ Material:
     - _SpecularHighlights: 1
     - _SpecularSize: 30
     - _SrcBlend: 1
-    - _Step: 0.27
-    - _StepAmount: 4
-    - _StepOffset: 0.38
+    - _Step: 0.41
+    - _StepAmount: 2
+    - _StepOffset: 0.45
     - _Tiling: 1
     - _UVSec: 0
     - _ZWrite: 1
+    - _doublePassOutline: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseCol: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseCol: {r: 0.667132, g: 1, b: 0, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutLineColor: {r: 1, g: 0.5851397, b: 0, a: 1}
+    - _OutLineColor: {r: 0.74509805, g: 0, b: 0, a: 1}
     - _SpecCol: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _lampColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+    - _lampColor: {r: 0.8396226, g: 0.67538136, b: 0.2732734, a: 1}
   m_BuildTextureStacks: []

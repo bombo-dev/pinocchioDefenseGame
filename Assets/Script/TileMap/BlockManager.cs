@@ -45,8 +45,14 @@ public class BlockManager : MonoBehaviour
 
         if (userInfo.selectedStageNum == 0)//Æ©Åä¸®¾ó
             field[0].SetActive(true);
-        else
+        else if (userInfo.selectedStageNum <= 5)
             field[1].SetActive(true);
+        else if (userInfo.selectedStageNum <= 10)
+            field[2].SetActive(true);
+        else if (userInfo.selectedStageNum <= 15)
+            field[3].SetActive(true);
+        else if (userInfo.selectedStageNum <= 20)
+            field[4].SetActive(true);
     }
 
     /// <summary>

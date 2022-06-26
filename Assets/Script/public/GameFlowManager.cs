@@ -296,7 +296,8 @@ public class GameFlowManager : MonoBehaviour
         pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
         pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
         pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
-        pm.optionPanel.DisablePanelFinStage();
+        if(pm.optionPanel)  //튜토리얼일 경우 옵션패널 존재하지 않는다
+            pm.optionPanel.DisablePanelFinStage();
 
         //모든 Enemy제거
         for (int i = 0; i < SystemManager.Instance.EnemyManager.enemies.Count; i++)

@@ -91,9 +91,6 @@ public class PanelManager : MonoBehaviour
                     //자원표시 패널
                     EnablePanel<UI_ResourcePanel>(4);
 
-                    //게임옵션 패널
-                    EnablePanel<UI_OptionPanel>(7);
-
                     //옵션 팝업 패널
                     EnablePanel<UI_OptionPopUpPanel>(11);
 
@@ -103,6 +100,9 @@ public class PanelManager : MonoBehaviour
                 }
                 else if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.Defense)
                 {
+                    //게임옵션 패널
+                    EnablePanel<UI_OptionPanel>(7);
+
                     //터렛 소환 패널
                     EnablePanel<UI_TurretMngPanel>(0);
 

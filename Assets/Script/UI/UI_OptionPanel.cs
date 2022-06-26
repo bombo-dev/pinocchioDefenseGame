@@ -165,7 +165,9 @@ public class UI_OptionPanel : UI_Controller
     /// </summary>
     public void DisablePanelFinStage()
     {
-        GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(false);
-        GetButton((int)Buttons.PlayOptionButton).gameObject.SetActive(false);
+        if (GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.activeSelf)
+            GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(false);
+        if (GetButton((int)Buttons.PlayOptionButton).gameObject.activeSelf)
+            GetButton((int)Buttons.PlayOptionButton).gameObject.SetActive(false);
     }
 }
