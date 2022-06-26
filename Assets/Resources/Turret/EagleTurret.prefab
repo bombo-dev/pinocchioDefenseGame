@@ -401,24 +401,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 30
+  maxHP: 300
   currentHP: 0
-  power: 10
+  power: 80
   currentPower: 0
-  defense: 10
+  defense: 30
   currentDefense: 0
-  attackSpeed: 5
+  attackSpeed: 3
   currentAttackSpeed: 0
-  range: 5000
+  range: 6500
   currentRange: 0
   regeneration: 10
   currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
-  attackTargetNum: 5
-  debuffType: 2
+  attackTargetNum: 4
+  debuffType: 3
   debuffDuration: 5
-  multiAttackRange: 10000
+  multiAttackRange: 12000
   currentMultiAttackRange: 0
   bulletIndex: 6
   firePos: {fileID: 6543969448578226131}
@@ -484,8 +484,8 @@ MonoBehaviour:
   turretIndex: 0
   turretState: 0
   turretAppearPosY: -155.3
-  turretCost: 0
-  turretConstructionTime: 0
+  turretCost: 1200
+  turretConstructionTime: 6
   statusMngPanel: {fileID: 0}
   damageMngPanel: {fileID: 0}
   turretDatas:

@@ -486,6 +486,9 @@ public class UI_StageEndPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickRestartButton(PointerEventData data)
     {
+        //스테이지 선택
+        SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage;
+
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
 

@@ -112,7 +112,7 @@ public class Bullet : MonoBehaviour
                     recovery = attacker.currentPower;
 
                     // 회복력 버프를 적용한 현재 회복력
-                    recovery += recovery * (recoveryTarget.currentRegeneration / 100);
+                    recovery += (int)((float)recovery * ((float)recoveryTarget.currentRegeneration / (float)100));
 
                     if (recovery > 0)
                     {

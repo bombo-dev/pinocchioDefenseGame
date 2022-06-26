@@ -21,7 +21,7 @@ public class BlockManager : MonoBehaviour
     PrefabCacheData[] prefabCacheDatas;
 
     [SerializeField]
-    GameObject testGo;
+    GameObject fieldGo;
 
     [SerializeField]
     GameObject[] field;
@@ -41,18 +41,7 @@ public class BlockManager : MonoBehaviour
     /// </summary>
     void EnableField()
     {
-        UserInfo userInfo = SystemManager.Instance.UserInfo;
-
-        if (userInfo.selectedStageNum == 0)//튜토리얼
-            field[0].SetActive(true);
-        else if (userInfo.selectedStageNum <= 5)
-            field[1].SetActive(true);
-        else if (userInfo.selectedStageNum <= 10)
-            field[2].SetActive(true);
-        else if (userInfo.selectedStageNum <= 15)
-            field[3].SetActive(true);
-        else if (userInfo.selectedStageNum <= 20)
-            field[4].SetActive(true);
+        fieldGo.SetActive(true);
     }
 
     /// <summary>
@@ -66,12 +55,23 @@ public class BlockManager : MonoBehaviour
         }
 
         //스테이지에 맞는 맵 생성
-        //EnableBlock(SystemManager.Instance.GameFlowManager.block);
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        if (userInfo.selectedStageNum == 0)//튜토리얼
+            fieldGo = field[0];
+        else if (userInfo.selectedStageNum <= 5)
+            fieldGo = field[1];
+        else if (userInfo.selectedStageNum <= 10)
+            fieldGo = field[2];
+        else if (userInfo.selectedStageNum <= 15)
+            fieldGo = field[3];
+        else if (userInfo.selectedStageNum <= 20)
+            fieldGo = field[4];
 
         //targetArr초기화
-        for (int i = 0; i < testGo.transform.GetChild(0).childCount; i++)
+        for (int i = 0; i < fieldGo.transform.GetChild(0).childCount; i++)
         {
-            targetList.Add(testGo.transform.GetChild(0).GetChild(i).gameObject);
+            targetList.Add(fieldGo.transform.GetChild(0).GetChild(i).gameObject);
         }
     }
 

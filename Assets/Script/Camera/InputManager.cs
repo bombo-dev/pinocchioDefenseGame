@@ -91,7 +91,8 @@ public class InputManager : MonoBehaviour
 
         if (nest != null)
         {
-            SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
+            if(SystemManager.Instance.PanelManager.turretInfoPanel)
+                SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
         }    
 
         //선택한 오브젝트 하이라이트 효과
