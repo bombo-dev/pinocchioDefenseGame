@@ -145,7 +145,7 @@ public class Bullet : MonoBehaviour
                     recovery = attacker.currentPower;
 
                     // 회복력 버프를 적용한 현재 회복력
-                    recovery += recovery * (recoveryTarget.currentRegeneration / 100);
+                    recovery += (int)((float)recovery * ((float)recoveryTarget.currentRegeneration / (float)100));
 
                     if (recovery > 0)
                     {
@@ -164,12 +164,11 @@ public class Bullet : MonoBehaviour
                         damageMngPanel.damageOwner = recoveryTarget.gameObject;
 
                         //전투분석
-                        SystemManager.Instance.GameFlowManager.AnalyzeTurretBattle(damage, attacker.turretNum);
+                        SystemManager.Instance.GameFlowManager.AnalyzeTurretBattle(recovery, attacker.turretNum);
                     }
 
                     //피 공격자 회복
-                    recoveryTarget.IncreaseHP(recovery
-                        );
+                    recoveryTarget.IncreaseHP(recovery);
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
