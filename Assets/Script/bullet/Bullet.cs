@@ -16,6 +16,9 @@ public class Bullet : MonoBehaviour
     float bulletSpeed;    // 총알의 이동 속도
 
     [SerializeField]
+    float maxforce;
+
+    [SerializeField]
     string filePath; 
 
     [SerializeField]
@@ -31,16 +34,23 @@ public class Bullet : MonoBehaviour
 
     public GameObject attackOwner;
 
+    int i = 0;
+
     int damage; // 디버프를 적용한 데미지
 
     int recovery; //디버프를 적용한 회복량
+
+    Vector3 initPos;
 
     // Update is called once per frame
     void Update()
     {
         UpdateBullet(); 
     }
-
+    private void Start()
+    {
+        initPos = transform.position;
+    }
     /// <summary>
     /// 총알 발사 업데이트 : 하은비
     /// </summary>
@@ -64,7 +74,8 @@ public class Bullet : MonoBehaviour
 
         // 가속도 붙이기
         bulletSpeed += bulletSpeed * force;
-        //Debug.Log("bulletSpeed= " + bulletSpeed);
+
+        force += 0.001f;
 
         if (bulletType == 0) // 직선형
         {
@@ -75,13 +86,15 @@ public class Bullet : MonoBehaviour
         }
         else if (bulletType == 1) //곡선형
         {
+            
             Vector3 center = (bulletPos + targetPos) / 2;
             center -= new Vector3(0, reduceHeight * 1.0f, 0);
             Vector3 startPos = bulletPos - center;
             Vector3 endPos = targetPos - center;
 
-            transform.position = Vector3.Slerp(startPos, endPos, Time.deltaTime * bulletSpeed * 0.05f);
+            transform.position = Vector3.Slerp(startPos, endPos, Time.deltaTime * bulletSpeed * 0.025f);
             transform.position += center;
+
         }
 
 
