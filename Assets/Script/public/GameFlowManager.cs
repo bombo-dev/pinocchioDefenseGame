@@ -229,6 +229,9 @@ public class GameFlowManager : MonoBehaviour
             {
                 userInfo.maxTurretNum = rewardManager.turretReward[stage];
                 rewardManager.getNewTurret = true;
+
+                //프리셋 비었을경우 넣어주기
+                userInfo.turretPreset.Add(rewardManager.turretReward[stage] - 1);
             }
 
             //강화 나무 보상 추가

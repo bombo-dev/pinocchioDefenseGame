@@ -237,6 +237,23 @@ public class UI_LobbyPanel : UI_Controller
         StageStarImage21,
         StageStarImage22,
         StageStarImage23,
+        StageStarImage24,
+        StageStarImage25,
+        StageStarImage26,
+        StageStarImage27,
+        StageStarImage28,
+        StageStarImage29,
+        StageStarImage30,
+        StageStarImage31,
+        StageStarImage32,
+        StageStarImage33,
+        StageStarImage34,
+        StageStarImage35,
+        StageStarImage36,
+        StageStarImage37,
+        StageStarImage38,
+        StageStarImage39,
+        StageStarImage40,
         SelectedStageStarImage, //선택한 스테이지 별 정보
         SelectedStage   //선택한 스테이지 등급 이미지
     }

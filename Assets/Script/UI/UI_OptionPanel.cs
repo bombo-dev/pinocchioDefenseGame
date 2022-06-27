@@ -132,8 +132,10 @@ public class UI_OptionPanel : UI_Controller
             //InputEvent 활성화
             SystemManager.Instance.InputManager.enabled = true;
             //UI활성화
-            SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(true);
-            SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(true);
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(true);
+            if (SystemManager.Instance.PanelManager.turretMngPanel)
+                SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(true);
             //버튼활성화
             GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(true);
 
@@ -150,8 +152,10 @@ public class UI_OptionPanel : UI_Controller
             SystemManager.Instance.InputManager.enabled = false;
             
             //UI비활성화
-            SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(false);
-            SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(false);
+            if (SystemManager.Instance.PanelManager.turretInfoPanel)
+                SystemManager.Instance.PanelManager.turretInfoPanel.gameObject.SetActive(false);
+            if (SystemManager.Instance.PanelManager.turretMngPanel)
+                SystemManager.Instance.PanelManager.turretMngPanel.gameObject.SetActive(false);
 
             //버튼비활성화
             GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.SetActive(false);

@@ -93,6 +93,7 @@ public class UI_StageEndPanel : UI_Controller
         TurretText20,
         TurretText21,
         TurretText22,
+        newTurretText //새로운 터렛 추가 알림 텍스트
     }
 
     enum GameObjects
@@ -148,6 +149,7 @@ public class UI_StageEndPanel : UI_Controller
         TurretPanel20,
         TurretPanel21,
         TurretPanel22,
+        newTurretPanel  //새로 추가된 터렛 알리미
     }
 
     enum Sliders
@@ -198,6 +200,7 @@ public class UI_StageEndPanel : UI_Controller
         TurretPresetImage5,
         TurretPresetImage6,
         TurretPresetImage7,   //~7
+        newTurretImage  //새로 추가된 터렛 이미지
     }
 
     enum Buttons
@@ -302,6 +305,9 @@ public class UI_StageEndPanel : UI_Controller
 
         //패널 비활성화
         GetGameobject((int)GameObjects.StageResultPanel).SetActive(false);
+
+        //신규 터렛 획득 패널 비활성화
+        GetGameobject((int)GameObjects.newTurretPanel).SetActive(false);
 
         //패널 활성화 코루틴 호출
         StartCoroutine("OnResultPanel");
@@ -447,6 +453,9 @@ public class UI_StageEndPanel : UI_Controller
             //추가 터렛 보상 (마지막 인덱스에 터렛 보상 추가)
             if (rwm.turretReward.ContainsKey(gfm.stage)) //터렛 보상 존재할경우
             {
+                //신규 터렛 획득 패널 활성화
+                GetGameobject((int)GameObjects.newTurretPanel).SetActive(true);
+
                 //이미 가지고 있는 터렛이 아닌경우
                 if (rwm.getNewTurret)
                 {
@@ -464,6 +473,10 @@ public class UI_StageEndPanel : UI_Controller
 
                     rwm.getNewTurret = false;
                 }
+
+                //신규터렛 획득 연출
+                GetImage((int)Images.newTurretImage).sprite = turretSprite[rwm.turretReward[gfm.stage] - 1];
+                StartCoroutine(newTurretTyping(GetTextMeshProUGUI((int)TextMeshProUGUIs.newTurretText), "신규 터렛이 컬렉션에 추가되었습니다!", 0.03f));
             }
 
             //패널이미지 교체
@@ -655,4 +668,25 @@ public class UI_StageEndPanel : UI_Controller
     }
     #endregion
 
+
+    /// <summary>
+    /// 타이핑 효과 : 김현진
+    /// </summary>
+    /// <param name="typingText">타이핑 효과를 줄 텍스트</param>
+    /// <param name="message">텍스트 문장</param>
+    /// <param name="speed">타이핑 속도</param>
+    IEnumerator newTurretTyping(TextMeshProUGUI typingText, string message, float speed)
+    {
+        for (int i = 0; i < message.Length; i++)
+        {
+            typingText.text = message.Substring(0, i + 1);
+            yield return new WaitForSeconds(speed);
+        }
+
+        //대기
+        yield return new WaitForSeconds(3.0f);
+
+        //신규 터렛 획득 패널 비활성화
+        GetGameobject((int)GameObjects.newTurretPanel).SetActive(false);
+    }
 }
