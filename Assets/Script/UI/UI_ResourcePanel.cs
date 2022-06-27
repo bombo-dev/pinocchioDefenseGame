@@ -99,6 +99,7 @@ public class UI_ResourcePanel : UI_Controller
         SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.Defense;
         //UI활성화
         SystemManager.Instance.PanelManager.EnableFixedPanel(2);
+        SystemManager.Instance.PanelManager.optionPopUpPanel.EnablePediaButton();
         //나무 자원 UI 초기화
         UpdateWoodResource();
     }

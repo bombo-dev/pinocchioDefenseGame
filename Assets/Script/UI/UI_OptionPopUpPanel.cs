@@ -120,6 +120,13 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
+
+        //게임씬에서는 사전 옵션 비활성화
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            GetButton((int)Buttons.TurretPediaButton).gameObject.SetActive(false);
+            GetButton((int)Buttons.WoodPediaButton).gameObject.SetActive(false);
+        }
     }
 
     #region 옵션
@@ -360,11 +367,24 @@ public class UI_OptionPopUpPanel : UI_Controller
     #region 사전
 
     /// <summary>
+    /// 사전버튼 활성화 : 김현진
+    /// </summary>
+    public void EnablePediaButton()
+    {
+        //사전 버튼 활성화
+        GetButton((int)Buttons.TurretPediaButton).gameObject.SetActive(true);
+        GetButton((int)Buttons.WoodPediaButton).gameObject.SetActive(true);
+    }
+
+    /// <summary>
     /// 터렛 사전 패널 열기 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
     void OnClickTurretPedia(PointerEventData data)
     {
+        //터치가드 활성화
+        GetGameobject((int)GameObjects.touchGuardPanel).SetActive(true);
+
         GetGameobject((int)GameObjects.TurretPediaPanel).SetActive(true);
 
         //아이템 활성화
@@ -375,6 +395,36 @@ public class UI_OptionPopUpPanel : UI_Controller
             else
                 GetGameobject((int)GameObjects.TurretItemPanel1 + i).SetActive(false);
         }
+
+        //게임씬일때 일시정지
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale > 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
+        //UI가장 앞으로
+        this.transform.SetAsLastSibling();
+    }
+
+    /// <summary>
+    /// 나무 사전 패널 열기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickWoodPedia(PointerEventData data)
+    {
+        //터치가드 활성화
+        GetGameobject((int)GameObjects.touchGuardPanel).SetActive(true);
+
+        GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(true);
+
+        //게임씬일때 일시정지
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale > 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
+        //UI가장 앞으로
+        this.transform.SetAsLastSibling();
     }
 
     /// <summary>
@@ -384,15 +434,18 @@ public class UI_OptionPopUpPanel : UI_Controller
     void OnClickCloseTurretPedia(PointerEventData data)
     {
         GetGameobject((int)GameObjects.TurretPediaPanel).SetActive(false);
-    }
 
-    /// <summary>
-    /// 나무 사전 패널 열기 : 김현진
-    /// </summary>
-    /// <param name="data">이벤트 정보</param>
-    void OnClickWoodPedia(PointerEventData data)
-    {
-        GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(true);
+        //게임씬일때 일시정지 해제
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale == 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
+        //UI가장 앞으로
+        this.transform.SetAsLastSibling();
+
+        //터치가드 비활성화
+        GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
     }
 
     /// <summary>
@@ -402,6 +455,18 @@ public class UI_OptionPopUpPanel : UI_Controller
     void OnClickCloseWoodPedia(PointerEventData data)
     {
         GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(false);
+
+        //게임씬일때 일시정지 해제
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale == 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
+        //UI가장 앞으로
+        this.transform.SetAsLastSibling();
+
+        //터치가드 비활성화
+        GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
     }
 
 

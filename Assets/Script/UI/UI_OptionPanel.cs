@@ -112,7 +112,7 @@ public class UI_OptionPanel : UI_Controller
     /// 정지 상태일땐 다시 재생하고, 재생 상태일땐 다시 정지 : 김현진
     /// </summary>
     /// <param name="data"></param>
-    public void OnClickPlayOptionButton(PointerEventData data)
+    public void OnClickPlayOptionButton(PointerEventData data = null)
     {
         //튜토리얼
         if (SystemManager.Instance.GameFlowManager.stage == 0)
