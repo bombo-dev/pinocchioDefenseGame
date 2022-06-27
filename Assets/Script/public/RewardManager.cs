@@ -107,6 +107,7 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(13, 9);//강화 딱다구리
         turretReward.Add(15, 10);//매
         turretReward.Add(18, 11);//독수리
+        turretReward.Add(21, 12);//강화 아기새
 
     }
 
