@@ -231,7 +231,8 @@ public class GameFlowManager : MonoBehaviour
                 rewardManager.getNewTurret = true;
 
                 //프리셋 비었을경우 넣어주기
-                userInfo.turretPreset.Add(rewardManager.turretReward[stage] - 1);
+                if(userInfo.turretPreset.Count < 8)
+                    userInfo.turretPreset.Add(rewardManager.turretReward[stage] - 1);
             }
 
             //강화 나무 보상 추가
