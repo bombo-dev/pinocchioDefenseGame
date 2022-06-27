@@ -14,14 +14,16 @@ public class UI_OptionPanel : UI_Controller
     enum Buttons
     {
         DoubleSpeedOptionButton, //배속 옵션,
-        PlayOptionButton    //재생 옵션
+        PlayOptionButton,    //재생 옵션
+        RangeButton //사거리 옵션
     }
 
     enum TextMeshProUGUIs
     {
         DoubleSpeedOptionText,  //배속 옵션
         PlayOptionText, //재생 옵션
-        StopOptionText  //정지 옵션
+        StopOptionText,  //정지 옵션
+        RangeText   //사거리 텍스트
     }
 
     /// <summary>
@@ -46,9 +48,12 @@ public class UI_OptionPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject, OnClickDoubleSpeedButton, Define.UIEvent.Click);
         //실행/정지 이벤트
         AddUIEvent(GetButton((int)Buttons.PlayOptionButton).gameObject, OnClickPlayOptionButton, Define.UIEvent.Click);
+        //사거리 표시 이벤트
+        AddUIEvent(GetButton((int)Buttons.RangeButton).gameObject, OnClickRangeButton, Define.UIEvent.Click);
+        UpdageRange();
 
         //튜토리얼 버튼 비활성화 표시 (색 변경)
-        if(SystemManager.Instance.GameFlowManager.stage == 0)
+        if (SystemManager.Instance.GameFlowManager.stage == 0)
         {
             GetButton((int)Buttons.DoubleSpeedOptionButton).gameObject.GetComponent<Image>().color = Color.gray;
             GetButton((int)Buttons.PlayOptionButton).gameObject.GetComponent<Image>().color = Color.gray;
@@ -158,6 +163,65 @@ public class UI_OptionPanel : UI_Controller
 
         //FixedDeltaTime변경
         Time.fixedDeltaTime = 0.02F * Time.timeScale;
+    }
+
+    /// <summary>
+    /// 사거리 켜기,끄기: 김현진
+    /// </summary>
+    void OnClickRangeButton(PointerEventData data)
+    {
+        //사거리 켜진 상태일 경우
+        if (SystemManager.Instance.UserInfo.isShowRange)
+        {
+            //사거리 끄기
+            SystemManager.Instance.UserInfo.isShowRange = false;
+            if (SystemManager.Instance.RangeManager.rangeParents.childCount > 0)
+                SystemManager.Instance.RangeManager.rangeParents.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.RangeText).text = "사거리\n켜기";
+        } 
+        //사거리 꺼진 상태일 경우
+        else 
+        {
+            SystemManager.Instance.UserInfo.isShowRange = true;
+            if (SystemManager.Instance.RangeManager.rangeParents.childCount > 0)
+                SystemManager.Instance.RangeManager.rangeParents.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.RangeText).text = "사거리\n끄기";
+        }
+
+        //정보 저장
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
+    }
+
+    /// <summary>
+    /// 사거리 옵션에 따라 사거리표시 정보 업데이트 : 김현진
+    /// </summary>
+    void UpdageRange()
+    {
+        //사거리 켜진 상태일 경우
+        if (SystemManager.Instance.UserInfo.isShowRange)
+        {
+            //사거리 켜기
+            if (SystemManager.Instance.RangeManager.rangeParents.childCount > 0)
+                SystemManager.Instance.RangeManager.rangeParents.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.RangeText).text = "사거리\n끄기";
+        }
+        //사거리 꺼진 상태일 경우
+        else
+        {
+            //사거리 켜기
+            if (SystemManager.Instance.RangeManager.rangeParents.childCount > 0)
+                SystemManager.Instance.RangeManager.rangeParents.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.RangeText).text = "사거리\n켜기";
+        }
+
+        //정보 저장
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
     }
 
     /// <summary>

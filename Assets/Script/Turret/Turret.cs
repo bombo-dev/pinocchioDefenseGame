@@ -314,12 +314,12 @@ public class Turret : Actor
                 {
                     //패널 정보 갱신
                     SystemManager.Instance.PanelManager.turretInfoPanel.Reset();
+
+                    //사거리 표시 삭제
+                    SystemManager.Instance.RangeManager.DisableRange(0);
                 }
                 if(!SystemManager.Instance.PanelManager.turretInfoPanel)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
-
-                //사거리 표시 삭제
-                SystemManager.Instance.RangeManager.DisableRange(0);
             }
             nest = null;
 

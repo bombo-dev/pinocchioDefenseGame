@@ -25,6 +25,7 @@ public class SaveData
     public float efSoundVolume;
     public bool isEfSound;
     public int touchSpeed;
+    public bool isShowRange;
 }
 
 public class SaveLoad
@@ -146,6 +147,7 @@ public class SaveLoad
         data.efSoundVolume = userinfo.efSoundVolume;
         data.isEfSound = userinfo.isEfSound;
         data.touchSpeed = userinfo.touchSpeed;
+        data.isShowRange = userinfo.isShowRange;
 
         return data;
     }
@@ -177,6 +179,7 @@ public class SaveLoad
         data.efSoundVolume = SystemManager.Instance.UserInfo.efSoundVolume;
         data.isEfSound = SystemManager.Instance.UserInfo.isEfSound;
         data.touchSpeed = SystemManager.Instance.UserInfo.touchSpeed;
+        data.isShowRange = SystemManager.Instance.UserInfo.isShowRange;
 
         return data;
     }
@@ -206,6 +209,7 @@ public class SaveLoad
         SystemManager.Instance.UserInfo.efSoundVolume = data.efSoundVolume;
         SystemManager.Instance.UserInfo.isEfSound = data.isEfSound;
         SystemManager.Instance.UserInfo.touchSpeed = data.touchSpeed;
+        SystemManager.Instance.UserInfo.isShowRange = data.isShowRange;
     }
 
     // PC에서 Save 하는 경우
