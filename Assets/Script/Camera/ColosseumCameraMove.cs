@@ -9,13 +9,13 @@ public class ColosseumCameraMove : MonoBehaviour
     Transform cameraMove;   // 메인 카메라의 부모 오브젝트
     float zoomValue = 0;         // 줌 조정 값 
 
-    [Header ("window")]
-
     [SerializeField]
     float moveSpeed = 2.8f;    // 카메라 이동 속도
 
     [SerializeField]
     float zoomSpeed = 20.0f;  // 카메라 줌 속도
+
+    [Header ("window")]
 
     float moveX, moveZ;        // 이동량
 
@@ -133,6 +133,8 @@ public class ColosseumCameraMove : MonoBehaviour
         // 터치 상태 저장
         Touch touch = Input.GetTouch(0);
 
+        moveSpeed = 5f;
+
         // test.text = touch.phase.ToString();
 
         // 화면을 터치하는 순간 해당 위치 값 저장
@@ -146,8 +148,31 @@ public class ColosseumCameraMove : MonoBehaviour
             curPos = touch.position-touch.deltaPosition;
 
             // 이동할 방향 벡터를 구함 
-            Vector2 dir = (prePos - curPos);            
-            movePos = dir * Time.deltaTime * 5f;
+            Vector2 dir = (prePos - curPos);
+
+            // 배속에 따른 이동 속도 조절
+            if (Time.timeScale == 1.0f)
+            {
+                moveSpeed = 5f;
+                // Debug.Log("1배 speed = "+ Time.deltaTime * moveSpeed);
+            }
+            else if (Time.timeScale == 1.2f)
+            {
+                moveSpeed /= 1.2f;
+                // Debug.Log("1.2배 speed ="+ Time.deltaTime * moveSpeed);
+            }
+            else if (Time.timeScale == 1.5f)
+            {
+                moveSpeed /= 1.5f;
+                // Debug.Log("1.5배 speed =" + Time.deltaTime * moveSpeed);
+            }
+            else if (Time.timeScale == 2.0f)
+            {
+                moveSpeed /= 2.0f;
+                // Debug.Log("2.0배 speed =" + Time.deltaTime * moveSpeed);
+            }
+
+                movePos = dir * Time.deltaTime * moveSpeed;
 
             // 카메라 이동            
             cameraMove.Translate(movePos.x, 0, movePos.y);
@@ -257,6 +282,8 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
+        moveSpeed = 2.8f;
+
         // 마우스 변위값 구하기
         moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
         moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
@@ -282,6 +309,9 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void ZoomWinCam()
     {
+
+        zoomSpeed = 20.0f;
+
         // 줌 시킬 거리 구하기
         float moveDistance = Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;
 
