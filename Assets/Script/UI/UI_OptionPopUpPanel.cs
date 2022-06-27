@@ -29,6 +29,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         WoodPediaButton,    //나무 사전 열기 버튼
         CloseTurretPediaButton, //터렛 사전 닫기 버튼
         CloseWoodPediaButton,   //나무 사전 닫기 버튼
+        TouchSpeedPlus,  //터치 속도 증가 버튼
+        TouchSpeedMinus  //터치 속도 감소 버튼
     }
 
     enum GameObjects
@@ -66,6 +68,7 @@ public class UI_OptionPopUpPanel : UI_Controller
     {
         BgSoundOptionText,   //배경음 버튼 텍스트
         EfSoundOptionText,   //효과음 버튼 텍스트
+        TouchSpeedText  //터렛 속도 텍스트
     }
 
     enum Images
@@ -105,11 +108,27 @@ public class UI_OptionPopUpPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.WoodPediaButton).gameObject, OnClickWoodPedia, Define.UIEvent.Click);    //나무 사전 열기
         AddUIEvent(GetButton((int)Buttons.CloseWoodPediaButton).gameObject, OnClickCloseWoodPedia, Define.UIEvent.Click);    //나무 사전 닫기
 
+
         //씬 별로 버튼 활성화
         OnButton();
 
         //사운드정보 초기화
         InitializeSoundInfo();
+
+        //GameScene
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            //게임씬에서는 사전 옵션 비활성화
+            GetButton((int)Buttons.TurretPediaButton).gameObject.SetActive(false);
+            GetButton((int)Buttons.WoodPediaButton).gameObject.SetActive(false);
+
+            //터치속도 옵션
+            AddUIEvent(GetButton((int)Buttons.TouchSpeedPlus).gameObject, OnClickTouchSpeedPlusButton, Define.UIEvent.Click);    //터치 속도 증가
+            AddUIEvent(GetButton((int)Buttons.TouchSpeedMinus).gameObject, OnClickTouchSpeedMinusButton, Define.UIEvent.Click);    //터치 속도 감소
+
+            //터치 속도 텍스트 갱신
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.TouchSpeedText).text = SystemManager.Instance.UserInfo.touchSpeed.ToString();
+        }
 
         //옵션패널 팝업 닫기
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(false);
@@ -121,12 +140,7 @@ public class UI_OptionPopUpPanel : UI_Controller
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
 
-        //게임씬에서는 사전 옵션 비활성화
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            GetButton((int)Buttons.TurretPediaButton).gameObject.SetActive(false);
-            GetButton((int)Buttons.WoodPediaButton).gameObject.SetActive(false);
-        }
+        
     }
 
     #region 옵션
@@ -158,9 +172,6 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
-
-        SaveLoad Save = new SaveLoad();
-        Save.SaveUserInfo();
     }
 
     /// <summary>
@@ -344,6 +355,36 @@ public class UI_OptionPopUpPanel : UI_Controller
         }
     }
     #endregion
+
+    /// <summary>
+    /// 터치 스피드 증가 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTouchSpeedPlusButton(PointerEventData data)
+    {
+        if (SystemManager.Instance.UserInfo.touchSpeed >= 10)
+            return;
+
+        SystemManager.Instance.UserInfo.touchSpeed++;
+
+        //텍스트 갱신
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.TouchSpeedText).text = SystemManager.Instance.UserInfo.touchSpeed.ToString();
+    }
+
+    /// <summary>
+    /// 터치 스피드 감소 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTouchSpeedMinusButton(PointerEventData data)
+    {
+        if (SystemManager.Instance.UserInfo.touchSpeed <= 1)
+            return;
+
+        SystemManager.Instance.UserInfo.touchSpeed--;
+
+        //텍스트 갱신
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.TouchSpeedText).text = SystemManager.Instance.UserInfo.touchSpeed.ToString();
+    }
 
     /// <summary>
     /// 게임씬을 다시 로드 : 김현진

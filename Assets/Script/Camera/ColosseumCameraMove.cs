@@ -9,8 +9,6 @@ public class ColosseumCameraMove : MonoBehaviour
     Transform cameraMove;   // 메인 카메라의 부모 오브젝트
     float zoomValue = 0;         // 줌 조정 값 
 
-    [SerializeField]
-    float moveSpeed = 2.8f;    // 카메라 이동 속도
 
     [SerializeField]
     float zoomSpeed = 20.0f;  // 카메라 줌 속도
@@ -21,8 +19,10 @@ public class ColosseumCameraMove : MonoBehaviour
 
     [Header ("android")]
 
-    [SerializeField]
-    float touchSpeed = 5f;
+    public float touchSpeed = 5f;
+
+    //유저정보 캐싱
+    UserInfo userInfo;
 
     Vector2 curPos, prePos;
     Vector3 movePos;
@@ -43,6 +43,7 @@ public class ColosseumCameraMove : MonoBehaviour
     void Start()
     {        
         cameraMove = Camera.main.transform.parent;
+        userInfo = SystemManager.Instance.UserInfo;
     }
 
     // Update is called once per frame
@@ -133,7 +134,7 @@ public class ColosseumCameraMove : MonoBehaviour
         // 터치 상태 저장
         Touch touch = Input.GetTouch(0);
 
-        moveSpeed = 5f;
+        float moveSpeed = userInfo.touchSpeed;
 
         // test.text = touch.phase.ToString();
 
@@ -282,7 +283,7 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
-        moveSpeed = 2.8f;
+        float moveSpeed = userInfo.touchSpeed;
 
         // 마우스 변위값 구하기
         moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
