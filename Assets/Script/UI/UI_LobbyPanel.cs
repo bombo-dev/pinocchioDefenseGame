@@ -11,7 +11,7 @@ public class UI_LobbyPanel : UI_Controller
     const int MAXTURRETNUM = 23;
     const int MAXTURRETPRESETNUM = 8;
     const int MAXTCOLORWOOD = 6;
-    const int MAXSTAGENUM = 23;
+    const int MAXSTAGENUM = 40;
 
     //로비씬의 플레이어 스크립트
     LobbyPlayer lobbyPlayer;
@@ -20,15 +20,13 @@ public class UI_LobbyPanel : UI_Controller
     [SerializeField]
     Sprite[] turretSprite;
 
+    //스테이지 이미지
+    [SerializeField]
+    Sprite[] stageSprite;
+
     //별 이미지
     [SerializeField]
     Sprite[] starSprite;
-
-    //사운드 이미지
-    [SerializeField]
-    Sprite soundOnSprite;
-    [SerializeField]
-    Sprite soundOffSprite;
 
     enum Buttons
     {
@@ -137,6 +135,23 @@ public class UI_LobbyPanel : UI_Controller
         StageItem21,
         StageItem22,
         StageItem23,
+        StageItem24,
+        StageItem25,
+        StageItem26,
+        StageItem27,
+        StageItem28,
+        StageItem29,
+        StageItem30,
+        StageItem31,
+        StageItem32,
+        StageItem33,
+        StageItem34,
+        StageItem35,
+        StageItem36,
+        StageItem37,
+        StageItem38,
+        StageItem39,
+        StageItem40,
         StageSelectPanel,    //스테이지 선택 패널
         StageContent    //스테이지 선택 토글 상위 오브젝트
     }
@@ -287,6 +302,19 @@ public class UI_LobbyPanel : UI_Controller
             //총합 별 개수 구하기
             totStarNum += userInfo.stageStarList[i].starNum;
         }
+        //스테이지 이미지 바꾸기
+        if (totStarNum <= 33)
+            GetImage((int)Images.StageImage).sprite = stageSprite[0]; //브론즈
+        else if(totStarNum <= 63)
+            GetImage((int)Images.StageImage).sprite = stageSprite[1]; //실버
+        else if (totStarNum <= 78)
+            GetImage((int)Images.StageImage).sprite = stageSprite[2]; //골드
+        else if (totStarNum <= 93)
+            GetImage((int)Images.StageImage).sprite = stageSprite[3]; //플래티넘
+        else if (totStarNum <= 108)
+            GetImage((int)Images.StageImage).sprite = stageSprite[4]; //다이아
+        else
+            GetImage((int)Images.StageImage).sprite = stageSprite[5]; //마스터
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
         //메뉴패널 총 별 개수

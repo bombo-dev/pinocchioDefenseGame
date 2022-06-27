@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class UI_OptionPopUpPanel : UI_Controller
 {
+    const int MAXTURRETNUM = 23;
+
     //사운드 이미지
     [SerializeField]
     Sprite soundOnSprite;
@@ -22,13 +24,42 @@ public class UI_OptionPopUpPanel : UI_Controller
         BgSoundOptionPanel,  //배경음 버튼
         EfSoundOptionPanel,  //효과음 버튼
         ReStartOptionButton,  //다시시작 버튼
-        LobbyOptionButton   //로비로 돌아가기 버튼
+        LobbyOptionButton,   //로비로 돌아가기 버튼
+        TurretPediaButton,   //터렛 사전 열기 버튼
+        WoodPediaButton,    //나무 사전 열기 버튼
+        CloseTurretPediaButton, //터렛 사전 닫기 버튼
+        CloseWoodPediaButton,   //나무 사전 닫기 버튼
     }
 
     enum GameObjects
     {
         touchGuardPanel,    //다른 UI터치방지 패널
-        OptionPopUpPanel    //옵션 팝업 패널
+        OptionPopUpPanel,    //옵션 팝업 패널
+        TurretPediaPanel,   //터렛 사전 패널
+        WoodPediaPanel,      //나무 사전 패널
+        TurretItemPanel1,   //터렛 사전 아이템 1~
+        TurretItemPanel2,
+        TurretItemPanel3,
+        TurretItemPanel4,
+        TurretItemPanel5,
+        TurretItemPanel6,
+        TurretItemPanel7,
+        TurretItemPanel8,
+        TurretItemPanel9,
+        TurretItemPanel10,
+        TurretItemPanel11,
+        TurretItemPanel12,
+        TurretItemPanel13,
+        TurretItemPanel14,
+        TurretItemPanel15,
+        TurretItemPanel16,
+        TurretItemPanel17,
+        TurretItemPanel18,
+        TurretItemPanel19,
+        TurretItemPanel20,
+        TurretItemPanel21,
+        TurretItemPanel22,
+        TurretItemPanel23,  //~23
     }
 
     enum TextMeshProUGUIs
@@ -69,6 +100,11 @@ public class UI_OptionPopUpPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.EfSoundOptionPanel).gameObject, OnClickEfSoundButton, Define.UIEvent.Click);    //효과음 
         AddUIEvent(GetButton((int)Buttons.ExitOptionButton).gameObject, OnClickExitButton, Define.UIEvent.Click);    //앱종료 
 
+        AddUIEvent(GetButton((int)Buttons.TurretPediaButton).gameObject, OnClickTurretPedia, Define.UIEvent.Click);    //터렛 사전 열기
+        AddUIEvent(GetButton((int)Buttons.CloseTurretPediaButton).gameObject, OnClickCloseTurretPedia, Define.UIEvent.Click);    //터렛 사전 닫기
+        AddUIEvent(GetButton((int)Buttons.WoodPediaButton).gameObject, OnClickWoodPedia, Define.UIEvent.Click);    //나무 사전 열기
+        AddUIEvent(GetButton((int)Buttons.CloseWoodPediaButton).gameObject, OnClickCloseWoodPedia, Define.UIEvent.Click);    //나무 사전 닫기
+
         //씬 별로 버튼 활성화
         OnButton();
 
@@ -77,6 +113,10 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //옵션패널 팝업 닫기
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(false);
+
+        //사전 패널 닫기
+        GetGameobject((int)GameObjects.TurretPediaPanel).SetActive(false);
+        GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(false);
 
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
@@ -315,6 +355,56 @@ public class UI_OptionPopUpPanel : UI_Controller
     {
         SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
     }
+    #endregion
+
+    #region 사전
+
+    /// <summary>
+    /// 터렛 사전 패널 열기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickTurretPedia(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.TurretPediaPanel).SetActive(true);
+
+        //아이템 활성화
+        for (int i = 0; i < MAXTURRETNUM; i++)
+        {
+            if(i < SystemManager.Instance.UserInfo.maxTurretNum)
+                GetGameobject((int)GameObjects.TurretItemPanel1 + i).SetActive(true);
+            else
+                GetGameobject((int)GameObjects.TurretItemPanel1 + i).SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// 터렛 사전 패널 닫기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickCloseTurretPedia(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.TurretPediaPanel).SetActive(false);
+    }
+
+    /// <summary>
+    /// 나무 사전 패널 열기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickWoodPedia(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(true);
+    }
+
+    /// <summary>
+    /// 나무 사전 패널 닫기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickCloseWoodPedia(PointerEventData data)
+    {
+        GetGameobject((int)GameObjects.WoodPediaPanel).SetActive(false);
+    }
+
+
     #endregion
 
     /// <summary>

@@ -60,9 +60,19 @@ public class UI_ResourcePanel : UI_Controller
                SystemManager.Instance.GameFlowManager.stage.ToString();
 
             //스테이지 이미지 변경
-            if(SystemManager.Instance.GameFlowManager.stage > 0)
-                if (((SystemManager.Instance.GameFlowManager.stage - 1) / 10) < stageSprite.Length)
-                    GetImage((int)Images.StageStartImage).sprite = stageSprite[SystemManager.Instance.GameFlowManager.stage / 10];
+            if (SystemManager.Instance.UserInfo.selectedStageNum <= 10)
+                    GetImage((int)Images.StageStartImage).sprite = stageSprite[0]; //브론즈
+            else if(SystemManager.Instance.UserInfo.selectedStageNum <= 20)
+                    GetImage((int)Images.StageStartImage).sprite = stageSprite[1]; //실버
+            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 25)
+                GetImage((int)Images.StageStartImage).sprite = stageSprite[2]; //골드
+            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 30)
+                GetImage((int)Images.StageStartImage).sprite = stageSprite[3]; //플래티넘
+            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 35)
+                GetImage((int)Images.StageStartImage).sprite = stageSprite[4]; //다이아
+            else 
+                GetImage((int)Images.StageStartImage).sprite = stageSprite[5]; //마스터
+
 
             //디펜스 시작 코루틴 호출
             StartCoroutine("StartDefense");
