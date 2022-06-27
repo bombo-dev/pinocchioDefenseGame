@@ -290,8 +290,8 @@ public class Actor : MonoBehaviour
             //회복 타워일 경우
             if (mine && isRecoveryTower)
             {
-                // 감지된 타겟이 자신이거나 또다른 회복타워일 경우 다음 유닛 감지
-                if ((System.Object.ReferenceEquals(target[i], mine)) || (target[i].GetComponent<Actor>().isRecoveryTower))
+                // 감지된 타겟이 자신이거나 또다른 회복타워이거나 HP 회복이 필요 없는 경우 다음 유닛 감지
+                if ((System.Object.ReferenceEquals(target[i], mine)) || (target[i].GetComponent<Actor>().isRecoveryTower) || (target[i].GetComponent<Actor>().currentHP >= target[i].GetComponent<Actor>().maxHP))
                 {
                     if (i >= target.Count - 1)
                         break;
