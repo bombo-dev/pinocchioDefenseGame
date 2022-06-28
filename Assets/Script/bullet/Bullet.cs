@@ -13,9 +13,9 @@ public class Bullet : MonoBehaviour
     public GameObject attackTarget;    //총알의 최종 목적지  
 
     [SerializeField]
-    float bulletSpeed;    // 총알의 이동 속도
+    public float bulletSpeed;    // 총알의 이동 속도
 
-    float initSpeed;    // 총알의 초기 속도를 저장할 변수
+    public float initSpeed;    // 총알의 초기 속도를 저장할 변수
 
     [SerializeField]
     float maxforce;
@@ -32,9 +32,9 @@ public class Bullet : MonoBehaviour
     float distance = 0.0f;
 
     [SerializeField]
-    float force;    // 가속도
+    public float force;    // 가속도
 
-    float initForce;    // 초기 가속도를 저장할 변수
+    public float initForce;    // 초기 가속도를 저장할 변수
 
     public GameObject attackOwner;
 
@@ -69,6 +69,11 @@ public class Bullet : MonoBehaviour
         {
             // 총알 파괴 모션
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+            
+            force = initForce;
+
+            bulletSpeed = initSpeed;
+
             return;
         }
 
@@ -80,10 +85,14 @@ public class Bullet : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(bulletAttackDir);
         transform.rotation = rotation;
 
-        // 가속도 붙이기
-        bulletSpeed += (bulletSpeed * force);
 
-        force += 0.001f;
+
+        if (Time.timeScale != 0)
+        {
+            // 가속도 붙이기
+            bulletSpeed += (bulletSpeed * force);
+            force += 0.001f;
+        }
 
         if (float.IsInfinity(targetPos.x))
         {
@@ -124,6 +133,11 @@ public class Bullet : MonoBehaviour
             if (target.GetComponent<Actor>().currentHP == 0 || !target)
             {
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+                force = initForce;
+
+                bulletSpeed = initSpeed;
+
                 return;
             }
 
@@ -200,6 +214,10 @@ public class Bullet : MonoBehaviour
                 }
 
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+                force = initForce;
+
+                bulletSpeed = initSpeed;
             }
             //공격 타워
             else if (target.tag == "Enemy")
@@ -290,11 +308,13 @@ public class Bullet : MonoBehaviour
                 turret.EnableDamageEffect(attacker);
             }
 
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+            // Debug.Log("-----------------------------------------------미사일 " + (i++) + "번째");
+
             force = initForce;
 
             bulletSpeed = initSpeed;
-
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }
     }
 
