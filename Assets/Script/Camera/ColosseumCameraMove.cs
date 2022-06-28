@@ -35,11 +35,6 @@ public class ColosseumCameraMove : MonoBehaviour
 
     bool dontMove = false;    // 줌하는동안 한 손가락을 뗀 경우 카메라 이동 방지 플래그
 
-    //이동 반경 제한 - PC
-    private Vector3 beginMousePos = Vector3.zero;
-    private Vector3 preMousePos = Vector3.zero;
-    private Vector3 beginCamPos = Vector3.zero;
-
     // Start is called before the first frame update
     void Start()
     {        
@@ -290,11 +285,11 @@ public class ColosseumCameraMove : MonoBehaviour
         moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
         moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
 
-        Vector3 moveVec = new Vector3(cameraMove.position.x + moveX, 0, cameraMove.position.z + moveZ);
-        cameraMove.transform.position = moveVec;
+        //Vector3 moveVec = new Vector3(cameraMove.position.x  - moveZ, cameraMove.position.y, cameraMove.position.z - moveX);
+        //cameraMove.transform.position = moveVec;
 
         // 카메라 이동
-        //cameraMove.Translate(-moveX, 0, -moveZ);
+        cameraMove.Translate(-moveX, 0, -moveZ);
     }
 
     /// <summary>
