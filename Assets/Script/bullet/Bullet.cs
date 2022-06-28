@@ -85,9 +85,14 @@ public class Bullet : MonoBehaviour
 
         force += 0.001f;
 
+        if (float.IsInfinity(targetPos.x))
+        {
+            targetPos = Vector3.zero;
+        }
+
         if (bulletType == 0) // Á÷¼±Çü
         {
-            //transform.position = Vector3.Lerp(bulletPos, targetPos, moveDist*Time.deltaTime*0.2f);            
+            //transform.position = Vector3.Lerp(bulletPos, targetPos, moveDist*Time.deltaTime*0.2f);  
             Vector3 translation = (targetPos - bulletPos).normalized * Time.deltaTime * bulletSpeed * 1.5f;
             transform.position += translation;
 

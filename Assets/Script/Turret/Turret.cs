@@ -97,7 +97,7 @@ public class Turret : Actor
         //베이스터렛 HP 초기화 :  100 + (stage * 30)
         if (turretNum == SystemManager.Instance.TurretManager.BASETURRET_INDEX)
         {
-            maxHP = maxHP + (SystemManager.Instance.GameFlowManager.stage * 40);
+            maxHP = maxHP + (SystemManager.Instance.GameFlowManager.stage * 80);
             currentHP = maxHP;
         }
     }

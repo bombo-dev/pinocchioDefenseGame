@@ -285,9 +285,6 @@ public class ColosseumCameraMove : MonoBehaviour
         moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
         moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
 
-        //Vector3 moveVec = new Vector3(cameraMove.position.x  - moveZ, cameraMove.position.y, cameraMove.position.z - moveX);
-        //cameraMove.transform.position = moveVec;
-
         // 카메라 이동
         cameraMove.Translate(-moveX, 0, -moveZ);
     }
