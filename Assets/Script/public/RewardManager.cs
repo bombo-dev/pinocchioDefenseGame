@@ -66,7 +66,7 @@ public class RewardManager : MonoBehaviour
 
         if (!userInfo)
             return;
-         
+
         //이미 클리어한 스테이지일 경우
         if (gfm.stage < userInfo.maxStageNum)
         {
@@ -83,7 +83,7 @@ public class RewardManager : MonoBehaviour
                 for (int i = 0; i < colorWoodReward.Length; i++)
                 {
                     if (colorWoodReward[i] > 2)
-                        colorWoodReward[i] = colorWoodReward[i] / 3;
+                        colorWoodReward[i] = colorWoodReward[i] / 2;
                     else if (colorWoodReward[i] == 2)
                         colorWoodReward[i] = 1;
                 }

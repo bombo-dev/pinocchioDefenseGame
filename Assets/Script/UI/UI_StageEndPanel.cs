@@ -453,9 +453,6 @@ public class UI_StageEndPanel : UI_Controller
             //추가 터렛 보상 (마지막 인덱스에 터렛 보상 추가)
             if (rwm.turretReward.ContainsKey(gfm.stage)) //터렛 보상 존재할경우
             {
-                //신규 터렛 획득 패널 활성화
-                GetGameobject((int)GameObjects.newTurretPanel).SetActive(true);
-
                 //이미 가지고 있는 터렛이 아닌경우
                 if (rwm.getNewTurret)
                 {
@@ -471,12 +468,16 @@ public class UI_StageEndPanel : UI_Controller
                     GetTextMeshProUGUI((int)TextMeshProUGUIs.RewardNumText6).text =
                         "X1";
 
-                    rwm.getNewTurret = false;
-                }
+                    //---신규터렛 획득 연출---
 
-                //신규터렛 획득 연출
-                GetImage((int)Images.newTurretImage).sprite = turretSprite[rwm.turretReward[gfm.stage] - 1];
-                StartCoroutine(newTurretTyping(GetTextMeshProUGUI((int)TextMeshProUGUIs.newTurretText), "신규 터렛이 컬렉션에 추가되었습니다!", 0.03f));
+                    //신규 터렛 획득 패널 활성화
+                    GetGameobject((int)GameObjects.newTurretPanel).SetActive(true);
+
+                    GetImage((int)Images.newTurretImage).sprite = turretSprite[rwm.turretReward[gfm.stage] - 1];
+                    StartCoroutine(newTurretTyping(GetTextMeshProUGUI((int)TextMeshProUGUIs.newTurretText), "신규 터렛이 컬렉션에 추가되었습니다!", 0.03f));
+
+                    rwm.getNewTurret = false;
+                }               
             }
 
             //패널이미지 교체
