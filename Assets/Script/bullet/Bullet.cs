@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float bulletSpeed;    // 총알의 이동 속도
 
+    float initSpeed;    // 총알의 초기 속도를 저장할 변수
+
     [SerializeField]
     float maxforce;
 
@@ -30,7 +32,9 @@ public class Bullet : MonoBehaviour
     float distance = 0.0f;
 
     [SerializeField]
-    float force;
+    float force;    // 가속도
+
+    float initForce;    // 초기 가속도를 저장할 변수
 
     public GameObject attackOwner;
 
@@ -42,6 +46,8 @@ public class Bullet : MonoBehaviour
 
     Vector3 initPos;
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -50,6 +56,8 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         initPos = transform.position;
+        initForce = force;
+        initSpeed = bulletSpeed;
     }
     /// <summary>
     /// 총알 발사 업데이트 : 하은비
@@ -73,7 +81,7 @@ public class Bullet : MonoBehaviour
         transform.rotation = rotation;
 
         // 가속도 붙이기
-        bulletSpeed += bulletSpeed * force;
+        bulletSpeed += (bulletSpeed * force);
 
         force += 0.001f;
 
@@ -276,6 +284,10 @@ public class Bullet : MonoBehaviour
                 //피 공격자에게 데미지 이펙트 출력
                 turret.EnableDamageEffect(attacker);
             }
+
+            force = initForce;
+
+            bulletSpeed = initSpeed;
 
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
         }
