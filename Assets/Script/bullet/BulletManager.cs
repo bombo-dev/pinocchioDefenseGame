@@ -77,6 +77,13 @@ public class BulletManager : MonoBehaviour
 
         Bullet bullet = go.GetComponent<Bullet>();
 
+        // 불렛의 초기 변수 값이 존재할 경우에만 초기화
+        if (bullet.initForce != 0 && bullet.initSpeed != 0)
+        {
+            bullet.force = bullet.initForce;
+            bullet.bulletSpeed = bullet.initSpeed;
+        }
+
         //예외처리
         if (bullet == null)
             return;
