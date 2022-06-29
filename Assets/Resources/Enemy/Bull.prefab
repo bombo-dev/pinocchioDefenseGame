@@ -176,9 +176,9 @@ MonoBehaviour:
   _debuff: 0
   maxHP: 800
   currentHP: 0
-  power: 30
+  power: 35
   currentPower: 0
-  defense: 30
+  defense: 40
   currentDefense: 0
   attackSpeed: 2
   currentAttackSpeed: 0
@@ -242,6 +242,7 @@ MonoBehaviour:
   targetPoint: []
   targetPointIndex: 0
   currentTarget: {fileID: 0}
+  dirVec: {x: 0, y: 0, z: 0}
   rewardWoodResource: 600
   statusMngPanel: {fileID: 0}
   damageMngPanel: {fileID: 0}
