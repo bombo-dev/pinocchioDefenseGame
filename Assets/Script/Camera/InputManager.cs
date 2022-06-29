@@ -11,9 +11,15 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     List<Renderer> rendererList;
 
+    //선택한 둥지 강조 오브젝트
+    [SerializeField]
+    GameObject nestPointer;
+
     // Start is called before the first frame update
     void Start()
     {
+        if(nestPointer.activeSelf)
+            nestPointer.SetActive(false);
     }
 
     // Update is called once per frame
@@ -80,7 +86,7 @@ public class InputManager : MonoBehaviour
     void SelectNest(GameObject hitGo)
     {
         //이전에 선택한 오브젝트 효과초기화
-        if(currenstSelectNest != null)
+        if (currenstSelectNest != null)
             OffHightlightObject(currenstSelectNest);
 
         //오브젝트 선택
@@ -93,7 +99,14 @@ public class InputManager : MonoBehaviour
         {
             if(SystemManager.Instance.PanelManager.turretInfoPanel)
                 SystemManager.Instance.PanelManager.turretInfoPanel.GetComponent<UI_TurretInfoPanel>().Reset();
-        }    
+        }
+
+        //둥지 포인터 활성화
+        if (!nestPointer.activeSelf)
+        { 
+            nestPointer.SetActive(true);
+        }
+        nestPointer.transform.position = currenstSelectNest.transform.position;
 
         //선택한 오브젝트 하이라이트 효과
         OnHighlightObject(currenstSelectNest);

@@ -301,9 +301,12 @@ public class GameFlowManager : MonoBehaviour
         SystemManager.Instance.InputManager.enabled = false;
 
         //패널 비활성화
-        pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
-        pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
-        pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
+        if (pm.turretMngPanel)
+            pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+        if (pm.turretInfoPanel)
+            pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+        if (pm.resoursePanel)
+            pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
         if(pm.optionPanel)  //튜토리얼일 경우 옵션패널 존재하지 않는다
             pm.optionPanel.DisablePanelFinStage();
 

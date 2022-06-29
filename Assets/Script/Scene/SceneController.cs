@@ -100,12 +100,8 @@ public class SceneController : MonoBehaviour
             {
                 if (SystemManager.Instance.LoadingSceneManager.FinProgressBar(timer))
                 {
-                    //페이드아웃 완료시 다음씬 로드
-                    if (ImageFade.finFade)
-                    {
-                        op.allowSceneActivation = true;
-                        yield break;
-                    } 
+                    op.allowSceneActivation = true;
+                    yield break;
                 }
             }
         }

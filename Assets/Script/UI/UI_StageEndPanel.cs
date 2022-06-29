@@ -311,6 +311,18 @@ public class UI_StageEndPanel : UI_Controller
 
         //패널 활성화 코루틴 호출
         StartCoroutine("OnResultPanel");
+
+        //패널 안사라짐 예외처리
+        PanelManager pm = SystemManager.Instance.PanelManager;
+        //패널 비활성화
+        if (pm.turretMngPanel)
+            pm.DisablePanel<UI_TurretMngPanel>(pm.turretMngPanel.gameObject);
+        if (pm.turretInfoPanel)
+            pm.DisablePanel<UI_TurretInfoPanel>(pm.turretInfoPanel.gameObject);
+        if (pm.resoursePanel)
+            pm.DisablePanel<UI_ResourcePanel>(pm.resoursePanel.gameObject);
+        if (pm.optionPanel)  //튜토리얼일 경우 옵션패널 존재하지 않는다
+            pm.optionPanel.DisablePanelFinStage();
     }
 
     /// <summary>
