@@ -45,6 +45,7 @@ public class Enemy : Actor
     [SerializeField]
     GameObject currentTarget;   //현재 타겟
 
+    [SerializeField]
     Vector3 dirVec; //이동처리할 방향벡터
 
     bool isEndShow = false; // 코루틴의 종료여부 확인 플래그
@@ -131,7 +132,6 @@ public class Enemy : Actor
         if (target == null)
             return Vector3.zero;
 
-        Vector3 dirVec = Vector3.zero;
         dirVec = target.transform.position - transform.position;
         dirVec.Normalize();
 
@@ -171,6 +171,31 @@ public class Enemy : Actor
     #region Walk - 이동및 적 감지
 
     /// <summary>
+    /// 로테이션값 받아서 값 정규화 : 김현진
+    /// </summary>
+    /// <param name="rotY">정규화 시킬 값</param>
+    /// <returns>정규화한 값</returns>
+    float NormalizeRotation(float rotY)
+    {
+        if (rotY > 80f && rotY < 100f)
+            return 90f;
+        else if (rotY > -280f && rotY < -260f)
+            return 90f;
+        else if (rotY > 170f && rotY < 190f)
+            return 180f;
+        else if (rotY > -190f && rotY < -170f)
+            return 180f;
+        else if (rotY > 260f && rotY < 280f)
+            return 270f;
+        else if (rotY > -100f && rotY < -80f)
+            return 270f;
+        else if (rotY > 350f || rotY < 10f)
+            return 0f;
+        else
+            return Mathf.Round(transform.localEulerAngles.y);
+    }
+
+    /// <summary>
     /// 목표 도착점에 도착 했는지 확인 : 김현진
     /// </summary>
     void CheckArrive()
@@ -179,10 +204,14 @@ public class Enemy : Actor
         if (currentTarget == null)
             return;
 
+
         //타겟에 도착하지 않았을 경우
+        //if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 10)
+          //  return ;
+
         if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 2f)
         {
-            float rotY = Mathf.Round(transform.localEulerAngles.y);
+            float rotY = NormalizeRotation(transform.localEulerAngles.y);
 
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
             if (rotY == 360f)
@@ -270,12 +299,15 @@ public class Enemy : Actor
         if (dirVec == Vector3.zero)
             return;
 
+        //dirVec = FindDirVec(currentTarget);
+
         Vector3 updateVec = new Vector3(dirVec.x * currentSpeed * Time.deltaTime, 0, dirVec.z * currentSpeed * Time.deltaTime);
         transform.position += updateVec;
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
 
         //회전
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 0.3f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 1f);
+
         //회전 x,z축 고정
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }

@@ -211,6 +211,12 @@ public class GameFlowManager : MonoBehaviour
     {
         if (SystemManager.Instance.EnemyManager.enemies.Count <= 0)
         {
+            //타임스케일 초기화
+            Time.timeScale = 1.0f;  //타임스케일 변경
+
+            //FixedDeltaTime변경
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
+
             //캐싱
             UserInfo userInfo = SystemManager.Instance.UserInfo;
             RewardManager rewardManager = SystemManager.Instance.RewardManager;

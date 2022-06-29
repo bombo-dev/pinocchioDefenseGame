@@ -27,6 +27,9 @@ public class InputManager : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
+            if (Input.touchCount <= 0)
+                return;
+
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 TouchObject();
         }
