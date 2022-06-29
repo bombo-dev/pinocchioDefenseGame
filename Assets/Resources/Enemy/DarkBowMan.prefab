@@ -78,17 +78,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 50
+  maxHP: 550
   currentHP: 0
-  power: 10
+  power: 250
   currentPower: 0
-  defense: 10
+  defense: 20
   currentDefense: 0
   attackSpeed: 2
   currentAttackSpeed: 0
-  range: 15000
+  range: 13000
   currentRange: 0
-  regeneration: 0
+  regeneration: 40
   currentRegeneration: 0
   attackRangeType: 1
   isRecoveryTower: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   damageSoundClip: {fileID: 8300000, guid: e2d6d4751a628354e92775b671d8dca6, type: 3}
   deathSoundClip: {fileID: 8300000, guid: b24236920f0105f4badaed3ecd504f7a, type: 3}
   enemyState: 0
-  speed: 18
+  speed: 25
   currentSpeed: 0
   enemyNum: 0
   enemyIndex: 0
@@ -156,7 +156,8 @@ MonoBehaviour:
   targetPoint: []
   targetPointIndex: 0
   currentTarget: {fileID: 0}
-  rewardWoodResource: 0
+  dirVec: {x: 0, y: 0, z: 0}
+  rewardWoodResource: 700
   statusMngPanel: {fileID: 0}
   damageMngPanel: {fileID: 0}
   enemyDatas: []

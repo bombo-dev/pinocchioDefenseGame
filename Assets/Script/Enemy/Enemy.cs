@@ -205,9 +205,10 @@ public class Enemy : Actor
             return;
 
 
+        float distance = Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z));
         //타겟에 도착하지 않았을 경우
-        //if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 10)
-          //  return ;
+        if (distance > 10 && distance < 100000)
+            return ;
 
         if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 2f)
         {

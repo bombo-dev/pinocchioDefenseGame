@@ -721,15 +721,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 50
+  maxHP: 300
   currentHP: 0
-  power: 10
+  power: 15
   currentPower: 0
   defense: 10
   currentDefense: 0
-  attackSpeed: 0.3
+  attackSpeed: 0.4
   currentAttackSpeed: 0
-  range: 1225
+  range: 3300
   currentRange: 0
   regeneration: 0
   currentRegeneration: 0
@@ -794,7 +794,8 @@ MonoBehaviour:
   targetPoint: []
   targetPointIndex: 0
   currentTarget: {fileID: 0}
-  rewardWoodResource: 0
+  dirVec: {x: 0, y: 0, z: 0}
+  rewardWoodResource: 370
   statusMngPanel: {fileID: 0}
   damageMngPanel: {fileID: 0}
   enemyDatas: []

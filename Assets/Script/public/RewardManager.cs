@@ -112,8 +112,9 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(25, 14);//초강화 비둘기
         turretReward.Add(27, 15);//초강화 딱다구리
         turretReward.Add(29, 16);//초강화 아기새
-
-
+        turretReward.Add(31, 17);//초강화 펭귄
+        turretReward.Add(33, 18);//초강화 호크
+        turretReward.Add(34, 19);//번개
     }
 
     /// <summary>

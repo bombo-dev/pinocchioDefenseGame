@@ -63,8 +63,8 @@ public class GameFlowManager : MonoBehaviour
     public float stageTime;
 
     //웨이브 종료 여부 
-    bool finWave = false;
-    
+    bool[] finWaveArr;
+
     //전투분석 딕셔너리
     public Dictionary<int,int> turretBattleAnalysisDic = new Dictionary<int,int>(); //터렛번호 / 데미지
     public Dictionary<int, int> turretSummonAnalysisDic = new Dictionary<int, int>(); //터렛번호 / 소환개수
@@ -99,7 +99,10 @@ public class GameFlowManager : MonoBehaviour
         turretBattleAnalysisDic.Clear();
 
         //웨이브 초기화
-        finWave = false;
+        finWaveArr = new bool[4];
+        finWaveArr[0] = false;
+        finWaveArr[1] = false;
+        finWaveArr[2] = false;
     }
 
     // Update is called once per frame
@@ -119,7 +122,7 @@ public class GameFlowManager : MonoBehaviour
                 break;
             case GameState.Defense:
                 stageTime += Time.deltaTime;
-                if (!finWave)
+                if (!(finWaveArr[0] && finWaveArr[1] && finWaveArr[2]))
                     UpdateDefense();
                 else
                     ChkClear();
@@ -143,25 +146,25 @@ public class GameFlowManager : MonoBehaviour
         for (int i = 0; i < GATENUM; i++)
         {
             if (defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr.Length <= 0)
+            {
+                finWaveArr[i] = true;
+                continue;
+            }
+
+            //마지막 인덱스일 경우
+            if (finWaveArr[i])
                 continue;
 
-            if(Time.time - flowTimer[i] > defenseFlowDataList.datas[stage].defenseFlowDataArr[i].timeFlowIndexArr[arrPointer[i]])
+            if (Time.time - flowTimer[i] > defenseFlowDataList.datas[stage].defenseFlowDataArr[i].timeFlowIndexArr[arrPointer[i]])
             {
                 //Enemy 활성화
                 SystemManager.Instance.EnemyManager.EnableEnemy(defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]
                                                                          , i, defenseFlowDataList.datas[stage].defenseFlowDataArr[i].targetPointIndexArr);
 
-                //GameObject go = SystemManager.Instance.EnemyManager.enemies[defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr[arrPointer[i]]];
-                //SystemManager.Instance.PanelManager.EnablePanel<StatusMngPanel>(3, go.transform.position);
-                
-                //HPBar = SystemManager.Instance.PanelManager.statusMngPanel.gameObject;
-                //Enemy enemy = go.GetComponent<Enemy>();
-                //enemy.UpdateEnemyPos(HPBar);
-
                 //마지막 인덱스
                 if (arrPointer[i] >= defenseFlowDataList.datas[stage].defenseFlowDataArr[i].enemyFlowIndexArr.Length - 1)
                 {
-                    finWave = true;
+                    finWaveArr[i] = true;
                 }
                 else
                 {
