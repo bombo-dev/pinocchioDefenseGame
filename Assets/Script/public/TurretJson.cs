@@ -116,7 +116,7 @@ public class TurretJson : MonoBehaviour
             WWW reader = new WWW(originPath);
             while (!reader.isDone) { }
 
-            string realPath = Application.persistentDataPath + ".Json";
+            string realPath = Application.persistentDataPath + "Turret.Json";
             File.WriteAllBytes(realPath, reader.bytes);
 
             string jsonString = File.ReadAllText(realPath);
