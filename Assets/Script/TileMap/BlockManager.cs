@@ -73,6 +73,8 @@ public class BlockManager : MonoBehaviour
             fieldGo = field[6];
         else if (userInfo.selectedStageNum <= 35)
             fieldGo = field[7];
+        else if (userInfo.selectedStageNum <= 40)
+            fieldGo = field[8];
 
         //targetArrÃÊ±âÈ­
         for (int i = 0; i < fieldGo.transform.GetChild(0).childCount; i++)
