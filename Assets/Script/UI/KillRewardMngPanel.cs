@@ -41,6 +41,8 @@ public class KillRewardMngPanel : MonoBehaviour
         TextMeshProUGUI reward = RewardText.GetComponentInChildren<TextMeshProUGUI>();
         reward.text = "+"+ value.ToString();
 
+        reward.alpha = alpaValue;
+
         RewardText.SetActive(true);
 
         StartCoroutine(ShowRwdCoroutine(value));
@@ -59,7 +61,7 @@ public class KillRewardMngPanel : MonoBehaviour
 
                 StopCoroutine(ShowRwdCoroutine(value));
             }
-            alpaValue -= 0.01f;
+            alpaValue -= 0.03f;
 
             yield return new WaitForSeconds(0.01f);
 

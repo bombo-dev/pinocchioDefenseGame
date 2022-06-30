@@ -92,21 +92,9 @@ public class DamageMngPanel : UI_Controller
             if (alpaValue < 0.1)
             {
                 DisableDmgPanel(damage, identity);
-                /*
-                DamageText.SetActive(false);
-                SystemManager.Instance.PanelManager.DisablePanel<DamageMngPanel>(gameObject);
-                
-                // 활성화된 데미지 패널을 저장한 리스트에서 해당 패널 제거
-                SystemManager.Instance.PanelManager.damagePanels.Remove(gameObject);
-                
 
-                addPos = 0.1f;  // 위치 업데이트를 위한 변수 초기화
-
-                // 코루틴 종료
-                StopCoroutine(ShowDmgCoroutine(damage, identity));
-                */
             }
-            alpaValue -= 0.01f;
+            alpaValue -= 0.03f;
 
             SetTextColor(damage, identity);            
             
@@ -154,7 +142,7 @@ public class DamageMngPanel : UI_Controller
 
         transform.position = screenPos;
         //transform.Translate(Vector3.up * 10f * Time.deltaTime);        
-        addPos += 0.02f;
+        addPos += 0.1f;
     }
 
 }

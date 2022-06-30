@@ -19,11 +19,17 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public Player player;
 
     public CharacterController characterController;
-    
+
+    Transform joystick;    // 조이스틱 UI
+    Transform Lever;    // 레버 UI
 
     private void Awake()    
     {
         rectTransform = GetComponent<RectTransform>();
+
+        joystick = rectTransform.GetChild(0);
+        Lever = rectTransform.GetChild(1);
+
     }
 
     void Update()
@@ -33,17 +39,17 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             InputControlVector();
         }
     }
-    
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        ControlJoystickLever(eventData);  // 추가
-        isInput = true;    // 추가    
+        ControlJoystickLever(eventData);
+        isInput = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        ControlJoystickLever(eventData);    // 추가
-        
+        ControlJoystickLever(eventData);
+        CalcDistance();
     }
 
     public void ControlJoystickLever(PointerEventData eventData)
@@ -66,7 +72,23 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         player.UpdateMove(inputVector);
     }
-    
-    
 
+    void CalcDistance()
+    {
+        Vector3 inputPos;
+
+        if (Application.platform == RuntimePlatform.Android)
+            inputPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
+        else
+            inputPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+
+        // 조이스틱을 움직인 거리
+        float dist = Vector3.Distance(inputPos, joystick.transform.position);
+
+        // 조이스틱 이동 방향
+        Vector3 dir = (inputPos - joystick.transform.position).normalized;
+
+        player.distance = dist;
+        player.direction = -dir;
+    }
 }
