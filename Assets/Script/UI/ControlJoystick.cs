@@ -76,6 +76,7 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     void CalcDistance()
     {
         Vector3 inputPos;
+
         if (Application.platform == RuntimePlatform.Android)
             inputPos = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
         else
