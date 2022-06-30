@@ -112,15 +112,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _debuff: 0
-  maxHP: 30
+  maxHP: 600
   currentHP: 0
-  power: 10
+  power: 300
   currentPower: 0
-  defense: 10
+  defense: 30
   currentDefense: 0
-  attackSpeed: 7
+  attackSpeed: 8
   currentAttackSpeed: 0
-  range: 1225
+  range: 5500
   currentRange: 0
   regeneration: 10
   currentRegeneration: 0
@@ -190,12 +190,12 @@ MonoBehaviour:
   - Buff/BlueBuff
   - Buff/BlackBuff
   nest: {fileID: 0}
-  turretNum: 20
+  turretNum: 3000
   gateNum: 0
   turretIndex: 0
   turretState: 0
   turretAppearPosY: -155.25
-  turretCost: 0
+  turretCost: 4000
   turretConstructionTime: 0
   statusMngPanel: {fileID: 0}
   damageMngPanel: {fileID: 0}

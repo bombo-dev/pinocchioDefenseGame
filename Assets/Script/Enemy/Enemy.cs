@@ -206,12 +206,12 @@ public class Enemy : Actor
 
         float distance = Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z));
 
-        if(enemyIndex == 0)
-            Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance  + "->" + targetPointIndex 
-                + "  LookRot" + Quaternion.LookRotation(-dirVec));
-
         transform.rotation = Quaternion.LookRotation(-dirVec);
         float rotY = NormalizeRotation(transform.localEulerAngles.y);
+
+        if (enemyIndex == 0)
+            Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance + "->" + targetPointIndex
+                + "  LookRot:" + rotY);
 
         //if (distance > 30f)
         if (rotY == 0f || rotY == 90f || rotY == 180f || rotY == 270f)

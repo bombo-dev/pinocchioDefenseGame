@@ -125,6 +125,8 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(33, 18);//초강화 호크
         turretReward.Add(34, 19);//번개
         turretReward.Add(35, 20);//로자리오
+        turretReward.Add(36, 21);//화염
+        turretReward.Add(37, 22);//광명
     }
 
     /// <summary>
