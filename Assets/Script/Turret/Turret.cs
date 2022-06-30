@@ -331,7 +331,8 @@ public class Turret : Actor
                     //사거리 표시 삭제
                     SystemManager.Instance.RangeManager.DisableRange(0);
                 }
-                if(!SystemManager.Instance.PanelManager.turretInfoPanel)
+
+                if(!SystemManager.Instance.PanelManager.turretInfoPanel && SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.Defense)
                     SystemManager.Instance.PanelManager.EnablePanel<UI_TurretMngPanel>(0); //0: UI_TurretMngPanel
             }
             nest = null;

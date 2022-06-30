@@ -204,19 +204,19 @@ public class Enemy : Actor
         if (currentTarget == null)
             return;
 
-
         float distance = Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z));
-        //타겟에 도착하지 않았을 경우
-        if (distance > 10 && distance < 100000)
-            return ;
 
-        if (Vector2.SqrMagnitude(new Vector2(transform.position.x, transform.position.z) - new Vector2(currentTarget.transform.position.x, currentTarget.transform.position.z)) > 2f)
+        if(enemyIndex == 0)
+            Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance  + "->" + targetPointIndex 
+                + "  LookRot" + Quaternion.LookRotation(-dirVec));
+
+        transform.rotation = Quaternion.LookRotation(-dirVec);
+        float rotY = NormalizeRotation(transform.localEulerAngles.y);
+
+        //if (distance > 30f)
+        if (rotY == 0f || rotY == 90f || rotY == 180f || rotY == 270f)
         {
-            float rotY = NormalizeRotation(transform.localEulerAngles.y);
-
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리
-            if (rotY == 360f)
-                rotY = 0f;
             if (!((rotY == 0f && transform.position.z < currentTarget.transform.position.z)//전진
                 || (rotY == 90f && transform.position.x < currentTarget.transform.position.x)//오른쪽
                 || (rotY == 180f && transform.position.z > currentTarget.transform.position.z)//후진
@@ -307,7 +307,8 @@ public class Enemy : Actor
         Quaternion rotation = Quaternion.LookRotation(-dirVec);
 
         //회전
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 1f);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 1f);
+        transform.rotation = rotation;
 
         //회전 x,z축 고정
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);

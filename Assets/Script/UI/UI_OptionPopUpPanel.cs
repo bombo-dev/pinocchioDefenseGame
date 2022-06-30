@@ -172,6 +172,10 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
+
+        // UserInfo Save
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
     }
 
     /// <summary>
