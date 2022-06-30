@@ -65,6 +65,7 @@ public class Bullet : MonoBehaviour
     void UpdateBullet()
     {
         //예외처리
+        /*
         if (!attackTarget || bulletLifeTime > 200)
         {            
             // 총알 파괴 모션
@@ -75,7 +76,7 @@ public class Bullet : MonoBehaviour
             bulletSpeed = initSpeed;
 
             return;
-        }
+        }*/
 
 
             Vector3 bulletPos = transform.position;   // 총알의 위치
