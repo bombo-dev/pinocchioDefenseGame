@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class UI_LobbyPanel : UI_Controller
 {
@@ -483,9 +484,22 @@ public class UI_LobbyPanel : UI_Controller
     /// </summary>
     void ResetTurretPreset()
     {
-        //리스트 오름차순 갱신
-        if (SystemManager.Instance.UserInfo.turretPreset.Count > 1)
-            SystemManager.Instance.UserInfo.turretPreset.Sort();
+        //---리스트 가격순 오름차순 갱신---
+        Dictionary<int,int> tempTurretPreset = new Dictionary<int, int>();  // turretNum/Cost
+        for (int i = 0; i < SystemManager.Instance.UserInfo.turretPreset.Count; i++)
+        {
+            tempTurretPreset.Add(SystemManager.Instance.UserInfo.turretPreset[i],
+                SystemManager.Instance.TurretJson.GetTurretData()[SystemManager.Instance.UserInfo.turretPreset[i]].turretCost);
+        }
+        var sortTempTurretPreset = tempTurretPreset.OrderBy(x => x.Value);
+
+        SystemManager.Instance.UserInfo.turretPreset.Clear();
+        foreach (var dictionary in sortTempTurretPreset)
+        {
+            SystemManager.Instance.UserInfo.turretPreset.Add(dictionary.Key);
+        }
+
+        //---리스트 가격순 오름차순 갱신---
 
         //텍스트 갱신
         GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretPresetCountText).text = SystemManager.Instance.UserInfo.turretPreset.Count + "/8";
