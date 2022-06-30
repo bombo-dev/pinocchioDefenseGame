@@ -65,8 +65,8 @@ public class Bullet : MonoBehaviour
     void UpdateBullet()
     {
         //예외처리
-        if (!attackTarget)
-        {
+        if (!attackTarget || bulletLifeTime > 200)
+        {            
             // 총알 파괴 모션
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
             
@@ -77,7 +77,8 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Vector3 bulletPos = transform.position;   // 총알의 위치
+
+            Vector3 bulletPos = transform.position;   // 총알의 위치
         Vector3 targetPos = attackTarget.transform.position;  // 타겟이 총알을 맞는 위치
 
         // 총알 방향 업데이트
@@ -85,7 +86,7 @@ public class Bullet : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(bulletAttackDir);
         transform.rotation = rotation;
 
-
+        
 
         if (Time.timeScale != 0)
         {
@@ -132,6 +133,7 @@ public class Bullet : MonoBehaviour
             //예외처리
             if (target.GetComponent<Actor>().currentHP == 0 || !target)
             {
+
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
 
                 force = initForce;
