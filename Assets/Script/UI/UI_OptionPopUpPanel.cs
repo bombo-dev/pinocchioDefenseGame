@@ -157,6 +157,13 @@ public class UI_OptionPopUpPanel : UI_Controller
         //옵션패널 팝업
         GetGameobject((int)GameObjects.OptionPopUpPanel).SetActive(true);
 
+        //게임씬일때 일시정지
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale > 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
+
         //UI가장 앞으로
         this.transform.SetAsLastSibling();
     }
@@ -172,6 +179,13 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         //터치가드 닫기
         GetGameobject((int)GameObjects.touchGuardPanel).SetActive(false);
+
+        //게임씬일때 일시정지 해제
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (Time.timeScale == 0f && SystemManager.Instance.PanelManager.optionPanel)
+                SystemManager.Instance.PanelManager.optionPanel.OnClickPlayOptionButton();
+        }
 
         // UserInfo Save
         SaveLoad Save = new SaveLoad();
