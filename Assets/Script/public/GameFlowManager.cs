@@ -282,6 +282,13 @@ public class GameFlowManager : MonoBehaviour
                 }
             }
 
+            //사용전 강화 나무 보상 셋
+            for (int i = 0; i < rewardManager.beforeColorWoodReward.Length; i++)
+            {
+                rewardManager.beforeColorWoodReward[i] = userInfo.colorWoodResource[i];
+            }
+
+
             // UserInfo Save
             SaveLoad save = new SaveLoad();
             save.SaveUserInfo();

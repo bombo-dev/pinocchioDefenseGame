@@ -180,6 +180,20 @@ public class UI_OptionPopUpPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickExitButton(PointerEventData data)
     {
+        //스테이지 35이전일 경우 사용나무 리셋
+        if (SystemManager.Instance.GameFlowManager.stage < 36)
+        {
+            for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+            {
+                SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                    SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+            }
+        }
+
+        // UserInfo Save
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
+
         //에디터일 경우 플레이모드 종료
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -187,8 +201,6 @@ public class UI_OptionPopUpPanel : UI_Controller
             UnityEngine.Application.Quit();
 #endif
 
-        SaveLoad Save = new SaveLoad();
-        Save.SaveUserInfo();
 
     }
 
@@ -392,6 +404,20 @@ public class UI_OptionPopUpPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickReStartButton(PointerEventData data)
     {
+        //스테이지 35이전일 경우 사용나무 리셋
+        if (SystemManager.Instance.GameFlowManager.stage < 36)
+        {
+            for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+            {
+                SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                    SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+            }
+        }
+
+        // UserInfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
+
         SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
     }
 
@@ -401,6 +427,20 @@ public class UI_OptionPopUpPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickLobbyOptionButton(PointerEventData data)
     {
+        //스테이지 35이전일 경우 사용나무 리셋
+        if (SystemManager.Instance.GameFlowManager.stage < 36)
+        {
+            for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+            {
+                SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                    SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+            }
+        }
+
+        // UserInfo Save
+        SaveLoad save = new SaveLoad();
+        save.SaveUserInfo();
+
         SceneController.Instance.LoadScene(SceneController.Instance.lobbySceneName);
     }
     #endregion

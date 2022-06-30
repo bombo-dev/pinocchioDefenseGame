@@ -44,44 +44,49 @@ public class SoundEffectManager : MonoBehaviour
     /// <param name="audioClip">교체할 클립</param>
     public void ChangeEffectAudioClip(AudioClip audioClip)
     {
-        //최대 인덱스면 초기화
-        if (effectAudioSource.Count <= effectAudioSource_idx)
+        //볼륨 증가를 위한 반복
+        for (int i = 0; i < 3; i++)
         {
-            //인덱스 초기화
-            effectAudioSource_idx = 0;
-
-            //플레이중이면 오디오소스 생성 후 리스트에 추가
-            if (effectAudioSource[effectAudioSource_idx].isPlaying)
+            //최대 인덱스면 초기화
+            if (effectAudioSource.Count <= effectAudioSource_idx)
             {
-                //오브젝트 생성
-                GameObject go = new GameObject("fireAudioSource");
-                go.transform.parent = effectAudioTransform;
+                //인덱스 초기화
+                effectAudioSource_idx = 0;
 
-                //컴포넌트 추가
-                AudioSource goAs = go.AddComponent<AudioSource>();
+                //플레이중이면 오디오소스 생성 후 리스트에 추가
+                if (effectAudioSource[effectAudioSource_idx].isPlaying)
+                {
+                    //오브젝트 생성
+                    GameObject go = new GameObject("fireAudioSource");
+                    go.transform.parent = effectAudioTransform;
 
-                //오디오 소스 정보 동기화
-                goAs.volume = SystemManager.Instance.UserInfo.efSoundVolume;
+                    //컴포넌트 추가
+                    AudioSource goAs = go.AddComponent<AudioSource>();
 
-                if (SystemManager.Instance.UserInfo.isEfSound)
-                    goAs.mute = false;
-                else
-                    goAs.mute = true;
+                    //오디오 소스 정보 동기화
+                    goAs.volume = SystemManager.Instance.UserInfo.efSoundVolume;
 
-                //리스트에 추가
-                effectAudioSource.Add(goAs);
+                    if (SystemManager.Instance.UserInfo.isEfSound)
+                        goAs.mute = false;
+                    else
+                        goAs.mute = true;
 
-                //인덱스 맨 끝으로
-                effectAudioSource_idx = effectAudioSource.Count - 1;
+                    //리스트에 추가
+                    effectAudioSource.Add(goAs);
+
+                    //인덱스 맨 끝으로
+                    effectAudioSource_idx = effectAudioSource.Count - 1;
+                }
             }
+
+            //오디오 클립 교체 후 재생
+            effectAudioSource[effectAudioSource_idx].clip = audioClip;
+            effectAudioSource[effectAudioSource_idx].Play();
+
+            //인덱스 증가
+            effectAudioSource_idx++;
         }
-
-        //오디오 클립 교체 후 재생
-        effectAudioSource[effectAudioSource_idx].clip = audioClip;
-        effectAudioSource[effectAudioSource_idx].Play();
-
-        //인덱스 증가
-        effectAudioSource_idx++;
+       
     }
 
 }

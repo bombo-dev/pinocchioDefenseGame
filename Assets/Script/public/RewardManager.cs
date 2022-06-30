@@ -6,6 +6,9 @@ public class RewardManager : MonoBehaviour
 {
     //강화 나무 보상 리스트
     public int[] colorWoodReward = new int[6];
+    
+    //사용전 강화 나무 보상 리스트
+    public int[] beforeColorWoodReward = new int[6];
 
     //스테이지별 터렛 보상 종류
     public Dictionary<int, int> turretReward = new Dictionary<int, int>();  //스테이지, 터렛 종류
@@ -27,6 +30,12 @@ public class RewardManager : MonoBehaviour
     /// </summary>
     void SetReward()
     {
+        //사용전 강화 나무 보상 셋
+        for (int i = 0; i < beforeColorWoodReward.Length; i++)
+        {
+            beforeColorWoodReward[i] = SystemManager.Instance.UserInfo.colorWoodResource[i];
+        }
+
         //게임플로우 매니저
         GameFlowManager gfm = SystemManager.Instance.GameFlowManager;
 
@@ -61,7 +70,7 @@ public class RewardManager : MonoBehaviour
         }
         
 
-        //이미 클리어한 스테이지일 경우 보상 3/1
+        //이미 클리어한 스테이지일 경우 보상 2/1
         UserInfo userInfo = SystemManager.Instance.UserInfo;
 
         if (!userInfo)
@@ -115,6 +124,7 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(31, 17);//초강화 펭귄
         turretReward.Add(33, 18);//초강화 호크
         turretReward.Add(34, 19);//번개
+        turretReward.Add(35, 20);//로자리오
     }
 
     /// <summary>

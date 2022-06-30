@@ -238,6 +238,19 @@ public class Turret : Actor
                 //게임오버 상태
                 SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.StageFail;
 
+                //스테이지 35이전일 경우 사용나무 리셋
+                if (SystemManager.Instance.GameFlowManager.stage < 36)
+                {
+                    for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++) 
+                    {
+                        SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                            SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+                    }
+                }
+                // UserInfo Save
+                SaveLoad save = new SaveLoad();
+                save.SaveUserInfo();
+
                 //스테이지 비활성화
                 SystemManager.Instance.GameFlowManager.DisableStage();
 
