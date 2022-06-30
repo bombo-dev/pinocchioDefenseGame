@@ -91,7 +91,7 @@ public class Bullet : MonoBehaviour
         {
             // 가속도 붙이기
             bulletSpeed += (bulletSpeed * force);
-            force += 0.001f;
+            force += 0.003f;
         }
 
         if (float.IsInfinity(targetPos.x))

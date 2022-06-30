@@ -4738,12 +4738,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletLifeTime: 0
   attackTarget: {fileID: 0}
-  bulletSpeed: 20
-  maxBulletSpeed: 40
+  bulletSpeed: 25
+  initSpeed: 0
+  maxforce: 0
   filePath: Bullet/MissileBullet
   bulletType: 1
   reduceHeight: 50
   force: 0.01
+  initForce: 0
   attackOwner: {fileID: 0}
 --- !u!1 &5198577057280462572
 GameObject:
