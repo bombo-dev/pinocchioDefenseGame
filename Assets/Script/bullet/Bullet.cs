@@ -65,11 +65,13 @@ public class Bullet : MonoBehaviour
     void UpdateBullet()
     {
         //예외처리
-        if (!attackTarget || bulletLifeTime > 200)
-        {            
+        if (!attackTarget || bulletLifeTime > 5f)
+        {
             // 총알 파괴 모션
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-            
+
+            bulletLifeTime = 0;
+
             force = initForce;
 
             bulletSpeed = initSpeed;
@@ -77,8 +79,9 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        bulletLifeTime += Time.deltaTime;
 
-            Vector3 bulletPos = transform.position;   // 총알의 위치
+        Vector3 bulletPos = transform.position;   // 총알의 위치
         Vector3 targetPos = attackTarget.transform.position;  // 타겟이 총알을 맞는 위치
 
         // 총알 방향 업데이트
@@ -133,8 +136,9 @@ public class Bullet : MonoBehaviour
             //예외처리
             if (target.GetComponent<Actor>().currentHP == 0 || !target)
             {
-
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+                bulletLifeTime = 0;
 
                 force = initForce;
 
@@ -214,8 +218,9 @@ public class Bullet : MonoBehaviour
                     //피 공격자의 데미지 이펙트 출력
                     recoveryTarget.EnableHealEffect(attacker);
                 }
-
                 SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
+
+                bulletLifeTime = 0;
 
                 force = initForce;
 
@@ -312,7 +317,7 @@ public class Bullet : MonoBehaviour
 
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
 
-            // Debug.Log("-----------------------------------------------미사일 " + (i++) + "번째");
+            bulletLifeTime = 0;            
 
             force = initForce;
 

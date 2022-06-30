@@ -95,7 +95,7 @@ public class BulletManager : MonoBehaviour
             return;
 
         bullet.attackTarget = actor.hitPos;
-        bullet.bulletLifeTime = Time.time;
+        bullet.bulletLifeTime = 0;
         bullet.attackOwner = attackOwner;
         
     }
