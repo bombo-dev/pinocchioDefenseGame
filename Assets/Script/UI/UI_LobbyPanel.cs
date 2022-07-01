@@ -69,11 +69,12 @@ public class UI_LobbyPanel : UI_Controller
         TurretPresetClearButton, //터렛 프리셋 비우기 버튼
         StageSelectLeftArrowButton,   //스테이지 선택 스크롤 <버튼
         StageSelectRightArrowButton,    //스테이지 선택 스크롤 >버튼
-        StageStartButton,    //게임신 시작 버튼
+        StageStartButton,    //게임씬 시작 버튼
         StageMapCloseButton,    //스테이지 선택 지도 끄기 버튼
         StageSelectButton,   //스테이지 선택 지도 켜기 버튼
         StageLeftArrowButton,   //스테이지 선택 지도 왼쪽 스크롤 끝으로
         StageRightArrowButton,   //스테이지 선택 지도 오른쪽 스크롤 끝으로
+        StoryButton //스토리씬 시작 버튼
     }
 
     enum GameObjects
@@ -294,6 +295,8 @@ public class UI_LobbyPanel : UI_Controller
 
         //로비 메뉴패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.GameStartButton).gameObject, OnClickGameStartButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StoryButton).gameObject, OnClickStoryButton, Define.UIEvent.Click);
+
 
         //터렛 선택패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.BackLobbyMenuButton).gameObject, OnClickBackLobbyMenu, Define.UIEvent.Click);
@@ -321,15 +324,15 @@ public class UI_LobbyPanel : UI_Controller
             totStarNum += userInfo.stageStarList[i].starNum;
         }
         //스테이지 이미지 바꾸기
-        if (totStarNum <= 33)
+        if (totStarNum <= 40)
             GetImage((int)Images.StageImage).sprite = stageSprite[0]; //브론즈
-        else if(totStarNum <= 63)
+        else if(totStarNum <= 73)
             GetImage((int)Images.StageImage).sprite = stageSprite[1]; //실버
-        else if (totStarNum <= 78)
+        else if (totStarNum <= 85)
             GetImage((int)Images.StageImage).sprite = stageSprite[2]; //골드
-        else if (totStarNum <= 93)
+        else if (totStarNum <= 100)
             GetImage((int)Images.StageImage).sprite = stageSprite[3]; //플래티넘
-        else if (totStarNum <= 108)
+        else if (totStarNum <= 122)
             GetImage((int)Images.StageImage).sprite = stageSprite[4]; //다이아
         else
             GetImage((int)Images.StageImage).sprite = stageSprite[5]; //마스터
@@ -432,6 +435,15 @@ public class UI_LobbyPanel : UI_Controller
     void OnClickStageStartButton(PointerEventData data)
     {
         SceneController.Instance.LoadScene(SceneController.Instance.gameSceneName);
+    }
+
+    /// <summary>
+    /// 스토리씬으로 이동 :김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param> 
+    void OnClickStoryButton(PointerEventData data)
+    {
+        SceneController.Instance.LoadScene(SceneController.Instance.storySceneName);
     }
 
     /// <summary>
