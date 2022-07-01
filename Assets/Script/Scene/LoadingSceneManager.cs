@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LoadingSceneManager : MonoBehaviour
 {
@@ -10,6 +11,31 @@ public class LoadingSceneManager : MonoBehaviour
     [SerializeField]
     Image progressBar;
 
+    [SerializeField]
+    TextMeshProUGUI tipText;
+
+    [SerializeField]
+    string[] tip;
+
+    private void Start()
+    {
+        ChangeTipText();
+    }
+
+    /// <summary>
+    /// 팁 텍스트 랜덤으로 교체 : 김현진
+    /// </summary>
+    void ChangeTipText()
+    {
+        tipText.text = tip[Random.Range(0, tip.Length)];
+    }
+
+
+    /// <summary>
+    /// 로딩바 업데이트 : 김현진
+    /// </summary>
+    /// <param name="progress">로딩 진행 상태</param>
+    /// <param name="timer">로딩바 업데이트 시간</param>
     public void UpdateProgressBar(float progress, float timer)
     {
         progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, progress, timer);
@@ -19,6 +45,11 @@ public class LoadingSceneManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 로딩바 업데이트 완료 : 김현진
+    /// </summary>
+    /// <param name="timer">로딩바 완료 시간</param>
+    /// <returns>로딩완료 상태</returns>
     public bool FinProgressBar(float timer)
     {
         progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);

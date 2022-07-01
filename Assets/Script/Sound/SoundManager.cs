@@ -22,11 +22,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     AudioClip lobbySceneAudioClip;
     [SerializeField]
-    AudioClip gameSceneAuduiClip;
+    AudioClip []gameSceneAuduiClip;
     [SerializeField]
     AudioClip stroySceneAudioClip;
 
-
+    [SerializeField]
+    AudioClip failAudioClip;
+    [SerializeField]
+    AudioClip winAudioClip;
 
     void Awake()
     {
@@ -59,12 +62,39 @@ public class SoundManager : MonoBehaviour
             //게임씬
             case 2:
                 //Clip교체
-                audioSource.clip = gameSceneAuduiClip;
+                if(SystemManager.Instance.UserInfo.selectedStageNum <= 20)
+                    audioSource.clip = gameSceneAuduiClip[0];
+                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 25)
+                    audioSource.clip = gameSceneAuduiClip[1];
+                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 35)
+                    audioSource.clip = gameSceneAuduiClip[2];
+                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 39)
+                    audioSource.clip = gameSceneAuduiClip[3];
+                else
+                    audioSource.clip = gameSceneAuduiClip[4];
                 //재생
                 audioSource.Play();
                 break;
             //스토리씬
             case 3:
+                //Clip교체
+                audioSource.clip = stroySceneAudioClip;
+                //재생
+                audioSource.Play();
+                break;
+            //승리 
+            case 4:
+                //Clip교체
+                audioSource.clip = winAudioClip;
+                //재생
+                audioSource.Play();
+                break;
+            //패배
+            case 5:
+                //Clip교체
+                audioSource.clip = failAudioClip;
+                //재생
+                audioSource.Play();
                 break;
         }
     }

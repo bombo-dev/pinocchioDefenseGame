@@ -118,8 +118,8 @@ public class DamageMngPanel : UI_Controller
 
     void UpdatePanelPos()
     {
-        Debug.Log("RandPosX=" + randPosX);
-        Debug.Log("RandPosY=" + randPosY);
+        //Debug.Log("RandPosX=" + randPosX);
+        //Debug.Log("RandPosY=" + randPosY);
 
         if (damageOwner.tag == "Turret")
         {

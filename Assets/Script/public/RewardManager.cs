@@ -127,6 +127,7 @@ public class RewardManager : MonoBehaviour
         turretReward.Add(35, 20);//·ÎÀÚ¸®¿À
         turretReward.Add(36, 21);//È­¿°
         turretReward.Add(37, 22);//±¤¸í
+        turretReward.Add(39, 23);//°­È­ ±¤¸í
     }
 
     /// <summary>

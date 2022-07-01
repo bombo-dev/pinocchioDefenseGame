@@ -65,17 +65,15 @@ public class Bullet : MonoBehaviour
     void UpdateBullet()
     {
         //¿¹¿ÜÃ³¸®
-        if (!attackTarget || bulletLifeTime > 5f)
+        if (!attackTarget || bulletLifeTime > 8f)
         {
-            // ÃÑ¾Ë ÆÄ±« ¸ð¼Ç
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
-
             bulletLifeTime = 0;
 
             force = initForce;
 
             bulletSpeed = initSpeed;
-
+            // ÃÑ¾Ë ÆÄ±« ¸ð¼Ç
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache(filePath, gameObject);
             return;
         }
 

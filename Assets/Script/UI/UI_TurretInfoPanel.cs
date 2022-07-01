@@ -223,8 +223,6 @@ public class UI_TurretInfoPanel : UI_Controller
         {
             if (SystemManager.Instance.GameFlowManager.stage == 0)//Æ©Åä¸®¾ó
             {
-                GetTextMeshProUGUI((int)i).text = "0" + "/" + "0";
-                GetTextMeshProUGUI((int)i).color = Color.white;
                 return;
             }
             else

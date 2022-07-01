@@ -230,6 +230,9 @@ public class GameFlowManager : MonoBehaviour
             //클리어 상태로 변경
             gameState = GameState.StageClear;
 
+            //bgm 승리로 변경
+            SoundManager.Instance.ChangeBGAudioClip(4);
+
             //-------UserInfo에 보상정보 넘기기
 
             //터렛 보상 정보 존재하면 추가

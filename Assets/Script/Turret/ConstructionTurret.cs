@@ -88,6 +88,9 @@ public class ConstructionTurret : MonoBehaviour
             //공사완료 이펙트 출력
             SystemManager.Instance.EffectManager.EnableEffect(CONSTRUCTIONCOMPLETEDEffectINDEX, transform.position);
 
+            //공사완료 사운드 출력
+            SoundEffectManager.Instance.ChangeEffectAudioClip(SoundEffectManager.Instance.finConstruction);
+
             //변수 초기화
             Reset();
 
@@ -137,7 +140,10 @@ public class ConstructionTurret : MonoBehaviour
 
         //코스트 되돌려받기
         SystemManager.Instance.ResourceManager.IncreaseWoodResource(SystemManager.Instance.TurretManager.turretCostArr[currentSelectedTurretIdx]);
-        
+
+        //터렛 소환 사운드 출력
+        SoundEffectManager.Instance.ChangeEffectAudioClip(SoundEffectManager.Instance.summonTurret);
+
         //변수 초기화
         Reset();
 
