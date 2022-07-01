@@ -81,8 +81,13 @@ public class PanelManager : MonoBehaviour
                 //옵션 팝업 패널
                 EnablePanel<UI_OptionPopUpPanel>(1);
 
+                // Load 추가
+                SaveLoad Load = new SaveLoad();
+                Load.LoadUserInfo();
                 //옵션 팝업 패널
-                EnablePanel<UI_BookPanel>(2);
+                if (!(SystemManager.Instance.UserInfo.isShowBook))
+                    EnablePanel<UI_BookPanel>(2);
+
                 break;
             //로딩씬
             case 1:

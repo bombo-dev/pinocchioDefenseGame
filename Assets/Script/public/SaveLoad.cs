@@ -26,6 +26,7 @@ public class SaveData
     public bool isEfSound;
     public int touchSpeed;
     public bool isShowRange;
+    public bool isShowBook;
 }
 
 public class SaveLoad
@@ -148,6 +149,7 @@ public class SaveLoad
         data.isEfSound = userinfo.isEfSound;
         data.touchSpeed = userinfo.touchSpeed;
         data.isShowRange = userinfo.isShowRange;
+        data.isShowBook = userinfo.isShowBook;
 
         return data;
     }
@@ -180,6 +182,7 @@ public class SaveLoad
         data.isEfSound = SystemManager.Instance.UserInfo.isEfSound;
         data.touchSpeed = SystemManager.Instance.UserInfo.touchSpeed;
         data.isShowRange = SystemManager.Instance.UserInfo.isShowRange;
+        data.isShowBook = SystemManager.Instance.UserInfo.isShowBook;
 
         return data;
     }
@@ -210,6 +213,7 @@ public class SaveLoad
         SystemManager.Instance.UserInfo.isEfSound = data.isEfSound;
         SystemManager.Instance.UserInfo.touchSpeed = data.touchSpeed;
         SystemManager.Instance.UserInfo.isShowRange = data.isShowRange;
+        SystemManager.Instance.UserInfo.isShowBook = data.isShowBook;
     }
 
     // PC에서 Save 하는 경우

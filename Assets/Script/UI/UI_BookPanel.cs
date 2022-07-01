@@ -106,6 +106,12 @@ public class UI_BookPanel : UI_Controller
         if (page >= bookSprit.Length - 1)
         {
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
+
+            //유저 정보에 저장
+            SystemManager.Instance.UserInfo.isShowBook = true;
+            // UserInfo Save
+            SaveLoad Save = new SaveLoad();
+            Save.SaveUserInfo();
         }
         page++;
         UpdateBook();
@@ -118,6 +124,12 @@ public class UI_BookPanel : UI_Controller
     void OnClickSkipButton(PointerEventData data)
     {
         SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
+
+        //유저 정보에 저장
+        SystemManager.Instance.UserInfo.isShowBook = true;
+        // UserInfo Save
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
     }
 
     /// <summary>

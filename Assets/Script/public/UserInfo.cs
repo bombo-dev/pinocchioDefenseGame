@@ -37,6 +37,7 @@ public class UserInfo : MonoBehaviour
     public bool isEfSound;
     public int touchSpeed;
     public bool isShowRange;
+    public bool isShowBook;
 
     public UserInfo()
     {
@@ -63,6 +64,7 @@ public class UserInfo : MonoBehaviour
         isEfSound = true;
         touchSpeed = 5;
         isShowRange = true;
+        isShowBook = false;
     }
 
     private void Awake()
