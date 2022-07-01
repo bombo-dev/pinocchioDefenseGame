@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UI_BookPanel : UI_Controller
 {
-    public int page;
+    public int page = 0;
 
     [SerializeField]
     Sprite[] bookSprit;
@@ -37,11 +37,16 @@ public class UI_BookPanel : UI_Controller
         AddUIEvent(GetButton((int)Buttons.NextButton).gameObject, OnClickNextButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.SkipButton).gameObject, OnClickSkipButton, Define.UIEvent.Click);
 
-        //페이지 초기화 
-        page = 0;
-
-        //스토리 시작
-        UpdateBook();
+        if (!(SystemManager.Instance.UserInfo.isShowBook))
+        {
+            //초기화
+            SystemManager.Instance.PanelManager.bookPanel.page = 0;
+            SystemManager.Instance.PanelManager.bookPanel.UpdateBook();
+        }
+        else
+        {
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
+        }
     }
 
     /// <summary>
@@ -49,6 +54,9 @@ public class UI_BookPanel : UI_Controller
     /// </summary>
     public void UpdateBook()
     {
+        //코루틴 중지
+        StopCoroutine("Typing");
+
         //UI가장 앞으로
         this.transform.SetAsLastSibling();
 
@@ -105,13 +113,16 @@ public class UI_BookPanel : UI_Controller
         //마지막 페이지
         if (page >= bookSprit.Length - 1)
         {
-            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
+            //코루틴 중지
+            StopCoroutine("Typing");
 
             //유저 정보에 저장
             SystemManager.Instance.UserInfo.isShowBook = true;
             // UserInfo Save
             SaveLoad Save = new SaveLoad();
             Save.SaveUserInfo();
+
+            SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
         }
         page++;
         UpdateBook();
@@ -123,13 +134,16 @@ public class UI_BookPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickSkipButton(PointerEventData data)
     {
-        SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
+        //코루틴 중지
+        StopCoroutine("Typing");
 
         //유저 정보에 저장
         SystemManager.Instance.UserInfo.isShowBook = true;
         // UserInfo Save
         SaveLoad Save = new SaveLoad();
         Save.SaveUserInfo();
+
+        SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/BookPanel", gameObject);
     }
 
     /// <summary>

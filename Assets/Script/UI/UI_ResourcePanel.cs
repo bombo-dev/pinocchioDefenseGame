@@ -73,9 +73,23 @@ public class UI_ResourcePanel : UI_Controller
             else 
                 GetImage((int)Images.StageStartImage).sprite = stageSprite[5]; //마스터
 
-
-            //디펜스 시작 코루틴 호출
-            StartCoroutine("StartDefense");
+            //보스 스테이지
+            if (SystemManager.Instance.UserInfo.selectedStageNum == 11 ||
+                SystemManager.Instance.UserInfo.selectedStageNum == 20 ||
+                SystemManager.Instance.UserInfo.selectedStageNum == 28 ||
+                SystemManager.Instance.UserInfo.selectedStageNum == 36 ||
+                SystemManager.Instance.UserInfo.selectedStageNum == 38 ||
+                SystemManager.Instance.UserInfo.selectedStageNum == 40)
+            {
+                //보스 디펜스 시작 코루틴 호출
+                StartCoroutine("StartBossDefense");
+            }
+            //일반 스테이지
+            else
+            {
+                //디펜스 시작 코루틴 호출
+                StartCoroutine("StartDefense");
+            }
         }
     }
 
@@ -102,6 +116,35 @@ public class UI_ResourcePanel : UI_Controller
         SystemManager.Instance.PanelManager.optionPopUpPanel.EnablePediaButton();
         //나무 자원 UI 초기화
         UpdateWoodResource();
+    }
+
+    /// <summary>
+    /// 시작상태에서 디펜스 상태로 변경 - 보스 : 김현진
+    /// </summary>
+    IEnumerator StartBossDefense()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        //UI활성화
+        SystemManager.Instance.PanelManager.EnablePanel<UI_BossPanel>(14);
+
+        yield return new WaitForSeconds(7.0f);
+
+        //디펜스 시작
+        SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.Defense;
+
+        //UI활성화
+        SystemManager.Instance.PanelManager.EnableFixedPanel(2);
+        SystemManager.Instance.PanelManager.optionPopUpPanel.EnablePediaButton();
+
+        //나무 자원 UI 초기화
+        UpdateWoodResource();
+
+        //타이머 초기화
+        for (int i = 0; i < SystemManager.Instance.GameFlowManager.flowTimer.Length; i++)
+        {
+            SystemManager.Instance.GameFlowManager.flowTimer[i] = Time.time;
+        }
     }
 
 }

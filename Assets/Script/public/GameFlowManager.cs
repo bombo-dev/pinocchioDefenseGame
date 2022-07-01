@@ -51,7 +51,7 @@ public class GameFlowManager : MonoBehaviour
     int[] arrPointer = new int[GATENUM];
 
     //타이머
-    float[] flowTimer = new float[GATENUM];
+    public float[] flowTimer = new float[GATENUM];
 
     //게임 스테이지 인덱스
     public int stage;
