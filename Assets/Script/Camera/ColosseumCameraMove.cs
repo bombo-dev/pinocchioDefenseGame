@@ -35,11 +35,15 @@ public class ColosseumCameraMove : MonoBehaviour
 
     bool dontMove = false;    // 줌하는동안 한 손가락을 뗀 경우 카메라 이동 방지 플래그
 
+    Vector3 initInputPos;
+
+    bool isMove = true;
+
     // Start is called before the first frame update
     void Start()
     {        
         cameraMove = Camera.main.transform.parent;
-        userInfo = SystemManager.Instance.UserInfo;
+        userInfo = SystemManager.Instance.UserInfo;       
     }
 
     // Update is called once per frame
@@ -92,8 +96,10 @@ public class ColosseumCameraMove : MonoBehaviour
         // 화면에 접촉된 손가락의 개수가 1개이면
         if (Input.touchCount == 1 && dontMove == false)
         {
-            // MoveAndCam();
-            
+
+            // 현재 입력 위치 저장
+            initInputPos = Input.mousePosition;
+
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMouseButtonOver)
             {
                 isMapClick = true;
@@ -170,6 +176,27 @@ public class ColosseumCameraMove : MonoBehaviour
             }
 
                 movePos = dir * Time.deltaTime * moveSpeed;
+
+            if (cameraMove.position.x + movePos.x > 200)
+            {
+                cameraMove.position = new Vector3(200, cameraMove.position.y, cameraMove.position.z);
+                movePos.x = 0;
+            }
+            else if (cameraMove.position.x + movePos.x < -200)
+            {
+                cameraMove.position = new Vector3(-200, cameraMove.position.y, cameraMove.position.z);
+                movePos.x = 0;
+            }
+            if (cameraMove.position.z + movePos.y > 300)
+            {
+                cameraMove.position = new Vector3(cameraMove.position.x, cameraMove.position.y, 300);
+                movePos.y = 0;
+            }
+            else if (cameraMove.position.z + movePos.y < -300)
+            {
+                cameraMove.position = new Vector3(cameraMove.position.x, cameraMove.position.y, -300);
+                movePos.y = 0;
+            }
 
             // 카메라 이동            
             cameraMove.Translate(movePos.x, 0, movePos.y);
@@ -252,8 +279,14 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void IsWinCamMove()
     {
+
+        if (Input.GetMouseButtonDown(0))
+            initInputPos = Input.mousePosition;
+
         if (Input.GetMouseButton(0))
         {
+            
+
             // UI를 제외한 카메라 화면에서 입력이 들어오면
             if (!isMouseButtonOver && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -279,14 +312,70 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void MoveWinCam()
     {
-        float moveSpeed = userInfo.touchSpeed;
 
-        // 마우스 변위값 구하기
+        float moveSpeed = userInfo.touchSpeed;       
+
+        // 마우스 변위값 구하기 : 이동량
         moveX = Input.GetAxisRaw("Mouse X") * moveSpeed;
         moveZ = Input.GetAxisRaw("Mouse Y") * moveSpeed;
 
-        // 카메라 이동
+        // 이동 후 위치 구하기
+         float amountX = cameraMove.position.x - moveX;
+         float amountZ = cameraMove.position.z - moveZ;
+
+        // 카메라 이동 영역 제한
+        if (amountX > 200)
+        {
+            cameraMove.position = new Vector3(200, cameraMove.position.y, cameraMove.position.z);
+            moveX = 0;
+        }
+        else if (amountX < -200)
+        {
+            cameraMove.position = new Vector3(-200, cameraMove.position.y, cameraMove.position.z);
+            moveX = 0;
+        }
+        if (amountZ > 200)
+        {
+            cameraMove.position = new Vector3(cameraMove.position.x, cameraMove.position.y, 200);
+            moveZ = 0;
+        }
+        else if (amountZ < -200)
+        {
+            cameraMove.position = new Vector3(cameraMove.position.x, cameraMove.position.y, -200);
+            moveZ = 0;
+        }
+
+        /*
+        // 카메라 이동 영역 제한
+        if (amountX > 200)
+        {
+            moveX = (amountX - 200) - moveX;
+        }
+        else if (amountX < -200)
+        {
+            moveX = (amountX - (-200) + moveX);
+
+        }
+
+
+        if (amountZ > 300) 
+        {
+            moveZ = (amountZ - 300) - moveZ;
+        }
+        else if (amountZ < -300)
+        {
+            moveZ = (amountZ - (-300)) + moveZ;
+        }
+        */
+
+
         cameraMove.Translate(-moveX, 0, -moveZ);
+
+
+        // 카메라 이동
+        //cameraMove.position = new Vector3(cameraMove.position.x - moveX, 
+        //                                                       cameraMove.position.y,  
+        //                                                      cameraMove.position.z - moveZ);
     }
 
     /// <summary>
