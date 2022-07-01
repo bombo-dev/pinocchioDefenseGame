@@ -36,7 +36,7 @@ public class PanelManager : MonoBehaviour
     public UI_StageEndPanel stageEndPanel;
     public UI_OptionPopUpPanel optionPopUpPanel;
     public UI_TutorialPanel tutorialPanel;
-
+    public UI_BookPanel bookPanel;
 
     [SerializeField]
     Transform canvas;
@@ -80,6 +80,9 @@ public class PanelManager : MonoBehaviour
 
                 //¿É¼Ç ÆË¾÷ ÆÐ³Î
                 EnablePanel<UI_OptionPopUpPanel>(1);
+
+                //¿É¼Ç ÆË¾÷ ÆÐ³Î
+                EnablePanel<UI_BookPanel>(2);
                 break;
             //·Îµù¾À
             case 1:
@@ -302,9 +305,12 @@ public class PanelManager : MonoBehaviour
         {
             tutorialPanel = (compoenent as UI_TutorialPanel);
         }
+        else if (typeof(T) == typeof(UI_BookPanel))
+        {
+            bookPanel = (compoenent as UI_BookPanel);
+        }
 
-
-            return go;
+        return go;
     }
 
 

@@ -30,7 +30,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         CloseTurretPediaButton, //터렛 사전 닫기 버튼
         CloseWoodPediaButton,   //나무 사전 닫기 버튼
         TouchSpeedPlus,  //터치 속도 증가 버튼
-        TouchSpeedMinus  //터치 속도 감소 버튼
+        TouchSpeedMinus,  //터치 속도 감소 버튼
+        BookButton  //책 열기 버튼
     }
 
     enum GameObjects
@@ -588,13 +589,35 @@ public class UI_OptionPopUpPanel : UI_Controller
 
     #endregion
 
+
+    /// <summary>
+    /// 책 열기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickBookButton(PointerEventData data)
+    {
+        //책 활성화
+        SystemManager.Instance.PanelManager.EnablePanel<UI_BookPanel>(2);
+
+        //초기화
+        SystemManager.Instance.PanelManager.bookPanel.page = 0;
+        SystemManager.Instance.PanelManager.bookPanel.UpdateBook();
+
+    }
+
     /// <summary>
     /// 게임씬일 경우 다시시작 버튼 활성화
     /// </summary>
     public void OnButton()
     {
+        //로비씬일 경우 책 버튼 활성화
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            //이벤트추가 - 책 열기
+            AddUIEvent(GetButton((int)Buttons.BookButton).gameObject, OnClickBookButton, Define.UIEvent.Click);
+        }
         //게임씬일 경우 다시하기 옵션 활성화
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             //이벤트추가 - 다시시작
             AddUIEvent(GetButton((int)Buttons.ReStartOptionButton).gameObject, OnClickReStartButton, Define.UIEvent.Click);
