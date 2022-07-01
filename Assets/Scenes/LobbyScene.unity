@@ -625,8 +625,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 223671659}
   lobbySceneAudioClip: {fileID: 8300000, guid: d8aa945bba775ea4b8f629bc87e5bffd, type: 3}
-  gameSceneAuduiClip: {fileID: 8300000, guid: 52fca8b511407464e9a35cc6d5449761, type: 3}
+  gameSceneAuduiClip:
+  - {fileID: 8300000, guid: 52fca8b511407464e9a35cc6d5449761, type: 3}
+  - {fileID: 8300000, guid: b7bdc9f8878af7d40a04e1d36c71d145, type: 3}
+  - {fileID: 8300000, guid: db64f2c4682173c4bafbde931108ddcf, type: 3}
+  - {fileID: 8300000, guid: 09e3f4c6a2244be4e9cef0406df6442b, type: 3}
+  - {fileID: 8300000, guid: dc8db9c4cb99a8d4aac92aa6567321c9, type: 3}
   stroySceneAudioClip: {fileID: 8300000, guid: c0164ca0dbaa8de42b86a3a5ed8c35f8, type: 3}
+  failAudioClip: {fileID: 8300000, guid: ae63ed838a1eba344b235eb705915faf, type: 3}
+  winAudioClip: {fileID: 8300000, guid: 6a31216b86da1c64fbee13dec4577818, type: 3}
 --- !u!1 &240138803
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,6 +4428,9 @@ MonoBehaviour:
   effectAudioTransform: {fileID: 434032636}
   buttonClickAudioClip: {fileID: 8300000, guid: 70e02441ad3cd8f488092b6a4933e446,
     type: 3}
+  summonTurret: {fileID: 8300000, guid: b7044fc5f4a2bc740a3547441094cf72, type: 3}
+  finConstruction: {fileID: 8300000, guid: a2b854c17dbe0a9489801f7e8593f8bc, type: 3}
+  walk: {fileID: 0}
 --- !u!1 &1948187266
 GameObject:
   m_ObjectHideFlags: 0
