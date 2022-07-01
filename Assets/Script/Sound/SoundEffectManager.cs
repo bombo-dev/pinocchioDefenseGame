@@ -16,6 +16,10 @@ public class SoundEffectManager : MonoBehaviour
 
     //오디오 소스
     public List<AudioSource> effectAudioSource;
+
+    //Loop 오디오 소스
+    public AudioSource loopEffectAudioSource;
+
     //오디오 소스 인덱스
     int effectAudioSource_idx = 0;
     [SerializeField]
@@ -25,6 +29,7 @@ public class SoundEffectManager : MonoBehaviour
     public AudioClip summonTurret;
     public AudioClip finConstruction;
     public AudioClip walk;
+    public AudioClip run;
 
     void Awake()
     {

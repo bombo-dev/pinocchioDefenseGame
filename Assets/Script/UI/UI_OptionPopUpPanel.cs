@@ -199,14 +199,19 @@ public class UI_OptionPopUpPanel : UI_Controller
     void OnClickExitButton(PointerEventData data)
     {
         //스테이지 35이전일 경우 사용나무 리셋
-        if (SystemManager.Instance.GameFlowManager.stage < 36)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+            if (SystemManager.Instance.GameFlowManager.stage < 36)
             {
-                SystemManager.Instance.UserInfo.colorWoodResource[i] =
-                    SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+                for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+                {
+                    SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                        SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+                }
             }
+
         }
+
 
         // UserInfo Save
         SaveLoad Save = new SaveLoad();
@@ -268,6 +273,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         if (GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text.Equals("켜기"))
         {
             //소리켜기
+            SoundEffectManager.Instance.loopEffectAudioSource.mute = false;
+
             for (int i = 0; i < audioSource.Count; i++)
             {
                 audioSource[i].mute = false;     
@@ -283,6 +290,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         else
         {
             //소리끄기
+            SoundEffectManager.Instance.loopEffectAudioSource.mute = true;
+
             for (int i = 0; i < audioSource.Count; i++)
             {
                 audioSource[i].mute = true;
@@ -295,6 +304,10 @@ public class UI_OptionPopUpPanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.EfSoundOptionText).text = "켜기";
             GetImage((int)Images.EfSoundOptionImage).sprite = soundOnSprite;
         }
+
+        // UserInfo Save
+        SaveLoad Save = new SaveLoad();
+        Save.SaveUserInfo();
     }
 
     /// <summary>
@@ -445,13 +458,17 @@ public class UI_OptionPopUpPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickLobbyOptionButton(PointerEventData data)
     {
-        //스테이지 35이전일 경우 사용나무 리셋
-        if (SystemManager.Instance.GameFlowManager.stage < 36)
+        //게임씬
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+            //스테이지 35이전일 경우 사용나무 리셋
+            if (SystemManager.Instance.GameFlowManager.stage < 36)
             {
-                SystemManager.Instance.UserInfo.colorWoodResource[i] =
-                    SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+                for (int i = 0; i < SystemManager.Instance.RewardManager.beforeColorWoodReward.Length; i++)
+                {
+                    SystemManager.Instance.UserInfo.colorWoodResource[i] =
+                        SystemManager.Instance.RewardManager.beforeColorWoodReward[i];
+                }
             }
         }
 
@@ -582,6 +599,12 @@ public class UI_OptionPopUpPanel : UI_Controller
             //이벤트추가 - 다시시작
             AddUIEvent(GetButton((int)Buttons.ReStartOptionButton).gameObject, OnClickReStartButton, Define.UIEvent.Click);
 
+            //이벤트추가 - 로비로
+            AddUIEvent(GetButton((int)Buttons.LobbyOptionButton).gameObject, OnClickLobbyOptionButton, Define.UIEvent.Click);
+        }
+        //스토리씬일 경우 로비가기 옵션 활성화
+        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
             //이벤트추가 - 로비로
             AddUIEvent(GetButton((int)Buttons.LobbyOptionButton).gameObject, OnClickLobbyOptionButton, Define.UIEvent.Click);
         }

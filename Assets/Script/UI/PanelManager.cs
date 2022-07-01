@@ -112,6 +112,11 @@ public class PanelManager : MonoBehaviour
                         turretInfoPanel.Reset();
                 }     
                 break;
+            //°ÔÀÓ¾À
+            case 3:
+                //¿É¼Ç ÆË¾÷ ÆÐ³Î
+                EnablePanel<UI_OptionPopUpPanel>(0);
+                break;
         }
     }
 

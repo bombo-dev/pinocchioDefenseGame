@@ -95,16 +95,42 @@ public class Player : MonoBehaviour
             {
                 isRun = true;
                 speed = 13f;
+
+                //뛰기 효과음
+                if (SoundEffectManager.Instance.loopEffectAudioSource.clip != SoundEffectManager.Instance.run)
+                {
+                    SoundEffectManager.Instance.loopEffectAudioSource.clip = SoundEffectManager.Instance.run;
+
+                    //재생속도
+                    SoundEffectManager.Instance.loopEffectAudioSource.pitch = 0.85f;
+
+                    SoundEffectManager.Instance.loopEffectAudioSource.Play();
+                }
             }
             else
             {
                 isRun = false;
                 speed = 8f;
+
+                //걷기 효과음
+                if (SoundEffectManager.Instance.loopEffectAudioSource.clip != SoundEffectManager.Instance.walk)
+                {
+                    SoundEffectManager.Instance.loopEffectAudioSource.clip = SoundEffectManager.Instance.walk;
+
+                    //재생속도
+                    SoundEffectManager.Instance.loopEffectAudioSource.pitch = 0.62f;
+
+                    SoundEffectManager.Instance.loopEffectAudioSource.Play();
+                }
             }
         }
         else
         {
             isMove = false;
+
+            //기본
+            if (SoundEffectManager.Instance.loopEffectAudioSource.clip != null)
+                SoundEffectManager.Instance.loopEffectAudioSource.clip = null;
         }
 
         animator.SetBool("isMove", isMove);
