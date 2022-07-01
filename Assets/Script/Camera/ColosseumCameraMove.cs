@@ -35,10 +35,6 @@ public class ColosseumCameraMove : MonoBehaviour
 
     bool dontMove = false;    // 줌하는동안 한 손가락을 뗀 경우 카메라 이동 방지 플래그
 
-    Vector3 initInputPos;
-
-    bool isMove = true;
-
     // Start is called before the first frame update
     void Start()
     {        
@@ -77,8 +73,8 @@ public class ColosseumCameraMove : MonoBehaviour
 
         if (Camera.main.fieldOfView - moveDist < 20)
             zoomValue = 20;
-        else if (Camera.main.fieldOfView - moveDist > 80)
-            zoomValue = 80;
+        else if (Camera.main.fieldOfView - moveDist > 90)
+            zoomValue = 90;
         else
             zoomValue = 0;
 
@@ -96,9 +92,6 @@ public class ColosseumCameraMove : MonoBehaviour
         // 화면에 접촉된 손가락의 개수가 1개이면
         if (Input.touchCount == 1 && dontMove == false)
         {
-
-            // 현재 입력 위치 저장
-            initInputPos = Input.mousePosition;
 
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) && !isMouseButtonOver)
             {
@@ -156,7 +149,7 @@ public class ColosseumCameraMove : MonoBehaviour
             // 배속에 따른 이동 속도 조절
             if (Time.timeScale == 1.0f)
             {
-                moveSpeed = 5f;
+                moveSpeed /= 1f;
                 // Debug.Log("1배 speed = "+ Time.deltaTime * moveSpeed);
             }
             else if (Time.timeScale == 1.2f)
@@ -224,7 +217,7 @@ public class ColosseumCameraMove : MonoBehaviour
         moveDistance = curDistance - preDistance;
 
         //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
-        if (Camera.main.fieldOfView - 0.1f * moveDistance < 20 || Camera.main.fieldOfView - 0.1f * moveDistance > 80)
+        if (Camera.main.fieldOfView - 0.1f * moveDistance < 20 || Camera.main.fieldOfView - 0.1f * moveDistance > 90)
         {
 
             if (Input.touchCount == 2)
@@ -279,10 +272,6 @@ public class ColosseumCameraMove : MonoBehaviour
     /// </summary>
     void IsWinCamMove()
     {
-
-        if (Input.GetMouseButtonDown(0))
-            initInputPos = Input.mousePosition;
-
         if (Input.GetMouseButton(0))
         {
             
@@ -345,37 +334,8 @@ public class ColosseumCameraMove : MonoBehaviour
             moveZ = 0;
         }
 
-        /*
-        // 카메라 이동 영역 제한
-        if (amountX > 200)
-        {
-            moveX = (amountX - 200) - moveX;
-        }
-        else if (amountX < -200)
-        {
-            moveX = (amountX - (-200) + moveX);
-
-        }
-
-
-        if (amountZ > 300) 
-        {
-            moveZ = (amountZ - 300) - moveZ;
-        }
-        else if (amountZ < -300)
-        {
-            moveZ = (amountZ - (-300)) + moveZ;
-        }
-        */
-
-
         cameraMove.Translate(-moveX, 0, -moveZ);
 
-
-        // 카메라 이동
-        //cameraMove.position = new Vector3(cameraMove.position.x - moveX, 
-        //                                                       cameraMove.position.y,  
-        //                                                      cameraMove.position.z - moveZ);
     }
 
     /// <summary>
@@ -402,7 +362,7 @@ public class ColosseumCameraMove : MonoBehaviour
         float moveDistance = Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;
 
         //  일정 값 이상 줌인, 줌아웃 하지 못하도록 설정
-        if (Camera.main.fieldOfView - moveDistance < 20 || Camera.main.fieldOfView - moveDistance > 80)
+        if (Camera.main.fieldOfView - moveDistance < 20 || Camera.main.fieldOfView - moveDistance > 90)
         {
             float zoomValue = ControllZoom(moveDistance);
             Camera.main.fieldOfView = zoomValue;
