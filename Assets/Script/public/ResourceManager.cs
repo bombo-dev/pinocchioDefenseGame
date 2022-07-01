@@ -32,11 +32,13 @@ public class ResourceManager : MonoBehaviour
     private void Start()
     {
         //나무 자원 초기화
-        if(SystemManager.Instance.GameFlowManager.stage > 0)
+        if (SystemManager.Instance.GameFlowManager.stage > 0)
             woodResource = startWoodResource + ((SystemManager.Instance.GameFlowManager.stage - 1) * 50);
+        else
+            woodResource = 9999;
 
-        //시간 측정용 변수 초기화
-        timer = Time.time;
+       //시간 측정용 변수 초기화
+       timer = Time.time;
 
 
         //-------------------유저 자원 정보 불러오기-------------------

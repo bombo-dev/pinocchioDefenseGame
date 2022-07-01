@@ -238,6 +238,9 @@ public class Turret : Actor
                 //게임오버 상태
                 SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.StageFail;
 
+                //bgm 패배로 변경
+                SoundManager.Instance.ChangeBGAudioClip(5);
+
                 //스테이지 35이전일 경우 사용나무 리셋
                 if (SystemManager.Instance.GameFlowManager.stage < 36)
                 {
