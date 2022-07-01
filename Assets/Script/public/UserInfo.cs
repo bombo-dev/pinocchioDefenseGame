@@ -41,26 +41,27 @@ public class UserInfo : MonoBehaviour
 
     public UserInfo()
     {
-        colorWoodResource[0] = 10;
-        colorWoodResource[1] = 10;
-        colorWoodResource[2] = 10;
-        colorWoodResource[3] = 10;
-        colorWoodResource[4] = 10;
-        colorWoodResource[5] = 10;
+        colorWoodResource[0] = 0;
+        colorWoodResource[1] = 0;
+        colorWoodResource[2] = 0;
+        colorWoodResource[3] = 0;
+        colorWoodResource[4] = 0;
+        colorWoodResource[5] = 0;
 
-        maxStageNum = 10;
-        selectedStageNum = 9;
+        maxStageNum = 0;
+        selectedStageNum = 0;
 
         stageStarList = new List<StageStar>();
         stageStarList.Add(new StageStar());
 
-        maxTurretNum = 5;
+        maxTurretNum = 1;
 
         turretPreset = new List<int>();
+        turretPreset.Add(0);
 
-        bgSoundVolume = 50;
+        bgSoundVolume = 0.5f;
         isBgSound = true;
-        efSoundVolume = 50;
+        efSoundVolume = 0.5f;
         isEfSound = true;
         touchSpeed = 5;
         isShowRange = true;
