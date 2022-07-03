@@ -39,7 +39,7 @@ public class UserInfo : MonoBehaviour
     public bool isShowRange;
     public bool isShowBook;
 
-    
+    /*
     public UserInfo()
     {
         colorWoodResource[0] = 0;
@@ -67,8 +67,8 @@ public class UserInfo : MonoBehaviour
         touchSpeed = 5;
         isShowRange = true;
         isShowBook = false;
-    }
-    /*
+    }*/
+    
     /// <summary>
     /// 테스트용 생성자
     /// </summary>
@@ -90,7 +90,7 @@ public class UserInfo : MonoBehaviour
             stageStarList.Add(new StageStar());
         }
 
-        maxTurretNum = 22;
+        maxTurretNum = 23;
 
         turretPreset = new List<int>();
         turretPreset.Add(0);
@@ -102,7 +102,7 @@ public class UserInfo : MonoBehaviour
         touchSpeed = 5;
         isShowRange = true;
         isShowBook = false;
-    }*/
+    }
 
     private void Awake()
     {
