@@ -18,7 +18,9 @@ public class StatusMngPanel : UI_Controller
 
     public GameObject hpBarOwner;   // hpBar를 갖고있는 유닛
 
-    public Sprite greenBar; 
+    public Sprite greenBar;
+
+    public Sprite redBar;
 
     [SerializeField]
     GameObject[] Debuffs;
@@ -142,6 +144,7 @@ public class StatusMngPanel : UI_Controller
     {
         // HPbar 정보 Reset
         GetSlider((int)Sliders.HPBar).value = 1.0f/1.0f;
+        Fill.sprite = redBar;
         Fill.color = Color.red;
 
         //디버프 정보 Reset
