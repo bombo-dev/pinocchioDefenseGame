@@ -128,7 +128,7 @@ public class UI_ResourcePanel : UI_Controller
         //UI활성화
         SystemManager.Instance.PanelManager.EnablePanel<UI_BossPanel>(14);
 
-        yield return new WaitForSeconds(7.0f);
+        yield return new WaitForSeconds(5.5f);
 
         //디펜스 시작
         SystemManager.Instance.GameFlowManager.gameState = GameFlowManager.GameState.Defense;

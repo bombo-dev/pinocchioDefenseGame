@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Linq;
 
 public class UI_TurretMngPanel : UI_Controller
 {
@@ -18,6 +19,8 @@ public class UI_TurretMngPanel : UI_Controller
     Actor actor; // HPBar 위치 업데이트를 위함
 
     Turret baseTurret;  //베이스 터렛
+
+    Dictionary<int,int> turretCostDic = new Dictionary<int, int>();   //터렛 가격 정보 배열
 
     enum TextMeshProUGUIs
     {
@@ -163,7 +166,11 @@ public class UI_TurretMngPanel : UI_Controller
                     idx++;
 
                     if (idx >= SystemManager.Instance.ResourceManager.selectedTurretPreset.Count)
+                    {
                         endTurret = true;
+                        //정렬
+                        SortTurretPanel();
+                    }
                 }
                 else
                 {
@@ -193,9 +200,33 @@ public class UI_TurretMngPanel : UI_Controller
 
         // 터렛 코스트 정보 초기화
         GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + idx).text = SystemManager.Instance.TurretManager.turretCostArr[idx].ToString();
+        //정렬용 리스트에 가격정보 추가
+        turretCostDic.Add(idx, SystemManager.Instance.TurretManager.turretCostArr[idx]);
 
         //터렛 건설 시간 정보 초기화
         GetTextMeshProUGUI((int)TextMeshProUGUIs.ConstructionText0 + idx).text = "공사시간: " + SystemManager.Instance.TurretManager.turretConstructionTimeArr[idx].ToString() + "초";
+
+        //순서 정렬
+        Debug.Log(GetGameobject((int)GameObjects.TurretPanel0 + idx).transform.GetSiblingIndex());
+    }
+
+    /// <summary>
+    /// 터렛 패널 가격순으로 정렬 : 김현진
+    /// </summary>
+    void SortTurretPanel()
+    {
+        //예외처리
+        if (!GetGameobject((int)GameObjects.TurretPanel0))
+            return;
+
+        //정렬
+        var turretCost = turretCostDic.OrderByDescending(x => x.Value);
+        int i = 0;
+        foreach (var dictionary in turretCost)
+        {
+            GetGameobject((int)GameObjects.TurretPanel0 + dictionary.Key).transform.SetSiblingIndex(0);
+            i++;
+        }
     }
 
     /// <summary>
@@ -305,9 +336,32 @@ public class UI_TurretMngPanel : UI_Controller
     /// </summary>
     public void UpdateWoodResource()
     {
+        ResourceManager rm = SystemManager.Instance.ResourceManager;
+        UserInfo ui = SystemManager.Instance.UserInfo;
+
         //현재 나무 자원을 받아와 텍스트값을 변경
-        if(GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText))
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText).text = SystemManager.Instance.ResourceManager.woodResource.ToString();
+        if (GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText))
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.WoodResourceText).text = rm.woodResource.ToString();
+
+        //소환 가능한 터렛 / 불가능한 터렛 텍스트 Color구분
+        for (int i = 0; i < ui.turretPreset.Count; i++)
+        {
+            //예외처리
+            if (!GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + ui.turretPreset[i]))
+                return;
+
+            //소환 가능
+            if (rm.woodResource >= int.Parse(GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + ui.turretPreset[i]).text))
+            {
+                GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + ui.turretPreset[i]).color = Color.white;
+            }
+            //소환 불가능
+            else
+            {
+                GetTextMeshProUGUI((int)TextMeshProUGUIs.TurretText0 + ui.turretPreset[i]).color = Color.red;
+
+            }
+        }
     }
 
 }

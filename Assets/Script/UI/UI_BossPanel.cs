@@ -71,27 +71,27 @@ public class UI_BossPanel : UI_Controller
     {   //≈∏¿Ã«Œ
         if (SystemManager.Instance.UserInfo.selectedStageNum == 11)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[0], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[0], 0.05f));
         }
         else if (SystemManager.Instance.UserInfo.selectedStageNum == 20)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[1], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[1], 0.05f));
         }
         else if (SystemManager.Instance.UserInfo.selectedStageNum == 28)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[2], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[2], 0.05f));
         }
         else if (SystemManager.Instance.UserInfo.selectedStageNum == 36)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[3], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[3], 0.05f));
         }
         else if (SystemManager.Instance.UserInfo.selectedStageNum == 38)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[4], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[4], 0.05f));
         }
         else if (SystemManager.Instance.UserInfo.selectedStageNum == 40)
         {
-            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[5], 0.1f));
+            StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[5], 0.05f));
         }
        
     }

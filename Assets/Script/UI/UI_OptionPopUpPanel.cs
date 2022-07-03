@@ -333,6 +333,7 @@ public class UI_OptionPopUpPanel : UI_Controller
         List<AudioSource> audioSource = SoundEffectManager.Instance.effectAudioSource;
 
         //음량정보 적용
+        SoundEffectManager.Instance.loopEffectAudioSource.volume = value;
         for (int i = 0; i < audioSource.Count; i++)
         {
             SoundEffectManager.Instance.effectAudioSource[i].volume = value;    
@@ -371,7 +372,7 @@ public class UI_OptionPopUpPanel : UI_Controller
         }
         //효과음
         GetScrollBar((int)Scrollbars.EfSoundScrollbar).value = userInfo.efSoundVolume;
-
+        SoundEffectManager.Instance.loopEffectAudioSource.volume = userInfo.efSoundVolume;
         for (int i = 0; i < efAudioSource.Count; i++)
         {
             efAudioSource[i].volume = userInfo.efSoundVolume;
