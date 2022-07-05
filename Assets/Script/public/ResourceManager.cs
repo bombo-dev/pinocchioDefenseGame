@@ -73,7 +73,13 @@ public class ResourceManager : MonoBehaviour
         //woodResourceIncreaseCycle초마다 나무자원 갱신
         if (Time.time - timer > woodResourceIncreaseCycle)
         {
-            int increaseWoodResource = woodResourceIncreaseValue + (SystemManager.Instance.UserInfo.selectedStageNum);
+            int increaseWoodResource;
+
+            if (SystemManager.Instance.UserInfo.selectMode == 0) // - 노말
+                increaseWoodResource = woodResourceIncreaseValue + (SystemManager.Instance.UserInfo.selectedStageNum);
+            else
+                increaseWoodResource = woodResourceIncreaseValue + (SystemManager.Instance.UserInfo.selectedStageNum_hard);
+
             //나무 자원값 갱신
             woodResource += increaseWoodResource;
 

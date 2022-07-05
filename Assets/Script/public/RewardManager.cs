@@ -22,7 +22,10 @@ public class RewardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetReward();
+        if (SystemManager.Instance.UserInfo.selectMode == 0) //노말
+            SetReward();
+        else //하드
+            SetHardReward();
     }
 
     /// <summary>
@@ -101,6 +104,84 @@ public class RewardManager : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// 해당 스테이지 보상 설정 - 하드 : 김현진
+    /// </summary>
+    void SetHardReward()
+    {
+        //사용전 강화 나무 보상 셋
+        for (int i = 0; i < beforeColorWoodReward.Length; i++)
+        {
+            beforeColorWoodReward[i] = SystemManager.Instance.UserInfo.colorWoodResource[i];
+        }
+
+        //게임플로우 매니저
+        GameFlowManager gfm = SystemManager.Instance.GameFlowManager;
+
+        //배열 초기화
+        colorWoodReward.Initialize();
+
+        //TurretReward세팅
+        SetTurretRewardInfo();
+
+        //랜덤 WoodReward세팅
+
+        //튜토리얼 첫 클리어 보상
+        if (gfm.stage == 0)
+        {
+            colorWoodReward[0] = 1;
+            colorWoodReward[1] = 1;
+            colorWoodReward[2] = 1;
+            colorWoodReward[3] = 1;
+            colorWoodReward[4] = 1;
+        }
+        else
+        {
+            for (int i = 0; i < (gfm.stage * 2); i++)
+            {
+                //0~4번 나무는 스테이지 수만큼 랜덤 보상 * 2
+                colorWoodReward[Random.Range(0, 5)]++;
+
+                //10%확률로 추가보상 * 2
+                if (Random.Range(0, 10) == 1)
+                    colorWoodReward[5]++;
+            }
+        }
+
+
+        //이미 클리어한 스테이지일 경우 보상 2/1
+        UserInfo userInfo = SystemManager.Instance.UserInfo;
+
+        if (!userInfo)
+            return;
+
+        //이미 클리어한 스테이지일 경우
+        if (gfm.stage < userInfo.maxStageNum_hard)
+        {
+            if (gfm.stage == 0) //튜토리얼
+            {
+                colorWoodReward[0] = 0;
+                colorWoodReward[1] = 0;
+                colorWoodReward[2] = 0;
+                colorWoodReward[3] = 0;
+                colorWoodReward[4] = 0;
+            }
+            else
+            {
+                for (int i = 0; i < colorWoodReward.Length; i++)
+                {
+                    if (colorWoodReward[i] > 2)
+                        colorWoodReward[i] = colorWoodReward[i] / 2;
+                    else if (colorWoodReward[i] == 2)
+                        colorWoodReward[i] = 1;
+                }
+            }
+
+        }
+
+    }
+
     /// <summary>
     /// 스테이지별 터렛 보상 정보 : 김현진
     /// </summary>

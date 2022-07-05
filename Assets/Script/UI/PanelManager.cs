@@ -104,8 +104,12 @@ public class PanelManager : MonoBehaviour
                     EnablePanel<UI_OptionPopUpPanel>(11);
 
                     //튜토리얼 패널
-                    if (SystemManager.Instance.UserInfo.selectedStageNum == 0)
-                        EnablePanel<UI_TutorialPanel>(13);
+                    if (SystemManager.Instance.UserInfo.selectMode == 0)//노말
+                    {
+                        if (SystemManager.Instance.UserInfo.selectedStageNum == 0)
+                            EnablePanel<UI_TutorialPanel>(13);
+                    }
+
                 }
                 else if (SystemManager.Instance.GameFlowManager.gameState == GameFlowManager.GameState.Defense)
                 {

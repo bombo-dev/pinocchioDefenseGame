@@ -61,14 +61,20 @@ public class SoundManager : MonoBehaviour
                 break;
             //게임씬
             case 2:
+                int stage;
+                if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+                    stage = SystemManager.Instance.UserInfo.selectedStageNum;
+                else   //하드
+                    stage = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+
                 //Clip교체
-                if(SystemManager.Instance.UserInfo.selectedStageNum <= 20)
+                if (stage <= 20)
                     audioSource.clip = gameSceneAuduiClip[0];
-                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 25)
+                else if (stage <= 25)
                     audioSource.clip = gameSceneAuduiClip[1];
-                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 35)
+                else if (stage <= 35)
                     audioSource.clip = gameSceneAuduiClip[2];
-                else if (SystemManager.Instance.UserInfo.selectedStageNum <= 39)
+                else if (stage <= 39)
                     audioSource.clip = gameSceneAuduiClip[3];
                 else
                     audioSource.clip = gameSceneAuduiClip[4];

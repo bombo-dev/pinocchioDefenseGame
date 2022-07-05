@@ -12,8 +12,12 @@ public class SaveData
     [Header("StageInfo")]   //스테이지 정보
     public int maxStageNum; //최대 클리어한 스테이지
     public int selectedStageNum;   //선택한 스테이지
+    public int maxStageNum_hard; //최대 클리어한 스테이지 - 하드
+    public int selectedStageNum_hard;   //선택한 스테이지 - 하드
+    public int selectMode;  //선택한 모드 0 - 노말, 1 - 하드
 
     public List<StageStar> stageStarList;    //스테이지 클리어 별 정보
+    public List<StageStar> stageStarList_hard;    //스테이지 클리어 별 정보 - 하드
 
     [Header("TurretInfo")]
     public int maxTurretNum;    //최대 터렛 숫자
@@ -138,6 +142,12 @@ public class SaveLoad
         data.selectedStageNum = userinfo.selectedStageNum;
         data.stageStarList = userinfo.stageStarList;
 
+        data.maxStageNum_hard = userinfo.maxStageNum_hard;
+        data.selectedStageNum_hard = userinfo.selectedStageNum_hard;
+        data.stageStarList_hard = userinfo.stageStarList_hard;
+
+        data.selectMode = userinfo.selectMode;
+
         // userTurretInfo 생성
         data.maxTurretNum = userinfo.maxTurretNum;
         data.turretPreset = userinfo.turretPreset;
@@ -171,6 +181,12 @@ public class SaveLoad
         data.selectedStageNum = SystemManager.Instance.UserInfo.selectedStageNum;
         data.stageStarList = SystemManager.Instance.UserInfo.stageStarList;
 
+        data.maxStageNum_hard = SystemManager.Instance.UserInfo.maxStageNum_hard;
+        data.selectedStageNum_hard = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+        data.stageStarList_hard = SystemManager.Instance.UserInfo.stageStarList_hard;
+
+        data.selectMode = SystemManager.Instance.UserInfo.selectMode;
+
         // userTurretInfo 초기화
         data.maxTurretNum = SystemManager.Instance.UserInfo.maxTurretNum;
         data.turretPreset = SystemManager.Instance.UserInfo.turretPreset;
@@ -201,6 +217,12 @@ public class SaveLoad
         SystemManager.Instance.UserInfo.maxStageNum = data.maxStageNum;
         SystemManager.Instance.UserInfo.selectedStageNum = data.selectedStageNum;
         SystemManager.Instance.UserInfo.stageStarList = data.stageStarList;
+
+        SystemManager.Instance.UserInfo.maxStageNum_hard = data.maxStageNum_hard;
+        SystemManager.Instance.UserInfo.selectedStageNum_hard = data.selectedStageNum_hard;
+        SystemManager.Instance.UserInfo.stageStarList_hard = data.stageStarList_hard;
+
+        SystemManager.Instance.UserInfo.selectMode = data.selectMode;
 
         // userTurretInfo 불러오기 초기화
         SystemManager.Instance.UserInfo.maxTurretNum = data.maxTurretNum;

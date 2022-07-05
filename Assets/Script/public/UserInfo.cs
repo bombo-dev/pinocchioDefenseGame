@@ -23,8 +23,12 @@ public class UserInfo : MonoBehaviour
     [Header("StageInfo")]   //스테이지 정보
     public int maxStageNum; //최대 클리어한 스테이지
     public int selectedStageNum;   //선택한 스테이지
+    public int maxStageNum_hard; //최대 클리어한 스테이지 - 하드
+    public int selectedStageNum_hard;   //선택한 스테이지 - 하드
+    public int selectMode;  //선택한 모드 0 - 노말, 1 - 하드
 
     public List<StageStar> stageStarList;    //스테이지 클리어 별 정보
+    public List<StageStar> stageStarList_hard;    //스테이지 클리어 별 정보 - 하드
 
     [Header("TurretInfo")]
     public int maxTurretNum;    //최대 터렛 숫자
@@ -51,9 +55,15 @@ public class UserInfo : MonoBehaviour
 
         maxStageNum = 0;
         selectedStageNum = 0;
+        maxStageNum_hard = 0;
+        selectedStageNum_hard = 0;
+        selectMode = 0;
 
         stageStarList = new List<StageStar>();
         stageStarList.Add(new StageStar());
+
+        stageStarList_hard = new List<StageStar>();
+        stageStarList_hard.Add(new StageStar());
 
         maxTurretNum = 1;
 
@@ -68,7 +78,7 @@ public class UserInfo : MonoBehaviour
         isShowRange = true;
         isShowBook = false;
     }*/
-    
+
     /// <summary>
     /// 테스트용 생성자
     /// </summary>
@@ -83,11 +93,20 @@ public class UserInfo : MonoBehaviour
 
         maxStageNum = 40;
         selectedStageNum = 40;
+        maxStageNum_hard = 35;
+        selectedStageNum_hard = 35;
+        selectMode = 0;
 
         stageStarList = new List<StageStar>();
         for (int i = 0; i < 41; i++)
         {
             stageStarList.Add(new StageStar());
+        }
+
+        stageStarList_hard = new List<StageStar>();
+        for (int i = 0; i < 36; i++)
+        {
+            stageStarList_hard.Add(new StageStar());
         }
 
         maxTurretNum = 23;

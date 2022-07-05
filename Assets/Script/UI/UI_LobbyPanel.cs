@@ -29,6 +29,9 @@ public class UI_LobbyPanel : UI_Controller
     [SerializeField]
     Sprite[] starSprite;
 
+    [SerializeField]
+    Sprite[] starSprite_Hard;
+
     enum Buttons
     {
         GameStartButton,    //게임시작버튼
@@ -74,7 +77,9 @@ public class UI_LobbyPanel : UI_Controller
         StageSelectButton,   //스테이지 선택 지도 켜기 버튼
         StageLeftArrowButton,   //스테이지 선택 지도 왼쪽 스크롤 끝으로
         StageRightArrowButton,   //스테이지 선택 지도 오른쪽 스크롤 끝으로
-        StoryButton //스토리씬 시작 버튼
+        StoryButton, //스토리씬 시작 버튼
+        NormalButton,   //노말모드 버튼
+        HardButton      //하드모드 버튼
     }
 
     enum GameObjects
@@ -155,7 +160,11 @@ public class UI_LobbyPanel : UI_Controller
         StageItem39,
         StageItem40,
         StageSelectPanel,    //스테이지 선택 패널
-        StageContent    //스테이지 선택 토글 상위 오브젝트
+        StageContent,    //스테이지 선택 토글 상위 오브젝트
+        NormalSelectButtonImage,    //노말모드 선택 체크 토글 이미지
+        HardSelectButtonImage,    //하드모드 선택 체크 토글 이미지
+        NormalText, //노말 모드 텍스트
+        HardText,   //하드 모드 텍스트
     }
 
     enum TextMeshProUGUIs
@@ -199,7 +208,9 @@ public class UI_LobbyPanel : UI_Controller
         ColorWoodText4,
         ColorWoodText5,
         StarNumText,    //총 별 개수
+        HardStarNumText,    //총 별 개수 - Hard
         StarNumText_Menu,   //메뉴패널 총 별 개수
+        HardStarNumText_Menu,   //메뉴패널 총 별 개수 - Hard
         StageNumText,    //최대 클리어한 스테이지
         SelectedStageText   //선택한 스테이지
     }
@@ -257,7 +268,8 @@ public class UI_LobbyPanel : UI_Controller
         StageStarImage39,
         StageStarImage40,
         SelectedStageStarImage, //선택한 스테이지 별 정보
-        SelectedStage   //선택한 스테이지 등급 이미지
+        SelectedStage,   //선택한 스테이지 등급 이미지
+        MapPanel    //맵 배경 이미지
     }
 
     enum ToggleGroups
@@ -307,9 +319,13 @@ public class UI_LobbyPanel : UI_Controller
 
         //스테이지 선택패널 UI 이벤트 추가
         AddUIEvent(GetButton((int)Buttons.StageMapCloseButton).gameObject, OnClickStageMapCloseButton, Define.UIEvent.Click);
-        AddUIEvent(GetButton((int)Buttons.StageSelectButton).gameObject, OnClickStageMapOpenButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.StageSelectButton).gameObject, OnClickStageSelectButton, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageRightArrowButton).gameObject, OnClickStageRightArrow, Define.UIEvent.Click);
         AddUIEvent(GetButton((int)Buttons.StageLeftArrowButton).gameObject, OnClickStageLeftArrow, Define.UIEvent.Click);
+
+        AddUIEvent(GetButton((int)Buttons.NormalButton).gameObject, OnClickStageMapOpenButton, Define.UIEvent.Click);
+        AddUIEvent(GetButton((int)Buttons.HardButton).gameObject, OnClickHardStageMapOpenButton, Define.UIEvent.Click);
+
 
         //유저정보 캐싱
         UserInfo userInfo = SystemManager.Instance.UserInfo;
@@ -318,11 +334,18 @@ public class UI_LobbyPanel : UI_Controller
         
         //총합 별 개수 
         int totStarNum = 0;
+        int totHardStarNum = 0;
         for (int i = 0; i <= userInfo.maxStageNum; i++)
         {
             //총합 별 개수 구하기
             totStarNum += userInfo.stageStarList[i].starNum;
         }
+        for (int i = 0; i <= userInfo.maxStageNum_hard; i++)
+        {
+            //총합 별 개수 구하기 - 하드
+            totHardStarNum += userInfo.stageStarList_hard[i].starNum;
+        }
+
         //스테이지 이미지 바꾸기
         if (totStarNum <= 40)
             GetImage((int)Images.StageImage).sprite = stageSprite[0]; //브론즈
@@ -338,8 +361,10 @@ public class UI_LobbyPanel : UI_Controller
             GetImage((int)Images.StageImage).sprite = stageSprite[5]; //마스터
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.HardStarNumText).text = "X" + totHardStarNum.ToString();
         //메뉴패널 총 별 개수
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText_Menu).text = "X" + totStarNum.ToString();
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.HardStarNumText_Menu).text = "X" + totHardStarNum.ToString();
 
         //최대 클리어한 스테이지
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = 
@@ -369,18 +394,6 @@ public class UI_LobbyPanel : UI_Controller
                 GetGameobject((int)GameObjects.TurretPanel0 + i).SetActive(false);
 
         }
-        
-        //스테이지 패널
-        for (int i = 0; i <= MAXSTAGENUM; i++)
-        {
-            if (i <= userInfo.maxStageNum)
-            {
-                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(true);
-                GetImage((int)Images.StageStarImage0 + i).sprite = starSprite[userInfo.stageStarList[i].starNum];
-            }
-            else
-                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(false);
-        }
 
         //로비씬에서 hotelPino 게임오브젝트 찾아서 객체의 LobbyPlayer스크립트 가져오기
         lobbyPlayer = GameObject.FindObjectOfType<LobbyPlayer>();
@@ -389,7 +402,11 @@ public class UI_LobbyPanel : UI_Controller
         ResetTurretPreset();
 
         //선택 스테이지 정보 업데이트
-        UpdateSelectedStageInfo();
+        //UpdateSelectedStageInfo();
+        OnClickStageSelectButton();
+
+        //닫고 패널에 정보 업데이트
+        OnClickStageMapCloseButton();
 
         //GameSetting UI 비활성화
         GetGameobject((int)GameObjects.GameSettingPanel).SetActive(false);
@@ -608,30 +625,178 @@ public class UI_LobbyPanel : UI_Controller
         Sprite SelectedStarImage = SelectedToggle.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite;
         string SelectedStageNum = SelectedToggle.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text;
 
-        //선택한 스테이지 정보 유저 정보에 갱신
-        userInfo.selectedStageNum = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
+        if (userInfo.selectMode == 0)   //노말
+        {
+            //선택한 스테이지 정보 유저 정보에 갱신
+            userInfo.selectedStageNum = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
 
-        //패널에 선택한 스테이지 정보 갱신
-        GetImage((int)Images.SelectedStage).sprite = SelectedToggleImage;
-        GetImage((int)Images.SelectedStageStarImage).sprite = SelectedStarImage;
-        GetTextMeshProUGUI((int)TextMeshProUGUIs.SelectedStageText).text = SelectedStageNum;
+            //패널에 선택한 스테이지 정보 갱신
+            GetImage((int)Images.SelectedStage).sprite = SelectedToggleImage;
+            GetImage((int)Images.SelectedStageStarImage).sprite = SelectedStarImage;
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.SelectedStageText).text = SelectedStageNum;
 
-        if (GetGameobject((int)GameObjects.StageSelectPanel))
-            GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+            if (GetGameobject((int)GameObjects.StageSelectPanel))
+                GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+        }
+        else    //하드
+        {
+            //선택한 스테이지 정보 유저 정보에 갱신
+            userInfo.selectedStageNum_hard = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
 
+            //패널에 선택한 스테이지 정보 갱신
+            GetImage((int)Images.SelectedStage).sprite = SelectedToggleImage;
+            GetImage((int)Images.SelectedStageStarImage).sprite = SelectedStarImage;
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.SelectedStageText).text = SelectedStageNum;
+
+            if (GetGameobject((int)GameObjects.StageSelectPanel))
+                GetGameobject((int)GameObjects.StageSelectPanel).SetActive(false);
+        }
+
+        EnableStageModeText();
 
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
     }
 
     /// <summary>
+    /// 로비에서 스테이지 지도켜기 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickStageSelectButton(PointerEventData data = null)
+    {
+        //노말
+        if (SystemManager.Instance.UserInfo.selectMode == 0)
+        {
+            OnClickStageMapOpenButton();
+        }
+        //하드
+        else
+        {
+            OnClickHardStageMapOpenButton();
+        }
+
+        EnableStageModeText();
+    }
+
+    /// <summary>
+    /// 스테이지 모드에 맞는 노말/하드모드 구분 텍스트 활성화 : 김현진
+    /// </summary>
+    void EnableStageModeText()
+    {
+        //노말
+        if (SystemManager.Instance.UserInfo.selectMode == 0)
+        {
+            if (!GetGameobject((int)GameObjects.NormalText).activeSelf)
+                GetGameobject((int)GameObjects.NormalText).SetActive(true);
+            if (GetGameobject((int)GameObjects.HardText).activeSelf)
+                GetGameobject((int)GameObjects.HardText).SetActive(false);
+        }
+        //하드
+        else
+        {
+            if (GetGameobject((int)GameObjects.NormalText).activeSelf)
+                GetGameobject((int)GameObjects.NormalText).SetActive(false);
+            if (!GetGameobject((int)GameObjects.HardText).activeSelf)
+                GetGameobject((int)GameObjects.HardText).SetActive(true);
+        }
+    }
+
+    /// <summary>
     /// 스테이지 지도 켜기 : 김현진
     /// </summary>
     /// <param name="data">이벤트 정보</param>
-    void OnClickStageMapOpenButton(PointerEventData data)
+    void OnClickStageMapOpenButton(PointerEventData data = null)
     {
         if (GetGameobject((int)GameObjects.StageSelectPanel))
             GetGameobject((int)GameObjects.StageSelectPanel).SetActive(true);
+
+        //이전에 선택한 스테이지 정보 저장
+        //선택한 스테이지 정보
+        GameObject SelectedToggle = GetToggleGroup((int)ToggleGroups.StageSelectPanel).GetFirstActiveToggle().gameObject;
+        string SelectedStageNum = SelectedToggle.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text;
+        if (SystemManager.Instance.UserInfo.selectMode == 1)   //하드
+        {
+            //선택한 스테이지 정보 유저 정보에 갱신
+            SystemManager.Instance.UserInfo.selectedStageNum_hard = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
+        }
+
+        //맵 배경 이미지
+        if (GetImage((int)Images.MapPanel).gameObject.activeSelf)
+            GetImage((int)Images.MapPanel).color = Color.white;
+
+        //토글 이미지
+        if (!GetGameobject((int)GameObjects.NormalSelectButtonImage).activeSelf)
+            GetGameobject((int)GameObjects.NormalSelectButtonImage).SetActive(true);
+        if (GetGameobject((int)GameObjects.HardSelectButtonImage).activeSelf)
+            GetGameobject((int)GameObjects.HardSelectButtonImage).SetActive(false);
+        //스테이지 정보 갱신
+        SystemManager.Instance.UserInfo.selectMode = 0; //노말
+
+        //스테이지 패널
+        for (int i = 0; i <= MAXSTAGENUM; i++)
+        {
+            if (i <= SystemManager.Instance.UserInfo.maxStageNum)
+            {
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(true);
+                GetImage((int)Images.StageStarImage0 + i).sprite = starSprite[SystemManager.Instance.UserInfo.stageStarList[i].starNum];
+            }
+            else
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(false);
+        }
+
+        //선택한 스테이지 토글 정보
+        UpdateSelectedStageInfo();
+    }
+
+    /// <summary>
+    /// 스테이지 지도 켜기 - 하드: 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickHardStageMapOpenButton(PointerEventData data = null)
+    {
+        if (GetGameobject((int)GameObjects.StageSelectPanel))
+            GetGameobject((int)GameObjects.StageSelectPanel).SetActive(true);
+
+        //이전에 선택한 스테이지 정보 저장
+        //선택한 스테이지 정보
+        GameObject SelectedToggle = GetToggleGroup((int)ToggleGroups.StageSelectPanel).GetFirstActiveToggle().gameObject;
+        string SelectedStageNum = SelectedToggle.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text;
+        if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+        {
+            //선택한 스테이지 정보 유저 정보에 갱신
+            SystemManager.Instance.UserInfo.selectedStageNum = int.Parse(Regex.Replace(SelectedStageNum, @"\D", ""));
+        }
+
+        //맵 배경 이미지
+        if (GetImage((int)Images.MapPanel).gameObject.activeSelf)
+            GetImage((int)Images.MapPanel).color = new Color(1, 0.5f, 0.5f);
+
+        //토글 이미지
+        if (GetGameobject((int)GameObjects.NormalSelectButtonImage).activeSelf)
+            GetGameobject((int)GameObjects.NormalSelectButtonImage).SetActive(false);
+        if (!GetGameobject((int)GameObjects.HardSelectButtonImage).activeSelf)
+            GetGameobject((int)GameObjects.HardSelectButtonImage).SetActive(true);
+        //스테이지 정보 갱신
+        SystemManager.Instance.UserInfo.selectMode = 1; //하드
+
+        //스테이지 패널
+        for (int i = 0; i <= MAXSTAGENUM; i++)
+        {
+            if (i == 0)
+            {
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(false);
+            }
+            else if (i <= SystemManager.Instance.UserInfo.maxStageNum_hard)
+            {
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(true);
+                GetImage((int)Images.StageStarImage0 + i).sprite = starSprite_Hard[SystemManager.Instance.UserInfo.stageStarList_hard[i].starNum];
+            }
+            else
+                GetGameobject((int)GameObjects.StageItem0 + i).SetActive(false);
+        }
+
+        //선택한 토글 정보
+        UpdateSelectedStageInfo();
     }
 
     /// <summary>
@@ -640,12 +805,14 @@ public class UI_LobbyPanel : UI_Controller
     void UpdateSelectedStageInfo()
     {
         UserInfo userInfo = SystemManager.Instance.UserInfo;
+        Toggle toggle;
 
-        Toggle toggle = GetGameobject((int)GameObjects.StageContent).transform.GetChild(userInfo.selectedStageNum).GetComponent<Toggle>();
+        if (userInfo.selectMode == 0)   //노말
+            toggle = GetGameobject((int)GameObjects.StageContent).transform.GetChild(userInfo.selectedStageNum).GetComponent<Toggle>();
+        else
+            toggle = GetGameobject((int)GameObjects.StageContent).transform.GetChild(userInfo.selectedStageNum_hard).GetComponent<Toggle>();
+
         toggle.isOn = true;
-
-        //닫고 패널에 정보 업데이트
-        OnClickStageMapCloseButton();
     }
 
     /// <summary>

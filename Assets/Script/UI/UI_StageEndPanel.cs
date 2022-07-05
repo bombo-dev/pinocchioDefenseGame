@@ -21,6 +21,8 @@ public class UI_StageEndPanel : UI_Controller
 
     [SerializeField]
     Sprite[] starSprite;    //별 이미지 모음
+    [SerializeField]
+    Sprite[] hardStarSprite;    //별 이미지 모음 - 하드
 
     [SerializeField]
     Sprite panelSpriteLight;
@@ -445,7 +447,10 @@ public class UI_StageEndPanel : UI_Controller
             GetGameobject((int)GameObjects.RewardPanel).SetActive(true);
 
             //별 보상 이미지 교체
-            GetImage((int)Images.StarRewardImage).sprite = starSprite[SystemManager.Instance.RewardManager.starRewardNum];
+            if(ui.selectMode == 0)  //노말
+                GetImage((int)Images.StarRewardImage).sprite = starSprite[SystemManager.Instance.RewardManager.starRewardNum];
+            else    //하드
+                GetImage((int)Images.StarRewardImage).sprite = hardStarSprite[SystemManager.Instance.RewardManager.starRewardNum];
 
             for (int i = 0; i < MAXREWARDNUM - 1; i++)
             {
@@ -514,7 +519,10 @@ public class UI_StageEndPanel : UI_Controller
     void OnClickRestartButton(PointerEventData data)
     {
         //스테이지 선택
-        SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage;
+        if(SystemManager.Instance.UserInfo.selectMode == 0) // - 노말
+            SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage;
+       else
+            SystemManager.Instance.UserInfo.selectedStageNum_hard = SystemManager.Instance.GameFlowManager.stage;
 
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
@@ -544,12 +552,25 @@ public class UI_StageEndPanel : UI_Controller
         SaveLoad save = new SaveLoad();
         save.SaveUserInfo();
 
-        //예외처리
-        if (SystemManager.Instance.UserInfo.maxStageNum < SystemManager.Instance.GameFlowManager.stage + 1)
-            return;
+        if (SystemManager.Instance.UserInfo.selectMode == 0)    // - 노말
+        {
+            //예외처리
+            if (SystemManager.Instance.UserInfo.maxStageNum < SystemManager.Instance.GameFlowManager.stage + 1)
+                return;
 
-        //유저정보 갱신
-        SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage + 1;
+            //유저정보 갱신
+            SystemManager.Instance.UserInfo.selectedStageNum = SystemManager.Instance.GameFlowManager.stage + 1;
+        }
+        else
+        {
+            //예외처리
+            if (SystemManager.Instance.UserInfo.maxStageNum_hard < SystemManager.Instance.GameFlowManager.stage + 1)
+                return;
+
+            //유저정보 갱신
+            SystemManager.Instance.UserInfo.selectedStageNum_hard = SystemManager.Instance.GameFlowManager.stage + 1;
+        }
+        
         save.SaveUserInfo();
 
         //씬 이동

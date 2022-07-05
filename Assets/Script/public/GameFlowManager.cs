@@ -76,7 +76,10 @@ public class GameFlowManager : MonoBehaviour
         UserInfo userInfo = SystemManager.Instance.UserInfo;
 
         //스테이지 설정
-        stage = userInfo.selectedStageNum;
+        if(userInfo.selectMode == 0)// - 노말
+            stage = userInfo.selectedStageNum;
+        else // - 하드
+            stage = userInfo.selectedStageNum_hard;
 
         //************** 암호화된 Json데이터 불러와 자료구조와 사상 ****************
         // defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
@@ -251,38 +254,74 @@ public class GameFlowManager : MonoBehaviour
                 rewardManager.getNewTurret = false;
             }
 
+            //노말모드 
+            if (userInfo.selectMode == 0)
+            {
+
+                //별 보상 추가
+                if (userInfo.stageStarList[stage].starNum < rewardManager.starRewardNum)
+                {
+                    userInfo.stageStarList[stage].starNum = rewardManager.starRewardNum;
+                }
+
+                //최대 스테이지에 도달하지 못했을 때
+                if (stage < MAXSTAGE)
+                {
+                    //스테이지 선택 정보
+                    if (userInfo.maxStageNum <= stage + 1)
+                        userInfo.selectedStageNum = stage + 1;
+
+                    //스테이지 클리어 정보
+                    if (userInfo.maxStageNum <= stage)
+                        userInfo.maxStageNum = stage + 1;
+
+                    //다음 스테이지 별 보상 추가
+                    if (userInfo.stageStarList.Count <= stage + 1)
+                    {
+                        StageStar stageStar = new StageStar();
+                        stageStar.stageNum = stage + 1;
+                        stageStar.starNum = 0;
+
+                        userInfo.stageStarList.Add(stageStar);
+                    }
+                }
+            }
+            //하드모드
+            else
+            {
+                //별 보상 추가
+                if (userInfo.stageStarList_hard[stage].starNum < rewardManager.starRewardNum)
+                {
+                    userInfo.stageStarList_hard[stage].starNum = rewardManager.starRewardNum;
+                }
+
+                //최대 스테이지에 도달하지 못했을 때
+                if (stage < MAXSTAGE)
+                {
+                    //스테이지 선택 정보
+                    if (userInfo.maxStageNum_hard <= stage + 1)
+                        userInfo.selectedStageNum_hard = stage + 1;
+
+                    //스테이지 클리어 정보
+                    if (userInfo.maxStageNum_hard <= stage)
+                        userInfo.maxStageNum_hard = stage + 1;
+
+                    //다음 스테이지 별 보상 추가
+                    if (userInfo.stageStarList_hard.Count <= stage + 1)
+                    {
+                        StageStar stageStar = new StageStar();
+                        stageStar.stageNum = stage + 1;
+                        stageStar.starNum = 0;
+
+                        userInfo.stageStarList_hard.Add(stageStar);
+                    }
+                }
+            }
+
             //강화 나무 보상 추가
             for (int i = 0; i < userInfo.colorWoodResource.Length; i++)
             {
                 userInfo.colorWoodResource[i] += rewardManager.colorWoodReward[i];
-            }
-
-            //별 보상 추가
-            if (userInfo.stageStarList[stage].starNum < rewardManager.starRewardNum)
-            {
-                userInfo.stageStarList[stage].starNum = rewardManager.starRewardNum;
-            }
-
-            //최대 스테이지에 도달하지 못했을 때
-            if (stage < MAXSTAGE)
-            {
-                //스테이지 선택 정보
-                if (userInfo.maxStageNum <= stage + 1)
-                    userInfo.selectedStageNum = stage + 1;
-
-                //스테이지 클리어 정보
-                if (userInfo.maxStageNum <= stage)
-                    userInfo.maxStageNum = stage + 1;
-
-                //다음 스테이지 별 보상 추가
-                if (userInfo.stageStarList.Count <= stage + 1)
-                {
-                    StageStar stageStar = new StageStar();
-                    stageStar.stageNum = stage + 1;
-                    stageStar.starNum = 0;
-
-                    userInfo.stageStarList.Add(stageStar);
-                }
             }
 
             //사용전 강화 나무 보상 셋

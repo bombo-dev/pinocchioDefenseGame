@@ -35,28 +35,35 @@ public class UI_BossPanel : UI_Controller
         Bind<TextMeshProUGUI>(typeof(TextMeshProUGUIs));
         Bind<Image>(typeof(Images));
 
+        int stage;
+        if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+            stage = SystemManager.Instance.UserInfo.selectedStageNum;
+        else   //하드
+            stage = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+
+
         //이미지 초기화
-        if (SystemManager.Instance.UserInfo.selectedStageNum == 11)
+        if (stage == 11)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[0];
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 20)
+        else if (stage == 20)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[1];
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 28)
+        else if (stage == 28)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[2];
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 36)
+        else if (stage == 36)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[3];
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 38)
+        else if (stage == 38)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[4];
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 40)
+        else if (stage == 40)
         {
             GetImage((int)Images.bossImage).sprite = bossImage[5];
         }
@@ -68,28 +75,35 @@ public class UI_BossPanel : UI_Controller
     /// 보스 스테이지 연출 시작 : 김현진
     /// </summary>
     public void StartBossStage()
-    {   //타이핑
-        if (SystemManager.Instance.UserInfo.selectedStageNum == 11)
+    {
+        int stage;
+        if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+            stage = SystemManager.Instance.UserInfo.selectedStageNum;
+        else   //하드
+            stage = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+
+        //타이핑
+        if (stage == 11)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[0], 0.05f));
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 20)
+        else if (stage == 20)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[1], 0.05f));
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 28)
+        else if (stage == 28)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[2], 0.05f));
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 36)
+        else if (stage == 36)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[3], 0.05f));
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 38)
+        else if (stage == 38)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[4], 0.05f));
         }
-        else if (SystemManager.Instance.UserInfo.selectedStageNum == 40)
+        else if (stage == 40)
         {
             StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.bossText), bossText[5], 0.05f));
         }

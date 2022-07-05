@@ -59,27 +59,33 @@ public class UI_ResourcePanel : UI_Controller
             GetTextMeshProUGUI((int)TextMeshProUGUIs.StageStartText).text = "Stage " +
                SystemManager.Instance.GameFlowManager.stage.ToString();
 
+            int stage;
+            if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+                stage = SystemManager.Instance.UserInfo.selectedStageNum;
+            else   //하드
+                stage = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+
             //스테이지 이미지 변경
-            if (SystemManager.Instance.UserInfo.selectedStageNum <= 10)
+            if (stage <= 10)
                     GetImage((int)Images.StageStartImage).sprite = stageSprite[0]; //브론즈
-            else if(SystemManager.Instance.UserInfo.selectedStageNum <= 20)
+            else if(stage <= 20)
                     GetImage((int)Images.StageStartImage).sprite = stageSprite[1]; //실버
-            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 25)
+            else if (stage <= 25)
                 GetImage((int)Images.StageStartImage).sprite = stageSprite[2]; //골드
-            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 30)
+            else if (stage <= 30)
                 GetImage((int)Images.StageStartImage).sprite = stageSprite[3]; //플래티넘
-            else if (SystemManager.Instance.UserInfo.selectedStageNum <= 35)
+            else if (stage <= 35)
                 GetImage((int)Images.StageStartImage).sprite = stageSprite[4]; //다이아
             else 
                 GetImage((int)Images.StageStartImage).sprite = stageSprite[5]; //마스터
 
             //보스 스테이지
-            if (SystemManager.Instance.UserInfo.selectedStageNum == 11 ||
-                SystemManager.Instance.UserInfo.selectedStageNum == 20 ||
-                SystemManager.Instance.UserInfo.selectedStageNum == 28 ||
-                SystemManager.Instance.UserInfo.selectedStageNum == 36 ||
-                SystemManager.Instance.UserInfo.selectedStageNum == 38 ||
-                SystemManager.Instance.UserInfo.selectedStageNum == 40)
+            if (stage == 11 ||
+                stage == 20 ||
+                stage == 28 ||
+                stage == 36 ||
+                stage == 38 ||
+                stage == 40)
             {
                 //보스 디펜스 시작 코루틴 호출
                 StartCoroutine("StartBossDefense");

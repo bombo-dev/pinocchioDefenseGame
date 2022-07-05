@@ -26,6 +26,13 @@ public class BlockManager : MonoBehaviour
     [SerializeField]
     GameObject[] field;
 
+    [SerializeField]
+    GameObject Light_RealTime_Normal;
+    [SerializeField]
+    GameObject Light_RealTime_Hard_Enemy;
+    [SerializeField]
+    GameObject Light_RealTime_Hard;
+
     public GameObject[] tutorialNest;
 
     // Start is called before the first frame update
@@ -42,6 +49,29 @@ public class BlockManager : MonoBehaviour
     void EnableField()
     {
         fieldGo.SetActive(true);
+
+        if (SystemManager.Instance.UserInfo.selectMode == 0) // - 노말
+        {
+            if (!Light_RealTime_Normal.activeSelf)
+                Light_RealTime_Normal.SetActive(true);
+
+            if (Light_RealTime_Hard.activeSelf)
+                Light_RealTime_Hard.SetActive(false);
+
+            if (Light_RealTime_Hard_Enemy.activeSelf)
+                Light_RealTime_Hard_Enemy.SetActive(false);
+        }
+        else
+        {
+            if (Light_RealTime_Normal.activeSelf)
+                Light_RealTime_Normal.SetActive(false);
+
+            if (!Light_RealTime_Hard.activeSelf)
+                Light_RealTime_Hard.SetActive(true);
+
+            if (!Light_RealTime_Hard_Enemy.activeSelf)
+                Light_RealTime_Hard_Enemy.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -57,24 +87,48 @@ public class BlockManager : MonoBehaviour
         //스테이지에 맞는 맵 생성
         UserInfo userInfo = SystemManager.Instance.UserInfo;
 
-        if (userInfo.selectedStageNum == 0)//튜토리얼
-            fieldGo = field[0];
-        else if (userInfo.selectedStageNum <= 5)
-            fieldGo = field[1];
-        else if (userInfo.selectedStageNum <= 10)
-            fieldGo = field[2];
-        else if (userInfo.selectedStageNum <= 15)
-            fieldGo = field[3];
-        else if (userInfo.selectedStageNum <= 20)
-            fieldGo = field[4];
-        else if (userInfo.selectedStageNum <= 25)
-            fieldGo = field[5];
-        else if (userInfo.selectedStageNum <= 30)
-            fieldGo = field[6];
-        else if (userInfo.selectedStageNum <= 35)
-            fieldGo = field[7];
-        else if (userInfo.selectedStageNum <= 40)
-            fieldGo = field[8];
+        if (userInfo.selectMode == 0)// -노말
+        {
+            if (userInfo.selectedStageNum == 0)//튜토리얼
+                fieldGo = field[0];
+            else if (userInfo.selectedStageNum <= 5)
+                fieldGo = field[1];
+            else if (userInfo.selectedStageNum <= 10)
+                fieldGo = field[2];
+            else if (userInfo.selectedStageNum <= 15)
+                fieldGo = field[3];
+            else if (userInfo.selectedStageNum <= 20)
+                fieldGo = field[4];
+            else if (userInfo.selectedStageNum <= 25)
+                fieldGo = field[5];
+            else if (userInfo.selectedStageNum <= 30)
+                fieldGo = field[6];
+            else if (userInfo.selectedStageNum <= 35)
+                fieldGo = field[7];
+            else if (userInfo.selectedStageNum <= 40)
+                fieldGo = field[8];
+        }
+        else // - 하드
+        {
+            if (userInfo.selectedStageNum_hard == 0)//튜토리얼
+                fieldGo = field[0];
+            else if (userInfo.selectedStageNum_hard <= 5)
+                fieldGo = field[1];
+            else if (userInfo.selectedStageNum_hard <= 10)
+                fieldGo = field[2];
+            else if (userInfo.selectedStageNum_hard <= 15)
+                fieldGo = field[3];
+            else if (userInfo.selectedStageNum_hard <= 20)
+                fieldGo = field[4];
+            else if (userInfo.selectedStageNum_hard <= 25)
+                fieldGo = field[5];
+            else if (userInfo.selectedStageNum_hard <= 30)
+                fieldGo = field[6];
+            else if (userInfo.selectedStageNum_hard <= 35)
+                fieldGo = field[7];
+            else if (userInfo.selectedStageNum_hard <= 40)
+                fieldGo = field[8];
+        }
 
         //targetArr초기화
         for (int i = 0; i < fieldGo.transform.GetChild(0).childCount; i++)
