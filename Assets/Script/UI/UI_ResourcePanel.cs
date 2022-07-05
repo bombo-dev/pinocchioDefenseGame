@@ -18,7 +18,8 @@ public class UI_ResourcePanel : UI_Controller
     {
         woodResourceText,
         StageNumText,
-        StageStartText
+        StageStartText,
+        HardStageNumText
     }
 
     enum Images
@@ -28,7 +29,9 @@ public class UI_ResourcePanel : UI_Controller
 
     enum GameObjects
     {
-        StageStartPanel
+        StageStartPanel,
+        StageNumBackGround,
+        HardStageNumBackGround
     }
 
     /// <summary>
@@ -53,17 +56,31 @@ public class UI_ResourcePanel : UI_Controller
         }
         else
         {
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = "Stage " +
-           SystemManager.Instance.GameFlowManager.stage.ToString();
-
-            GetTextMeshProUGUI((int)TextMeshProUGUIs.StageStartText).text = "Stage " +
-               SystemManager.Instance.GameFlowManager.stage.ToString();
-
             int stage;
             if (SystemManager.Instance.UserInfo.selectMode == 0)    //노말
+            {
                 stage = SystemManager.Instance.UserInfo.selectedStageNum;
+
+                if (!GetGameobject((int)GameObjects.StageNumBackGround).activeSelf)
+                    GetGameobject((int)GameObjects.StageNumBackGround).SetActive(true);
+                if(GetGameobject((int)GameObjects.HardStageNumBackGround).activeSelf)
+                    GetGameobject((int)GameObjects.HardStageNumBackGround).SetActive(false);
+
+                GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = "Stage " + stage.ToString();
+            }
             else   //하드
+            {
                 stage = SystemManager.Instance.UserInfo.selectedStageNum_hard;
+
+                if (GetGameobject((int)GameObjects.StageNumBackGround).activeSelf)
+                    GetGameobject((int)GameObjects.StageNumBackGround).SetActive(false);
+                if (!GetGameobject((int)GameObjects.HardStageNumBackGround).activeSelf)
+                    GetGameobject((int)GameObjects.HardStageNumBackGround).SetActive(true);
+
+                GetTextMeshProUGUI((int)TextMeshProUGUIs.HardStageNumText).text = "Stage " + stage.ToString();
+            }
+
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.StageStartText).text = "Stage " + stage.ToString();
 
             //스테이지 이미지 변경
             if (stage <= 10)
