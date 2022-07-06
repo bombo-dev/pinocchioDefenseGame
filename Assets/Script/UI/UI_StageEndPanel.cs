@@ -302,6 +302,12 @@ public class UI_StageEndPanel : UI_Controller
             GetGameobject((int)GameObjects.StageFailText).SetActive(false);
 
         }
+        //마지막 스테이지일 경우 다시하기버튼 비활성화
+        if (SystemManager.Instance.GameFlowManager.stage == 40)
+        {
+            if(GetButton((int)Buttons.NextStageButton).gameObject.activeSelf)
+                GetButton((int)Buttons.NextStageButton).gameObject.SetActive(false);
+        }
 
         //터렛 프리셋 초기화
         ResetTurretPreset();

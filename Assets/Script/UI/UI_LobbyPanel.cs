@@ -212,6 +212,7 @@ public class UI_LobbyPanel : UI_Controller
         StarNumText_Menu,   //메뉴패널 총 별 개수
         HardStarNumText_Menu,   //메뉴패널 총 별 개수 - Hard
         StageNumText,    //최대 클리어한 스테이지
+        HardStageNumText,//최대 클리어한 하드 스테이지
         SelectedStageText   //선택한 스테이지
     }
 
@@ -368,7 +369,10 @@ public class UI_LobbyPanel : UI_Controller
 
         //최대 클리어한 스테이지
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StageNumText).text = 
-            "Stage " + userInfo.maxStageNum.ToString();
+            "max:" + userInfo.maxStageNum.ToString();
+        //최대 클리어한 하드 스테이지
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.HardStageNumText).text =
+            "max:" + userInfo.maxStageNum_hard.ToString();
 
         for (int i = 0; i < MAXTCOLORWOOD; i++)
         {

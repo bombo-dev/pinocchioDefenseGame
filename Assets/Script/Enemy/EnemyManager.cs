@@ -17,6 +17,22 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     PrefabCacheData[] prefabCacheDatas;
 
+    [Header("Weight_Hard")]
+    [SerializeField]
+    float powerWeight_hard;
+
+    [SerializeField]
+    float speedWeight_hard;
+
+    [SerializeField]
+    float defenseWeight_hard;
+
+    [SerializeField]
+    float hpWeight_hard;
+
+    [SerializeField]
+    float rewardWeight_hard;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +116,21 @@ public class EnemyManager : MonoBehaviour
 
         statusMngPanel.panelPos = enemy.hpPos.transform.position;
         statusMngPanel.hpBarOwner = go;
+
+        //하드모드일경우 능력치 가중치 부여
+        if (SystemManager.Instance.UserInfo.selectMode == 1)//하드모드
+        {
+            //hp증가
+            enemy.maxHP = (int)(enemy.currentHP * hpWeight_hard);
+            //공격력증가
+            enemy.power = (int)(enemy.currentPower * powerWeight_hard);
+            //방어력
+            enemy.defense = (int)(enemy.currentDefense * defenseWeight_hard);
+            //속도
+            enemy.speed = (int)(enemy.currentSpeed * speedWeight_hard);
+            //보상
+            enemy.rewardWoodResource = (int)(enemy.rewardWoodResource * rewardWeight_hard);
+        }
     }
 
     /// <summary>

@@ -15,11 +15,9 @@ public class Enemy : Actor
 
     [Header("EnemyStat")]   //Enemy 능력치
 
-    [SerializeField]
-    int speed;  //이동속도
+    public int speed;  //이동속도
 
-    [SerializeField]
-    int currentSpeed; //현재 이동속도
+    public int currentSpeed; //현재 이동속도
 
     [Header("EnemyInfo")]   //Enemy 정보
 
@@ -54,8 +52,7 @@ public class Enemy : Actor
 
     bool selfDestruct = false;  //자폭일 경우 true
 
-    [SerializeField]
-    int rewardWoodResource; //잡았을때 보상 woodResource
+    public int rewardWoodResource; //잡았을때 보상 woodResource
 
     // 에너미의 hpBar 패널
     public StatusMngPanel statusMngPanel;
