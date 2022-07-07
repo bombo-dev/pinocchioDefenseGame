@@ -17,9 +17,17 @@ public class LoadingSceneManager : MonoBehaviour
     [SerializeField]
     string[] tip;
 
+    [SerializeField]
+    Sprite[] loadingImageArr;
+
+    [SerializeField]
+    Image loadingImage;
+
     private void Start()
     {
         ChangeTipText();
+
+        ChangeLoadingImage();
     }
 
     /// <summary>
@@ -28,6 +36,14 @@ public class LoadingSceneManager : MonoBehaviour
     void ChangeTipText()
     {
         tipText.text = tip[Random.Range(0, tip.Length)];
+    }
+
+    /// <summary>
+    /// 로딩 이미지 랜덤으로 교체 : 김현진
+    /// </summary>
+    void ChangeLoadingImage()
+    {
+        loadingImage.sprite = loadingImageArr[Random.Range(0, loadingImageArr.Length)];
     }
 
 

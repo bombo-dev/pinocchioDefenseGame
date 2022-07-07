@@ -89,6 +89,20 @@ public class PanelManager : MonoBehaviour
 
                 EnablePanel<UI_BookPanel>(2);
 
+                //타이틀 맨 앞으로
+                if (SystemManager.Instance.firstRun)
+                {
+                    GameObject.FindObjectOfType<Title_Fade>().fade.gameObject.SetActive(true);
+
+                    GameObject.FindObjectOfType<Title_Fade>().fade.transform.SetAsLastSibling();
+
+                    SystemManager.Instance.firstRun = false;
+                }
+                else
+                {
+                    GameObject.FindObjectOfType<Title_Fade>().fade.gameObject.SetActive(false);
+                }
+
                 break;
             //로딩씬
             case 1:

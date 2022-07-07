@@ -6,6 +6,7 @@ public class SystemManager : MonoBehaviour
 {
     static SystemManager instance = null;
 
+    public bool firstRun = true;
 
     //ΩÃ±€≈Ê «¡∑Œ∆€∆º
     public static SystemManager Instance 

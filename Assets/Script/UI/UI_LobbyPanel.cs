@@ -773,7 +773,7 @@ public class UI_LobbyPanel : UI_Controller
 
         //맵 배경 이미지
         if (GetImage((int)Images.MapPanel).gameObject.activeSelf)
-            GetImage((int)Images.MapPanel).color = new Color(1, 0.5f, 0.5f);
+            GetImage((int)Images.MapPanel).color = new Color(0.5f, 0.5f, 0.5f);
 
         //토글 이미지
         if (GetGameobject((int)GameObjects.NormalSelectButtonImage).activeSelf)
