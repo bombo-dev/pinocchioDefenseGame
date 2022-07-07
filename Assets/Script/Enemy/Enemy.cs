@@ -210,8 +210,8 @@ public class Enemy : Actor
         float rotY = NormalizeRotation(transform.localEulerAngles.y);
 
         if (enemyIndex == 0)
-            Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance + "->" + targetPointIndex
-                + "  LookRot:" + rotY);
+            //Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance + "->" + targetPointIndex
+            //    + "  LookRot:" + rotY);
 
         //if (distance > 30f)
         if (rotY == 0f || rotY == 90f || rotY == 180f || rotY == 270f)

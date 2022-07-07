@@ -64,7 +64,7 @@ public class ConstructionTurret : MonoBehaviour
 
             StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
 
-            statusMngPanel.SetHPBarColor();
+            statusMngPanel.SetHPBarColor(turret.maxHP, turretGo.tag);
             // 패널 정보 넘겨줌
             turret.statusMngPanel = statusMngPanel;
 
