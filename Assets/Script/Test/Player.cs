@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
         // 부모 해제
         mainCamera.SetParent(null);
 
-        pino.eulerAngles = new Vector3(0, Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg, 0);
+        pino.eulerAngles = new Vector3(0, Mathf.Atan2(-direction.x, -direction.y) * Mathf.Rad2Deg, 0);
 
         // 부모 설정
         mainCamera.SetParent(transform.GetChild(1));

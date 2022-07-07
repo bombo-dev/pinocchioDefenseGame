@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
-    private RectTransform lever;    
+    private RectTransform lever;    // 레버 UI
+
+    [SerializeField]
+    Transform joystick;    // 조이스틱 UI
 
     private RectTransform rectTransform;    
 
@@ -20,16 +23,11 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public CharacterController characterController;
 
-    Transform joystick;    // 조이스틱 UI
-    Transform Lever;    // 레버 UI
+
 
     private void Awake()    
     {
         rectTransform = GetComponent<RectTransform>();
-
-        joystick = rectTransform.GetChild(0);
-        Lever = rectTransform.GetChild(1);
-
     }
 
     void Update()
@@ -42,27 +40,33 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        var inputPos = eventData.position - new Vector2(transform.position.x, transform.position.y);
+        lever.anchoredPosition = inputPos;
         ControlJoystickLever(eventData);
         isInput = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        var inputPos = eventData.position - new Vector2(transform.position.x, transform.position.y);
+        lever.anchoredPosition = inputPos;
         ControlJoystickLever(eventData);
         CalcDistance();
     }
 
     public void ControlJoystickLever(PointerEventData eventData)
     {
-        var inputDir = eventData.position - rectTransform.anchoredPosition;
+        var inputDir = eventData.position - new Vector2(transform.position.x, transform.position.y);
         var clampedDir = inputDir.magnitude < leverRange ? inputDir
-            : inputDir.normalized * leverRange;
-        lever.anchoredPosition = clampedDir;
-        inputVector = clampedDir / leverRange;
+             : inputDir.normalized * leverRange;
+         lever.anchoredPosition = clampedDir;
+         inputVector = clampedDir / leverRange;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        lever.anchoredPosition = Vector2.zero;
+
         lever.anchoredPosition = Vector2.zero;
         isInput = false;
         player.UpdateMove(Vector3.zero);
@@ -89,6 +93,6 @@ public class ControlJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Vector3 dir = (inputPos - joystick.transform.position).normalized;
 
         player.distance = dist;
-        player.direction = -dir;
+        player.direction = dir;
     }
 }

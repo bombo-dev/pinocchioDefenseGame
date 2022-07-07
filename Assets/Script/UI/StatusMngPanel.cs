@@ -81,18 +81,31 @@ public class StatusMngPanel : UI_Controller
 
     }
 
-    private void Update()
-    {
-        //if (SetTimeFlow == true)
-        //    UpdateDurationTime();
-    }
 
-    public void SetHPBarColor()
+    public void SetHPBarColor(float maxHP, string Onwer)
     {
         //Fill.color = Color.blue; //ÆÄ¶û
         //Fill.color = new Color(255 / 255f, 121 / 255f, 0 / 255f); //ÁÖÈ²
-        Fill.sprite = greenBar;
-        Fill.color = Color.green;
+
+        if (Onwer == "Enemy")
+        {
+            Fill.sprite = redBar;       
+            
+            if (maxHP >= 600)
+                Fill.color = new Color(100 / 255f, 0 / 255f, 0 / 255f);
+            else
+                Fill.color = Color.red;
+        }
+        else if (Onwer == "Turret")
+        {
+            Fill.sprite = greenBar;
+            if (maxHP >= 700)
+                Fill.color = new Color(0 / 255f, 100 / 255f, 0 / 255f);
+            else
+                Fill.color = Color.green;
+        }
+
+
     }
 
     public void SetHPBar(float currentHP, float maxHP)

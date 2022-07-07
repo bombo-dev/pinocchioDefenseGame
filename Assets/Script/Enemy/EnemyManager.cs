@@ -108,7 +108,7 @@ public class EnemyManager : MonoBehaviour
             Debug.Log("Enable statusMngPanel is null");
             return;
         }
-
+        
         StatusMngPanel statusMngPanel = statusMngPanelGo.GetComponent<StatusMngPanel>();
 
         // 패널 정보 넘겨줌
@@ -116,6 +116,7 @@ public class EnemyManager : MonoBehaviour
 
         statusMngPanel.panelPos = enemy.hpPos.transform.position;
         statusMngPanel.hpBarOwner = go;
+        statusMngPanel.SetHPBarColor(enemy.maxHP, go.tag);
 
         //하드모드일경우 능력치 가중치 부여
         if (SystemManager.Instance.UserInfo.selectMode == 1)//하드모드
