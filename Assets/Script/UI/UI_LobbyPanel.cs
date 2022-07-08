@@ -668,6 +668,18 @@ public class UI_LobbyPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickStageSelectButton(PointerEventData data = null)
     {
+        //하드모드 조건 미달시
+        if (SystemManager.Instance.UserInfo.maxStageNum <= 30)
+        {
+            if (GetButton((int)Buttons.HardButton).gameObject.activeSelf)
+                GetButton((int)Buttons.HardButton).gameObject.SetActive(false);
+        }
+        else
+        {
+            if (!GetButton((int)Buttons.HardButton).gameObject.activeSelf)
+                GetButton((int)Buttons.HardButton).gameObject.SetActive(true);
+        }
+
         //노말
         if (SystemManager.Instance.UserInfo.selectMode == 0)
         {

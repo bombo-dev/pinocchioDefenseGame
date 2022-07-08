@@ -38,6 +38,7 @@ public class PanelManager : MonoBehaviour
     public UI_TutorialPanel tutorialPanel;
     public UI_BookPanel bookPanel;
     public UI_BossPanel bossPanel;
+    public UI_StoryBookPanel storyBookPanel;
 
     [SerializeField]
     Transform canvas;
@@ -85,9 +86,6 @@ public class PanelManager : MonoBehaviour
                 // Load 추가
                 SaveLoad Load = new SaveLoad();
                 Load.LoadUserInfo();
-
-
-                EnablePanel<UI_BookPanel>(2);
 
                 //타이틀 맨 앞으로
                 if (SystemManager.Instance.firstRun)
@@ -336,6 +334,10 @@ public class PanelManager : MonoBehaviour
         else if (typeof(T) == typeof(UI_BossPanel))
         {
             bossPanel = (compoenent as UI_BossPanel);
+        }
+        else if (typeof(T) == typeof(UI_StoryBookPanel))
+        {
+            storyBookPanel = (compoenent as UI_StoryBookPanel);
         }
 
         return go;

@@ -28,6 +28,8 @@ public class Title_Fade : MonoBehaviour
     public void OnClickStart()
     {
         EventSystem.current.currentSelectedGameObject.SetActive(false);
+        SystemManager.Instance.PanelManager.EnablePanel<UI_BookPanel>(2);
+
         StartCoroutine("FadeOut");
     }
 }

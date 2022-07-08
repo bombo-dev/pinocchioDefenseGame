@@ -55,14 +55,15 @@ public class UserInfo : MonoBehaviour
 
         maxStageNum = 0;
         selectedStageNum = 0;
-        maxStageNum_hard = 0;
-        selectedStageNum_hard = 0;
+        maxStageNum_hard = 1;
+        selectedStageNum_hard = 1;
         selectMode = 0;
 
         stageStarList = new List<StageStar>();
         stageStarList.Add(new StageStar());
 
         stageStarList_hard = new List<StageStar>();
+        stageStarList_hard.Add(new StageStar());
         stageStarList_hard.Add(new StageStar());
 
         maxTurretNum = 1;
@@ -93,8 +94,8 @@ public class UserInfo : MonoBehaviour
 
         maxStageNum = 40;
         selectedStageNum = 40;
-        maxStageNum_hard = 35;
-        selectedStageNum_hard = 35;
+        maxStageNum_hard = 40;
+        selectedStageNum_hard = 40;
         selectMode = 0;
 
         stageStarList = new List<StageStar>();
@@ -104,7 +105,7 @@ public class UserInfo : MonoBehaviour
         }
 
         stageStarList_hard = new List<StageStar>();
-        for (int i = 0; i < 36; i++)
+        for (int i = 0; i < 41; i++)
         {
             stageStarList_hard.Add(new StageStar());
         }

@@ -156,4 +156,25 @@ public class Player : MonoBehaviour
         mainCamera.SetParent(transform.GetChild(1));
 
     }
+
+    /// <summary>
+    /// 스토리 포탈 입장시 동작 : 김현진
+    /// </summary>
+    /// <param name="other">입장한 스토리 포탈</param>
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("입장");
+        SystemManager.Instance.PanelManager.EnablePanel<UI_StoryBookPanel>(1);
+
+        if(other.gameObject.tag == "Story1")
+            SystemManager.Instance.PanelManager.storyBookPanel.storyNum = 1;
+
+        SystemManager.Instance.PanelManager.storyBookPanel.page = 0;
+        SystemManager.Instance.PanelManager.storyBookPanel.UpdateBook();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("퇴장");
+    }
 }
