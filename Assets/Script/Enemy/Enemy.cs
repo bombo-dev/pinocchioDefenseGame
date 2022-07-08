@@ -206,11 +206,6 @@ public class Enemy : Actor
         transform.rotation = Quaternion.LookRotation(-dirVec);
         float rotY = NormalizeRotation(transform.localEulerAngles.y);
 
-        if (enemyIndex == 0)
-            //Debug.Log(transform.position.z + "/" + currentTarget.transform.position.z + "/" + distance + "->" + targetPointIndex
-            //    + "  LookRot:" + rotY);
-
-        //if (distance > 30f)
         if (rotY == 0f || rotY == 90f || rotY == 180f || rotY == 270f)
         {
             //예외처리, 속도가 빨라 distance로 감지하지 못했을 경우 방향별 예외처리

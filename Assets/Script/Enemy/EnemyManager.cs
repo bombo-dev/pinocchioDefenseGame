@@ -119,6 +119,7 @@ public class EnemyManager : MonoBehaviour
         statusMngPanel.SetHPBarColor(enemy.maxHP, go.tag);
 
         //하드모드일경우 능력치 가중치 부여
+        /*
         if (SystemManager.Instance.UserInfo.selectMode == 1)//하드모드
         {
             //hp증가
@@ -131,7 +132,7 @@ public class EnemyManager : MonoBehaviour
             enemy.speed = (int)(enemy.currentSpeed * speedWeight_hard);
             //보상
             enemy.rewardWoodResource = (int)(enemy.rewardWoodResource * rewardWeight_hard);
-        }
+        }*/
     }
 
     /// <summary>
