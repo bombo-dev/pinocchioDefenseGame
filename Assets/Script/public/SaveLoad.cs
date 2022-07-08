@@ -53,7 +53,6 @@ public class SaveLoad
         // PC이고 Windows유니티 Editor에서 실행하는 경우에 세이브 
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("유니티 에디터에서 저장 메소드가 실행되었습니다.");
             PCSave();
         }
         // PC이고 Windows에서 실행하는 경우에 세이브
@@ -79,30 +78,11 @@ public class SaveLoad
         
     }
 
-
-    public static void Save(string filePath)
-    {
-        // Json 복호화
-        EncryptDecrypt.Decrypt(filePath, "key");
-        string save = File.ReadAllText(filePath);
-        save = EncryptDecrypt.Encrypt(save, "key");
-        // 암호화된 Json 저장
-        File.WriteAllText(filePath, save);
-    }
-
-    public static string Load(string filePath)
-    {
-        string load = File.ReadAllText(filePath);
-        load = EncryptDecrypt.Decrypt(load, "key");
-        return load;
-    }
-
     public void LoadUserInfo()
     {
         // PC이고 Windows 유니티 Editor에서 실행하는 경우에 Load
         if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            Debug.Log("유니티 에디터에서 로드 메소드가 호출되었습니다.");
             PCLoad();
         }
         // PC이고 Windows에서 실행하는 경우 Load
@@ -242,17 +222,22 @@ public class SaveLoad
     public void PCSave()
     {
         // StreamingAssets에 파일 있는지 확인
+        // 파일이 없으면 새로 생성
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
             string json = JsonUtility.ToJson(saveData);
+            // json 암호화해서 저장
+            // json = EncryptDecrypt.Encrypt(json, "chungwoonPinocchio");
             File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"), json);
         }
-        // 없으면 streamingAssets에 파일 생성
+        // 있으면 streamingAssets에 기존 데이터 가져와 파일 생성
         else
         {
             saveData = SaveUserInfoInitial(saveData);
             string json = JsonUtility.ToJson(saveData);
+            // json 암호화해서 저장
+            // json = EncryptDecrypt.Encrypt(json, "chungwoonPinocchio");
             File.WriteAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.json"), json);
         }
     }
@@ -260,20 +245,27 @@ public class SaveLoad
     public void MobileSave()
     {
         Debug.Log("모바일에서 Userinfo를 세이브했습니다.");
-
+        //세이브 파일이 없으면
         if (!File.Exists(Application.persistentDataPath + "UserInfo.Json"))
         {
             saveData = SaveConstructorUserInfo(saveData, new UserInfo());
             string json = JsonUtility.ToJson(saveData);
 
+            // json 암호화해서 저장
+            // json = EncryptDecrypt.Encrypt(json, "chungwoonPinocchio");
+
             string realPath = Application.persistentDataPath + "UserInfo.Json";
             File.WriteAllText(realPath, json);
 
         }
+        // 세이브 파일이 있으면
         else
         {
             saveData = SaveUserInfoInitial(saveData);
             string json = JsonUtility.ToJson(saveData);
+
+            // json 암호화해서 저장
+            // json = EncryptDecrypt.Encrypt(json, "chungwoonPinocchio");
 
             // 모바일 저장 공간에 따로 저장
             string realPath = Application.persistentDataPath + "UserInfo.Json";
@@ -284,15 +276,18 @@ public class SaveLoad
     // PC에서 Load 하는 경우
     public void PCLoad()
     {
+        //파일이 없으면
         if (!File.Exists(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json")))
         {
             SaveUserInfo();
-
         }
 
+        //파일이 있으면
         else
         {
             string data = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "UserInfo.Json"));
+            // 암호화된 json 복호화
+            // data = EncryptDecrypt.Decrypt(data, "chungwoonPinocchio");
             saveData = JsonUtility.FromJson<SaveData>(data);
 
             LoadUserInfoInitial(saveData);
@@ -312,6 +307,8 @@ public class SaveLoad
         else
         {
             string data = File.ReadAllText(Application.persistentDataPath+ "UserInfo.Json");
+            // 암호화된 json 복호화
+            // data = EncryptDecrypt.Decrypt(data, "chungwoonPinocchio");
             saveData = JsonUtility.FromJson<SaveData>(data);
 
             LoadUserInfoInitial(saveData);
