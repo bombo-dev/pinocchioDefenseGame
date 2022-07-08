@@ -42,7 +42,7 @@ public class TurretJson : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Load();
+        
     }
 
     // Update is called once per frame
@@ -60,9 +60,6 @@ public class TurretJson : MonoBehaviour
         string jsonString = File.ReadAllText(filepath);
 
         TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
-
-        // Debug.Log(" 0π¯ ≈Õ∑ø : " + turretdata[0].turretNum);
-		// Debug.Log(" 1π¯ ≈Õ∑ø : " + turretdata[1].turretNum);
 	}
 
     // TurretData, Turret Ω∫≈©∏≥∆Æ∑Œ ∞¥√º ∫∏≥ª±‚
@@ -73,6 +70,8 @@ public class TurretJson : MonoBehaviour
         {
             string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
             string jsonString = File.ReadAllText(filepath);
+            // ≈Õ∑ø Json ∫π»£»≠
+            //jsonString = EncryptDecrypt.Decrypt(jsonString, "chungwoonPinocchio");
 
             TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
@@ -83,6 +82,8 @@ public class TurretJson : MonoBehaviour
         {
             string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
             string jsonString = File.ReadAllText(filepath);
+            // ≈Õ∑ø Json ∫π»£»≠
+            //jsonString = EncryptDecrypt.Decrypt(jsonString, "chungwoonPinocchio");
 
             TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
@@ -93,6 +94,8 @@ public class TurretJson : MonoBehaviour
         {
             string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
             string jsonString = File.ReadAllText(filepath);
+            // ≈Õ∑ø Json ∫π»£»≠
+            //jsonString = EncryptDecrypt.Decrypt(jsonString, "chungwoonPinocchio");
 
             TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
@@ -103,6 +106,8 @@ public class TurretJson : MonoBehaviour
         {
             string filepath = Path.Combine(Application.streamingAssetsPath, "turret.json");
             string jsonString = File.ReadAllText(filepath);
+            // ≈Õ∑ø Json ∫π»£»≠
+            //jsonString = EncryptDecrypt.Decrypt(jsonString, "chungwoonPinocchio");
 
             TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
@@ -120,6 +125,8 @@ public class TurretJson : MonoBehaviour
             File.WriteAllBytes(realPath, reader.bytes);
 
             string jsonString = File.ReadAllText(realPath);
+            // ≈Õ∑ø Json ∫π»£»≠
+            //jsonString = EncryptDecrypt.Decrypt(jsonString, "chungwoonPinocchio");
 
             TurretDatas[] turretdata = JsonTurretHelper.FromJson<TurretDatas>(jsonString);
 
