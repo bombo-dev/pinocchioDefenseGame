@@ -29,6 +29,7 @@ public class UI_StoryBookPanel : UI_Controller
     enum TextMeshProUGUIs
     {
         BookText,   //책 스토리 텍스트
+        PageText    //책 페이지 텍스트
     }
 
     enum Buttons
@@ -76,6 +77,9 @@ public class UI_StoryBookPanel : UI_Controller
 
         //UI가장 앞으로
         this.transform.SetAsLastSibling();
+
+        //페이지 텍스트 초기화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.PageText).text = page+1 + "/" + bookList[storyNum - 1].Length;
 
         //스토리 챕터 1
         if (storyNum == 1)
@@ -208,7 +212,7 @@ public class UI_StoryBookPanel : UI_Controller
                 case 3:
                     //텍스트 갱신
                     StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
-                       "이제 피노키오는 이곳을 떠나려 합니다.\n이런 건 진정한 자유가 아니라 \n그저 자신을 이곳에 잡아두어 \n투기장을 더 즐겁게 만들 목적일 뿐이였다는 것을 깨달았죠.", 0.03f));
+                       "이제 피노키오는 이곳을 떠나려 합니다.\n이런 건 진정한 자유가 아니라 \n그저 자신을 이곳에 잡아두어 \n투기장을 더 즐겁게 만들 \n목적일 뿐이였다는 것을 깨달았죠.", 0.03f));
 
                     //이미지 갱신
                     GetComponent<Image>().sprite = bookSprit3[page];
@@ -321,6 +325,10 @@ public class UI_StoryBookPanel : UI_Controller
             SystemManager.Instance.PrefabCacheSystem.DisablePrefabCache("Panel/StoryBookPanel", gameObject);
         }
         page++;
+
+        //페이지 텍스트 초기화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.PageText).text = page + 1 + "/" + bookList[storyNum - 1].Length;
+
         UpdateBook();
     }
 
@@ -340,6 +348,9 @@ public class UI_StoryBookPanel : UI_Controller
 
         page--;
         UpdateBook();
+
+        //페이지 텍스트 초기화
+        GetTextMeshProUGUI((int)TextMeshProUGUIs.PageText).text = page + 1 + "/" + bookList[storyNum - 1].Length;
     }
 
     /// <summary>
