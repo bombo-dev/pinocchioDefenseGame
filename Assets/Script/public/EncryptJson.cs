@@ -33,7 +33,7 @@ public class EncryptJson : MonoBehaviour
     // 몬스터 게이트 데이터가 담긴 JSON의 경로
     public string TestPath()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Gate.Json");
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Spawn.Json");
         return filePath;
     }
 
