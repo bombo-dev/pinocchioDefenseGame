@@ -68,7 +68,7 @@ public class UI_BookPanel : UI_Controller
             case 0:
                 //텍스트 갱신
                 StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
-                    "학교 친구에게 이끌려간 마을의 입구는 \n밤인데도 환한 광경이 펼쳐졌고, \n호기심 가득한 피노키오는 \n생각보다 앞서 그곳에 이끌려 들어갔습니다.", 0.03f));
+                    "학교 친구에게 이끌려간 마을의 입구는 \n밤인데도 환한 광경이 펼쳐졌고, \n호기심 가득한 피노키오는 \n생각보다 앞서 \n그곳에 이끌려 들어갔습니다.", 0.03f));
 
                 //이미지 갱신
                 GetComponent<Image>().sprite = bookSprit[page];
@@ -78,7 +78,7 @@ public class UI_BookPanel : UI_Controller
                 //텍스트 갱신
                 StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                     "길어져 가는 코를 신경 쓰지도 않고 \n밤새 신나게 놀던 피노키오는 \n가진 돈을 전부 다 써버리고 말았습니다.\n" +
-                    " 하지만 학교와 학원, 집을 오가는 쳇바퀴 같은 생활에서 벗어나 \n처음으로 자유로워진 기분이 들어 너무 행복했습니다.", 0.03f));
+                    " 하지만 학교와 학원, 집을 오가는 \n쳇바퀴 같은 생활에서 벗어나 \n처음으로 자유로워진 기분이 들어 \n너무 행복했습니다.", 0.03f));
 
                 //이미지 갱신
                 GetComponent<Image>().sprite = bookSprit[page];
@@ -87,7 +87,7 @@ public class UI_BookPanel : UI_Controller
                 //텍스트 갱신
                 StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                     "이곳에 계속 있기 위해선 \n돈이 필요하다는 것을 깨달은 피노키오는 \n검은 고깔모자를 쓴 누군가에게\n" +
-                    " \"케이지\"라는 이름의 투기장에서 일하면 \n큰돈을 벌 수 있다는 말을 듣게 됨과 동시에 \n숙소를 제공받게 됩니다.", 0.03f));
+                    " \"케이지\"라는 이름의 투기장에서 일하면 \n큰돈을 벌 수 있다는 말을 듣게 됨과 \n동시에 숙소를 제공받게 됩니다.", 0.03f));
 
                 //이미지 갱신
                 GetComponent<Image>().sprite = bookSprit[page];
@@ -95,7 +95,7 @@ public class UI_BookPanel : UI_Controller
             case 3:
                 //텍스트 갱신
                 StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
-                   "목수 밑에서 자란 피노키오는 \n곁눈질로 배운 목공 실력으로 \n포탑을 만들어 투기장으로 가려고 합니다! \n앞으로 이야기가 어떻게 흘러가게 될까요?", 0.03f));
+                   "목수 밑에서 자란 피노키오는 \n곁눈질로 배운 목공 실력으로 \n포탑을 만들어 \n투기장으로 가려고 합니다! \n앞으로 이야기가 \n어떻게 흘러가게 될까요?", 0.03f));
 
                 //이미지 갱신
                 GetComponent<Image>().sprite = bookSprit[page];

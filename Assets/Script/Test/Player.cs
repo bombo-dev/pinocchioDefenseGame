@@ -168,6 +168,12 @@ public class Player : MonoBehaviour
 
         if(other.gameObject.tag == "Story1")
             SystemManager.Instance.PanelManager.storyBookPanel.storyNum = 1;
+        else if (other.gameObject.tag == "Story2")
+            SystemManager.Instance.PanelManager.storyBookPanel.storyNum = 2;
+        else if (other.gameObject.tag == "Story3")
+            SystemManager.Instance.PanelManager.storyBookPanel.storyNum = 3;
+        else if (other.gameObject.tag == "Story4")
+            SystemManager.Instance.PanelManager.storyBookPanel.storyNum = 4;
 
         SystemManager.Instance.PanelManager.storyBookPanel.page = 0;
         SystemManager.Instance.PanelManager.storyBookPanel.UpdateBook();
