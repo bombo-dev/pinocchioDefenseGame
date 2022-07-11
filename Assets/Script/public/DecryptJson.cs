@@ -34,14 +34,14 @@ public class DecryptJson : MonoBehaviour
     // 몬스터 게이트 데이터가 담긴 JSON의 경로
     public string TestPath()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Test.Json");
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Spawn.Json");
         return filePath;
     }
 
     // 몬스터들의 상태치 데이터가 담긴 JSON의 경로
     public string MonsterPath()
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "Monster.Json");
+        string filePath = Path.Combine(Application.streamingAssetsPath, "Enemy.Json");
         return filePath;
     }
 
@@ -105,7 +105,8 @@ public class DecryptJson : MonoBehaviour
         string decrypt = ReadJson(filePath);
 
         // 복호화키는 암호화 키와 동일해야 한다.
-        decrypt = EncryptDecrypt.Decrypt(decrypt, "key"); 
+        decrypt = EncryptDecrypt.Decrypt(decrypt, "chungwoonPinocchio");
+        File.WriteAllText(filePath, decrypt);
         return decrypt;
     }
     // Json파일 전부 복호화

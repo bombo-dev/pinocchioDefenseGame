@@ -82,11 +82,11 @@ public class GameFlowManager : MonoBehaviour
             stage = userInfo.selectedStageNum_hard;
 
         //************** 암호화된 Json데이터 불러와 자료구조와 사상 ****************
-        //defenseFlowDataList = SystemManager.Instance.LoadJson.PrepareGameFlowJsonData();
+        defenseFlowDataList = SystemManager.Instance.GateJson.PrepareGameFlowJsonData();
         // ***************************************************************************
 
         //************** 암호화 되어 있지 않은 Json데이터 불러와 자료구조와 사상 **************
-        defenseFlowDataList = SystemManager.Instance.GateJson.PrepareGameFlowDecryptJsonData();
+        // defenseFlowDataList = SystemManager.Instance.GateJson.PrepareGameFlowDecryptJsonData();
         //***************************************************************************************
         //배열 포인터 초기화
         for (int i = 0; i < GATENUM; i++)
