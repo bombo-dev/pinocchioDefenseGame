@@ -31,7 +31,8 @@ public class UI_OptionPopUpPanel : UI_Controller
         CloseWoodPediaButton,   //나무 사전 닫기 버튼
         TouchSpeedPlus,  //터치 속도 증가 버튼
         TouchSpeedMinus,  //터치 속도 감소 버튼
-        BookButton  //책 열기 버튼
+        BookButton,  //책 열기 버튼
+        EndBookButton   //마지막 챕터 책 열기 버튼
     }
 
     enum GameObjects
@@ -116,6 +117,47 @@ public class UI_OptionPopUpPanel : UI_Controller
         //사운드정보 초기화
         InitializeSoundInfo();
 
+        //LobbyScene
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            //마지막 스테이지 클리어시 엔딩
+            if (SystemManager.Instance.UserInfo.stageStarList.Count > 40)
+            {
+                if (SystemManager.Instance.UserInfo.stageStarList[40].starNum >= 1)
+                {
+                    //버튼 활성화
+                    if (!GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(true);
+                }
+                else
+                {
+                    //버튼 비활성화
+                    if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+                }
+            }
+            else if (SystemManager.Instance.UserInfo.stageStarList_hard.Count > 40)
+            {
+                if (SystemManager.Instance.UserInfo.stageStarList_hard[40].starNum >= 1)
+                {
+                    //버튼 활성화
+                    if (!GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(true);
+                }
+                else
+                {
+                    //버튼 비활성화
+                    if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                //버튼 비활성화
+                if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                    GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+            }
+        }
         //GameScene
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
@@ -143,6 +185,69 @@ public class UI_OptionPopUpPanel : UI_Controller
 
         
     }
+
+    /// <summary>
+    /// 엔딩버튼 활성화
+    /// </summary>
+    public void EnableEndBookButton()
+    {
+        //LobbyScene
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            //마지막 스테이지 클리어시 엔딩
+            if (SystemManager.Instance.UserInfo.stageStarList.Count > 40)
+            {
+                if (SystemManager.Instance.UserInfo.stageStarList[40].starNum >= 1)
+                {
+                    //버튼 활성화
+                    if (!GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(true);
+                }
+                else
+                {
+                    //버튼 비활성화
+                    if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+                }
+            }
+            else if (SystemManager.Instance.UserInfo.stageStarList_hard.Count > 40)
+            {
+                if (SystemManager.Instance.UserInfo.stageStarList_hard[40].starNum >= 1)
+                {
+                    //버튼 활성화
+                    if (!GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(true);
+                }
+                else
+                {
+                    //버튼 비활성화
+                    if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                        GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                //버튼 비활성화
+                if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                    GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 엔딩버튼 비활성화
+    /// </summary>
+    public void DisableEndBookButton()
+    {
+        //LobbyScene
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            //버튼 비활성화
+            if (GetButton((int)Buttons.EndBookButton).gameObject.activeSelf)
+                GetButton((int)Buttons.EndBookButton).gameObject.SetActive(false);
+        }
+    }
+
 
     #region 옵션
 
@@ -601,7 +706,26 @@ public class UI_OptionPopUpPanel : UI_Controller
         SystemManager.Instance.PanelManager.EnablePanel<UI_BookPanel>(2);
 
         //초기화
-        SystemManager.Instance.PanelManager.bookPanel.page = 0;
+        SystemManager.Instance.PanelManager.bookPanel.page = 0; //페이지 초기화
+        SystemManager.Instance.PanelManager.bookPanel.booktype = 0; //Start
+        SystemManager.Instance.PanelManager.bookPanel.isClickBookButton = true;
+        SystemManager.Instance.PanelManager.bookPanel.UpdateBook();
+
+    }
+
+    /// <summary>
+    /// 책 열기 - 엔딩 : 김현진
+    /// </summary>
+    /// <param name="data">이벤트 정보</param>
+    void OnClickEndBookButton(PointerEventData data)
+    {
+        //책 활성화
+        SystemManager.Instance.PanelManager.EnablePanel<UI_BookPanel>(2);
+
+        //초기화
+        SystemManager.Instance.PanelManager.bookPanel.page = 0; //페이지 초기화
+        SystemManager.Instance.PanelManager.bookPanel.booktype = 1; //Ending
+        SystemManager.Instance.PanelManager.bookPanel.isClickBookButton = true;
         SystemManager.Instance.PanelManager.bookPanel.UpdateBook();
 
     }
@@ -612,10 +736,13 @@ public class UI_OptionPopUpPanel : UI_Controller
     public void OnButton()
     {
         //로비씬일 경우 책 버튼 활성화
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3)
         {
             //이벤트추가 - 책 열기
             AddUIEvent(GetButton((int)Buttons.BookButton).gameObject, OnClickBookButton, Define.UIEvent.Click);
+
+            //이벤트추가 - 책 열기 - End
+            AddUIEvent(GetButton((int)Buttons.EndBookButton).gameObject, OnClickEndBookButton, Define.UIEvent.Click);
         }
         //게임씬일 경우 다시하기 옵션 활성화
         else if (SceneManager.GetActiveScene().buildIndex == 2)
@@ -626,8 +753,9 @@ public class UI_OptionPopUpPanel : UI_Controller
             //이벤트추가 - 로비로
             AddUIEvent(GetButton((int)Buttons.LobbyOptionButton).gameObject, OnClickLobbyOptionButton, Define.UIEvent.Click);
         }
+
         //스토리씬일 경우 로비가기 옵션 활성화
-        else if (SceneManager.GetActiveScene().buildIndex == 3)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             //이벤트추가 - 로비로
             AddUIEvent(GetButton((int)Buttons.LobbyOptionButton).gameObject, OnClickLobbyOptionButton, Define.UIEvent.Click);

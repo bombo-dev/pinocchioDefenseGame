@@ -43,7 +43,6 @@ public class UserInfo : MonoBehaviour
     public bool isShowRange;
     public bool isShowBook;
 
-    /*
     public UserInfo()
     {
         colorWoodResource[0] = 0;
@@ -78,8 +77,8 @@ public class UserInfo : MonoBehaviour
         touchSpeed = 5;
         isShowRange = true;
         isShowBook = false;
-    }*/
-
+    }
+    /*
     /// <summary>
     /// 테스트용 생성자
     /// </summary>
@@ -123,7 +122,7 @@ public class UserInfo : MonoBehaviour
         isShowRange = true;
         isShowBook = false;
     }
-
+    */
     private void Awake()
     {
         //씬 이동시 파괴 방지, 중복 오브젝트 없이 유일하게 존재 하도록 처리

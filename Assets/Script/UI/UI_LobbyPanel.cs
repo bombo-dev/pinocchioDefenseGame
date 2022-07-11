@@ -348,18 +348,22 @@ public class UI_LobbyPanel : UI_Controller
         }
 
         //스테이지 이미지 바꾸기
-        if (totStarNum <= 40)
+        if ((totStarNum+totHardStarNum) <= 40)
             GetImage((int)Images.StageImage).sprite = stageSprite[0]; //브론즈
-        else if(totStarNum <= 73)
+        else if((totStarNum + totHardStarNum) <= 73)
             GetImage((int)Images.StageImage).sprite = stageSprite[1]; //실버
-        else if (totStarNum <= 85)
+        else if ((totStarNum + totHardStarNum) <= 85)
             GetImage((int)Images.StageImage).sprite = stageSprite[2]; //골드
-        else if (totStarNum <= 100)
+        else if ((totStarNum + totHardStarNum) <= 100)
             GetImage((int)Images.StageImage).sprite = stageSprite[3]; //플래티넘
-        else if (totStarNum <= 122)
+        else if ((totStarNum + totHardStarNum) <= 122)
             GetImage((int)Images.StageImage).sprite = stageSprite[4]; //다이아
-        else
-            GetImage((int)Images.StageImage).sprite = stageSprite[5]; //마스터
+        else if ((totStarNum + totHardStarNum) <= 170)
+            GetImage((int)Images.StageImage).sprite = stageSprite[5]; //마스터1
+        else if ((totStarNum + totHardStarNum) <= 242)
+            GetImage((int)Images.StageImage).sprite = stageSprite[6]; //마스터2
+        else 
+            GetImage((int)Images.StageImage).sprite = stageSprite[7]; //마스터3
 
         GetTextMeshProUGUI((int)TextMeshProUGUIs.StarNumText).text = "X" + totStarNum.ToString();
         GetTextMeshProUGUI((int)TextMeshProUGUIs.HardStarNumText).text = "X" + totHardStarNum.ToString();
@@ -422,6 +426,12 @@ public class UI_LobbyPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickGameStartButton(PointerEventData data)
     {
+        //엔딩 UI 닫기
+        if (SystemManager.Instance.PanelManager.optionPopUpPanel)
+        {
+            SystemManager.Instance.PanelManager.optionPopUpPanel.DisableEndBookButton();
+        }
+
         //Lobby UI닫기
         GetGameobject((int)GameObjects.LobbyMenuPanel).SetActive(false);
 
@@ -438,6 +448,12 @@ public class UI_LobbyPanel : UI_Controller
     /// <param name="data">이벤트 정보</param>
     void OnClickBackLobbyMenu(PointerEventData data)
     {
+        //엔딩 UI 열기
+        if (SystemManager.Instance.PanelManager.optionPopUpPanel)
+        {
+            SystemManager.Instance.PanelManager.optionPopUpPanel.EnableEndBookButton();
+        }
+
         //Lobby UI닫기
         GetGameobject((int)GameObjects.GameSettingPanel).SetActive(false);
 

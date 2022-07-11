@@ -136,8 +136,18 @@ public class UI_StoryBookPanel : UI_Controller
         {
             switch (page)
             {
-
                 case 0:
+                    //텍스트 갱신
+                    StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
+                        "피노키오는 효율적으로 포탑을 만들기 위해 \n나무를 자동으로 가공해 주는 \n알베로P 1호를 만들었고, \n놀 때마다 길어지는 코 덕에\n" +
+                        "포탑을 만드는데 필요한 나무는 \n부족하지 않았습니다.", 0.03f));
+
+
+                    //이미지 갱신
+                    GetComponent<Image>().sprite = bookSprit2[page];
+                    break;
+
+                case 1:
                     //텍스트 갱신
                     StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                         "피노키오는 투기장에서 \n포탑들과 치열하게 전투하고 \n관객들은 열광하며 돈을 집어던집니다.", 0.03f));
@@ -147,7 +157,7 @@ public class UI_StoryBookPanel : UI_Controller
                     GetComponent<Image>().sprite = bookSprit2[page];
                     break;
 
-                case 1:
+                case 2:
                     //텍스트 갱신
                     StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                         "투기장에서 일한 시간이 지나면 지날수록 \n전투는 점점 치열해져갔지만 \n그만큼 더 많은 돈을 벌 수 있었습니다.", 0.03f));
@@ -155,7 +165,7 @@ public class UI_StoryBookPanel : UI_Controller
                     //이미지 갱신
                     GetComponent<Image>().sprite = bookSprit2[page];
                     break;
-                case 2:
+                case 3:
                     //텍스트 갱신
                     StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                         "\"하고 싶은 것은 다 할 수 있지만 \n마냥 즐겁지만은 않네... 어딘가 불안해\" \n\n어느 날 피노키오는 밤인데도 불구하고 \n밖에 나가지 않고\n" +
@@ -164,7 +174,7 @@ public class UI_StoryBookPanel : UI_Controller
                     //이미지 갱신
                     GetComponent<Image>().sprite = bookSprit2[page];
                     break;
-                case 3:
+                case 4:
                     //텍스트 갱신
                     StartCoroutine(Typing(GetTextMeshProUGUI((int)TextMeshProUGUIs.BookText),
                        "이곳은 스트레스를 풀기 너무 좋은 곳이며,\n자라난 코가 붉은색으로 변할 만큼 \n흥분되는 시간을 보냈던 곳이지만, \n피노키오는 이제 이곳에 오는 것을 \n그만두기로 다짐하고,\n" +

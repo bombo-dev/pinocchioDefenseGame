@@ -31,7 +31,8 @@ public class UI_ResourcePanel : UI_Controller
     {
         StageStartPanel,
         StageNumBackGround,
-        HardStageNumBackGround
+        HardStageNumBackGround,
+        BackStageStartPanel//검정배경
     }
 
     /// <summary>
@@ -52,6 +53,7 @@ public class UI_ResourcePanel : UI_Controller
             animator.enabled = false;
 
             //패널 비활성화
+            GetGameobject((int)GameObjects.BackStageStartPanel).SetActive(false);
             GetGameobject((int)GameObjects.StageStartPanel).SetActive(false);
         }
         else
