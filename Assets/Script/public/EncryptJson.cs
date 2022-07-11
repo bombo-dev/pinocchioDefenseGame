@@ -21,7 +21,7 @@ public class EncryptJson : MonoBehaviour
         // 3. 타워들의 상태치 데이터가 담긴 JSON을 암호화 할 때 사용
         // JsonEncrypt(TurretPath());
         // 4. 모든 Json 데이터 암호화
-        // AllEncryptJson();
+        AllEncryptJson();
     }
 
     // Update is called once per frame
