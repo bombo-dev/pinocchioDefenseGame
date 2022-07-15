@@ -213,7 +213,8 @@ public class UI_LobbyPanel : UI_Controller
         HardStarNumText_Menu,   //메뉴패널 총 별 개수 - Hard
         StageNumText,    //최대 클리어한 스테이지
         HardStageNumText,//최대 클리어한 하드 스테이지
-        SelectedStageText   //선택한 스테이지
+        SelectedStageText,   //선택한 스테이지
+        HardText    //하드모드 스테이지
     }
 
     enum Images
@@ -689,13 +690,15 @@ public class UI_LobbyPanel : UI_Controller
         {
             if (!GetButton((int)Buttons.HardButton).gameObject.activeSelf)
                 GetButton((int)Buttons.HardButton).gameObject.SetActive(true);
-            GetButton((int)Buttons.HardButton).enabled = false; //버튼 비활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.HardText).raycastTarget = false;
+            GetButton((int)Buttons.HardButton).interactable = false; //버튼 비활성화
         }
         else
         {
             if (!GetButton((int)Buttons.HardButton).gameObject.activeSelf)
                 GetButton((int)Buttons.HardButton).gameObject.SetActive(true);
-            GetButton((int)Buttons.HardButton).enabled = true; //버튼 활성화
+            GetTextMeshProUGUI((int)TextMeshProUGUIs.HardText).raycastTarget = true;
+            GetButton((int)Buttons.HardButton).interactable = true; //버튼 활성화
         }
 
         //노말
