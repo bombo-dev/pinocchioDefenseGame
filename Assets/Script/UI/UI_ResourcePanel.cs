@@ -55,6 +55,9 @@ public class UI_ResourcePanel : UI_Controller
             //패널 비활성화
             GetGameobject((int)GameObjects.BackStageStartPanel).SetActive(false);
             GetGameobject((int)GameObjects.StageStartPanel).SetActive(false);
+
+            if (GetGameobject((int)GameObjects.HardStageNumBackGround).activeSelf)
+                GetGameobject((int)GameObjects.HardStageNumBackGround).SetActive(false);
         }
         else
         {
