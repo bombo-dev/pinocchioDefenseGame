@@ -687,13 +687,15 @@ public class UI_LobbyPanel : UI_Controller
         //하드모드 조건 미달시
         if (SystemManager.Instance.UserInfo.maxStageNum <= 30)
         {
-            if (GetButton((int)Buttons.HardButton).gameObject.activeSelf)
-                GetButton((int)Buttons.HardButton).gameObject.SetActive(false);
+            if (!GetButton((int)Buttons.HardButton).gameObject.activeSelf)
+                GetButton((int)Buttons.HardButton).gameObject.SetActive(true);
+            GetButton((int)Buttons.HardButton).enabled = false; //버튼 비활성화
         }
         else
         {
             if (!GetButton((int)Buttons.HardButton).gameObject.activeSelf)
                 GetButton((int)Buttons.HardButton).gameObject.SetActive(true);
+            GetButton((int)Buttons.HardButton).enabled = true; //버튼 활성화
         }
 
         //노말
