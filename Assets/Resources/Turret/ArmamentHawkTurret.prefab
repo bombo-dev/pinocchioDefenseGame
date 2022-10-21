@@ -1,0 +1,1043 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2653502400940206300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5443403743170645221}
+  m_Layer: 7
+  m_Name: firePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5443403743170645221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653502400940206300}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.0100040445, y: 25.550003, z: -15.340004}
+  m_LocalScale: {x: 12, y: 12, z: 12}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4497560737370343207}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4497560737370343206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4497560737370343207}
+  - component: {fileID: 4497560737370343204}
+  m_Layer: 7
+  m_Name: ArmamentHawkTurret
+  m_TagString: Turret
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4497560737370343207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497560737370343206}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -32.401764, y: -125.56277, z: 171.59685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5627562417643147954}
+  - {fileID: 225342729381262434}
+  - {fileID: 4920521896934276764}
+  - {fileID: 5443403743170645221}
+  - {fileID: 8412922448453582604}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &4497560737370343204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497560737370343206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559744e6df02f2244b36dd0851c5afba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debuff: 0
+  maxHP: 300
+  currentHP: 0
+  power: 180
+  currentPower: 0
+  defense: 20
+  currentDefense: 0
+  attackSpeed: 4.5
+  currentAttackSpeed: 0
+  range: 20000
+  currentRange: 0
+  regeneration: 15
+  currentRegeneration: 0
+  attackRangeType: 1
+  isRecoveryTower: 0
+  attackTargetNum: 1
+  debuffType: 0
+  debuffDuration: 0
+  multiAttackRange: 0
+  currentMultiAttackRange: 0
+  bulletIndex: 18
+  firePos: {fileID: 2653502400940206300}
+  hitPos: {fileID: 9111705323440924789}
+  hpPos: {fileID: 8678103961686802161}
+  dropPos: {fileID: 7607467342650092529}
+  damageEffectIndex: 36
+  deadEffectIndex: 3
+  fireEffectIndex: -1
+  healEffectIndex: -1
+  debuffEffectIndex: -1
+  currentDamageEffect: {fileID: 0}
+  currentDeadEffect: {fileID: 0}
+  currentFireEffect: {fileID: 0}
+  currentHealEffect: {fileID: 0}
+  currentDebuffEffect: {fileID: 0}
+  filePath: Turret/ArmamentHawkTurret
+  animator: {fileID: 6541219637370927292}
+  attackTargets: []
+  attackTargetsActor: []
+  attackDirVec: {x: 0, y: 0, z: 0}
+  bulletSpeed: 50
+  maxBulletSpeed: 0
+  finAttack: 0
+  rendererArr:
+  - {fileID: 1949125200287470940}
+  - {fileID: 3243103452776272280}
+  - {fileID: 5061075616946582573}
+  - {fileID: 2593195179945429886}
+  - {fileID: 5079787479559547007}
+  - {fileID: 3615111690837475075}
+  - {fileID: 5016167573522845990}
+  - {fileID: 5045958125828324566}
+  - {fileID: 5286126668093548524}
+  - {fileID: 596891705029284246}
+  - {fileID: 7141034831749186891}
+  - {fileID: 4499471115050717222}
+  - {fileID: 3951162821895909677}
+  - {fileID: 878081753732794172}
+  - {fileID: 7583623280600683383}
+  - {fileID: 5992853114704821211}
+  rendererCaches: []
+  emissionCaches: []
+  showWhiteFlash_coroutine_is_running: 0
+  fireSoundClip: {fileID: 8300000, guid: a6dae81c03c362944a54c881b99d73ff, type: 3}
+  upgradeSoundClip: {fileID: 8300000, guid: 5e1a9f876d3dafd47bc6b3dde25135fa, type: 3}
+  damageSoundClip: {fileID: 8300000, guid: e2d6d4751a628354e92775b671d8dca6, type: 3}
+  deathSoundClip: {fileID: 8300000, guid: b24236920f0105f4badaed3ecd504f7a, type: 3}
+  buffEffectIndex: 300000003100000032000000330000003400000035000000
+  CurrentBuffEffect:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CurrentBuffEffectFilePath:
+  - Buff/RedBuff
+  - Buff/YellowBuff
+  - Buff/GreenBuff
+  - Buff/WhiteBuff
+  - Buff/BlueBuff
+  - Buff/BlackBuff
+  nest: {fileID: 0}
+  turretNum: 17
+  gateNum: 0
+  turretIndex: 0
+  turretState: 0
+  turretAppearPosY: -155.6
+  turretCost: 1500
+  turretConstructionTime: 5
+  statusMngPanel: {fileID: 0}
+  damageMngPanel: {fileID: 0}
+  turretDatas:
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+  - turretNum: 0
+    maxHP: 0
+    power: 0
+    defense: 0
+    attackSpeed: 0
+    range: 0
+    regeneration: 0
+    attackRangeType: 0
+    isRecoveryTower: 0
+    attackTargetNum: 0
+    debuffType: 0
+    debuffDuration: 0
+    multiAttackRange: 0
+    bulletIndex: 0
+    damageEffectIndex: 0
+    deadEffectIndex: 0
+    fireEffectIndex: 0
+    healEffectIndex: 0
+    debuffEffectIndex: 0
+    turretAppearPosY: 0
+    turretCost: 0
+    turretConstructionTime: 0
+    filepath: 
+--- !u!1 &7607467342650092529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4920521896934276764}
+  m_Layer: 7
+  m_Name: dropPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4920521896934276764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607467342650092529}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.010002376, y: 46, z: -1.5400012}
+  m_LocalScale: {x: 12, y: 12, z: 12}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4497560737370343207}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8678103961686802161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8412922448453582604}
+  m_Layer: 0
+  m_Name: hpPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8412922448453582604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8678103961686802161}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.2899709, y: 30, z: 3.1443238}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4497560737370343207}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9111705323440924789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225342729381262434}
+  m_Layer: 7
+  m_Name: hitPos
+  m_TagString: Turret
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &225342729381262434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9111705323440924789}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.010002376, y: 10.309998, z: -1.5400012}
+  m_LocalScale: {x: 12, y: 12, z: 12}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4497560737370343207}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5301765142349362521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4497560737370343207}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.010002614
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.550003
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.3400006
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8093203568691658380, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d8d17e5d7fbc1724f8b1d1e67c577c8d, type: 2}
+    - target: {fileID: -8075903547719836378, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: -6868598014666201554, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: -4198421389747228059, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: -3269885714523906043, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: -1553946345076736473, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e081dd5281f9845a2e7d3b0329136c, type: 2}
+    - target: {fileID: -52074066426870668, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: 58475859629527733, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce22ebd47fec1034186d3fd85a136577, type: 2}
+    - target: {fileID: 868814959723783295, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: 919132149155446097, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Name
+      value: ArmamentHawk
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122943735902374287, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: 1925644423683296898, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: 3065168035608408082, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e71d081afe76bab4daab308e75ef9be7, type: 2}
+    - target: {fileID: 4745442266283107535, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: 7246984659208938689, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: 8638733586456028543, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    - target: {fileID: 8915108160552995418, guid: 9e38806e22fd3b144b99628c93fcb869,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47079e6b9d0bd5a46867907653c8ccea, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e38806e22fd3b144b99628c93fcb869, type: 3}
+--- !u!23 &596891705029284246 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4745442266283107535, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &878081753732794172 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4198421389747228059, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1949125200287470940 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3269885714523906043, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2593195179945429886 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1553946345076736473, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3243103452776272280 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7246984659208938689, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3615111690837475075 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8915108160552995418, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3951162821895909677 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -52074066426870668, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4499471115050717222 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8638733586456028543, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4995282121087322120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6541219637370927292
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995282121087322120}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09703a5c67790f54281d05e84a730644, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!23 &5016167573522845990 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 868814959723783295, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5045958125828324566 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1122943735902374287, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5061075616946582573 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8093203568691658380, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5079787479559547007 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8075903547719836378, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5286126668093548524 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 58475859629527733, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5627562417643147954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5992853114704821211 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1925644423683296898, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7141034831749186891 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3065168035608408082, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7583623280600683383 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6868598014666201554, guid: 9e38806e22fd3b144b99628c93fcb869,
+    type: 3}
+  m_PrefabInstance: {fileID: 5301765142349362521}
+  m_PrefabAsset: {fileID: 0}
